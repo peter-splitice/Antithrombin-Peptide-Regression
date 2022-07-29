@@ -34,9 +34,13 @@ import argparse
 import logging
 import sys
 
+# Threading support
+import threading
+import time
+
 
 ## Create the logger
-def log_files():
+def log_files(threshold):
     """
     Create the meachanism for which we log results to a .log file.
 
@@ -60,8 +64,8 @@ def log_files():
     stdout_handler.setFormatter(formatter)
 
     # Write the logs to a file
-    file_handler = logging.FileHandler('bucket_classifier.log')
-    file_handler.setLevel(logging.DEBUG)
+    file_handler = logging.FileHandler('Threshold_%i.log' %(threshold))
+    file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(formatter)
 
     # Adding the file and output handlers to the logger.
@@ -89,13 +93,12 @@ def import_data():
 
     # Importing the full KI set into a dataframe.
     path = os.getcwd()
-    print('\nPath:',path)
     df = pd.read_csv(path + '/PositivePeptide_Ki.csv')
-    print('\nThe full datasetdataset has %1.0f examples.' %(len(df)))
+    logger.debug('The full dataset has %i examples.' %(len(df)))
 
     # Data where KI > 50uM (50,000nM) is an outlier.  Total of 69 different values.
     df = df[df['KI (nM)']<75000]
-    print('After removing outliers, the dataset has %1.0f examples.' %(len(df)))
+    logger.debug('Without outliers, the dataset has %i examples.' %(len(df)))
 
     # Rescaling the dataframe in the log10 (-5,5) range.
     df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=(-5,5))
@@ -258,12 +261,12 @@ def fs_classifier(x, y):
     """
 
     # Fit a feature selector to SVM w/RBF kernel classifier and use the 'accuracy' score.
-    print('\nForward Selection Starting')
+    logger.debug('Forward Selection Starting')
     clf = SVC(kernel='rbf')
     sfs = SequentialFeatureSelector(clf, n_jobs=-1, scoring='accuracy')
     sfs.fit(x, y)
     x = sfs.transform(x)
-    print('Forward Selection Finished.')
+    logger.debug('Forward Selection Finished')
     
     return x
 
@@ -284,17 +287,41 @@ def principal_component_analysis(x):
     """
 
     # Run PCA on the given inputs.
-    print('\nPCA Starting')
+    logger.debug('PCA Starting')
     pca = PCA()
     pca.fit(x)
     x = pca.transform(x)
-    print('PCA Finished.')
+    logger.debug('PCA Finished')
 
     return x
 
+def classifer_trainer(x, y, seed):
+    # Train our model
+    logger.debug('Training:')
+    x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=0.2, random_state=seed)
+    clf = SVC(kernel='rbf')
+    clf.fit(x_train, y_train)
+
+    logger.debug('Training Finished.')
+
+    # Test the model on the training set.
+    y_train_pred = clf.predict(x_train)
+    train_accuracy = accuracy_score(y_train, y_train_pred)
+    train_mcc = matthews_corrcoef(y_train, y_train_pred)
+
+    # Test the model on the validation set.
+    y_valid_pred = clf.predict(x_valid)
+    valid_accuracy = accuracy_score(y_valid, y_valid_pred)
+    valid_mcc = matthews_corrcoef(y_valid, y_valid_pred)
+
+    logger.info('Threshold: %i, Seed: %i, Training Accuracy: %3.3f, Training MCC: %3.3f, Validation Accuracy: %3.3f, '
+                'Validation MCC: %3.3f'
+                %(threshold, seed, train_accuracy, train_mcc, valid_accuracy, valid_mcc))
+
+
 
 # Function to separate items into buckets.
-def bucket_seperator(threshold, logger=logging.getLogger(), df=pd.DataFrame()):
+def bucket_seperator(threshold, seed, df=pd.DataFrame()):
     """
     This function uses a classification threshold to split the data into large and small buckets.
 
@@ -322,47 +349,25 @@ def bucket_seperator(threshold, logger=logging.getLogger(), df=pd.DataFrame()):
 
     # The threshold was too large.
     if large_bucket_count < cutoff_length or small_bucket_count < cutoff_length:
-        print('One of the buckets was too small')
         logger.error('Threshold of %i was too large. Large Bucket Size: %i, Small Bucket Size: %i' 
                      %(threshold, large_bucket_count, small_bucket_count))
 
     # The threshold isn't too large.
     else:
-        print('The buckets were appropriately sized.')
+        logger.info('Threshold of %i provides Large bucket size: %i, Small Bucket size: %i'
+                    %(threshold, large_bucket_count, small_bucket_count))
         x = df[df.columns[1:572]]
         y = df[df.columns[575]]
 
         # SVM w/RBF kernel is our model.  We need to do this in conjuinction with Forward Selection and PCA
         x = fs_classifier(x, y)
         x = principal_component_analysis(x)
-
-        # Train our model
-        print('\nTraining:')
-        x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=0.2, random_state=42)
-        clf = SVC(kernel='rbf')
-        clf.fit(x_train, y_train)
-
-        print('\nTraining Finished.')
-
-        # Test the model on the training set.
-        y_train_pred = clf.predict(x_train)
-        train_accuracy = accuracy_score(y_train, y_train_pred)
-        train_mcc = matthews_corrcoef(y_train, y_train_pred)
-
-        # Test the model on the validation set.
-        y_valid_pred = clf.predict(x_valid)
-        valid_accuracy = accuracy_score(y_valid, y_valid_pred)
-        valid_mcc = matthews_corrcoef(y_valid, y_valid_pred)
-
-        print('Metrics: \n--------\n')
-        logger.info('Threshold: %i, Training Accuracy: %3.3f, Training MCC: %3.3f, Validation Accuracy: %3.3f, '
-                    'Validation MCC: %3.3f, Large Bucket Size: %i, Small Bucket Size: %i'
-                    %(threshold, train_accuracy, train_mcc, valid_accuracy, valid_mcc, large_bucket_count, small_bucket_count))
-        
+        classifer_trainer(x, y, seed)
+  
     return df
 
 # Generate our classifier to classify new test data into buckets since we don't know their KI
-def classifier(threshold, logger):
+def classifier(threshold, seed):
     """
     This function serves as our classifier to categorize the data into tiers.  This classifier will be done with
         a SVM w/RBF Kernel in conjunction with Forward Selection and PCA.  Note that this function will output
@@ -377,12 +382,10 @@ def classifier(threshold, logger):
     n/a
 
     """
-
+    print(seed)
     # Import the data and seperate it into buckets.
     df, _ = import_data()
-    df = bucket_seperator(threshold, logger, df)
-
-    return
+    df = bucket_seperator(threshold, seed, df)
 
 # Calculating the MCC scores of the classifiers.
 def verify_clf():
@@ -397,31 +400,28 @@ def verify_clf():
 
     accuracy = accuracy_score()
     mcc = matthews_corrcoef()
-    return True
 
 
 ## Use argparse to pass various thresholds.
 parser = argparse.ArgumentParser()
-parser.add_argument('threshold', help='threshold = set the threshold to split the dataset into'
+parser.add_argument('-t', '--threshold', help='threshold = set the threshold to split the dataset into'
                     ' large and small buckets', type=int)
+parser.add_argument('-s', '--seed', help='seed = add a seed value to modify the'
+                    ' random number generator', type=int)                    
 args = parser.parse_args()
 
 threshold = args.threshold
+seed = args.seed
 
-## Initialize the logger here after I get the threshold value.
-logger = log_files()
-
-print('\nThe threshold is set to %i.' %(threshold))
-
-classifier(threshold, logger)
-
-## Write the results to a log file.  Name the log file based on variables/date/time.
-print('')
-print('after taking the arguments')
-print('')
-
-## .bash script.  make a .bash loop for the different arguments.
+## Initialize the logger here after I get the threshold value.  Then run the classifier
+logger = log_files(threshold)
+classifier(threshold, seed)
 
 ## Add email to the slurm address to get notifications.
+
+
+## I only need one node, use multiple threads.
+## Check for multi-threading.
+## Use HTOP to check for multi-threading.  I might need to install it.
 
 ## 
