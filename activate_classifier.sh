@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-#SBATCH --job-name=pl2ap
-#SBATCH --output=pl2ap-srun.log
+#SBATCH --job-name=positive_peptide_classifier
+#SBATCH --output=positive_peptide_classifier-srun.log
 #
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
@@ -13,4 +13,5 @@
 export OMP_NUM_THREADS=4
 export OMP_PLACES=cores
 export OMP_PROC_BIND=spread
-bash bucket_classifier.sh
+
+echo t
