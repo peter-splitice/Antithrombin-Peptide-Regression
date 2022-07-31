@@ -14,8 +14,6 @@ export OMP_NUM_THREADS=24
 export OMP_PLACES=cores
 export OMP_PROC_BIND=spread
 
-module load python3
-
 source env/bin/activate
 
 for n in 0.01 0.1 2 5 7 10 12 15 18 20;
