@@ -1,28 +1,120 @@
 Threshold level 0.5 starting
-Traceback (most recent call last):
-  File "./bucket_classifier.py", line 4, in <module>
-    import pandas as pd
-ImportError: No module named pandas
+2022-07-31 11:57:30,880 | DEBUG | The full dataset has 73 examples.
+2022-07-31 11:57:30,880 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 11:57:30,883 | INFO | Threshold of 0.500 provides Large bucket size: 39, Small Bucket size: 30
+2022-07-31 11:57:30,884 | DEBUG | Forward Selection Starting
+/opt/ohpc/pub/apps/python3/3.8.8/lib/python3.8/site-packages/sklearn/feature_selection/_sequential.py:188: FutureWarning: Leaving `n_features_to_select` to None is deprecated in 1.0 and will become 'auto' in 1.3. To keep the same behaviour as with None (i.e. select half of the features) and avoid this warning, you should manually set `n_features_to_select='auto'` and set tol=None when creating an instance.
+  warnings.warn(
+2022-07-31 12:26:13,396 | DEBUG | Forward Selection Finished
+2022-07-31 12:26:13,396 | DEBUG | PCA Starting
+2022-07-31 12:26:13,529 | DEBUG | PCA Finished
+2022-07-31 12:26:13,529 | DEBUG | Training:
+2022-07-31 12:26:13,532 | DEBUG | Training Finished.
+2022-07-31 12:26:13,573 | INFO | Training Accuracy: 0.982, Training MCC: 0.964, Validation Accuracy: 0.571, Validation MCC: 0.125, Fold: 1
+2022-07-31 12:26:13,597 | DEBUG | Training:
+2022-07-31 12:26:13,599 | DEBUG | Training Finished.
+2022-07-31 12:26:13,627 | INFO | Training Accuracy: 0.945, Training MCC: 0.888, Validation Accuracy: 0.714, Validation MCC: 0.458, Fold: 2
+2022-07-31 12:26:13,627 | DEBUG | Training:
+2022-07-31 12:26:13,653 | DEBUG | Training Finished.
+2022-07-31 12:26:13,658 | INFO | Training Accuracy: 0.909, Training MCC: 0.817, Validation Accuracy: 0.857, Validation MCC: 0.750, Fold: 3
+2022-07-31 12:26:13,658 | DEBUG | Training:
+2022-07-31 12:26:13,660 | DEBUG | Training Finished.
+2022-07-31 12:26:13,666 | INFO | Training Accuracy: 0.945, Training MCC: 0.890, Validation Accuracy: 0.857, Validation MCC: 0.708, Fold: 4
+2022-07-31 12:26:13,667 | DEBUG | Training:
+2022-07-31 12:26:13,668 | DEBUG | Training Finished.
+2022-07-31 12:26:13,671 | INFO | Training Accuracy: 0.927, Training MCC: 0.856, Validation Accuracy: 0.857, Validation MCC: 0.750, Fold: 5
+2022-07-31 12:26:13,671 | INFO | AVG Training Accuracy: 0.942, AVG Training MCC: 0.883, AVG Validation Accuracy: 0.771, AVG Validation MCC: 0.558
+2022-07-31 12:26:13,671 | INFO | -----------------------------------------------------
+2022-07-31 12:26:13,671 | INFO | 
 Threshold level 0.5 complete
 
 Threshold level 3 starting
-Traceback (most recent call last):
-  File "./bucket_classifier.py", line 4, in <module>
-    import pandas as pd
-ImportError: No module named pandas
+2022-07-31 12:26:21,689 | DEBUG | The full dataset has 73 examples.
+2022-07-31 12:26:21,690 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 12:26:21,693 | INFO | Threshold of 3.000 provides Large bucket size: 31, Small Bucket size: 38
+2022-07-31 12:26:21,694 | DEBUG | Forward Selection Starting
+/opt/ohpc/pub/apps/python3/3.8.8/lib/python3.8/site-packages/sklearn/feature_selection/_sequential.py:188: FutureWarning: Leaving `n_features_to_select` to None is deprecated in 1.0 and will become 'auto' in 1.3. To keep the same behaviour as with None (i.e. select half of the features) and avoid this warning, you should manually set `n_features_to_select='auto'` and set tol=None when creating an instance.
+  warnings.warn(
+2022-07-31 12:54:59,654 | DEBUG | Forward Selection Finished
+2022-07-31 12:54:59,654 | DEBUG | PCA Starting
+2022-07-31 12:54:59,775 | DEBUG | PCA Finished
+2022-07-31 12:54:59,775 | DEBUG | Training:
+2022-07-31 12:54:59,778 | DEBUG | Training Finished.
+2022-07-31 12:54:59,817 | INFO | Training Accuracy: 0.927, Training MCC: 0.861, Validation Accuracy: 0.786, Validation MCC: 0.577, Fold: 1
+2022-07-31 12:54:59,831 | DEBUG | Training:
+2022-07-31 12:54:59,833 | DEBUG | Training Finished.
+2022-07-31 12:54:59,837 | INFO | Training Accuracy: 0.909, Training MCC: 0.833, Validation Accuracy: 0.857, Validation MCC: 0.701, Fold: 2
+2022-07-31 12:54:59,837 | DEBUG | Training:
+2022-07-31 12:54:59,855 | DEBUG | Training Finished.
+2022-07-31 12:54:59,859 | INFO | Training Accuracy: 0.909, Training MCC: 0.830, Validation Accuracy: 0.857, Validation MCC: 0.745, Fold: 3
+2022-07-31 12:54:59,860 | DEBUG | Training:
+2022-07-31 12:54:59,861 | DEBUG | Training Finished.
+2022-07-31 12:54:59,882 | INFO | Training Accuracy: 0.927, Training MCC: 0.862, Validation Accuracy: 0.929, Validation MCC: 0.849, Fold: 4
+2022-07-31 12:54:59,882 | DEBUG | Training:
+2022-07-31 12:54:59,884 | DEBUG | Training Finished.
+2022-07-31 12:54:59,906 | INFO | Training Accuracy: 0.964, Training MCC: 0.927, Validation Accuracy: 0.786, Validation MCC: 0.577, Fold: 5
+2022-07-31 12:54:59,906 | INFO | AVG Training Accuracy: 0.927, AVG Training MCC: 0.863, AVG Validation Accuracy: 0.843, AVG Validation MCC: 0.690
+2022-07-31 12:54:59,906 | INFO | -----------------------------------------------------
+2022-07-31 12:54:59,906 | INFO | 
 Threshold level 3 complete
 
 Threshold level 14 starting
-Traceback (most recent call last):
-  File "./bucket_classifier.py", line 4, in <module>
-    import pandas as pd
-ImportError: No module named pandas
+2022-07-31 12:55:07,927 | DEBUG | The full dataset has 73 examples.
+2022-07-31 12:55:07,928 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 12:55:07,931 | INFO | Threshold of 14.000 provides Large bucket size: 25, Small Bucket size: 44
+2022-07-31 12:55:07,932 | DEBUG | Forward Selection Starting
+/opt/ohpc/pub/apps/python3/3.8.8/lib/python3.8/site-packages/sklearn/feature_selection/_sequential.py:188: FutureWarning: Leaving `n_features_to_select` to None is deprecated in 1.0 and will become 'auto' in 1.3. To keep the same behaviour as with None (i.e. select half of the features) and avoid this warning, you should manually set `n_features_to_select='auto'` and set tol=None when creating an instance.
+  warnings.warn(
+2022-07-31 13:23:40,651 | DEBUG | Forward Selection Finished
+2022-07-31 13:23:40,651 | DEBUG | PCA Starting
+2022-07-31 13:23:40,781 | DEBUG | PCA Finished
+2022-07-31 13:23:40,781 | DEBUG | Training:
+2022-07-31 13:23:40,784 | DEBUG | Training Finished.
+2022-07-31 13:23:40,814 | INFO | Training Accuracy: 0.945, Training MCC: 0.885, Validation Accuracy: 0.786, Validation MCC: 0.548, Fold: 1
+2022-07-31 13:23:40,833 | DEBUG | Training:
+2022-07-31 13:23:40,835 | DEBUG | Training Finished.
+2022-07-31 13:23:40,846 | INFO | Training Accuracy: 0.945, Training MCC: 0.886, Validation Accuracy: 0.929, Validation MCC: 0.782, Fold: 2
+2022-07-31 13:23:40,846 | DEBUG | Training:
+2022-07-31 13:23:40,847 | DEBUG | Training Finished.
+2022-07-31 13:23:40,852 | INFO | Training Accuracy: 0.927, Training MCC: 0.842, Validation Accuracy: 0.929, Validation MCC: 0.849, Fold: 3
+2022-07-31 13:23:40,852 | DEBUG | Training:
+2022-07-31 13:23:40,862 | DEBUG | Training Finished.
+2022-07-31 13:23:40,867 | INFO | Training Accuracy: 0.964, Training MCC: 0.924, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-07-31 13:23:40,867 | DEBUG | Training:
+2022-07-31 13:23:40,869 | DEBUG | Training Finished.
+2022-07-31 13:23:40,882 | INFO | Training Accuracy: 0.982, Training MCC: 0.960, Validation Accuracy: 0.786, Validation MCC: 0.603, Fold: 5
+2022-07-31 13:23:40,882 | INFO | AVG Training Accuracy: 0.953, AVG Training MCC: 0.900, AVG Validation Accuracy: 0.886, AVG Validation MCC: 0.756
+2022-07-31 13:23:40,882 | INFO | -----------------------------------------------------
+2022-07-31 13:23:40,882 | INFO | 
 Threshold level 14 complete
 
 Threshold level 17 starting
-Traceback (most recent call last):
-  File "./bucket_classifier.py", line 4, in <module>
-    import pandas as pd
-ImportError: No module named pandas
+2022-07-31 13:23:48,839 | DEBUG | The full dataset has 73 examples.
+2022-07-31 13:23:48,839 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 13:23:48,842 | INFO | Threshold of 17.000 provides Large bucket size: 24, Small Bucket size: 45
+2022-07-31 13:23:48,843 | DEBUG | Forward Selection Starting
+/opt/ohpc/pub/apps/python3/3.8.8/lib/python3.8/site-packages/sklearn/feature_selection/_sequential.py:188: FutureWarning: Leaving `n_features_to_select` to None is deprecated in 1.0 and will become 'auto' in 1.3. To keep the same behaviour as with None (i.e. select half of the features) and avoid this warning, you should manually set `n_features_to_select='auto'` and set tol=None when creating an instance.
+  warnings.warn(
+2022-07-31 13:52:17,343 | DEBUG | Forward Selection Finished
+2022-07-31 13:52:17,343 | DEBUG | PCA Starting
+2022-07-31 13:52:17,473 | DEBUG | PCA Finished
+2022-07-31 13:52:17,473 | DEBUG | Training:
+2022-07-31 13:52:17,476 | DEBUG | Training Finished.
+2022-07-31 13:52:17,510 | INFO | Training Accuracy: 0.945, Training MCC: 0.879, Validation Accuracy: 0.786, Validation MCC: 0.548, Fold: 1
+2022-07-31 13:52:17,530 | DEBUG | Training:
+2022-07-31 13:52:17,532 | DEBUG | Training Finished.
+2022-07-31 13:52:17,538 | INFO | Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 2
+2022-07-31 13:52:17,538 | DEBUG | Training:
+2022-07-31 13:52:17,540 | DEBUG | Training Finished.
+2022-07-31 13:52:17,544 | INFO | Training Accuracy: 0.927, Training MCC: 0.838, Validation Accuracy: 0.857, Validation MCC: 0.701, Fold: 3
+2022-07-31 13:52:17,544 | DEBUG | Training:
+2022-07-31 13:52:17,554 | DEBUG | Training Finished.
+2022-07-31 13:52:17,559 | INFO | Training Accuracy: 0.945, Training MCC: 0.882, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-07-31 13:52:17,559 | DEBUG | Training:
+2022-07-31 13:52:17,561 | DEBUG | Training Finished.
+2022-07-31 13:52:17,573 | INFO | Training Accuracy: 0.964, Training MCC: 0.917, Validation Accuracy: 0.786, Validation MCC: 0.603, Fold: 5
+2022-07-31 13:52:17,574 | INFO | AVG Training Accuracy: 0.945, AVG Training MCC: 0.880, AVG Validation Accuracy: 0.886, AVG Validation MCC: 0.770
+2022-07-31 13:52:17,574 | INFO | -----------------------------------------------------
+2022-07-31 13:52:17,574 | INFO | 
 Threshold level 17 complete
 
