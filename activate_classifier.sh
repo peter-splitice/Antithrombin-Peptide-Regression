@@ -14,10 +14,14 @@ export OMP_NUM_THREADS=4
 export OMP_PLACES=cores
 export OMP_PROC_BIND=spread
 
+module load python3
+
+source env/bin/activate
+
 for n in 1e-2 1e-1 2 5 7 10 12 15 18 20;
 do 
     echo 'Threshold level' $n 'starting'
-    python bucket_classifier.py -t $n
+    python3 bucket_classifier.py -t $n
     echo 'Threshold level' $n 'complete'
     echo ''
 done
