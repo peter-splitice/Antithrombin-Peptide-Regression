@@ -1,0 +1,66 @@
+Threshold level 0.01 starting
+usage: bucket_classifier.py [-h] [-t THRESHOLD]
+bucket_classifier.py: error: argument -t/--threshold: invalid int value: '0.01'
+Threshold level 0.01 complete
+
+Threshold level 0.1 starting
+usage: bucket_classifier.py [-h] [-t THRESHOLD]
+bucket_classifier.py: error: argument -t/--threshold: invalid int value: '0.1'
+Threshold level 0.1 complete
+
+Threshold level 2 starting
+Traceback (most recent call last):
+  File "bucket_classifier.py", line 454, in <module>
+    logger = log_files(threshold)
+TypeError: log_files() takes 0 positional arguments but 1 was given
+Threshold level 2 complete
+
+Threshold level 5 starting
+Traceback (most recent call last):
+  File "bucket_classifier.py", line 454, in <module>
+    logger = log_files(threshold)
+TypeError: log_files() takes 0 positional arguments but 1 was given
+Threshold level 5 complete
+
+Threshold level 7 starting
+Traceback (most recent call last):
+  File "bucket_classifier.py", line 454, in <module>
+    logger = log_files(threshold)
+TypeError: log_files() takes 0 positional arguments but 1 was given
+Threshold level 7 complete
+
+Threshold level 10 starting
+Traceback (most recent call last):
+  File "bucket_classifier.py", line 454, in <module>
+    logger = log_files(threshold)
+TypeError: log_files() takes 0 positional arguments but 1 was given
+Threshold level 10 complete
+
+Threshold level 12 starting
+Traceback (most recent call last):
+  File "bucket_classifier.py", line 454, in <module>
+    logger = log_files(threshold)
+TypeError: log_files() takes 0 positional arguments but 1 was given
+Threshold level 12 complete
+
+Threshold level 15 starting
+Traceback (most recent call last):
+  File "bucket_classifier.py", line 454, in <module>
+    logger = log_files(threshold)
+TypeError: log_files() takes 0 positional arguments but 1 was given
+Threshold level 15 complete
+
+Threshold level 18 starting
+Traceback (most recent call last):
+  File "bucket_classifier.py", line 454, in <module>
+    logger = log_files(threshold)
+TypeError: log_files() takes 0 positional arguments but 1 was given
+Threshold level 18 complete
+
+Threshold level 20 starting
+Traceback (most recent call last):
+  File "bucket_classifier.py", line 454, in <module>
+    logger = log_files(threshold)
+TypeError: log_files() takes 0 positional arguments but 1 was given
+Threshold level 20 complete
+
