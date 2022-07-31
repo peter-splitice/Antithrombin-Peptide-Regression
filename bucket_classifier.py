@@ -451,8 +451,12 @@ args = parser.parse_args()
 threshold = args.threshold
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
-logger = log_files()
-classifier(threshold)
+
+if threshold != None:
+    logger = log_files()
+    classifier(threshold)
+else:
+    print('Threshold not provided')
 
 ## Add email to the slurm address to get notifications.
 

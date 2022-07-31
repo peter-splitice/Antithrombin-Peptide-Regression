@@ -5,12 +5,12 @@
 #
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
-#SBATCH --cpus-per-task=24
+#SBATCH --cpus-per-task=28
 #SBATCH --time=4:00:00
 #SBATCH --mem-per-cpu=2000
 #SBATCH --mail-user=peter.v.pham@sjsu.edu
 #SBATCH --mail-type=END
-export OMP_NUM_THREADS=24
+export OMP_NUM_THREADS=28
 export OMP_PLACES=cores
 export OMP_PROC_BIND=spread
 
