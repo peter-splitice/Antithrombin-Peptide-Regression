@@ -19,7 +19,7 @@ source ./env/bin/activate
 for n in 0.5 3 14 17;
 do 
     echo 'Threshold level' $n 'starting'
-    python3 ./bucket_classifier.py -t $n
+    python ./bucket_classifier.py -t $n
     echo 'Threshold level' $n 'complete'
     echo ''
 done
