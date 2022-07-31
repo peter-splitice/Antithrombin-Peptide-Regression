@@ -1,28 +1,16 @@
 Threshold level 0.5 starting
-Traceback (most recent call last):
-  File "bucket_classifier.py", line 4, in <module>
-    import pandas as pd
-ImportError: No module named pandas
+/var/spool/slurmd/job54023/slurm_script: line 22: python3: command not found
 Threshold level 0.5 complete
 
 Threshold level 3 starting
-Traceback (most recent call last):
-  File "bucket_classifier.py", line 4, in <module>
-    import pandas as pd
-ImportError: No module named pandas
+/var/spool/slurmd/job54023/slurm_script: line 22: python3: command not found
 Threshold level 3 complete
 
 Threshold level 14 starting
-Traceback (most recent call last):
-  File "bucket_classifier.py", line 4, in <module>
-    import pandas as pd
-ImportError: No module named pandas
+/var/spool/slurmd/job54023/slurm_script: line 22: python3: command not found
 Threshold level 14 complete
 
 Threshold level 17 starting
-Traceback (most recent call last):
-  File "bucket_classifier.py", line 4, in <module>
-    import pandas as pd
-ImportError: No module named pandas
+/var/spool/slurmd/job54023/slurm_script: line 22: python3: command not found
 Threshold level 17 complete
 
