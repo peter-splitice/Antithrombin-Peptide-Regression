@@ -1,0 +1,74 @@
+2022-07-21 17:41:00,385 | INFO | Threshold: 3, Training Accuracy: 0.909, Training MCC: 0.833, Validation Accuracy: 0.857, Validation MCC: 0.701, Large Bucket Size: 31, Small Bucket Size: 38
+2022-07-21 17:51:50,992 | INFO | Threshold: 5, Training Accuracy: 0.927, Training MCC: 0.863, Validation Accuracy: 0.857, Validation MCC: 0.701, Large Bucket Size: 30, Small Bucket Size: 39
+2022-07-21 18:02:57,699 | INFO | Threshold: 7, Training Accuracy: 0.909, Training MCC: 0.826, Validation Accuracy: 0.929, Validation MCC: 0.826, Large Bucket Size: 27, Small Bucket Size: 42
+2022-07-21 18:12:44,636 | INFO | Threshold: 10, Training Accuracy: 0.945, Training MCC: 0.886, Validation Accuracy: 0.929, Validation MCC: 0.782, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-21 18:22:12,434 | INFO | Threshold: 12, Training Accuracy: 0.945, Training MCC: 0.886, Validation Accuracy: 0.929, Validation MCC: 0.782, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-21 18:59:49,856 | INFO | Threshold: 15, Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 24, Small Bucket Size: 45
+2022-07-21 19:09:40,925 | INFO | Threshold: 18, Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 0.929, Validation MCC: 0.679, Large Bucket Size: 23, Small Bucket Size: 46
+2022-07-21 19:13:47,483 | ERROR | Threshold of 20 was too large. Large Bucket Size: 22, Small Bucket Size: 47
+2022-07-26 13:01:47,001 | INFO | Threshold: 15, Seed: 42, Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 24, Small Bucket Size: 45
+2022-07-26 14:54:08,833 | INFO | Threshold: 15, Seed: 42, Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 24, Small Bucket Size: 45
+2022-07-26 15:24:10,802 | INFO | Threshold: 15, Seed: 42, Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 24, Small Bucket Size: 45
+2022-07-26 15:42:42,515 | INFO | Threshold: 15, Seed: 42, Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 24, Small Bucket Size: 45
+2022-07-26 15:46:54,524 | ERROR | Threshold of 20 was too large. Large Bucket Size: 22, Small Bucket Size: 47
+2022-07-26 15:57:47,515 | INFO | Threshold: 3, Seed: 33, Training Accuracy: 0.927, Training MCC: 0.861, Validation Accuracy: 0.786, Validation MCC: 0.577, Large Bucket Size: 31, Small Bucket Size: 38
+2022-07-26 16:06:52,833 | INFO | Threshold: 3, Seed: 42, Training Accuracy: 0.909, Training MCC: 0.833, Validation Accuracy: 0.857, Validation MCC: 0.701, Large Bucket Size: 31, Small Bucket Size: 38
+2022-07-26 16:15:57,028 | INFO | Threshold: 3, Seed: 55, Training Accuracy: 0.909, Training MCC: 0.830, Validation Accuracy: 0.857, Validation MCC: 0.745, Large Bucket Size: 31, Small Bucket Size: 38
+2022-07-26 16:24:56,239 | INFO | Threshold: 3, Seed: 68, Training Accuracy: 0.927, Training MCC: 0.862, Validation Accuracy: 0.929, Validation MCC: 0.849, Large Bucket Size: 31, Small Bucket Size: 38
+2022-07-26 16:34:03,716 | INFO | Threshold: 3, Seed: 74, Training Accuracy: 0.964, Training MCC: 0.927, Validation Accuracy: 0.786, Validation MCC: 0.577, Large Bucket Size: 31, Small Bucket Size: 38
+2022-07-26 16:43:11,922 | INFO | Threshold: 5, Seed: 33, Training Accuracy: 0.909, Training MCC: 0.826, Validation Accuracy: 0.857, Validation MCC: 0.730, Large Bucket Size: 30, Small Bucket Size: 39
+2022-07-26 16:52:08,219 | INFO | Threshold: 5, Seed: 42, Training Accuracy: 0.927, Training MCC: 0.863, Validation Accuracy: 0.857, Validation MCC: 0.701, Large Bucket Size: 30, Small Bucket Size: 39
+2022-07-26 17:01:16,641 | INFO | Threshold: 5, Seed: 55, Training Accuracy: 0.909, Training MCC: 0.828, Validation Accuracy: 0.929, Validation MCC: 0.861, Large Bucket Size: 30, Small Bucket Size: 39
+2022-07-26 17:10:18,704 | INFO | Threshold: 5, Seed: 68, Training Accuracy: 0.927, Training MCC: 0.862, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 30, Small Bucket Size: 39
+2022-07-26 17:19:23,512 | INFO | Threshold: 5, Seed: 74, Training Accuracy: 0.945, Training MCC: 0.892, Validation Accuracy: 0.714, Validation MCC: 0.429, Large Bucket Size: 30, Small Bucket Size: 39
+2022-07-26 17:28:28,432 | INFO | Threshold: 7, Seed: 33, Training Accuracy: 0.927, Training MCC: 0.851, Validation Accuracy: 0.714, Validation MCC: 0.471, Large Bucket Size: 27, Small Bucket Size: 42
+2022-07-26 17:37:32,731 | INFO | Threshold: 7, Seed: 42, Training Accuracy: 0.909, Training MCC: 0.826, Validation Accuracy: 0.929, Validation MCC: 0.826, Large Bucket Size: 27, Small Bucket Size: 42
+2022-07-26 17:46:35,059 | INFO | Threshold: 7, Seed: 55, Training Accuracy: 0.945, Training MCC: 0.890, Validation Accuracy: 0.786, Validation MCC: 0.548, Large Bucket Size: 27, Small Bucket Size: 42
+2022-07-26 17:57:22,144 | INFO | Threshold: 7, Seed: 68, Training Accuracy: 0.927, Training MCC: 0.857, Validation Accuracy: 0.929, Validation MCC: 0.826, Large Bucket Size: 27, Small Bucket Size: 42
+2022-07-26 18:08:18,619 | INFO | Threshold: 7, Seed: 74, Training Accuracy: 0.945, Training MCC: 0.887, Validation Accuracy: 0.786, Validation MCC: 0.559, Large Bucket Size: 27, Small Bucket Size: 42
+2022-07-26 18:18:26,877 | INFO | Threshold: 10, Seed: 33, Training Accuracy: 0.945, Training MCC: 0.885, Validation Accuracy: 0.786, Validation MCC: 0.548, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-26 18:28:14,645 | INFO | Threshold: 10, Seed: 42, Training Accuracy: 0.945, Training MCC: 0.886, Validation Accuracy: 0.929, Validation MCC: 0.782, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-26 18:37:15,382 | INFO | Threshold: 10, Seed: 55, Training Accuracy: 0.927, Training MCC: 0.842, Validation Accuracy: 0.929, Validation MCC: 0.849, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-26 18:46:16,066 | INFO | Threshold: 10, Seed: 68, Training Accuracy: 0.964, Training MCC: 0.924, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-26 18:55:18,604 | INFO | Threshold: 10, Seed: 74, Training Accuracy: 0.982, Training MCC: 0.960, Validation Accuracy: 0.786, Validation MCC: 0.603, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-26 19:04:24,101 | INFO | Threshold: 12, Seed: 33, Training Accuracy: 0.945, Training MCC: 0.885, Validation Accuracy: 0.786, Validation MCC: 0.548, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-26 19:13:36,097 | INFO | Threshold: 12, Seed: 42, Training Accuracy: 0.945, Training MCC: 0.886, Validation Accuracy: 0.929, Validation MCC: 0.782, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-26 19:22:50,979 | INFO | Threshold: 12, Seed: 55, Training Accuracy: 0.927, Training MCC: 0.842, Validation Accuracy: 0.929, Validation MCC: 0.849, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-26 19:32:38,400 | INFO | Threshold: 12, Seed: 68, Training Accuracy: 0.964, Training MCC: 0.924, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-26 19:43:04,465 | INFO | Threshold: 12, Seed: 74, Training Accuracy: 0.982, Training MCC: 0.960, Validation Accuracy: 0.786, Validation MCC: 0.603, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-26 19:53:25,927 | INFO | Threshold: 15, Seed: 33, Training Accuracy: 0.945, Training MCC: 0.879, Validation Accuracy: 0.786, Validation MCC: 0.548, Large Bucket Size: 24, Small Bucket Size: 45
+2022-07-26 20:03:42,887 | INFO | Threshold: 15, Seed: 42, Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 24, Small Bucket Size: 45
+2022-07-26 20:13:58,039 | INFO | Threshold: 15, Seed: 55, Training Accuracy: 0.927, Training MCC: 0.838, Validation Accuracy: 0.857, Validation MCC: 0.701, Large Bucket Size: 24, Small Bucket Size: 45
+2022-07-26 20:24:16,024 | INFO | Threshold: 15, Seed: 68, Training Accuracy: 0.945, Training MCC: 0.882, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 24, Small Bucket Size: 45
+2022-07-26 20:34:32,505 | INFO | Threshold: 15, Seed: 74, Training Accuracy: 0.964, Training MCC: 0.917, Validation Accuracy: 0.786, Validation MCC: 0.603, Large Bucket Size: 24, Small Bucket Size: 45
+2022-07-26 20:44:57,544 | INFO | Threshold: 18, Seed: 33, Training Accuracy: 0.945, Training MCC: 0.875, Validation Accuracy: 0.786, Validation MCC: 0.548, Large Bucket Size: 23, Small Bucket Size: 46
+2022-07-26 20:55:23,603 | INFO | Threshold: 18, Seed: 42, Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 0.929, Validation MCC: 0.679, Large Bucket Size: 23, Small Bucket Size: 46
+2022-07-26 21:05:45,329 | INFO | Threshold: 18, Seed: 55, Training Accuracy: 0.945, Training MCC: 0.875, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 23, Small Bucket Size: 46
+2022-07-26 21:16:04,889 | INFO | Threshold: 18, Seed: 68, Training Accuracy: 0.945, Training MCC: 0.879, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 23, Small Bucket Size: 46
+2022-07-26 21:26:22,673 | INFO | Threshold: 18, Seed: 74, Training Accuracy: 0.964, Training MCC: 0.915, Validation Accuracy: 0.857, Validation MCC: 0.730, Large Bucket Size: 23, Small Bucket Size: 46
+2022-07-26 21:26:29,632 | ERROR | Threshold of 20 was too large. Large Bucket Size: 22, Small Bucket Size: 47
+2022-07-26 21:26:31,187 | ERROR | Threshold of 20 was too large. Large Bucket Size: 22, Small Bucket Size: 47
+2022-07-26 21:26:32,716 | ERROR | Threshold of 20 was too large. Large Bucket Size: 22, Small Bucket Size: 47
+2022-07-26 21:26:34,254 | ERROR | Threshold of 20 was too large. Large Bucket Size: 22, Small Bucket Size: 47
+2022-07-26 21:26:35,803 | ERROR | Threshold of 20 was too large. Large Bucket Size: 22, Small Bucket Size: 47
+2022-07-27 17:00:09,358 | INFO | Threshold: 3, Seed: 33, Training Accuracy: 0.927, Training MCC: 0.861, Validation Accuracy: 0.786, Validation MCC: 0.577, Large Bucket Size: 31, Small Bucket Size: 38
+2022-07-27 17:09:21,368 | INFO | Threshold: 3, Seed: 42, Training Accuracy: 0.909, Training MCC: 0.833, Validation Accuracy: 0.857, Validation MCC: 0.701, Large Bucket Size: 31, Small Bucket Size: 38
+2022-07-27 17:18:58,254 | INFO | Threshold: 3, Seed: 55, Training Accuracy: 0.909, Training MCC: 0.830, Validation Accuracy: 0.857, Validation MCC: 0.745, Large Bucket Size: 31, Small Bucket Size: 38
+2022-07-27 17:28:33,917 | INFO | Threshold: 3, Seed: 68, Training Accuracy: 0.927, Training MCC: 0.862, Validation Accuracy: 0.929, Validation MCC: 0.849, Large Bucket Size: 31, Small Bucket Size: 38
+2022-07-27 19:19:01,546 | INFO | Threshold: 3, Seed: 74, Training Accuracy: 0.964, Training MCC: 0.927, Validation Accuracy: 0.786, Validation MCC: 0.577, Large Bucket Size: 31, Small Bucket Size: 38
+2022-07-27 19:52:30,137 | INFO | Threshold: 5, Seed: 33, Training Accuracy: 0.909, Training MCC: 0.826, Validation Accuracy: 0.857, Validation MCC: 0.730, Large Bucket Size: 30, Small Bucket Size: 39
+2022-07-27 20:05:40,411 | INFO | Threshold: 5, Seed: 42, Training Accuracy: 0.927, Training MCC: 0.863, Validation Accuracy: 0.857, Validation MCC: 0.701, Large Bucket Size: 30, Small Bucket Size: 39
+2022-07-27 20:14:51,622 | INFO | Threshold: 5, Seed: 55, Training Accuracy: 0.909, Training MCC: 0.828, Validation Accuracy: 0.929, Validation MCC: 0.861, Large Bucket Size: 30, Small Bucket Size: 39
+2022-07-27 20:23:55,954 | INFO | Threshold: 5, Seed: 68, Training Accuracy: 0.927, Training MCC: 0.862, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 30, Small Bucket Size: 39
+2022-07-27 20:32:55,807 | INFO | Threshold: 5, Seed: 74, Training Accuracy: 0.945, Training MCC: 0.892, Validation Accuracy: 0.714, Validation MCC: 0.429, Large Bucket Size: 30, Small Bucket Size: 39
+2022-07-27 20:42:01,924 | INFO | Threshold: 7, Seed: 33, Training Accuracy: 0.927, Training MCC: 0.851, Validation Accuracy: 0.714, Validation MCC: 0.471, Large Bucket Size: 27, Small Bucket Size: 42
+2022-07-27 20:51:06,372 | INFO | Threshold: 7, Seed: 42, Training Accuracy: 0.909, Training MCC: 0.826, Validation Accuracy: 0.929, Validation MCC: 0.826, Large Bucket Size: 27, Small Bucket Size: 42
+2022-07-27 21:00:14,259 | INFO | Threshold: 7, Seed: 55, Training Accuracy: 0.945, Training MCC: 0.890, Validation Accuracy: 0.786, Validation MCC: 0.548, Large Bucket Size: 27, Small Bucket Size: 42
+2022-07-27 21:09:16,483 | INFO | Threshold: 7, Seed: 68, Training Accuracy: 0.927, Training MCC: 0.857, Validation Accuracy: 0.929, Validation MCC: 0.826, Large Bucket Size: 27, Small Bucket Size: 42
+2022-07-27 21:18:20,301 | INFO | Threshold: 7, Seed: 74, Training Accuracy: 0.945, Training MCC: 0.887, Validation Accuracy: 0.786, Validation MCC: 0.559, Large Bucket Size: 27, Small Bucket Size: 42
+2022-07-27 21:27:22,574 | INFO | Threshold: 10, Seed: 33, Training Accuracy: 0.945, Training MCC: 0.885, Validation Accuracy: 0.786, Validation MCC: 0.548, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-27 21:36:28,266 | INFO | Threshold: 10, Seed: 42, Training Accuracy: 0.945, Training MCC: 0.886, Validation Accuracy: 0.929, Validation MCC: 0.782, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-27 21:45:37,193 | INFO | Threshold: 10, Seed: 55, Training Accuracy: 0.927, Training MCC: 0.842, Validation Accuracy: 0.929, Validation MCC: 0.849, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-27 21:54:47,156 | INFO | Threshold: 10, Seed: 68, Training Accuracy: 0.964, Training MCC: 0.924, Validation Accuracy: 1.000, Validation MCC: 1.000, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-27 22:04:10,747 | INFO | Threshold: 10, Seed: 74, Training Accuracy: 0.982, Training MCC: 0.960, Validation Accuracy: 0.786, Validation MCC: 0.603, Large Bucket Size: 25, Small Bucket Size: 44
+2022-07-27 22:13:32,341 | INFO | Threshold: 12, Seed: 33, Training Accuracy: 0.945, Training MCC: 0.885, Validation Accuracy: 0.786, Validation MCC: 0.548, Large Bucket Size: 25, Small Bucket Size: 44

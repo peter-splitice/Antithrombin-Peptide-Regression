@@ -34,10 +34,6 @@ import argparse
 import logging
 import sys
 
-# Threading support
-import threading
-import time
-
 
 ## Create the logger
 def log_files(threshold):
@@ -295,33 +291,74 @@ def principal_component_analysis(x):
 
     return x
 
-def classifer_trainer(x, y, seed):
+def classifer_trainer(x, y):
+    """
+    Perform fitting on the reduced datasets and then make predictions.  The output values are in the log file.
+
+    Parameters
+    ----------
+    x: Reduced set of input values.
+    y: Output KI values that we are using for the training and validation sets.
+
+    Returns
+    -------
+    None
+
+    """
     # Train our model
-    logger.debug('Training:')
-    x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=0.2, random_state=seed)
-    clf = SVC(kernel='rbf')
-    clf.fit(x_train, y_train)
+    seeds = [33, 42, 55, 68, 74]
+    i = 0
 
-    logger.debug('Training Finished.')
+    # Initialize the sums of the acc/mcc's.
+    train_accuracy_sum = 0
+    train_mcc_sum = 0
+    valid_accuracy_sum = 0
+    valid_mcc_sum = 0
 
-    # Test the model on the training set.
-    y_train_pred = clf.predict(x_train)
-    train_accuracy = accuracy_score(y_train, y_train_pred)
-    train_mcc = matthews_corrcoef(y_train, y_train_pred)
+    for seed in seeds:
+        i += 1
+        logger.debug('Training:')
+        x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=0.2, random_state=seed)
+        clf = SVC(kernel='rbf')
+        clf.fit(x_train, y_train)
 
-    # Test the model on the validation set.
-    y_valid_pred = clf.predict(x_valid)
-    valid_accuracy = accuracy_score(y_valid, y_valid_pred)
-    valid_mcc = matthews_corrcoef(y_valid, y_valid_pred)
+        logger.debug('Training Finished.')
 
-    logger.info('Threshold: %i, Seed: %i, Training Accuracy: %3.3f, Training MCC: %3.3f, Validation Accuracy: %3.3f, '
-                'Validation MCC: %3.3f'
-                %(threshold, seed, train_accuracy, train_mcc, valid_accuracy, valid_mcc))
+        # Test the model on the training set.
+        y_train_pred = clf.predict(x_train)
+        train_accuracy = accuracy_score(y_train, y_train_pred)
+        train_mcc = matthews_corrcoef(y_train, y_train_pred)
+
+        # Test the model on the validation set.
+        y_valid_pred = clf.predict(x_valid)
+        valid_accuracy = accuracy_score(y_valid, y_valid_pred)
+        valid_mcc = matthews_corrcoef(y_valid, y_valid_pred)
+
+        # Log the individual folds
+        logger.info('Training Accuracy: %3.3f, Training MCC: %3.3f, Validation Accuracy: %3.3f, '
+                    'Validation MCC: %3.3f, Fold: %i'
+                    %(train_accuracy, train_mcc, valid_accuracy, valid_mcc, i))
+
+        # Add to the sums
+        train_accuracy_sum += train_accuracy
+        train_mcc_sum += train_mcc
+        valid_accuracy_sum += valid_accuracy
+        valid_mcc_sum += valid_mcc
+    
+    # Calculate the averages
+    train_accuracy_avg = train_accuracy_sum/5
+    train_mcc_avg = train_mcc_sum/5
+    valid_accuracy_avg = valid_accuracy_sum/5
+    valid_mcc_avg = valid_mcc_sum/5
+
+    # Log the average scores for all the folds
+    logger.info('AVG Training Accuracy: %3.3f, AVG Training MCC: %3.3f, AVG Validation Accuracy: %3.3f, '
+                'AVG Validation MCC: %3.3f' %(train_accuracy_avg, train_mcc_avg, valid_accuracy_avg, valid_mcc_avg))
 
 
 
 # Function to separate items into buckets.
-def bucket_seperator(threshold, seed, df=pd.DataFrame()):
+def bucket_seperator(threshold, df=pd.DataFrame()):
     """
     This function uses a classification threshold to split the data into large and small buckets.
 
@@ -362,12 +399,12 @@ def bucket_seperator(threshold, seed, df=pd.DataFrame()):
         # SVM w/RBF kernel is our model.  We need to do this in conjuinction with Forward Selection and PCA
         x = fs_classifier(x, y)
         x = principal_component_analysis(x)
-        classifer_trainer(x, y, seed)
+        classifer_trainer(x, y)
   
     return df
 
 # Generate our classifier to classify new test data into buckets since we don't know their KI
-def classifier(threshold, seed):
+def classifier(threshold):
     """
     This function serves as our classifier to categorize the data into tiers.  This classifier will be done with
         a SVM w/RBF Kernel in conjunction with Forward Selection and PCA.  Note that this function will output
@@ -382,10 +419,9 @@ def classifier(threshold, seed):
     n/a
 
     """
-    print(seed)
     # Import the data and seperate it into buckets.
     df, _ = import_data()
-    df = bucket_seperator(threshold, seed, df)
+    df = bucket_seperator(threshold, df)
 
 # Calculating the MCC scores of the classifiers.
 def verify_clf():
@@ -406,16 +442,14 @@ def verify_clf():
 parser = argparse.ArgumentParser()
 parser.add_argument('-t', '--threshold', help='threshold = set the threshold to split the dataset into'
                     ' large and small buckets', type=int)
-parser.add_argument('-s', '--seed', help='seed = add a seed value to modify the'
-                    ' random number generator', type=int)                    
+           
 args = parser.parse_args()
 
 threshold = args.threshold
-seed = args.seed
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
 logger = log_files(threshold)
-classifier(threshold, seed)
+classifier(threshold)
 
 ## Add email to the slurm address to get notifications.
 
@@ -425,3 +459,7 @@ classifier(threshold, seed)
 ## Use HTOP to check for multi-threading.  I might need to install it.
 
 ## 
+
+## Requirements.txt 
+## python -m pip freeze
+## pipe it into a txt file
