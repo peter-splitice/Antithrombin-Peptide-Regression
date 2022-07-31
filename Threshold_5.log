@@ -1,7 +1,0 @@
-2022-07-30 18:55:21,395 | INFO | Threshold of 5 provides Large bucket size: 30, Small Bucket size: 39
-2022-07-30 19:41:38,658 | INFO | Training Accuracy: 0.909, Training MCC: 0.826, Validation Accuracy: 0.857, Validation MCC: 0.730, Fold: 1
-2022-07-30 19:41:38,697 | INFO | Training Accuracy: 0.927, Training MCC: 0.863, Validation Accuracy: 0.857, Validation MCC: 0.701, Fold: 2
-2022-07-30 19:41:38,726 | INFO | Training Accuracy: 0.909, Training MCC: 0.828, Validation Accuracy: 0.929, Validation MCC: 0.861, Fold: 3
-2022-07-30 19:41:38,743 | INFO | Training Accuracy: 0.927, Training MCC: 0.862, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
-2022-07-30 19:41:38,760 | INFO | Training Accuracy: 0.945, Training MCC: 0.892, Validation Accuracy: 0.714, Validation MCC: 0.429, Fold: 5
-2022-07-30 19:41:38,760 | INFO | AVG Training Accuracy: 0.924, AVG Training MCC: 0.854, AVG Validation Accuracy: 0.871, AVG Validation MCC: 0.744
