@@ -386,12 +386,12 @@ def bucket_seperator(threshold, df=pd.DataFrame()):
 
     # The threshold was too large.
     if large_bucket_count < cutoff_length or small_bucket_count < cutoff_length:
-        logger.error('Threshold of %i was too large. Large Bucket Size: %i, Small Bucket Size: %i' 
+        logger.error('Threshold of %3.3f was too large. Large Bucket Size: %i, Small Bucket Size: %i' 
                      %(threshold, large_bucket_count, small_bucket_count))
 
     # The threshold isn't too large.
     else:
-        logger.info('Threshold of %i provides Large bucket size: %i, Small Bucket size: %i'
+        logger.info('Threshold of %3.3f provides Large bucket size: %i, Small Bucket size: %i'
                     %(threshold, large_bucket_count, small_bucket_count))
         x = df[df.columns[1:572]]
         y = df[df.columns[575]]
