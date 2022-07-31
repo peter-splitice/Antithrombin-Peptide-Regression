@@ -444,14 +444,14 @@ def verify_clf():
 ## Use argparse to pass various thresholds.
 parser = argparse.ArgumentParser()
 parser.add_argument('-t', '--threshold', help='threshold = set the threshold to split the dataset into'
-                    ' large and small buckets', type=int)
+                    ' large and small buckets', type=float)
            
 args = parser.parse_args()
 
 threshold = args.threshold
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
-logger = log_files(threshold)
+logger = log_files()
 classifier(threshold)
 
 ## Add email to the slurm address to get notifications.
