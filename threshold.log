@@ -76,3 +76,12 @@
 2022-07-31 04:04:08,646 | ERROR | Threshold of 20 was too large. Large Bucket Size: 22, Small Bucket Size: 47
 2022-07-31 04:04:08,646 | INFO | -----------------------------------------------------
 2022-07-31 04:04:08,646 | INFO | 
+2022-07-31 10:48:51,582 | INFO | Threshold of 16.000 provides Large bucket size: 24, Small Bucket size: 45
+2022-07-31 10:57:41,802 | INFO | Training Accuracy: 0.945, Training MCC: 0.879, Validation Accuracy: 0.786, Validation MCC: 0.548, Fold: 1
+2022-07-31 10:57:41,805 | INFO | Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 2
+2022-07-31 10:57:41,808 | INFO | Training Accuracy: 0.927, Training MCC: 0.838, Validation Accuracy: 0.857, Validation MCC: 0.701, Fold: 3
+2022-07-31 10:57:41,810 | INFO | Training Accuracy: 0.945, Training MCC: 0.882, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-07-31 10:57:41,814 | INFO | Training Accuracy: 0.964, Training MCC: 0.917, Validation Accuracy: 0.786, Validation MCC: 0.603, Fold: 5
+2022-07-31 10:57:41,814 | INFO | AVG Training Accuracy: 0.945, AVG Training MCC: 0.880, AVG Validation Accuracy: 0.886, AVG Validation MCC: 0.770
+2022-07-31 10:57:41,815 | INFO | -----------------------------------------------------
+2022-07-31 10:57:41,815 | INFO | 

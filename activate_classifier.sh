@@ -3,8 +3,8 @@
 #SBATCH --job-name=positive_peptide_bucket_classifier
 #SBATCH --output=bucket_classifier.log
 #
-#SBATCH --ntasks=1
-#SBATCH --nodes=1
+#SBATCH --ntasks=2
+#SBATCH --nodes=2
 #SBATCH --cpus-per-task=28
 #SBATCH --time=4:00:00
 #SBATCH --mem-per-cpu=2000
@@ -16,7 +16,7 @@ export OMP_PROC_BIND=spread
 
 source env/bin/activate
 
-for n in 0.01 0.1 2 5 7 10 12 15 18 20;
+for n in 0.5 3 14 17;
 do 
     echo 'Threshold level' $n 'starting'
     python3 bucket_classifier.py -t $n
