@@ -1,0 +1,256 @@
+Threshold level 0.01 starting
+2022-07-31 00:13:39,993 | DEBUG | The full dataset has 73 examples.
+2022-07-31 00:13:39,994 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 00:13:39,997 | ERROR | Threshold of 0 was too large. Large Bucket Size: 51, Small Bucket Size: 18
+2022-07-31 00:13:39,997 | INFO | -----------------------------------------------------
+2022-07-31 00:13:39,997 | INFO | 
+Threshold level 0.01 complete
+
+Threshold level 0.1 starting
+2022-07-31 00:13:41,746 | DEBUG | The full dataset has 73 examples.
+2022-07-31 00:13:41,746 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 00:13:41,749 | INFO | Threshold of 0 provides Large bucket size: 43, Small Bucket size: 26
+2022-07-31 00:13:41,750 | DEBUG | Forward Selection Starting
+/opt/ohpc/pub/apps/python3/3.8.8/lib/python3.8/site-packages/sklearn/feature_selection/_sequential.py:188: FutureWarning: Leaving `n_features_to_select` to None is deprecated in 1.0 and will become 'auto' in 1.3. To keep the same behaviour as with None (i.e. select half of the features) and avoid this warning, you should manually set `n_features_to_select='auto'` and set tol=None when creating an instance.
+  warnings.warn(
+2022-07-31 00:42:20,451 | DEBUG | Forward Selection Finished
+2022-07-31 00:42:20,454 | DEBUG | PCA Starting
+2022-07-31 00:42:20,585 | DEBUG | PCA Finished
+2022-07-31 00:42:20,585 | DEBUG | Training:
+2022-07-31 00:42:20,587 | DEBUG | Training Finished.
+2022-07-31 00:42:20,625 | INFO | Training Accuracy: 0.909, Training MCC: 0.822, Validation Accuracy: 0.714, Validation MCC: 0.522, Fold: 1
+2022-07-31 00:42:20,640 | DEBUG | Training:
+2022-07-31 00:42:20,642 | DEBUG | Training Finished.
+2022-07-31 00:42:20,649 | INFO | Training Accuracy: 0.909, Training MCC: 0.797, Validation Accuracy: 0.786, Validation MCC: 0.645, Fold: 2
+2022-07-31 00:42:20,649 | DEBUG | Training:
+2022-07-31 00:42:20,651 | DEBUG | Training Finished.
+2022-07-31 00:42:20,656 | INFO | Training Accuracy: 0.891, Training MCC: 0.775, Validation Accuracy: 0.929, Validation MCC: 0.861, Fold: 3
+2022-07-31 00:42:20,656 | DEBUG | Training:
+2022-07-31 00:42:20,666 | DEBUG | Training Finished.
+2022-07-31 00:42:20,671 | INFO | Training Accuracy: 0.909, Training MCC: 0.810, Validation Accuracy: 0.857, Validation MCC: 0.745, Fold: 4
+2022-07-31 00:42:20,671 | DEBUG | Training:
+2022-07-31 00:42:20,673 | DEBUG | Training Finished.
+2022-07-31 00:42:20,685 | INFO | Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 0.786, Validation MCC: 0.577, Fold: 5
+2022-07-31 00:42:20,685 | INFO | AVG Training Accuracy: 0.913, AVG Training MCC: 0.818, AVG Validation Accuracy: 0.814, AVG Validation MCC: 0.670
+2022-07-31 00:42:20,685 | INFO | -----------------------------------------------------
+2022-07-31 00:42:20,686 | INFO | 
+Threshold level 0.1 complete
+
+Threshold level 2 starting
+2022-07-31 00:42:28,699 | DEBUG | The full dataset has 73 examples.
+2022-07-31 00:42:28,700 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 00:42:28,703 | INFO | Threshold of 2 provides Large bucket size: 32, Small Bucket size: 37
+2022-07-31 00:42:28,704 | DEBUG | Forward Selection Starting
+/opt/ohpc/pub/apps/python3/3.8.8/lib/python3.8/site-packages/sklearn/feature_selection/_sequential.py:188: FutureWarning: Leaving `n_features_to_select` to None is deprecated in 1.0 and will become 'auto' in 1.3. To keep the same behaviour as with None (i.e. select half of the features) and avoid this warning, you should manually set `n_features_to_select='auto'` and set tol=None when creating an instance.
+  warnings.warn(
+2022-07-31 01:11:22,841 | DEBUG | Forward Selection Finished
+2022-07-31 01:11:22,842 | DEBUG | PCA Starting
+2022-07-31 01:11:22,961 | DEBUG | PCA Finished
+2022-07-31 01:11:22,961 | DEBUG | Training:
+2022-07-31 01:11:22,963 | DEBUG | Training Finished.
+2022-07-31 01:11:23,007 | INFO | Training Accuracy: 0.945, Training MCC: 0.891, Validation Accuracy: 0.643, Validation MCC: 0.251, Fold: 1
+2022-07-31 01:11:23,022 | DEBUG | Training:
+2022-07-31 01:11:23,024 | DEBUG | Training Finished.
+2022-07-31 01:11:23,028 | INFO | Training Accuracy: 0.927, Training MCC: 0.854, Validation Accuracy: 0.786, Validation MCC: 0.603, Fold: 2
+2022-07-31 01:11:23,029 | DEBUG | Training:
+2022-07-31 01:11:23,030 | DEBUG | Training Finished.
+2022-07-31 01:11:23,053 | INFO | Training Accuracy: 0.909, Training MCC: 0.823, Validation Accuracy: 0.857, Validation MCC: 0.689, Fold: 3
+2022-07-31 01:11:23,053 | DEBUG | Training:
+2022-07-31 01:11:23,055 | DEBUG | Training Finished.
+2022-07-31 01:11:23,076 | INFO | Training Accuracy: 0.945, Training MCC: 0.892, Validation Accuracy: 0.714, Validation MCC: 0.556, Fold: 4
+2022-07-31 01:11:23,076 | DEBUG | Training:
+2022-07-31 01:11:23,078 | DEBUG | Training Finished.
+2022-07-31 01:11:23,095 | INFO | Training Accuracy: 0.927, Training MCC: 0.856, Validation Accuracy: 0.714, Validation MCC: 0.458, Fold: 5
+2022-07-31 01:11:23,095 | INFO | AVG Training Accuracy: 0.931, AVG Training MCC: 0.863, AVG Validation Accuracy: 0.743, AVG Validation MCC: 0.511
+2022-07-31 01:11:23,096 | INFO | -----------------------------------------------------
+2022-07-31 01:11:23,096 | INFO | 
+Threshold level 2 complete
+
+Threshold level 5 starting
+2022-07-31 01:11:31,011 | DEBUG | The full dataset has 73 examples.
+2022-07-31 01:11:31,012 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 01:11:31,015 | INFO | Threshold of 5 provides Large bucket size: 30, Small Bucket size: 39
+2022-07-31 01:11:31,016 | DEBUG | Forward Selection Starting
+/opt/ohpc/pub/apps/python3/3.8.8/lib/python3.8/site-packages/sklearn/feature_selection/_sequential.py:188: FutureWarning: Leaving `n_features_to_select` to None is deprecated in 1.0 and will become 'auto' in 1.3. To keep the same behaviour as with None (i.e. select half of the features) and avoid this warning, you should manually set `n_features_to_select='auto'` and set tol=None when creating an instance.
+  warnings.warn(
+2022-07-31 01:40:11,288 | DEBUG | Forward Selection Finished
+2022-07-31 01:40:11,289 | DEBUG | PCA Starting
+2022-07-31 01:40:11,412 | DEBUG | PCA Finished
+2022-07-31 01:40:11,412 | DEBUG | Training:
+2022-07-31 01:40:11,415 | DEBUG | Training Finished.
+2022-07-31 01:40:11,448 | INFO | Training Accuracy: 0.909, Training MCC: 0.826, Validation Accuracy: 0.857, Validation MCC: 0.730, Fold: 1
+2022-07-31 01:40:11,463 | DEBUG | Training:
+2022-07-31 01:40:11,465 | DEBUG | Training Finished.
+2022-07-31 01:40:11,476 | INFO | Training Accuracy: 0.927, Training MCC: 0.863, Validation Accuracy: 0.857, Validation MCC: 0.701, Fold: 2
+2022-07-31 01:40:11,476 | DEBUG | Training:
+2022-07-31 01:40:11,478 | DEBUG | Training Finished.
+2022-07-31 01:40:11,482 | INFO | Training Accuracy: 0.909, Training MCC: 0.828, Validation Accuracy: 0.929, Validation MCC: 0.861, Fold: 3
+2022-07-31 01:40:11,482 | DEBUG | Training:
+2022-07-31 01:40:11,492 | DEBUG | Training Finished.
+2022-07-31 01:40:11,497 | INFO | Training Accuracy: 0.927, Training MCC: 0.862, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-07-31 01:40:11,497 | DEBUG | Training:
+2022-07-31 01:40:11,507 | DEBUG | Training Finished.
+2022-07-31 01:40:11,511 | INFO | Training Accuracy: 0.945, Training MCC: 0.892, Validation Accuracy: 0.714, Validation MCC: 0.429, Fold: 5
+2022-07-31 01:40:11,511 | INFO | AVG Training Accuracy: 0.924, AVG Training MCC: 0.854, AVG Validation Accuracy: 0.871, AVG Validation MCC: 0.744
+2022-07-31 01:40:11,511 | INFO | -----------------------------------------------------
+2022-07-31 01:40:11,512 | INFO | 
+Threshold level 5 complete
+
+Threshold level 7 starting
+2022-07-31 01:40:19,507 | DEBUG | The full dataset has 73 examples.
+2022-07-31 01:40:19,508 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 01:40:19,511 | INFO | Threshold of 7 provides Large bucket size: 27, Small Bucket size: 42
+2022-07-31 01:40:19,512 | DEBUG | Forward Selection Starting
+/opt/ohpc/pub/apps/python3/3.8.8/lib/python3.8/site-packages/sklearn/feature_selection/_sequential.py:188: FutureWarning: Leaving `n_features_to_select` to None is deprecated in 1.0 and will become 'auto' in 1.3. To keep the same behaviour as with None (i.e. select half of the features) and avoid this warning, you should manually set `n_features_to_select='auto'` and set tol=None when creating an instance.
+  warnings.warn(
+2022-07-31 02:08:52,780 | DEBUG | Forward Selection Finished
+2022-07-31 02:08:52,781 | DEBUG | PCA Starting
+2022-07-31 02:08:52,910 | DEBUG | PCA Finished
+2022-07-31 02:08:52,910 | DEBUG | Training:
+2022-07-31 02:08:52,913 | DEBUG | Training Finished.
+2022-07-31 02:08:52,949 | INFO | Training Accuracy: 0.927, Training MCC: 0.851, Validation Accuracy: 0.714, Validation MCC: 0.471, Fold: 1
+2022-07-31 02:08:52,964 | DEBUG | Training:
+2022-07-31 02:08:52,965 | DEBUG | Training Finished.
+2022-07-31 02:08:52,974 | INFO | Training Accuracy: 0.909, Training MCC: 0.826, Validation Accuracy: 0.929, Validation MCC: 0.826, Fold: 2
+2022-07-31 02:08:52,974 | DEBUG | Training:
+2022-07-31 02:08:52,976 | DEBUG | Training Finished.
+2022-07-31 02:08:52,980 | INFO | Training Accuracy: 0.945, Training MCC: 0.890, Validation Accuracy: 0.786, Validation MCC: 0.548, Fold: 3
+2022-07-31 02:08:52,980 | DEBUG | Training:
+2022-07-31 02:08:52,991 | DEBUG | Training Finished.
+2022-07-31 02:08:52,995 | INFO | Training Accuracy: 0.927, Training MCC: 0.857, Validation Accuracy: 0.929, Validation MCC: 0.826, Fold: 4
+2022-07-31 02:08:52,995 | DEBUG | Training:
+2022-07-31 02:08:52,997 | DEBUG | Training Finished.
+2022-07-31 02:08:53,010 | INFO | Training Accuracy: 0.945, Training MCC: 0.887, Validation Accuracy: 0.786, Validation MCC: 0.559, Fold: 5
+2022-07-31 02:08:53,010 | INFO | AVG Training Accuracy: 0.931, AVG Training MCC: 0.862, AVG Validation Accuracy: 0.829, AVG Validation MCC: 0.646
+2022-07-31 02:08:53,010 | INFO | -----------------------------------------------------
+2022-07-31 02:08:53,010 | INFO | 
+Threshold level 7 complete
+
+Threshold level 10 starting
+2022-07-31 02:09:00,963 | DEBUG | The full dataset has 73 examples.
+2022-07-31 02:09:00,964 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 02:09:00,966 | INFO | Threshold of 10 provides Large bucket size: 25, Small Bucket size: 44
+2022-07-31 02:09:00,967 | DEBUG | Forward Selection Starting
+/opt/ohpc/pub/apps/python3/3.8.8/lib/python3.8/site-packages/sklearn/feature_selection/_sequential.py:188: FutureWarning: Leaving `n_features_to_select` to None is deprecated in 1.0 and will become 'auto' in 1.3. To keep the same behaviour as with None (i.e. select half of the features) and avoid this warning, you should manually set `n_features_to_select='auto'` and set tol=None when creating an instance.
+  warnings.warn(
+2022-07-31 02:37:46,356 | DEBUG | Forward Selection Finished
+2022-07-31 02:37:46,356 | DEBUG | PCA Starting
+2022-07-31 02:37:46,423 | DEBUG | PCA Finished
+2022-07-31 02:37:46,423 | DEBUG | Training:
+2022-07-31 02:37:46,425 | DEBUG | Training Finished.
+2022-07-31 02:37:46,480 | INFO | Training Accuracy: 0.945, Training MCC: 0.885, Validation Accuracy: 0.786, Validation MCC: 0.548, Fold: 1
+2022-07-31 02:37:46,495 | DEBUG | Training:
+2022-07-31 02:37:46,497 | DEBUG | Training Finished.
+2022-07-31 02:37:46,518 | INFO | Training Accuracy: 0.945, Training MCC: 0.886, Validation Accuracy: 0.929, Validation MCC: 0.782, Fold: 2
+2022-07-31 02:37:46,518 | DEBUG | Training:
+2022-07-31 02:37:46,520 | DEBUG | Training Finished.
+2022-07-31 02:37:46,543 | INFO | Training Accuracy: 0.927, Training MCC: 0.842, Validation Accuracy: 0.929, Validation MCC: 0.849, Fold: 3
+2022-07-31 02:37:46,543 | DEBUG | Training:
+2022-07-31 02:37:46,545 | DEBUG | Training Finished.
+2022-07-31 02:37:46,558 | INFO | Training Accuracy: 0.964, Training MCC: 0.924, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-07-31 02:37:46,558 | DEBUG | Training:
+2022-07-31 02:37:46,559 | DEBUG | Training Finished.
+2022-07-31 02:37:46,562 | INFO | Training Accuracy: 0.982, Training MCC: 0.960, Validation Accuracy: 0.786, Validation MCC: 0.603, Fold: 5
+2022-07-31 02:37:46,562 | INFO | AVG Training Accuracy: 0.953, AVG Training MCC: 0.900, AVG Validation Accuracy: 0.886, AVG Validation MCC: 0.756
+2022-07-31 02:37:46,562 | INFO | -----------------------------------------------------
+2022-07-31 02:37:46,562 | INFO | 
+Threshold level 10 complete
+
+Threshold level 12 starting
+2022-07-31 02:37:54,556 | DEBUG | The full dataset has 73 examples.
+2022-07-31 02:37:54,557 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 02:37:54,560 | INFO | Threshold of 12 provides Large bucket size: 25, Small Bucket size: 44
+2022-07-31 02:37:54,560 | DEBUG | Forward Selection Starting
+/opt/ohpc/pub/apps/python3/3.8.8/lib/python3.8/site-packages/sklearn/feature_selection/_sequential.py:188: FutureWarning: Leaving `n_features_to_select` to None is deprecated in 1.0 and will become 'auto' in 1.3. To keep the same behaviour as with None (i.e. select half of the features) and avoid this warning, you should manually set `n_features_to_select='auto'` and set tol=None when creating an instance.
+  warnings.warn(
+2022-07-31 03:06:36,427 | DEBUG | Forward Selection Finished
+2022-07-31 03:06:36,428 | DEBUG | PCA Starting
+2022-07-31 03:06:36,484 | DEBUG | PCA Finished
+2022-07-31 03:06:36,484 | DEBUG | Training:
+2022-07-31 03:06:36,487 | DEBUG | Training Finished.
+2022-07-31 03:06:36,550 | INFO | Training Accuracy: 0.945, Training MCC: 0.885, Validation Accuracy: 0.786, Validation MCC: 0.548, Fold: 1
+2022-07-31 03:06:36,554 | DEBUG | Training:
+2022-07-31 03:06:36,556 | DEBUG | Training Finished.
+2022-07-31 03:06:36,579 | INFO | Training Accuracy: 0.945, Training MCC: 0.886, Validation Accuracy: 0.929, Validation MCC: 0.782, Fold: 2
+2022-07-31 03:06:36,579 | DEBUG | Training:
+2022-07-31 03:06:36,580 | DEBUG | Training Finished.
+2022-07-31 03:06:36,604 | INFO | Training Accuracy: 0.927, Training MCC: 0.842, Validation Accuracy: 0.929, Validation MCC: 0.849, Fold: 3
+2022-07-31 03:06:36,604 | DEBUG | Training:
+2022-07-31 03:06:36,606 | DEBUG | Training Finished.
+2022-07-31 03:06:36,620 | INFO | Training Accuracy: 0.964, Training MCC: 0.924, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-07-31 03:06:36,620 | DEBUG | Training:
+2022-07-31 03:06:36,621 | DEBUG | Training Finished.
+2022-07-31 03:06:36,624 | INFO | Training Accuracy: 0.982, Training MCC: 0.960, Validation Accuracy: 0.786, Validation MCC: 0.603, Fold: 5
+2022-07-31 03:06:36,624 | INFO | AVG Training Accuracy: 0.953, AVG Training MCC: 0.900, AVG Validation Accuracy: 0.886, AVG Validation MCC: 0.756
+2022-07-31 03:06:36,624 | INFO | -----------------------------------------------------
+2022-07-31 03:06:36,624 | INFO | 
+Threshold level 12 complete
+
+Threshold level 15 starting
+2022-07-31 03:06:44,769 | DEBUG | The full dataset has 73 examples.
+2022-07-31 03:06:44,770 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 03:06:44,773 | INFO | Threshold of 15 provides Large bucket size: 24, Small Bucket size: 45
+2022-07-31 03:06:44,773 | DEBUG | Forward Selection Starting
+/opt/ohpc/pub/apps/python3/3.8.8/lib/python3.8/site-packages/sklearn/feature_selection/_sequential.py:188: FutureWarning: Leaving `n_features_to_select` to None is deprecated in 1.0 and will become 'auto' in 1.3. To keep the same behaviour as with None (i.e. select half of the features) and avoid this warning, you should manually set `n_features_to_select='auto'` and set tol=None when creating an instance.
+  warnings.warn(
+2022-07-31 03:35:15,784 | DEBUG | Forward Selection Finished
+2022-07-31 03:35:15,785 | DEBUG | PCA Starting
+2022-07-31 03:35:15,857 | DEBUG | PCA Finished
+2022-07-31 03:35:15,857 | DEBUG | Training:
+2022-07-31 03:35:15,859 | DEBUG | Training Finished.
+2022-07-31 03:35:15,912 | INFO | Training Accuracy: 0.945, Training MCC: 0.879, Validation Accuracy: 0.786, Validation MCC: 0.548, Fold: 1
+2022-07-31 03:35:15,929 | DEBUG | Training:
+2022-07-31 03:35:15,930 | DEBUG | Training Finished.
+2022-07-31 03:35:15,954 | INFO | Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 2
+2022-07-31 03:35:15,954 | DEBUG | Training:
+2022-07-31 03:35:15,955 | DEBUG | Training Finished.
+2022-07-31 03:35:15,979 | INFO | Training Accuracy: 0.927, Training MCC: 0.838, Validation Accuracy: 0.857, Validation MCC: 0.701, Fold: 3
+2022-07-31 03:35:15,979 | DEBUG | Training:
+2022-07-31 03:35:15,981 | DEBUG | Training Finished.
+2022-07-31 03:35:15,986 | INFO | Training Accuracy: 0.945, Training MCC: 0.882, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-07-31 03:35:15,991 | DEBUG | Training:
+2022-07-31 03:35:15,992 | DEBUG | Training Finished.
+2022-07-31 03:35:15,995 | INFO | Training Accuracy: 0.964, Training MCC: 0.917, Validation Accuracy: 0.786, Validation MCC: 0.603, Fold: 5
+2022-07-31 03:35:15,995 | INFO | AVG Training Accuracy: 0.945, AVG Training MCC: 0.880, AVG Validation Accuracy: 0.886, AVG Validation MCC: 0.770
+2022-07-31 03:35:15,995 | INFO | -----------------------------------------------------
+2022-07-31 03:35:15,995 | INFO | 
+Threshold level 15 complete
+
+Threshold level 18 starting
+2022-07-31 03:35:23,822 | DEBUG | The full dataset has 73 examples.
+2022-07-31 03:35:23,823 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 03:35:23,826 | INFO | Threshold of 18 provides Large bucket size: 23, Small Bucket size: 46
+2022-07-31 03:35:23,827 | DEBUG | Forward Selection Starting
+/opt/ohpc/pub/apps/python3/3.8.8/lib/python3.8/site-packages/sklearn/feature_selection/_sequential.py:188: FutureWarning: Leaving `n_features_to_select` to None is deprecated in 1.0 and will become 'auto' in 1.3. To keep the same behaviour as with None (i.e. select half of the features) and avoid this warning, you should manually set `n_features_to_select='auto'` and set tol=None when creating an instance.
+  warnings.warn(
+2022-07-31 04:04:00,378 | DEBUG | Forward Selection Finished
+2022-07-31 04:04:00,379 | DEBUG | PCA Starting
+2022-07-31 04:04:00,508 | DEBUG | PCA Finished
+2022-07-31 04:04:00,508 | DEBUG | Training:
+2022-07-31 04:04:00,510 | DEBUG | Training Finished.
+2022-07-31 04:04:00,546 | INFO | Training Accuracy: 0.945, Training MCC: 0.875, Validation Accuracy: 0.786, Validation MCC: 0.548, Fold: 1
+2022-07-31 04:04:00,561 | DEBUG | Training:
+2022-07-31 04:04:00,563 | DEBUG | Training Finished.
+2022-07-31 04:04:00,572 | INFO | Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 0.929, Validation MCC: 0.679, Fold: 2
+2022-07-31 04:04:00,572 | DEBUG | Training:
+2022-07-31 04:04:00,574 | DEBUG | Training Finished.
+2022-07-31 04:04:00,578 | INFO | Training Accuracy: 0.945, Training MCC: 0.875, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 3
+2022-07-31 04:04:00,579 | DEBUG | Training:
+2022-07-31 04:04:00,589 | DEBUG | Training Finished.
+2022-07-31 04:04:00,594 | INFO | Training Accuracy: 0.945, Training MCC: 0.879, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-07-31 04:04:00,594 | DEBUG | Training:
+2022-07-31 04:04:00,596 | DEBUG | Training Finished.
+2022-07-31 04:04:00,608 | INFO | Training Accuracy: 0.964, Training MCC: 0.915, Validation Accuracy: 0.857, Validation MCC: 0.730, Fold: 5
+2022-07-31 04:04:00,608 | INFO | AVG Training Accuracy: 0.949, AVG Training MCC: 0.886, AVG Validation Accuracy: 0.914, AVG Validation MCC: 0.791
+2022-07-31 04:04:00,608 | INFO | -----------------------------------------------------
+2022-07-31 04:04:00,609 | INFO | 
+Threshold level 18 complete
+
+Threshold level 20 starting
+2022-07-31 04:04:08,642 | DEBUG | The full dataset has 73 examples.
+2022-07-31 04:04:08,643 | DEBUG | Without outliers, the dataset has 69 examples.
+2022-07-31 04:04:08,646 | ERROR | Threshold of 20 was too large. Large Bucket Size: 22, Small Bucket Size: 47
+2022-07-31 04:04:08,646 | INFO | -----------------------------------------------------
+2022-07-31 04:04:08,646 | INFO | 
+Threshold level 20 complete
+
