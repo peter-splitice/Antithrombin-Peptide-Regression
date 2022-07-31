@@ -36,7 +36,7 @@ import sys
 
 
 ## Create the logger
-def log_files(threshold):
+def log_files():
     """
     Create the meachanism for which we log results to a .log file.
 
@@ -54,13 +54,13 @@ def log_files(threshold):
     logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
 
-    # Print the logs
+    # Display the logs in the output
     stdout_handler = logging.StreamHandler(sys.stdout)
     stdout_handler.setLevel(logging.DEBUG)
     stdout_handler.setFormatter(formatter)
 
     # Write the logs to a file
-    file_handler = logging.FileHandler('Threshold_%i.log' %(threshold))
+    file_handler = logging.FileHandler('threshold.log')
     file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(formatter)
 
@@ -400,7 +400,10 @@ def bucket_seperator(threshold, df=pd.DataFrame()):
         x = fs_classifier(x, y)
         x = principal_component_analysis(x)
         classifer_trainer(x, y)
-  
+
+    # Formatting for the logger.
+    logger.info('-----------------------------------------------------')
+    logger.info('')
     return df
 
 # Generate our classifier to classify new test data into buckets since we don't know their KI
