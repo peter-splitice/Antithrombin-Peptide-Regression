@@ -121,3 +121,21 @@
 2022-07-31 13:52:17,574 | INFO | AVG Training Accuracy: 0.945, AVG Training MCC: 0.880, AVG Validation Accuracy: 0.886, AVG Validation MCC: 0.770
 2022-07-31 13:52:17,574 | INFO | -----------------------------------------------------
 2022-07-31 13:52:17,574 | INFO | 
+2022-07-31 15:49:40,110 | INFO | Threshold of 19.000 provides Large bucket size: 23, Small Bucket size: 46
+2022-07-31 15:59:02,903 | INFO | Training Accuracy: 0.945, Training MCC: 0.875, Validation Accuracy: 0.786, Validation MCC: 0.548, Fold: 1
+2022-07-31 15:59:02,906 | INFO | Training Accuracy: 0.945, Training MCC: 0.884, Validation Accuracy: 0.929, Validation MCC: 0.679, Fold: 2
+2022-07-31 15:59:02,908 | INFO | Training Accuracy: 0.945, Training MCC: 0.875, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 3
+2022-07-31 15:59:02,911 | INFO | Training Accuracy: 0.945, Training MCC: 0.879, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-07-31 15:59:02,914 | INFO | Training Accuracy: 0.964, Training MCC: 0.915, Validation Accuracy: 0.857, Validation MCC: 0.730, Fold: 5
+2022-07-31 15:59:02,914 | INFO | AVG Training Accuracy: 0.949, AVG Training MCC: 0.886, AVG Validation Accuracy: 0.914, AVG Validation MCC: 0.791
+2022-07-31 15:59:02,914 | INFO | -----------------------------------------------------
+2022-07-31 15:59:02,915 | INFO | 
+2022-07-31 16:42:02,219 | INFO | Threshold of 11.000 provides Large bucket size: 25, Small Bucket size: 44
+2022-07-31 16:51:19,442 | INFO | Training Accuracy: 0.945, Training MCC: 0.885, Validation Accuracy: 0.786, Validation MCC: 0.548, Fold: 1
+2022-07-31 16:51:19,445 | INFO | Training Accuracy: 0.945, Training MCC: 0.886, Validation Accuracy: 0.929, Validation MCC: 0.782, Fold: 2
+2022-07-31 16:51:19,448 | INFO | Training Accuracy: 0.927, Training MCC: 0.842, Validation Accuracy: 0.929, Validation MCC: 0.849, Fold: 3
+2022-07-31 16:51:19,451 | INFO | Training Accuracy: 0.964, Training MCC: 0.924, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-07-31 16:51:19,453 | INFO | Training Accuracy: 0.982, Training MCC: 0.960, Validation Accuracy: 0.786, Validation MCC: 0.603, Fold: 5
+2022-07-31 16:51:19,453 | INFO | AVG Training Accuracy: 0.953, AVG Training MCC: 0.900, AVG Validation Accuracy: 0.886, AVG Validation MCC: 0.756
+2022-07-31 16:51:19,454 | INFO | -----------------------------------------------------
+2022-07-31 16:51:19,454 | INFO | 

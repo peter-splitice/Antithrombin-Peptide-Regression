@@ -233,7 +233,6 @@ def fs_regressor(x, y):
     reg = SVR(kernel='rbf')
     sfs = SequentialFeatureSelector(reg, n_jobs=-1, scoring='neg_mean_squared_error')
     sfs.fit(x, y)
-    sfs.get_support()
     x = sfs.transform(x)
 
     return x
@@ -264,7 +263,7 @@ def fs_classifier(x, y):
     x = sfs.transform(x)
     logger.debug('Forward Selection Finished')
     
-    return x
+    return x, sfs
 
 
 ## Code for Principal Component Analysis
@@ -289,7 +288,7 @@ def principal_component_analysis(x):
     x = pca.transform(x)
     logger.debug('PCA Finished')
 
-    return x
+    return x, pca
 
 def classifer_trainer(x, y):
     """
@@ -358,7 +357,7 @@ def classifer_trainer(x, y):
 
 
 # Function to separate items into buckets.
-def bucket_seperator(threshold, df=pd.DataFrame()):
+def bucket_seperator(threshold):
     """
     This function uses a classification threshold to split the data into large and small buckets.
 
@@ -373,6 +372,9 @@ def bucket_seperator(threshold, df=pd.DataFrame()):
     bucket: Dummy variable for now, returns a dummy variable
     """
     
+    # Import the data.
+    df, _ = import_data()
+
     # Creates a column in our dataframe to classify into a "small" and "large" bucket based on a threshold.
     df['Bucket'] = df['KI (nM)'] > threshold
 
@@ -397,8 +399,8 @@ def bucket_seperator(threshold, df=pd.DataFrame()):
         y = df[df.columns[575]]
 
         # SVM w/RBF kernel is our model.  We need to do this in conjuinction with Forward Selection and PCA
-        x = fs_classifier(x, y)
-        x = principal_component_analysis(x)
+        x, _ = fs_classifier(x, y)
+        x, _ = principal_component_analysis(x)
         classifer_trainer(x, y)
 
     # Formatting for the logger.
@@ -406,28 +408,33 @@ def bucket_seperator(threshold, df=pd.DataFrame()):
     logger.info('')
     return df
 
-# Generate our classifier to classify new test data into buckets since we don't know their KI
-def classifier(threshold):
+def classifier():
     """
-    This function serves as our classifier to categorize the data into tiers.  This classifier will be done with
-        a SVM w/RBF Kernel in conjunction with Forward Selection and PCA.  Note that this function will output
-        the models as dynamically named .joblib files.
-    
-    Parameters
-    ----------
-    threshold: The threshold values to set for spliting the dataset into larger/smaller buckets.
-
-    Returns
-    -------
-    n/a
-
+    This function creates our finalized classifier and saves it into a .joblib file for later calling.
     """
-    # Import the data and seperate it into buckets.
+
+    threshold = 18
     df, _ = import_data()
-    df = bucket_seperator(threshold, df)
+
+    df['Bucket'] = df['KI (nM)'] > threshold
+    x = df[df.columns[1:572]]
+    y = df[df.columns[575]]
+
+    x, sfs = fs_classifier(x, y)
+    x, pca = principal_component_analysis(x)
+
+    # Fit the new x and y to a SVC w/rbf kernel.
+    clf = SVC(kernel='rbf')
+    clf.fit(x, y)
+
+    # Save the models to external joblib files.
+    dump(sfs, 'bucket_sfs.joblib')
+    dump(pca, 'bucket_pca.joblib')
+    dump(clf, 'bucket_clf.joblib')
+
 
 # Calculating the MCC scores of the classifiers.
-def verify_clf():
+def bucket_loader():
     """
     This function loads the classification models, calculates the MCC scores, stores them in dataframes,
         and then visualizes them in a chart.  This will export my results into an external file.
@@ -435,28 +442,38 @@ def verify_clf():
     
     """
 
-    clf = load()
+    bucket_clf = load('bucket_clf.joblib')
+    bucket_sfs = load('bucket_sfs.joblib')
+    bucket_pca = load('bucket_pca.joblib')
 
-    accuracy = accuracy_score()
-    mcc = matthews_corrcoef()
+    df, base_range = import_data()
 
 
 ## Use argparse to pass various thresholds.
 parser = argparse.ArgumentParser()
 parser.add_argument('-t', '--threshold', help='threshold = set the threshold to split the dataset into'
                     ' large and small buckets', type=float)
+parser.add_argument('-b', '--bucket', help='bucket = generate the final model that splits the dataset'
+                    ' into large and small buckets', action='store_true')
+parser.add_argument('-r', '--regression', help='regression = use the pre-generated models to apply'
+                    ' regression onto the whole dataset.', action='store_true')
            
 args = parser.parse_args()
 
 threshold = args.threshold
+bucket = args.bucket
+regression = args.regression
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
 
+logger = log_files()
+
 if threshold != None:
-    logger = log_files()
-    classifier(threshold)
-else:
-    print('Threshold not provided')
+    bucket_seperator(threshold)
+elif bucket == True:
+    classifier()
+elif regression == True:
+    bucket_loader()
 
 ## Add email to the slurm address to get notifications.
 
