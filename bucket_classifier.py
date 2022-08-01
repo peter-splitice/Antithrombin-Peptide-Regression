@@ -395,7 +395,7 @@ def bucket_seperator(threshold):
     else:
         logger.info('Threshold of %3.3f provides Large bucket size: %i, Small Bucket size: %i'
                     %(threshold, large_bucket_count, small_bucket_count))
-        x = df[df.columns[1:572]]
+        x = df[df.columns[1:573]]
         y = df[df.columns[575]]
 
         # SVM w/RBF kernel is our model.  We need to do this in conjuinction with Forward Selection and PCA
@@ -417,7 +417,7 @@ def classifier():
     df, _ = import_data()
 
     df['Bucket'] = df['KI (nM)'] > threshold
-    x = df[df.columns[1:572]]
+    x = df[df.columns[1:573]]
     y = df[df.columns[575]]
 
     x, sfs = fs_classifier(x, y)
@@ -448,6 +448,10 @@ def bucket_loader():
 
     df, base_range = import_data()
 
+    x = df[df.columns[1:572]]
+
+    
+
 
 ## Use argparse to pass various thresholds.
 parser = argparse.ArgumentParser()
@@ -477,13 +481,10 @@ elif regression == True:
 
 ## Add email to the slurm address to get notifications.
 
-
-## I only need one node, use multiple threads.
-## Check for multi-threading.
-## Use HTOP to check for multi-threading.  I might need to install it.
-
 ## 
 
 ## Requirements.txt 
 ## python -m pip freeze
 ## pipe it into a txt file
+
+## Thresholds to test: 0.01, 0.1, 0.5, 2, 3, 5, 7, 10, 15, 17, 18, 20
