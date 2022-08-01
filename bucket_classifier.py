@@ -434,7 +434,7 @@ def classifier():
 
 
 # Calculating the MCC scores of the classifiers.
-def bucket_loader():
+def regressor():
     """
     This function loads the classification models, calculates the MCC scores, stores them in dataframes,
         and then visualizes them in a chart.  This will export my results into an external file.
@@ -448,8 +448,15 @@ def bucket_loader():
 
     df, base_range = import_data()
 
-    x = df[df.columns[1:572]]
+    # Transform the input data and then use the created classifier to split the values into buckets.
+    x = df[df.columns[1:573]]
+    x = bucket_sfs.transform(x)
+    x = bucket_pca.transform(x)
+    df['Bucket'] = bucket_clf.predict(x)
 
+    # Create new Dataframes with the Large and Small buckets
+    df_large = df[df['Bucket'] == True]
+    df_small = df[df['Bucket'] == False]
     
 
 
@@ -477,7 +484,7 @@ if threshold != None:
 elif bucket == True:
     classifier()
 elif regression == True:
-    bucket_loader()
+    regressor()
 
 ## Add email to the slurm address to get notifications.
 
