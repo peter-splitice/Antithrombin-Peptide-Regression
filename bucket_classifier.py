@@ -103,7 +103,7 @@ def import_data():
 
 
 ## Logarithmically scalling the values.
-def rescale(array=np.array(0), destination_interval=any):
+def rescale(array=np.array(0), destination_interval=(-5,5)):
     """
     Rescale the KI values from nM to a log scale within the range of
         a given destination interval.
@@ -235,7 +235,7 @@ def fs_regressor(x, y):
     sfs.fit(x, y)
     x = sfs.transform(x)
 
-    return x
+    return x, sfs
 
 ## Forward selection for our classifier.
 def fs_classifier(x, y):
@@ -433,13 +433,46 @@ def classifier():
     dump(clf, 'bucket_clf.joblib')
 
 
+def ki_pipeline(df=pd.DataFrame()):
+    """
+    This function takes either one of the small or large bucketed dataframes and contains the KI regression pipeline.
+
+    Parameters
+    ----------
+    df: Pandas DataFrame for either the small or large bucketed dataset.
+    """
+
+    # Initialize the x and y values.
+    x = df[df.columns[1:573]]
+    y_log = df[df.columns[574]]
+    y = df[df.columns[573]]
+
+    # Apply Forward Selection and PCA.  Keep the SFS and PCA pipeline components for use on the test set.
+    x, sfs = fs_regressor(x,y_log)
+    x, pca = principal_component_analysis(x)
+
+    # Train/test splits
+    x_train, x_valid, y_log_train, y_log_valid = train_test_split(x, y_log, test_size=0.2, random_state=42)
+    _, _, y_train, y_valid = train_test_split(x, y, test_size=0.2, random_state=42)
+
+    # Train and fit the model
+    reg = SVR(kernel='rbf')
+    reg.fit(x_train, y_log_train)
+    y_log_pred = reg.predict(x_valid)
+
+    # Reconvert back to base
+
+    # Calculate the rmse for both log and base.
+    rmse_log = np.sqrt(mean_squared_error(y_log_valid, y_log_pred))
+
+
 # Calculating the MCC scores of the classifiers.
 def regressor():
     """
     This function loads the classification models, calculates the MCC scores, stores them in dataframes,
         and then visualizes them in a chart.  This will export my results into an external file.
 
-    
+
     """
 
     bucket_clf = load('bucket_clf.joblib')
@@ -457,7 +490,10 @@ def regressor():
     # Create new Dataframes with the Large and Small buckets
     df_large = df[df['Bucket'] == True]
     df_small = df[df['Bucket'] == False]
-    
+
+    ki_pipeline(df_large)
+    ki_pipeline(df_small)
+
 
 
 ## Use argparse to pass various thresholds.
