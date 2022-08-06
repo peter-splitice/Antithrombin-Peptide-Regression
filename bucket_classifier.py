@@ -13,10 +13,12 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler
 # Models
 from sklearn.linear_model import Lasso
 from sklearn.svm import SVR, SVC
+import xgboost as xgb
 
 # Dimensionality Reduction
 from sklearn.decomposition import PCA
 from sklearn.feature_selection import SequentialFeatureSelector
+
 
 # Metrics
 from sklearn.metrics import matthews_corrcoef, mean_squared_error, accuracy_score
@@ -91,10 +93,6 @@ def import_data():
     path = os.getcwd()
     df = pd.read_csv(path + '/PositivePeptide_Ki.csv')
     logger.debug('The full dataset has %i examples.' %(len(df)))
-
-    # Data where KI > 50uM (50,000nM) is an outlier.  Total of 69 different values.
-    df = df[df['KI (nM)']<75000]
-    logger.debug('Without outliers, the dataset has %i examples.' %(len(df)))
 
     # Rescaling the dataframe in the log10 (-5,5) range.
     df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=(-5,5))
@@ -433,7 +431,7 @@ def classifier():
     dump(clf, 'bucket_clf.joblib')
 
 
-def ki_pipeline(df=pd.DataFrame()):
+def ki_pipeline(df=pd.DataFrame(), base_range=(-10,10)):
     """
     This function takes either one of the small or large bucketed dataframes and contains the KI regression pipeline.
 
@@ -459,6 +457,7 @@ def ki_pipeline(df=pd.DataFrame()):
     reg = SVR(kernel='rbf')
     reg.fit(x_train, y_log_train)
     y_log_pred = reg.predict(x_valid)
+    y_pred = unscale(y_log_pred, base_range)
 
     # Reconvert back to base
 
@@ -491,8 +490,8 @@ def regressor():
     df_large = df[df['Bucket'] == True]
     df_small = df[df['Bucket'] == False]
 
-    ki_pipeline(df_large)
-    ki_pipeline(df_small)
+    ki_pipeline(df_large, base_range)
+    ki_pipeline(df_small, base_range)
 
 
 

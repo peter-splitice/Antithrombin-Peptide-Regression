@@ -3,8 +3,8 @@
 #SBATCH --job-name=positive_peptide_bucket_classifier
 #SBATCH --output=bucket_classifier.log
 #
-#SBATCH --ntasks=2
-#SBATCH --nodes=2
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
 #SBATCH --cpus-per-task=28
 #SBATCH --time=4:00:00
 #SBATCH --mem-per-cpu=2000
