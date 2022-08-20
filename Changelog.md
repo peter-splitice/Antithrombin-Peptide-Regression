@@ -15,3 +15,6 @@
     to throw out KI values that are too high to bother with regression.
 - Added a GridSearchCV stage after Forward Selection and PCA to optimize hyperparameters.
 - Pipeline is now FS -> PCA -> GS -> CV
+
+## Version 1.4
+- Added MinMaxScaler to beginning stage of pipeline.

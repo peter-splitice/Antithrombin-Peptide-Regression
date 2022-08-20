@@ -1,0 +1,32 @@
+2022-08-16 22:08:33,770 | INFO | Threshold Value of 10
+2022-08-16 22:08:33,771 | INFO | Performing operations on 'SVC with RBF Kernel':
+2022-08-16 22:20:07,162 | INFO | Performing operations on 'XGBoost Classifier':
+2022-08-17 00:29:41,531 | INFO | Performing operations on 'Random Forest Classifier':
+2022-08-17 07:50:56,407 | INFO | Threshold Value of 0
+2022-08-17 07:50:56,408 | INFO | Performing operations on SVC with RBF Kernel:
+2022-08-17 08:01:58,154 | INFO | Performing operations on XGBoost Classifier:
+2022-08-17 10:06:41,727 | INFO | Performing operations on Random Forest Classifier:
+2022-08-17 17:05:00,375 | INFO | Threshold Value of 10.00
+2022-08-17 17:05:00,382 | INFO | Performing operations on SVC with RBF Kernel:
+2022-08-17 17:05:13,058 | INFO | Performing operations on XGBoost Classifier:
+2022-08-17 17:06:12,776 | INFO | Performing operations on Random Forest Classifier:
+2022-08-17 17:10:56,661 | INFO | Threshold Value of 0.01
+2022-08-17 17:10:56,667 | INFO | Performing operations on SVC with RBF Kernel:
+2022-08-17 17:11:09,232 | INFO | Performing operations on XGBoost Classifier:
+2022-08-17 17:12:07,625 | INFO | Performing operations on Random Forest Classifier:
+2022-08-17 17:16:11,705 | INFO | Threshold Value of 10.00
+2022-08-17 17:16:11,711 | INFO | Performing operations on SVC with RBF Kernel:
+2022-08-17 17:26:51,026 | INFO | Performing operations on XGBoost Classifier:
+2022-08-17 19:32:26,434 | INFO | Performing operations on Random Forest Classifier:
+2022-08-17 22:35:32,434 | INFO | Threshold Value of 0.01
+2022-08-17 22:35:32,440 | INFO | Performing operations on SVC with RBF Kernel:
+2022-08-17 22:45:55,496 | INFO | Performing operations on XGBoost Classifier:
+2022-08-18 07:36:56,467 | INFO | Performing operations on Random Forest Classifier:
+2022-08-18 20:48:01,355 | INFO | Threshold Value of 0.01
+2022-08-18 20:48:01,356 | INFO | Performing operations on SVC with RBF Kernel:
+2022-08-18 20:48:14,075 | INFO | Performing operations on XGBoost Classifier:
+2022-08-18 20:49:16,172 | INFO | Performing operations on Random Forest Classifier:
+2022-08-18 20:57:29,141 | INFO | Threshold Value of 10.00
+2022-08-18 20:57:29,142 | INFO | Performing operations on SVC with RBF Kernel:
+2022-08-18 20:57:42,177 | INFO | Performing operations on XGBoost Classifier:
+2022-08-18 20:58:43,295 | INFO | Performing operations on Random Forest Classifier:

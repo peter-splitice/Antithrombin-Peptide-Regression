@@ -19,7 +19,7 @@ from xgboost import XGBClassifier
 # Dimensionality Reduction
 from sklearn.decomposition import PCA
 from sklearn.feature_selection import SequentialFeatureSelector
-
+ 
 # Metrics
 from sklearn.metrics import matthews_corrcoef, mean_squared_error, accuracy_score, make_scorer
 
@@ -38,13 +38,13 @@ import sys
 
 
 ## Create the logger
-def log_files():
+def log_files(logname):
     """
     Create the meachanism for which we log results to a .log file.
 
     Parameters
     ----------
-    None
+    logname:
 
     Returns
     -------
@@ -62,14 +62,16 @@ def log_files():
     stdout_handler.setFormatter(formatter)
 
     # Write the logs to a file
-    file_handler = logging.FileHandler('threshold.log')
+    file_handler = logging.FileHandler(logname)
     file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(formatter)
 
     # Adding the file and output handlers to the logger.
     logger.addHandler(file_handler)
     logger.addHandler(stdout_handler)
+
     return logger
+
 
 
 ## Import the complete dataset.
@@ -208,35 +210,8 @@ def test_model(name, x_train, y_train, x_valid, y_valid, model=SVR()):
 
     return model, y_pred_log, rmse
 
-
-## Perform forward selection using svr w/RBF kernel
-def fs_regressor(x, y):
-    """
-    Perform Sequentual Forward Selection on a given dataset.  This will
-        return half of the features of the initial dataset.  The model used
-        is SVR w/RBF kernel.
-
-    Parameters
-    ----------
-    x: Input values of the dataset.
-
-    y: Output values of the dataset.
-
-    Returns
-    -------
-    x: Input values of the dataset with half the features selected.
-
-    """
-    # Fit a feature selector to SVR w/RBF kernel regressor and use the MSE score.
-    reg = SVR(kernel='rbf')
-    sfs = SequentialFeatureSelector(reg, n_jobs=-1, scoring='neg_mean_squared_error')
-    sfs.fit(x, y)
-    x = sfs.transform(x)
-
-    return x, sfs
-
 ## Forward selection for our classifier.
-def fs_classifier(x, y, model):
+def forward_selection(x, y, model):
     """
     Perform Sequential Forward Selection on the given dataset, but for 
         the classifer portion of the model.  MCC is the scorer used.
@@ -279,6 +254,8 @@ def principal_component_analysis(x):
     Returns
     -------
     x: x input transformed with PCA.
+
+    pca: The PrincipalComponentAnalysis model.
     
     """
 
@@ -317,10 +294,7 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
     clf.fit(x,y)
 
     # Showing the best paramets found on the development set.
-    logger.debug('Best parameters set found on development set:')
-    logger.debug('')
-    logger.debug(clf.best_params_)
-    logger.debug('')
+    logger.info('Best parameter set: %s\n' %(clf.best_params_))
 
     # Testing on the development set.
     logger.debug('Grid scores on development set:')
@@ -338,7 +312,7 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
     return bestvals
 
 
-def classifer_trainer(x, y, params, model=SVC()):
+def classifier_trainer(x, y, params, model=SVC()):
     """
     Perform fitting on the reduced datasets and then make predictions.  The output values are in the log file.
 
@@ -404,9 +378,9 @@ def classifer_trainer(x, y, params, model=SVC()):
 
     # Log the average scores for all the folds
     logger.info('AVG Training Accuracy: %3.3f, AVG Training MCC: %3.3f, AVG Validation Accuracy: %3.3f, '
-                'AVG Validation MCC: %3.3f' %(train_accuracy_avg, train_mcc_avg, valid_accuracy_avg, valid_mcc_avg))
+                'AVG Validation MCC: %3.3f\n' %(train_accuracy_avg, train_mcc_avg, valid_accuracy_avg, valid_mcc_avg))
 
-def classifier_pipeline(x, y, model, params):
+def threshold_pipeline(x, y, model, params):
     """
     This function is our pipeline for the bucket classifier.  The outputs are recorded into a log file.
     
@@ -419,13 +393,14 @@ def classifier_pipeline(x, y, model, params):
     model: Model that we are using
     
     """
-    x, _ = fs_classifier(x, y, model)
+    # Threshold finding pipeline:  FS -> PCA -> GSCV
+    x, _ = forward_selection(x, y, model)
     x, _ = principal_component_analysis(x)
-    classifer_trainer(x, y, params, model)
+    classifier_trainer(x, y, params, model)
 
 
 # Function to separate items into buckets.
-def bucket_seperator(threshold):
+def threshold_finder(threshold):
     """
     This function uses a classification threshold to split the data into large and small buckets.
 
@@ -444,7 +419,7 @@ def bucket_seperator(threshold):
     df, _ = import_data()
 
     # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
-    # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000
+    # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000   
     df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
 
     # Try basing the threshold off of log transform?
@@ -458,58 +433,70 @@ def bucket_seperator(threshold):
 
     # The threshold was too large.
     if large_bucket_count < cutoff_length or small_bucket_count < cutoff_length:
-        logger.error('Threshold of %3.3f was too large. Large Bucket Size: %i, Small Bucket Size: %i, Extra Bucket size: %i' 
+        logger.error('Threshold of %2.2f was does not work. Large Bucket Size: %i, Small Bucket Size: %i, Extra Bucket size: %i' 
                      %(threshold, large_bucket_count, small_bucket_count, extra_bucket_count))
 
     # The threshold isn't too large.
     else:
-        logger.info('Threshold of %3.3f provides Large bucket size: %i, Small Bucket size: %i, Extra Bucket size: %i'
+        logger.info('Threshold of %2.2f provides Large bucket size: %i, Small Bucket size: %i, Extra Bucket size: %i\n'
                     %(threshold, large_bucket_count, small_bucket_count, extra_bucket_count))
         x = df[df.columns[1:573]]
         y = df[df.columns[575]]
 
         # Create the feature set for the 3 classifiers.
         rbf_params = {'gamma': [1e-2, 1e-3, 1e-4], 'C': [1, 10, 100, 1000]}
-        xgb_params = {'n_estimators': [50, 100, 150], 'max_depth': [1, 2, 3, 4]}
-        rf_params = {'class_weight': ['balanced'], 'n_estimators': [50, 100, 150], 'max_depth': [1, 2, 3, 4], 
-                       'min_samples_leaf': [1, 2, 3], 'min_samples_split': [1, 2, 3, 4]}
+        xgb_params = {'n_estimators': [3]}
+        rf_params = {'class_weight': ['balanced'], 'n_estimators': [3], 'criterion': ['gini', 'entropy']}
 
         # Classifier pipeline for all 3 classifiers.
-        logger.info('\nSVC w/RBF Kernel Results:')
-        classifier_pipeline(x, y, SVC(kernel='rbf'), rbf_params)
-        logger.info('\nXGBoost Classifier Results:')
-        classifier_pipeline(x, y, XGBClassifier(), xgb_params)
-        logger.info('\nRandom Forest Classifier Results:')
-        classifier_pipeline(x, y, RandomForestClassifier(), rf_params)
+        logger.info('SVC w/RBF Kernel Results:')
+        threshold_pipeline(x, y, SVC(kernel='rbf'), rbf_params)
+        logger.info('XGBoost Classifier Results:')
+        threshold_pipeline(x, y, XGBClassifier(), xgb_params)
+        logger.info('Random Forest Classifier Results:')
+        threshold_pipeline(x, y, RandomForestClassifier(), rf_params)
 
     # Formatting for the logger.
-    logger.info('-----------------------------------------------------')
-    logger.info('')
+    logger.info('-----------------------------------------------------\n')
     return df
 
-def classifier():
+
+def fs_pca_extractor():
     """
-    This function creates our finalized classifier and saves it into a .joblib file for later calling.
+    This function gets the necessary forward selection and PCA files and sends them into .joblib files.
     """
 
-    threshold = 18
+    # Initializations to threshold, creation of our buckets, and importing.
+    threshold = 10
     df, _ = import_data()
 
-    df['Bucket'] = df['KI (nM)'] > threshold
-    x = df[df.columns[1:573]]
+    # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
+    # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000   
+    df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
     y = df[df.columns[575]]
 
-    x, sfs = fs_classifier(x, y, model=SVC(kernel='rbf'))
-    x, pca = principal_component_analysis(x)
+    # Create the lists to zip and iterate through the for loop.
+    models = [SVC(kernel='rbf'), XGBClassifier(), RandomForestClassifier()]
+    names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier']
+    logger.info('Threshold Value of %2.2f' %(threshold))
 
-    # Fit the new x and y to a SVC w/rbf kernel.
-    clf = SVC(kernel='rbf')
-    clf.fit(x, y)
+    for model, name in zip(models, names):
+        # Each time I iterate, reset x, and ruN feature scaling.
+        x = df[df.columns[1:573]]
+        #scaler = MinMaxScaler()
+        #scaler.fit(x, y)
+        #x = scaler.transform(x)
 
-    # Save the models to external joblib files.
-    dump(sfs, 'bucket_sfs.joblib')
-    dump(pca, 'bucket_pca.joblib')
-    dump(clf, 'bucket_clf.joblib')
+        # Full pipeline:  FS -> PCA
+        logger.info('Performing operations on %s:' %(name))
+        x, sfs = forward_selection(x, y, model)        
+        x, pca = principal_component_analysis(x)
+
+
+        # Save the forward selection and pca models to external .joblib files.
+        dump(sfs, '%s %2.2f fs.joblib' %(name, threshold))
+        dump(pca, '%s %2.2f pca.joblib' %(name, threshold))
+
 
 
 def ki_pipeline(df=pd.DataFrame(), base_range=(-10,10)):
@@ -527,7 +514,7 @@ def ki_pipeline(df=pd.DataFrame(), base_range=(-10,10)):
     y = df[df.columns[573]]
 
     # Apply Forward Selection and PCA.  Keep the SFS and PCA pipeline components for use on the test set.
-    x, sfs = fs_regressor(x,y_log)
+    x, sfs = forward_selection(x,y_log)
     x, pca = principal_component_analysis(x)
 
     # Train/test splits
@@ -555,11 +542,12 @@ def regressor():
 
 
     """
-
+    # Import the bucket classifier models we created from before.
     bucket_clf = load('bucket_clf.joblib')
     bucket_sfs = load('bucket_sfs.joblib')
     bucket_pca = load('bucket_pca.joblib')
 
+    # This time, I actually want to use base_range
     df, base_range = import_data()
 
     # Transform the input data and then use the created classifier to split the values into buckets.
@@ -593,14 +581,14 @@ bucket = args.bucket
 regression = args.regression
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
-
-logger = log_files()
-
 if threshold != None:
-    bucket_seperator(threshold)
+    logger=log_files('threshold.log')
+    threshold_finder(threshold)
 elif bucket == True:
-    classifier()
+    logger=log_files('bucket.log')
+    fs_pca_extractor()      # Comment this out once you've finished getting the .joblib files.
 elif regression == True:
+    logger=log_files('regressor.log')
     regressor()
 
 ## Add email to the slurm address to get notifications.
