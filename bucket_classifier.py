@@ -311,9 +311,9 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
     col_start = 'split0_train_score'
     index_start = df.columns.get_loc(col_start)
     df = df[~(df.iloc[:,index_start:]>0.98).any(1)]
-    df = df[df['mean_train_score'] > 0.75]
+    df = df[df['mean_train_score'] > 0.65]
     df = df[df['rank_test_score'] < (0.20*max_test_rank)]
-    df = df[df['mean_test_score'] > 0.33]
+    df = df[df['mean_test_score'] > 0.25]
 
     # Save the best parameters.
     bestvals = clf.best_params_
@@ -546,6 +546,10 @@ def forward_selection_only(threshold):
         attributes = param_name_model_zipper()
         extracted_features = pd.DataFrame()
         for params, name, model in attributes:
+            # Reevaluate X every time you iterate the loop.
+            x = df[df.columns[1:573]]
+            x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+
             logger.info('%s Results:\n' %(name))
 
             # Create the needed directories if they don't exist.
@@ -756,14 +760,19 @@ def hyperparameter_pipeline(threshold):
 
     # Models and names
     models = [SVC(), XGBClassifier(), RandomForestClassifier()]
-    names = ['XGB', 'RFC', 'RBF']
+    names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier']
     
+    logger.info('Hyperparameter Tuning for Threshold %2.2f:\n' %(threshold))
     # Classifier Training for all 3 classifiers.
     for name, model, params in zip(names, models, all_params):
-        if os.path.exists(path + '/Initial Hyperparameter Tuning/') == False:
-            os.mkdir('Initial Hyperparameter Tuning')
+        logger.info('GridSearchCV on %s:\n' %(name))
+        if os.path.exists(path + '/%s/' %(name)) == False:
+            os.mkdir('%s' %(name))
+        if os.path.exists(path + '/%s/Initial Hyperparameter Tuning' %(name)) == False:
+            os.mkdir('%s/Initial Hyperparameter Tuning' %(name))
         results = classifier_trainer(df, x, y, params, model=model)
-        results.to_csv(path + '/Initial Hyperparameter Tuning/%s Initial Hyperparameter Tuning.csv' %(name))
+        results.to_csv(path + '/%s/Initial Hyperparameter Tuning/%s Initial Hyperparameter Tuning at Threshold %2.2f.csv'
+                       %(name, name, threshold))
 
 
 ## Use argparse to pass various thresholds.
@@ -773,7 +782,7 @@ parser.add_argument('-t', '--threshold', help='threshold = set the threshold to 
 parser.add_argument('-r', '--regression', help='regression = use the pre-generated models to apply'
                     ' regression onto the whole dataset.', action='store_true')
 parser.add_argument('-ht', '--hyperparameter_test', help='hyperparameter_test = test for various hyperparameters',
-                    action='store_true')
+                    type=float)
 parser.add_argument('-sfs', '--sfs_only', help='sfs_only = only do Sequential Forward Selection.  Note: do not do this'
                     ' until after you already passed the --threshold argument at least once.', type=float)
            
@@ -788,10 +797,9 @@ sfsonly = args.sfs_only
 if threshold != None:
     logger = log_files('threshold.log')
     threshold_finder(threshold)
-elif hyperparameter_test == True:
+elif hyperparameter_test != None:
     logger = log_files('hyperparameter test.log')
-    threshold = 10
-    hyperparameter_pipeline(threshold)
+    hyperparameter_pipeline(hyperparameter_test)
 elif regression == True:
     logger = log_files('regressor.log')
     regressor()
