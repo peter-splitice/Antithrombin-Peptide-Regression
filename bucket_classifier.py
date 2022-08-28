@@ -72,8 +72,6 @@ def log_files(logname):
 
     return logger
 
-
-
 ## Import the complete dataset.
 def import_data():
     """
@@ -100,7 +98,6 @@ def import_data():
     df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=(-5,5))
 
     return df, base_range
-
 
 ## Logarithmically scalling the values.
 def rescale(array=np.array(0), destination_interval=(-5,5)):
@@ -234,7 +231,8 @@ def forward_selection(x, y, model):
 
     # Fit a feature selector to SVM w/RBF kernel classifier and use the 'accuracy' score.
     logger.debug('Forward Selection Starting')
-    sfs = SequentialFeatureSelector(model, n_jobs=-1, scoring=make_scorer(matthews_corrcoef))
+    sfs = SequentialFeatureSelector(model, n_jobs=-1, scoring=make_scorer(matthews_corrcoef), tol=None,
+                                    n_features_to_select='auto')
     sfs.fit(x, y)
     x = sfs.transform(x)
     logger.debug('Forward Selection Finished')
@@ -270,7 +268,8 @@ def principal_component_analysis(x):
 
 def hyperparameter_optimizer(x, y, params, model=SVC()):
     """
-    Perform GridSearchCV to find and return the best hyperparmeters.  I'll use MCC score here.
+    Perform GridSearchCV to find and return the best hyperparmeters.  I'll use MCC score here.  I'll also display the training
+        and validation scores as they come up too.
     
     Parameters
     ----------
@@ -285,34 +284,44 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
     Returns
     -------
     bestvals: Optimzied hyperparameters for the model that we are running the search on.
+
+    df: Pandas Dataframe that has the results of our hyperparameter tuning, sorted
+        for results with the smallest standard deviation in the test scores.
     
     """
 
     # Use GridsearchCV to get the optimized parameters.
     logger.debug('GridSearchCV Starting')
-    clf = GridSearchCV(model, params, scoring=make_scorer(matthews_corrcoef), cv=5, n_jobs=-1)
+    clf = GridSearchCV(model,param_grid=params,scoring=make_scorer(matthews_corrcoef),cv=5,
+                       return_train_score=True,n_jobs=-1)
     clf.fit(x,y)
 
     # Showing the best paramets found on the development set.
     logger.info('Best parameter set: %s\n' %(clf.best_params_))
+    logger.info('Best MCC score: %3.3f\n' %(clf.best_score_))
 
-    # Testing on the development set.
-    logger.debug('Grid scores on development set:')
-    logger.debug('')
-    means = clf.cv_results_['mean_test_score']
-    stds = clf.cv_results_['std_test_score']
-    for mean, std, params in zip(means, stds, clf.cv_results_['params']):
-        logger.debug('%0.3f (+/-%0.03f) for %r' % (mean, std*2, params))
-    logger.debug('GridSearchCV Finished')
-    logger.debug('')
+    # Testing on the development set.  Save the results to a pandas dataframe and then sort it by
+    # standard deviation of the test set.
+    df = pd.DataFrame(clf.cv_results_)
+    df = df.sort_values(by=['std_test_score'])
+
+    # Clean up the output for the hyperparameters.  Eliminate any values that have too low of a test ranking
+    #   as well as eliminate anything with too high of a training score.
+    max_test_rank = df['rank_test_score'].max()
+    col_start = 'split0_train_score'
+    index_start = df.columns.get_loc(col_start)
+    df = df[~(df.iloc[:,index_start:]>0.98).any(1)]
+    df = df[df['mean_train_score'] > 0.75]
+    df = df[df['rank_test_score'] < (0.20*max_test_rank)]
+    df = df[df['mean_test_score'] > 0.33]
 
     # Save the best parameters.
     bestvals = clf.best_params_
 
-    return bestvals
+    return bestvals, df
 
 
-def classifier_trainer(x, y, params, model=SVC()):
+def classifier_trainer(df, x, y, params, model=SVC()):
     """
     Perform fitting on the reduced datasets and then make predictions.  The output values are in the log file.
 
@@ -324,7 +333,8 @@ def classifier_trainer(x, y, params, model=SVC()):
 
     Returns
     -------
-    None
+    optimizer_results: Pandas Dataframe that has the results of our hyperparameter tuning, sorted
+        for results with the smallest standard deviation in the test scores.
 
     """
     # Train our model
@@ -337,7 +347,7 @@ def classifier_trainer(x, y, params, model=SVC()):
     valid_accuracy_sum = 0
     valid_mcc_sum = 0
 
-    optimized_features = hyperparameter_optimizer(x, y, params, model)
+    optimized_features, optimizer_results = hyperparameter_optimizer(x, y, params, model)
 
     model.set_params(**optimized_features)
 
@@ -364,6 +374,16 @@ def classifier_trainer(x, y, params, model=SVC()):
                     'Validation MCC: %3.3f, Fold: %i'
                     %(train_accuracy, train_mcc, valid_accuracy, valid_mcc, i))
 
+        # Save the results into a dataframe and display them in the logger file.
+        trial = pd.DataFrame()
+        trial['y_valid'] = y_valid
+        trial['y_valid_pred'] = y_valid_pred
+        trial['KI (nM)'] = df['KI (nM)'][trial.index]
+        #logger.info('Actual: | Predicted: | KI (nM)')
+        #for valid, pred, ki in zip(trial['y_valid'], trial['y_valid_pred'], trial['KI (nM)']):
+        #    logger.info(' %i      |  %i         | %f' %(valid, pred, ki))
+        #logger.info('Fold %i finished:\n' %(i))
+
         # Add to the sums
         train_accuracy_sum += train_accuracy
         train_mcc_sum += train_mcc
@@ -379,25 +399,8 @@ def classifier_trainer(x, y, params, model=SVC()):
     # Log the average scores for all the folds
     logger.info('AVG Training Accuracy: %3.3f, AVG Training MCC: %3.3f, AVG Validation Accuracy: %3.3f, '
                 'AVG Validation MCC: %3.3f\n' %(train_accuracy_avg, train_mcc_avg, valid_accuracy_avg, valid_mcc_avg))
-
-def threshold_pipeline(x, y, model, params):
-    """
-    This function is our pipeline for the bucket classifier.  The outputs are recorded into a log file.
     
-    Parameters
-    ----------
-    x: Input variables
-    
-    y: Output classes
-    
-    model: Model that we are using
-    
-    """
-    # Threshold finding pipeline:  FS -> PCA -> GSCV
-    x, _ = forward_selection(x, y, model)
-    x, _ = principal_component_analysis(x)
-    classifier_trainer(x, y, params, model)
-
+    return optimizer_results
 
 # Function to separate items into buckets.
 def threshold_finder(threshold):
@@ -417,12 +420,11 @@ def threshold_finder(threshold):
     
     # Import the data.
     df, _ = import_data()
+    path = os.getcwd()
 
     # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
     # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000   
     df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
-
-    # Try basing the threshold off of log transform?
 
     large_bucket_count = df[df['Bucket'] == 1]['Name'].count()
     small_bucket_count = df[df['Bucket'] == 0]['Name'].count()
@@ -441,62 +443,213 @@ def threshold_finder(threshold):
         logger.info('Threshold of %2.2f provides Large bucket size: %i, Small Bucket size: %i, Extra Bucket size: %i\n'
                     %(threshold, large_bucket_count, small_bucket_count, extra_bucket_count))
         x = df[df.columns[1:573]]
-        y = df[df.columns[575]]
+        y = df['Bucket']
 
-        # Create the feature set for the 3 classifiers.
-        rbf_params = {'gamma': [1e-2, 1e-3, 1e-4], 'C': [1, 10, 100, 1000]}
-        xgb_params = {'n_estimators': [3]}
-        rf_params = {'class_weight': ['balanced'], 'n_estimators': [3], 'criterion': ['gini', 'entropy']}
+        # Add MinMaxScaler here.  Data seems to be overfitting.
+        scaler = MinMaxScaler()
+        scaler.fit(x)
+        x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
 
-        # Classifier pipeline for all 3 classifiers.
-        logger.info('SVC w/RBF Kernel Results:')
-        threshold_pipeline(x, y, SVC(kernel='rbf'), rbf_params)
-        logger.info('XGBoost Classifier Results:')
-        threshold_pipeline(x, y, XGBClassifier(), xgb_params)
-        logger.info('Random Forest Classifier Results:')
-        threshold_pipeline(x, y, RandomForestClassifier(), rf_params)
+        # In a for loop, create a directory for the 3 models and then deposit the hyperparameter tuning results as well
+        #   as the SFS and PCA models/
+        attributes = param_name_model_zipper()
+        extracted_features = pd.DataFrame()
+
+        for params, name, model in attributes:
+            # Every time I iterate through this loop, I need to recreate x.
+            x = df[df.columns[1:573]]
+            x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+
+            logger.info('%s Results:\n' %(name))
+
+            # Create a the directories for the models if they doesn't exist.
+            if os.path.exists(path + '/%s' %(name)) == False:
+                os.mkdir('%s' %(name))
+            if os.path.exists(path + '/%s/sfs-pca' %(name)) == False:
+                os.mkdir('%s/sfs-pca' %(name))
+            if os.path.exists(path + '/%s/sfs' %(name)) == False:
+                os.mkdir('%s/sfs' %(name))
+            if os.path.exists(path + '/SFS Extracted Features') == False:
+                os.mkdir('SFS Extracted Features')
+
+            # Our main pipeline is Forward Selection -> Principal Component Analysis -> Hyperparameter Tuning
+            x, sfs = forward_selection(x, y, model)
+
+            # SFS stage
+            logger.info('SFS only results:\n')
+            results_sfsonly = classifier_trainer(df, x, y, params, model)
+            results_sfsonly.to_csv(path + '/%s/sfs/%s SFS only results with threshold %2.2f.csv' %(name, name, threshold))
+            extracted_features[name] = sfs.get_feature_names_out()
+            dump(sfs, path + '/%s/sfs/%s %2.2f fs.joblib' %(name, name, threshold))
+
+            # Now do PCA.
+            logger.info('Results after PCA:\n')
+            x, pca = principal_component_analysis(x)
+            results = classifier_trainer(df, x, y, params, model)
+
+            # Exporting the hyperparameter optimizations, sfs, and pca models.
+            results.to_csv(path + '/%s/sfs-pca/%s results with threshold %2.2f.csv' %(name, name, threshold))
+            dump(sfs, path + '/%s/sfs-pca/%s %2.2f fs.joblib' %(name, name, threshold))
+            dump(pca, path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name, name, threshold))
+        
+        # Exporting the extracted features.
+        extracted_features.to_csv(path + '/SFS Extracted Features/Saved Features for Threshold %2.2f.csv' %(threshold))
 
     # Formatting for the logger.
     logger.info('-----------------------------------------------------\n')
-    return df
 
-
-def fs_pca_extractor():
+def forward_selection_only(threshold):
     """
-    This function gets the necessary forward selection and PCA files and sends them into .joblib files.
+    Use this function when you want to do forward selection and have already saved the models.  Note:  Don't do this
+        until you have done the threshold finder, or it will fail.  This should be called upon with a bash script, called 
+        in a for loop
+
+    Parameters
+    ----------
+    Threshold: The thresholds with which we are going to be running our models through.    
     """
 
-    # Initializations to threshold, creation of our buckets, and importing.
-    threshold = 10
+    # Import the data.
     df, _ = import_data()
+    path = os.getcwd()
 
     # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
-    # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000   
+    # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000
     df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
-    y = df[df.columns[575]]
 
-    # Create the lists to zip and iterate through the for loop.
-    models = [SVC(kernel='rbf'), XGBClassifier(), RandomForestClassifier()]
-    names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier']
-    logger.info('Threshold Value of %2.2f' %(threshold))
+    large_bucket_count = df[df['Bucket'] == 1]['Name'].count()
+    small_bucket_count = df[df['Bucket'] == 0]['Name'].count()
+    extra_bucket_count = df[df['Bucket'] == 2]['Name'].count()
 
-    for model, name in zip(models, names):
-        # Each time I iterate, reset x, and ruN feature scaling.
+    # If either bucket is less than a third of the total number of samples, I need to throw an exception.
+    cutoff_length = int(len(df['Bucket'])/4)
+
+    # The threshold was too large.
+    if large_bucket_count < cutoff_length or small_bucket_count < cutoff_length:
+        logger.error('Threshold of %2.2f was does not work. Large Bucket Size: %i, Small Bucket Size: %i, Extra Bucket size: %i' 
+                     %(threshold, large_bucket_count, small_bucket_count, extra_bucket_count))
+
+    # The threshold isn't too large.
+    else:
+        logger.info('Threshold of %2.2f provides Large bucket size: %i, Small Bucket size: %i, Extra Bucket size: %i\n'
+                    %(threshold, large_bucket_count, small_bucket_count, extra_bucket_count))
         x = df[df.columns[1:573]]
-        #scaler = MinMaxScaler()
-        #scaler.fit(x, y)
-        #x = scaler.transform(x)
+        y = df['Bucket']
 
-        # Full pipeline:  FS -> PCA
-        logger.info('Performing operations on %s:' %(name))
-        x, sfs = forward_selection(x, y, model)        
-        x, pca = principal_component_analysis(x)
+        # Add MinMaxScaler here.  Data seems to be overfitting.
+        scaler = MinMaxScaler()
+        scaler.fit(x)
+        x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+
+        # In a for loop, create a directory for the 3 models and then deposit the hyperparameter tuning results as well
+        #   as the SFS and PCA models/
+        attributes = param_name_model_zipper()
+        extracted_features = pd.DataFrame()
+        for params, name, model in attributes:
+            logger.info('%s Results:\n' %(name))
+
+            # Create the needed directories if they don't exist.
+            if os.path.exists(path + '/%s' %(name)) == False:
+                os.mkdir('%s' %(name))
+            if os.path.exists(path + '/%s/sfs' %(name)) == False:
+                os.mkdir('%s/sfs' %(name))
+            if os.path.exists(path + '/SFS Extracted Features') == False:
+                os.mkdir('SFS Extracted Features')
+
+            # If the .joblib files have been saved already from previous runs, use them.  If not, create new ones and save
+            #   them in the SFS only folder.
+            if os.path.exists(path + '/%s/sfs-pca/%s %2.2f fs.joblib' %(name, name, threshold)) == True:
+                sfs = load(path + '/%s/sfs-pca/%s %2.2f fs.joblib' %(name, name, threshold))
+                x = sfs.transform(x)
+            else:
+                x, sfs = forward_selection(x, y, model)
+                dump(sfs, path + '/%s/sfs/%s %2.2f fs' %(name, name, threshold))
+
+            # We will want to show our extracted features from sfs
+            extracted_features[name] = sfs.get_feature_names_out()
+
+            # Next we run the trainer to optimize.
+            results = classifier_trainer(df, x, y, params, model)
+
+            # Exporting the gridsearch results.
+            results.to_csv(path + '/%s/sfs/%s SFS only results with threshold %2.2f.csv' %(name, name, threshold))
+        
+        # Exporting the extracted features.
+        extracted_features.to_csv(path + '/SFS Extracted Features/Saved Features for Threshold %2.2f.csv' %(threshold))
+
+def pca_tuning(threshold):
+
+    path = os.getcwd()
+
+    # DataFrame importing and adding 'Bucket' column
+    df, _ = import_data()
+    df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
+
+    # Get x and y values.
+    x = df[df.columns[1:573]]
+    y = df['Bucket']
+
+    # Add minMaxScaler here to reduce overfitting.
+    scaler = MinMaxScaler()
+    scaler.fit(x)
+    x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+
+    attributes = param_name_model_zipper()
+
+    for params, name, model in attributes:
+        x = df[df.columns[1:573]]
+        sfs = load(path + '/%s/sfs/%s %2.2f fs.joblib' %(name, name, threshold))
+        x = sfs.transform(x)
+
+        if os.path.exists(path + '/%s/PCA Tuning' %(name)) == False:
+            os.mkdir('%s/PCA Tuning' %(name))
+
+        logger.info('Beginning PCA only section')
+        pca = PCA()
+        pca.fit(x)
 
 
-        # Save the forward selection and pca models to external .joblib files.
-        dump(sfs, '%s %2.2f fs.joblib' %(name, threshold))
-        dump(pca, '%s %2.2f pca.joblib' %(name, threshold))
+def param_name_model_zipper():
+    """
+    Zips up and creates 
+    """
+    
+    # Create the feature set for the 3 classifiers.  Put them all into an array.
+    rbf_params = {'gamma': [1e-1,1e-2,1e-3,1e-4,'scale','auto'], 'C': [5,10,50,100,250,500,1000],
+                  'class_weight': [None,'balanced'], 'break_ties': [False,True]}
+    xgb_params = {'max_depth': np.arange(2,11,1), 'n_estimators': np.arange(1,25,1), 'gamma': np.arange(0,4,1),
+                  'subsample': [0.5,1], 'lambda': [1,5,9], 'alpha': np.arange(0,1.1,0.2)}
+    rfc_params = {'criterion': ['gini','entropy'], 'max_features': ['sqrt','log2',1.0,0.3], 'ccp_alpha': np.arange(0,0.3,0.1),
+                  'n_estimators': np.arange(1,25,1), 'max_depth': np.arange(2,11,1)}
+    params_list = [rbf_params, xgb_params, rfc_params]
 
+    # Create the string titles for the various models.
+    rbf_name = 'SVC with RBF Kernel'
+    xgb_name = 'XGBoost Classifier'
+    rfc_name = 'Random Forest Classifier'
+    names = [rbf_name, xgb_name, rfc_name]
+
+    # Create the models.  We've selected our 'base' hyperparameters from earlier.
+
+    # Mean_Test_Score = 0.394548, Std_Test_score = 0.133936, mean_train_score = 0.94489, std_train_score = 0.022332.  It looks like
+    # when gamma = 0.01, C = 1 and when gamma = 0.001, c = 100.  break_ties can be true or false.  no effect.  class weight always 'None'
+    rbf = SVC(C=10,gamma=0.01,break_ties=True,class_weight=None)
+
+    # mean_test_score = 0.43961, std_test_score = 0.0879, mean_train_score = 0.854369, std_train_score = 0.32907
+    # Max depth doesn't seem to matter too much past 3.
+    # Another parameter set can be {'alpha': 0.4, 'gamma': 0, 'lambda': 5, 'max_depth': 9, 'n_estimators': 9, 'subsample': 0.5}
+    # mean_test_score = 0.466982, std_test_score = 0.070494, mean_train_score = 0.815888, std_train_score = 0.049071
+    xgb = XGBClassifier(alpha=1.0,gamma=1,reg_lambda=1,max_depth=4,n_estimators=22,subsample=0.5)
+
+    # mean_test_score = 0.465951, std_test_score = 0.056089, mean_test_score = 0.894403, std_train_score = 0.01336
+    rfc = RandomForestClassifier(ccp_alpha=0.0,criterion='gini',max_depth=3,max_features='sqrt',n_estimators=23)
+    models = [rbf, xgb, rfc]
+
+    # In a for loop, create a directory for the 3 models and then deposit the hyperparameter tuning results as well
+    #   as the SFS and PCA models/
+    attributes = zip(params_list, names, models)
+
+    return attributes
 
 
 def ki_pipeline(df=pd.DataFrame(), base_range=(-10,10)):
@@ -563,33 +716,88 @@ def regressor():
     ki_pipeline(df_large, base_range)
     ki_pipeline(df_small, base_range)
 
+def hyperparameter_pipeline(threshold):
+    """
+    This function is responsible for testing and optimizing for our hyperparameters.  The models used will be:
+        SVC w/RBF kernel, Random Forest Classifier, and XGBoost Classifier.  This is the first stage of hyperparameter
+        tuning to be done before Forward Selection and Principal Component Analysis.
+
+    Parameters
+    ----------
+    threshold: int value that we are setting to be our threshold between the small and large buckets.
+    """
+
+    # Import the data.
+    df, _ = import_data()
+    path = os.getcwd()
+
+    # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
+    # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000   
+    df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
+
+    # Create the x and y values.  X = all the features.  y = the columns of buckets
+    x = df[df.columns[1:573]]
+    y = df[df.columns[575]]
+
+    # Add MinMaxScaler here.  Data seems to be overfitting.
+    scaler = MinMaxScaler()
+    scaler.fit(x)
+    x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+
+
+    # Create the feature set for the 3 classifiers.
+    rbf_params = {'gamma': [1e-1,1e-2,1e-3,1e-4,'scale','auto'], 'C': [5,10,50,100,250,500,1000],
+                  'class_weight': [None,'balanced'], 'break_ties': [False,True]}
+    xgb_params = {'max_depth': np.arange(2,11,1), 'n_estimators': np.arange(1,25,1), 'gamma': np.arange(0,4,1),
+                  'subsample': [0.5,1], 'lambda': [1,5,9], 'alpha': np.arange(0,1.1,0.2)}
+    rfc_params = {'criterion': ['gini','entropy'], 'max_features': ['sqrt','log2',1.0,0.3], 'ccp_alpha': np.arange(0,0.3,0.1),
+                  'n_estimators': np.arange(1,25,1), 'max_depth': np.arange(2,11,1)}
+    all_params = [rbf_params, xgb_params, rfc_params]
+
+    # Models and names
+    models = [SVC(), XGBClassifier(), RandomForestClassifier()]
+    names = ['XGB', 'RFC', 'RBF']
+    
+    # Classifier Training for all 3 classifiers.
+    for name, model, params in zip(names, models, all_params):
+        if os.path.exists(path + '/Initial Hyperparameter Tuning/') == False:
+            os.mkdir('Initial Hyperparameter Tuning')
+        results = classifier_trainer(df, x, y, params, model=model)
+        results.to_csv(path + '/Initial Hyperparameter Tuning/%s Initial Hyperparameter Tuning.csv' %(name))
 
 
 ## Use argparse to pass various thresholds.
 parser = argparse.ArgumentParser()
 parser.add_argument('-t', '--threshold', help='threshold = set the threshold to split the dataset into'
                     ' large and small buckets', type=float)
-parser.add_argument('-b', '--bucket', help='bucket = generate the final model that splits the dataset'
-                    ' into large and small buckets', action='store_true')
 parser.add_argument('-r', '--regression', help='regression = use the pre-generated models to apply'
                     ' regression onto the whole dataset.', action='store_true')
+parser.add_argument('-ht', '--hyperparameter_test', help='hyperparameter_test = test for various hyperparameters',
+                    action='store_true')
+parser.add_argument('-sfs', '--sfs_only', help='sfs_only = only do Sequential Forward Selection.  Note: do not do this'
+                    ' until after you already passed the --threshold argument at least once.', type=float)
            
 args = parser.parse_args()
 
 threshold = args.threshold
-bucket = args.bucket
 regression = args.regression
+hyperparameter_test = args.hyperparameter_test
+sfsonly = args.sfs_only
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
 if threshold != None:
-    logger=log_files('threshold.log')
+    logger = log_files('threshold.log')
     threshold_finder(threshold)
-elif bucket == True:
-    logger=log_files('bucket.log')
-    fs_pca_extractor()      # Comment this out once you've finished getting the .joblib files.
+elif hyperparameter_test == True:
+    logger = log_files('hyperparameter test.log')
+    threshold = 10
+    hyperparameter_pipeline(threshold)
 elif regression == True:
-    logger=log_files('regressor.log')
+    logger = log_files('regressor.log')
     regressor()
+elif sfsonly != None:
+    logger = log_files('forward selection only.log')
+    forward_selection_only(sfsonly)
 
 ## Add email to the slurm address to get notifications.
 

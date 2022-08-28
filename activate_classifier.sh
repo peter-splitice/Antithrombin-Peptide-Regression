@@ -18,7 +18,7 @@ module load python3
 
 source /home/007457801/antithrombin/env/bin/activate
 
-for n in 0.5 3 14 17;
+for n in 0.01 0.1 0.5 5 10 15 18;
 do 
     echo 'Threshold level' $n 'starting'
     python3 ./bucket_classifier.py -t $n
