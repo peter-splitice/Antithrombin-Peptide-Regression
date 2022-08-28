@@ -1,189 +1,616 @@
-2022-08-09 16:48:48,277 | INFO | Threshold of 0.010 provides Large bucket size: 46, Small Bucket size: 18, Extra Bucket size: 9
-2022-08-09 16:48:48,278 | INFO | 
-SVC w/RBF Kernel Results:
-2022-08-09 16:59:34,167 | INFO | Training Accuracy: 0.931, Training MCC: 0.875, Validation Accuracy: 0.867, Validation MCC: 0.564, Fold: 1
-2022-08-09 16:59:34,170 | INFO | Training Accuracy: 0.914, Training MCC: 0.823, Validation Accuracy: 0.800, Validation MCC: 0.668, Fold: 2
-2022-08-09 16:59:34,174 | INFO | Training Accuracy: 0.931, Training MCC: 0.858, Validation Accuracy: 0.533, Validation MCC: 0.259, Fold: 3
-2022-08-09 16:59:34,178 | INFO | Training Accuracy: 0.914, Training MCC: 0.844, Validation Accuracy: 0.800, Validation MCC: 0.463, Fold: 4
-2022-08-09 16:59:34,181 | INFO | Training Accuracy: 0.931, Training MCC: 0.861, Validation Accuracy: 0.800, Validation MCC: 0.668, Fold: 5
-2022-08-09 16:59:34,181 | INFO | AVG Training Accuracy: 0.924, AVG Training MCC: 0.852, AVG Validation Accuracy: 0.760, AVG Validation MCC: 0.524
-2022-08-09 16:59:34,181 | INFO | 
-XGBoost Classifier Results:
-2022-08-09 19:07:43,710 | INFO | Training Accuracy: 0.966, Training MCC: 0.939, Validation Accuracy: 0.733, Validation MCC: 0.224, Fold: 1
-2022-08-09 19:07:43,759 | INFO | Training Accuracy: 0.948, Training MCC: 0.895, Validation Accuracy: 0.533, Validation MCC: 0.157, Fold: 2
-2022-08-09 19:07:43,819 | INFO | Training Accuracy: 0.983, Training MCC: 0.965, Validation Accuracy: 0.533, Validation MCC: 0.174, Fold: 3
-2022-08-09 19:07:43,869 | INFO | Training Accuracy: 0.966, Training MCC: 0.938, Validation Accuracy: 0.600, Validation MCC: -0.035, Fold: 4
-2022-08-09 19:07:43,948 | INFO | Training Accuracy: 0.948, Training MCC: 0.897, Validation Accuracy: 0.600, Validation MCC: 0.269, Fold: 5
-2022-08-09 19:07:43,949 | INFO | AVG Training Accuracy: 0.962, AVG Training MCC: 0.927, AVG Validation Accuracy: 0.600, AVG Validation MCC: 0.158
-2022-08-09 19:07:43,949 | INFO | 
-Random Forest Classifier Results:
-2022-08-09 22:11:46,437 | INFO | Training Accuracy: 0.983, Training MCC: 0.969, Validation Accuracy: 0.867, Validation MCC: 0.564, Fold: 1
-2022-08-09 22:11:46,511 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.000, Fold: 2
-2022-08-09 22:11:46,585 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.000, Fold: 3
-2022-08-09 22:11:46,659 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.065, Fold: 4
-2022-08-09 22:11:46,734 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.296, Fold: 5
-2022-08-09 22:11:46,734 | INFO | AVG Training Accuracy: 0.997, AVG Training MCC: 0.994, AVG Validation Accuracy: 0.600, AVG Validation MCC: 0.185
-2022-08-09 22:11:46,734 | INFO | -----------------------------------------------------
-2022-08-09 22:11:46,735 | INFO | 
-2022-08-09 22:12:08,207 | INFO | Threshold of 0.100 provides Large bucket size: 38, Small Bucket size: 26, Extra Bucket size: 9
-2022-08-09 22:12:08,207 | INFO | 
-SVC w/RBF Kernel Results:
-2022-08-09 22:23:09,698 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.296, Fold: 1
-2022-08-09 22:23:09,701 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.000, Fold: 2
-2022-08-09 22:23:09,704 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: 0.000, Fold: 3
-2022-08-09 22:23:09,708 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.733, Validation MCC: 0.393, Fold: 4
-2022-08-09 22:23:09,711 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.533, Validation MCC: 0.333, Fold: 5
-2022-08-09 22:23:09,711 | INFO | AVG Training Accuracy: 1.000, AVG Training MCC: 1.000, AVG Validation Accuracy: 0.547, AVG Validation MCC: 0.204
-2022-08-09 22:23:09,711 | INFO | 
-XGBoost Classifier Results:
-2022-08-10 00:53:31,475 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.667, Validation MCC: 0.390, Fold: 1
-2022-08-10 00:53:31,531 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: -0.077, Fold: 2
-2022-08-10 00:53:31,578 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.227, Fold: 3
-2022-08-10 00:53:31,620 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: -0.098, Fold: 4
-2022-08-10 00:53:31,662 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.074, Fold: 5
-2022-08-10 00:53:31,663 | INFO | AVG Training Accuracy: 1.000, AVG Training MCC: 1.000, AVG Validation Accuracy: 0.480, AVG Validation MCC: 0.103
-2022-08-10 00:53:31,663 | INFO | 
-Random Forest Classifier Results:
-2022-08-10 03:45:39,987 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.533, Validation MCC: 0.111, Fold: 1
-2022-08-10 03:45:40,030 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.267, Validation MCC: -0.472, Fold: 2
-2022-08-10 03:45:40,074 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.101, Fold: 3
-2022-08-10 03:45:40,117 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.533, Validation MCC: 0.232, Fold: 4
-2022-08-10 03:45:40,160 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.667, Validation MCC: 0.447, Fold: 5
-2022-08-10 03:45:40,160 | INFO | AVG Training Accuracy: 1.000, AVG Training MCC: 1.000, AVG Validation Accuracy: 0.493, AVG Validation MCC: 0.084
-2022-08-10 03:45:40,161 | INFO | -----------------------------------------------------
-2022-08-10 03:45:40,161 | INFO | 
-2022-08-10 07:57:59,124 | INFO | Threshold of 0.500 provides Large bucket size: 34, Small Bucket size: 30, Extra Bucket size: 9
-2022-08-10 07:57:59,124 | INFO | 
-SVC w/RBF Kernel Results:
-2022-08-10 08:08:29,614 | INFO | Training Accuracy: 0.862, Training MCC: 0.780, Validation Accuracy: 0.733, Validation MCC: 0.551, Fold: 1
-2022-08-10 08:08:29,616 | INFO | Training Accuracy: 0.828, Training MCC: 0.728, Validation Accuracy: 0.600, Validation MCC: 0.257, Fold: 2
-2022-08-10 08:08:29,619 | INFO | Training Accuracy: 0.862, Training MCC: 0.782, Validation Accuracy: 0.600, Validation MCC: 0.225, Fold: 3
-2022-08-10 08:08:29,621 | INFO | Training Accuracy: 0.845, Training MCC: 0.749, Validation Accuracy: 0.467, Validation MCC: 0.164, Fold: 4
-2022-08-10 08:08:29,624 | INFO | Training Accuracy: 0.845, Training MCC: 0.747, Validation Accuracy: 0.733, Validation MCC: 0.543, Fold: 5
-2022-08-10 08:08:29,624 | INFO | AVG Training Accuracy: 0.848, AVG Training MCC: 0.757, AVG Validation Accuracy: 0.627, AVG Validation MCC: 0.348
-2022-08-10 08:08:29,624 | INFO | 
-XGBoost Classifier Results:
-2022-08-10 10:25:55,164 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: -0.121, Fold: 1
-2022-08-10 10:25:55,216 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.267, Validation MCC: -0.312, Fold: 2
-2022-08-10 10:25:55,269 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: -0.085, Fold: 3
-2022-08-10 10:25:55,323 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: 0.227, Fold: 4
-2022-08-10 10:25:55,378 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: 0.050, Fold: 5
-2022-08-10 10:25:55,378 | INFO | AVG Training Accuracy: 1.000, AVG Training MCC: 1.000, AVG Validation Accuracy: 0.373, AVG Validation MCC: -0.048
-2022-08-10 10:25:55,379 | INFO | 
-Random Forest Classifier Results:
-2022-08-10 13:14:16,881 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.533, Validation MCC: 0.174, Fold: 1
-2022-08-10 13:14:16,960 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: -0.126, Fold: 2
-2022-08-10 13:14:17,037 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.180, Fold: 3
-2022-08-10 13:14:17,114 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: 0.171, Fold: 4
-2022-08-10 13:14:17,190 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.600, Validation MCC: 0.445, Fold: 5
-2022-08-10 13:14:17,191 | INFO | AVG Training Accuracy: 0.993, AVG Training MCC: 0.989, AVG Validation Accuracy: 0.480, AVG Validation MCC: 0.169
-2022-08-10 13:14:17,191 | INFO | -----------------------------------------------------
-2022-08-10 13:14:17,191 | INFO | 
-2022-08-10 13:14:34,532 | INFO | Threshold of 5.000 provides Large bucket size: 25, Small Bucket size: 39, Extra Bucket size: 9
-2022-08-10 13:14:34,533 | INFO | 
-SVC w/RBF Kernel Results:
-2022-08-10 13:25:23,100 | INFO | Training Accuracy: 0.897, Training MCC: 0.834, Validation Accuracy: 0.733, Validation MCC: 0.442, Fold: 1
-2022-08-10 13:25:23,103 | INFO | Training Accuracy: 0.879, Training MCC: 0.802, Validation Accuracy: 0.733, Validation MCC: 0.360, Fold: 2
-2022-08-10 13:25:23,106 | INFO | Training Accuracy: 0.931, Training MCC: 0.888, Validation Accuracy: 0.867, Validation MCC: 0.686, Fold: 3
-2022-08-10 13:25:23,110 | INFO | Training Accuracy: 0.879, Training MCC: 0.787, Validation Accuracy: 0.533, Validation MCC: 0.248, Fold: 4
-2022-08-10 13:25:23,113 | INFO | Training Accuracy: 0.897, Training MCC: 0.823, Validation Accuracy: 0.667, Validation MCC: 0.390, Fold: 5
-2022-08-10 13:25:23,113 | INFO | AVG Training Accuracy: 0.897, AVG Training MCC: 0.827, AVG Validation Accuracy: 0.707, AVG Validation MCC: 0.425
-2022-08-10 13:25:23,113 | INFO | 
-XGBoost Classifier Results:
-2022-08-10 15:42:15,408 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.153, Fold: 1
-2022-08-10 15:42:15,434 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.600, Validation MCC: 0.034, Fold: 2
-2022-08-10 15:42:15,457 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.667, Validation MCC: 0.463, Fold: 3
-2022-08-10 15:42:15,483 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.533, Validation MCC: 0.300, Fold: 4
-2022-08-10 15:42:15,508 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.600, Validation MCC: 0.251, Fold: 5
-2022-08-10 15:42:15,508 | INFO | AVG Training Accuracy: 0.990, AVG Training MCC: 0.982, AVG Validation Accuracy: 0.600, AVG Validation MCC: 0.240
-2022-08-10 15:42:15,509 | INFO | 
-Random Forest Classifier Results:
-2022-08-10 18:39:14,841 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.533, Validation MCC: 0.088, Fold: 1
-2022-08-10 18:39:14,882 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.051, Fold: 2
-2022-08-10 18:39:14,924 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: -0.116, Fold: 3
-2022-08-10 18:39:14,967 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.200, Validation MCC: -0.363, Fold: 4
-2022-08-10 18:39:15,008 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: -0.290, Fold: 5
-2022-08-10 18:39:15,008 | INFO | AVG Training Accuracy: 1.000, AVG Training MCC: 1.000, AVG Validation Accuracy: 0.400, AVG Validation MCC: -0.126
-2022-08-10 18:39:15,009 | INFO | -----------------------------------------------------
-2022-08-10 18:39:15,009 | INFO | 
-2022-08-10 18:39:33,290 | INFO | Threshold of 10.000 provides Large bucket size: 20, Small Bucket size: 44, Extra Bucket size: 9
-2022-08-10 18:39:33,291 | INFO | 
-SVC w/RBF Kernel Results:
-2022-08-10 18:50:32,050 | INFO | Training Accuracy: 0.931, Training MCC: 0.880, Validation Accuracy: 0.800, Validation MCC: 0.538, Fold: 1
-2022-08-10 18:50:32,053 | INFO | Training Accuracy: 0.914, Training MCC: 0.848, Validation Accuracy: 0.800, Validation MCC: 0.443, Fold: 2
-2022-08-10 18:50:32,056 | INFO | Training Accuracy: 0.931, Training MCC: 0.877, Validation Accuracy: 0.867, Validation MCC: 0.686, Fold: 3
-2022-08-10 18:50:32,058 | INFO | Training Accuracy: 0.914, Training MCC: 0.836, Validation Accuracy: 0.733, Validation MCC: 0.543, Fold: 4
-2022-08-10 18:50:32,061 | INFO | Training Accuracy: 0.948, Training MCC: 0.902, Validation Accuracy: 0.667, Validation MCC: 0.390, Fold: 5
-2022-08-10 18:50:32,062 | INFO | AVG Training Accuracy: 0.928, AVG Training MCC: 0.869, AVG Validation Accuracy: 0.773, AVG Validation MCC: 0.520
-2022-08-10 18:50:32,062 | INFO | 
-XGBoost Classifier Results:
-2022-08-10 21:00:58,692 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.733, Validation MCC: 0.459, Fold: 1
-2022-08-10 21:00:58,726 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.533, Validation MCC: -0.010, Fold: 2
-2022-08-10 21:00:58,756 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.800, Validation MCC: 0.648, Fold: 3
-2022-08-10 21:00:58,783 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.261, Fold: 4
-2022-08-10 21:00:58,813 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: -0.074, Fold: 5
-2022-08-10 21:00:58,814 | INFO | AVG Training Accuracy: 1.000, AVG Training MCC: 1.000, AVG Validation Accuracy: 0.613, AVG Validation MCC: 0.257
-2022-08-10 21:00:58,814 | INFO | 
-Random Forest Classifier Results:
-2022-08-11 00:09:24,236 | INFO | Training Accuracy: 0.914, Training MCC: 0.854, Validation Accuracy: 0.733, Validation MCC: 0.459, Fold: 1
-2022-08-11 00:09:24,317 | INFO | Training Accuracy: 0.931, Training MCC: 0.886, Validation Accuracy: 0.333, Validation MCC: -0.417, Fold: 2
-2022-08-11 00:09:24,397 | INFO | Training Accuracy: 0.948, Training MCC: 0.908, Validation Accuracy: 0.467, Validation MCC: 0.116, Fold: 3
-2022-08-11 00:09:24,475 | INFO | Training Accuracy: 0.879, Training MCC: 0.804, Validation Accuracy: 0.467, Validation MCC: 0.000, Fold: 4
-2022-08-11 00:09:24,552 | INFO | Training Accuracy: 0.966, Training MCC: 0.935, Validation Accuracy: 0.400, Validation MCC: -0.049, Fold: 5
-2022-08-11 00:09:24,552 | INFO | AVG Training Accuracy: 0.928, AVG Training MCC: 0.877, AVG Validation Accuracy: 0.480, AVG Validation MCC: 0.022
-2022-08-11 00:09:24,553 | INFO | -----------------------------------------------------
-2022-08-11 00:09:24,553 | INFO | 
-2022-08-11 00:09:44,346 | INFO | Threshold of 15.000 provides Large bucket size: 19, Small Bucket size: 45, Extra Bucket size: 9
-2022-08-11 00:09:44,346 | INFO | 
-SVC w/RBF Kernel Results:
-2022-08-11 00:21:03,239 | INFO | Training Accuracy: 0.931, Training MCC: 0.877, Validation Accuracy: 0.800, Validation MCC: 0.538, Fold: 1
-2022-08-11 00:21:03,242 | INFO | Training Accuracy: 0.914, Training MCC: 0.844, Validation Accuracy: 0.800, Validation MCC: 0.443, Fold: 2
-2022-08-11 00:21:03,245 | INFO | Training Accuracy: 0.948, Training MCC: 0.907, Validation Accuracy: 0.867, Validation MCC: 0.686, Fold: 3
-2022-08-11 00:21:03,250 | INFO | Training Accuracy: 0.914, Training MCC: 0.831, Validation Accuracy: 0.667, Validation MCC: 0.402, Fold: 4
-2022-08-11 00:21:03,253 | INFO | Training Accuracy: 0.931, Training MCC: 0.866, Validation Accuracy: 0.667, Validation MCC: 0.390, Fold: 5
-2022-08-11 00:21:03,254 | INFO | AVG Training Accuracy: 0.928, AVG Training MCC: 0.865, AVG Validation Accuracy: 0.760, AVG Validation MCC: 0.492
-2022-08-11 00:21:03,254 | INFO | 
-XGBoost Classifier Results:
-2022-08-11 02:28:21,182 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.733, Validation MCC: 0.355, Fold: 1
-2022-08-11 02:28:21,229 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.533, Validation MCC: -0.143, Fold: 2
-2022-08-11 02:28:21,273 | INFO | Training Accuracy: 0.983, Training MCC: 0.969, Validation Accuracy: 0.867, Validation MCC: 0.667, Fold: 3
-2022-08-11 02:28:21,327 | INFO | Training Accuracy: 0.983, Training MCC: 0.967, Validation Accuracy: 0.533, Validation MCC: 0.209, Fold: 4
-2022-08-11 02:28:21,374 | INFO | Training Accuracy: 0.983, Training MCC: 0.968, Validation Accuracy: 0.533, Validation MCC: 0.049, Fold: 5
-2022-08-11 02:28:21,374 | INFO | AVG Training Accuracy: 0.983, AVG Training MCC: 0.969, AVG Validation Accuracy: 0.640, AVG Validation MCC: 0.228
-2022-08-11 02:28:21,374 | INFO | 
-Random Forest Classifier Results:
-2022-08-11 05:21:54,083 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.533, Validation MCC: 0.184, Fold: 1
-2022-08-11 05:21:54,162 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.600, Validation MCC: 0.022, Fold: 2
-2022-08-11 05:21:54,239 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.733, Validation MCC: 0.255, Fold: 3
-2022-08-11 05:21:54,317 | INFO | Training Accuracy: 0.983, Training MCC: 0.968, Validation Accuracy: 0.467, Validation MCC: -0.197, Fold: 4
-2022-08-11 05:21:54,393 | INFO | Training Accuracy: 0.983, Training MCC: 0.967, Validation Accuracy: 0.467, Validation MCC: -0.062, Fold: 5
-2022-08-11 05:21:54,394 | INFO | AVG Training Accuracy: 0.983, AVG Training MCC: 0.969, AVG Validation Accuracy: 0.560, AVG Validation MCC: 0.040
-2022-08-11 05:21:54,394 | INFO | -----------------------------------------------------
-2022-08-11 05:21:54,394 | INFO | 
-2022-08-11 05:22:14,454 | INFO | Threshold of 18.000 provides Large bucket size: 18, Small Bucket size: 46, Extra Bucket size: 9
-2022-08-11 05:22:14,454 | INFO | 
-SVC w/RBF Kernel Results:
-2022-08-11 05:33:13,658 | INFO | Training Accuracy: 0.931, Training MCC: 0.875, Validation Accuracy: 0.800, Validation MCC: 0.000, Fold: 1
-2022-08-11 05:33:13,661 | INFO | Training Accuracy: 0.897, Training MCC: 0.809, Validation Accuracy: 0.800, Validation MCC: 0.448, Fold: 2
-2022-08-11 05:33:13,664 | INFO | Training Accuracy: 0.914, Training MCC: 0.840, Validation Accuracy: 0.800, Validation MCC: 0.463, Fold: 3
-2022-08-11 05:33:13,667 | INFO | Training Accuracy: 0.914, Training MCC: 0.832, Validation Accuracy: 0.533, Validation MCC: 0.136, Fold: 4
-2022-08-11 05:33:13,669 | INFO | Training Accuracy: 0.931, Training MCC: 0.862, Validation Accuracy: 0.733, Validation MCC: 0.529, Fold: 5
-2022-08-11 05:33:13,670 | INFO | AVG Training Accuracy: 0.917, AVG Training MCC: 0.844, AVG Validation Accuracy: 0.733, AVG Validation MCC: 0.315
-2022-08-11 05:33:13,670 | INFO | 
-XGBoost Classifier Results:
-2022-08-11 07:48:25,762 | INFO | Training Accuracy: 0.983, Training MCC: 0.969, Validation Accuracy: 0.467, Validation MCC: -0.232, Fold: 1
-2022-08-11 07:48:25,806 | INFO | Training Accuracy: 0.983, Training MCC: 0.969, Validation Accuracy: 0.600, Validation MCC: -0.073, Fold: 2
-2022-08-11 07:48:25,849 | INFO | Training Accuracy: 0.983, Training MCC: 0.969, Validation Accuracy: 0.400, Validation MCC: -0.197, Fold: 3
-2022-08-11 07:48:25,895 | INFO | Training Accuracy: 0.983, Training MCC: 0.968, Validation Accuracy: 0.400, Validation MCC: -0.318, Fold: 4
-2022-08-11 07:48:25,937 | INFO | Training Accuracy: 0.983, Training MCC: 0.966, Validation Accuracy: 0.400, Validation MCC: -0.215, Fold: 5
-2022-08-11 07:48:25,937 | INFO | AVG Training Accuracy: 0.983, AVG Training MCC: 0.968, AVG Validation Accuracy: 0.453, AVG Validation MCC: -0.207
-2022-08-11 07:48:25,938 | INFO | 
-Random Forest Classifier Results:
-2022-08-11 10:43:53,597 | INFO | Training Accuracy: 0.948, Training MCC: 0.914, Validation Accuracy: 0.667, Validation MCC: -0.127, Fold: 1
-2022-08-11 10:43:53,710 | INFO | Training Accuracy: 0.914, Training MCC: 0.863, Validation Accuracy: 0.600, Validation MCC: 0.253, Fold: 2
-2022-08-11 10:43:53,822 | INFO | Training Accuracy: 0.931, Training MCC: 0.877, Validation Accuracy: 0.400, Validation MCC: -0.116, Fold: 3
-2022-08-11 10:43:53,933 | INFO | Training Accuracy: 0.914, Training MCC: 0.857, Validation Accuracy: 0.533, Validation MCC: 0.021, Fold: 4
-2022-08-11 10:43:54,046 | INFO | Training Accuracy: 0.966, Training MCC: 0.936, Validation Accuracy: 0.467, Validation MCC: -0.197, Fold: 5
-2022-08-11 10:43:54,046 | INFO | AVG Training Accuracy: 0.934, AVG Training MCC: 0.889, AVG Validation Accuracy: 0.533, AVG Validation MCC: -0.033
-2022-08-11 10:43:54,047 | INFO | -----------------------------------------------------
-2022-08-11 10:43:54,047 | INFO | 
+2022-08-27 10:51:44,644 | INFO | Threshold of 0.01 provides Large bucket size: 46, Small Bucket size: 18, Extra Bucket size: 9
+
+2022-08-27 10:51:44,654 | INFO | SVC with RBF Kernel Results:
+
+2022-08-27 11:02:40,864 | INFO | SFS only results:
+
+2022-08-27 11:02:41,226 | INFO | Best parameter set: {'C': 10, 'break_ties': False, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 11:02:41,226 | INFO | Best MCC score: 0.598
+
+2022-08-27 11:02:41,231 | INFO | Training Accuracy: 0.948, Training MCC: 0.908, Validation Accuracy: 0.933, Validation MCC: 0.796, Fold: 1
+2022-08-27 11:02:41,235 | INFO | Training Accuracy: 0.948, Training MCC: 0.895, Validation Accuracy: 0.667, Validation MCC: 0.472, Fold: 2
+2022-08-27 11:02:41,240 | INFO | Training Accuracy: 0.966, Training MCC: 0.930, Validation Accuracy: 0.533, Validation MCC: 0.324, Fold: 3
+2022-08-27 11:02:41,243 | INFO | Training Accuracy: 0.966, Training MCC: 0.937, Validation Accuracy: 0.533, Validation MCC: 0.158, Fold: 4
+2022-08-27 11:02:41,247 | INFO | Training Accuracy: 0.948, Training MCC: 0.898, Validation Accuracy: 0.800, Validation MCC: 0.668, Fold: 5
+2022-08-27 11:02:41,248 | INFO | AVG Training Accuracy: 0.955, AVG Training MCC: 0.914, AVG Validation Accuracy: 0.693, AVG Validation MCC: 0.484
+
+2022-08-27 11:02:41,252 | INFO | Results after PCA:
+
+2022-08-27 11:02:41,577 | INFO | Best parameter set: {'C': 10, 'break_ties': False, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 11:02:41,577 | INFO | Best MCC score: 0.598
+
+2022-08-27 11:02:41,581 | INFO | Training Accuracy: 0.948, Training MCC: 0.908, Validation Accuracy: 0.933, Validation MCC: 0.796, Fold: 1
+2022-08-27 11:02:41,585 | INFO | Training Accuracy: 0.948, Training MCC: 0.895, Validation Accuracy: 0.667, Validation MCC: 0.472, Fold: 2
+2022-08-27 11:02:41,588 | INFO | Training Accuracy: 0.966, Training MCC: 0.930, Validation Accuracy: 0.533, Validation MCC: 0.324, Fold: 3
+2022-08-27 11:02:41,591 | INFO | Training Accuracy: 0.966, Training MCC: 0.937, Validation Accuracy: 0.533, Validation MCC: 0.158, Fold: 4
+2022-08-27 11:02:41,595 | INFO | Training Accuracy: 0.948, Training MCC: 0.898, Validation Accuracy: 0.800, Validation MCC: 0.668, Fold: 5
+2022-08-27 11:02:41,596 | INFO | AVG Training Accuracy: 0.955, AVG Training MCC: 0.914, AVG Validation Accuracy: 0.693, AVG Validation MCC: 0.484
+
+2022-08-27 11:02:41,603 | INFO | XGBoost Classifier Results:
+
+2022-08-27 11:44:55,211 | INFO | SFS only results:
+
+2022-08-27 11:50:12,007 | INFO | Best parameter set: {'alpha': 1.0, 'gamma': 1, 'lambda': 1, 'max_depth': 4, 'n_estimators': 22, 'subsample': 0.5}
+
+2022-08-27 11:50:12,008 | INFO | Best MCC score: 0.603
+
+2022-08-27 11:50:12,053 | INFO | Training Accuracy: 0.793, Training MCC: 0.627, Validation Accuracy: 0.733, Validation MCC: 0.243, Fold: 1
+2022-08-27 11:50:12,076 | INFO | Training Accuracy: 0.810, Training MCC: 0.595, Validation Accuracy: 0.467, Validation MCC: 0.000, Fold: 2
+2022-08-27 11:50:12,100 | INFO | Training Accuracy: 0.759, Training MCC: 0.445, Validation Accuracy: 0.467, Validation MCC: 0.000, Fold: 3
+2022-08-27 11:50:12,121 | INFO | Training Accuracy: 0.810, Training MCC: 0.649, Validation Accuracy: 0.600, Validation MCC: 0.065, Fold: 4
+2022-08-27 11:50:12,144 | INFO | Training Accuracy: 0.810, Training MCC: 0.610, Validation Accuracy: 0.600, Validation MCC: 0.246, Fold: 5
+2022-08-27 11:50:12,146 | INFO | AVG Training Accuracy: 0.797, AVG Training MCC: 0.585, AVG Validation Accuracy: 0.573, AVG Validation MCC: 0.111
+
+2022-08-27 11:50:12,175 | INFO | Results after PCA:
+
+2022-08-27 11:54:19,413 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 3, 'n_estimators': 23, 'subsample': 0.5}
+
+2022-08-27 11:54:19,413 | INFO | Best MCC score: 0.351
+
+2022-08-27 11:54:19,458 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.867, Validation MCC: 0.589, Fold: 1
+2022-08-27 11:54:19,477 | INFO | Training Accuracy: 0.966, Training MCC: 0.930, Validation Accuracy: 0.533, Validation MCC: 0.253, Fold: 2
+2022-08-27 11:54:19,497 | INFO | Training Accuracy: 0.983, Training MCC: 0.965, Validation Accuracy: 0.467, Validation MCC: 0.081, Fold: 3
+2022-08-27 11:54:19,516 | INFO | Training Accuracy: 0.983, Training MCC: 0.969, Validation Accuracy: 0.733, Validation MCC: 0.255, Fold: 4
+2022-08-27 11:54:19,537 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.733, Validation MCC: 0.554, Fold: 5
+2022-08-27 11:54:19,538 | INFO | AVG Training Accuracy: 0.986, AVG Training MCC: 0.973, AVG Validation Accuracy: 0.667, AVG Validation MCC: 0.346
+
+2022-08-27 11:54:19,555 | INFO | Random Forest Classifier Results:
+
+2022-08-27 12:46:10,313 | INFO | SFS only results:
+
+2022-08-27 12:46:52,562 | INFO | Best parameter set: {'ccp_alpha': 0.1, 'criterion': 'entropy', 'max_depth': 9, 'max_features': 0.3, 'n_estimators': 5}
+
+2022-08-27 12:46:52,563 | INFO | Best MCC score: 0.531
+
+2022-08-27 12:46:52,576 | INFO | Training Accuracy: 0.914, Training MCC: 0.843, Validation Accuracy: 0.667, Validation MCC: 0.171, Fold: 1
+2022-08-27 12:46:52,588 | INFO | Training Accuracy: 0.966, Training MCC: 0.930, Validation Accuracy: 0.533, Validation MCC: 0.157, Fold: 2
+2022-08-27 12:46:52,598 | INFO | Training Accuracy: 0.879, Training MCC: 0.747, Validation Accuracy: 0.533, Validation MCC: 0.182, Fold: 3
+2022-08-27 12:46:52,608 | INFO | Training Accuracy: 0.914, Training MCC: 0.851, Validation Accuracy: 0.400, Validation MCC: -0.110, Fold: 4
+2022-08-27 12:46:52,618 | INFO | Training Accuracy: 0.966, Training MCC: 0.932, Validation Accuracy: 0.733, Validation MCC: 0.554, Fold: 5
+2022-08-27 12:46:52,619 | INFO | AVG Training Accuracy: 0.928, AVG Training MCC: 0.861, AVG Validation Accuracy: 0.573, AVG Validation MCC: 0.191
+
+2022-08-27 12:46:52,630 | INFO | Results after PCA:
+
+2022-08-27 12:47:32,461 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 8, 'max_features': 'log2', 'n_estimators': 21}
+
+2022-08-27 12:47:32,461 | INFO | Best MCC score: 0.407
+
+2022-08-27 12:47:32,486 | INFO | Training Accuracy: 0.983, Training MCC: 0.969, Validation Accuracy: 0.800, Validation MCC: 0.350, Fold: 1
+2022-08-27 12:47:32,507 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.000, Fold: 2
+2022-08-27 12:47:32,528 | INFO | Training Accuracy: 0.983, Training MCC: 0.965, Validation Accuracy: 0.467, Validation MCC: 0.016, Fold: 3
+2022-08-27 12:47:32,548 | INFO | Training Accuracy: 0.983, Training MCC: 0.969, Validation Accuracy: 0.667, Validation MCC: 0.140, Fold: 4
+2022-08-27 12:47:32,569 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.533, Validation MCC: 0.072, Fold: 5
+2022-08-27 12:47:32,570 | INFO | AVG Training Accuracy: 0.990, AVG Training MCC: 0.981, AVG Validation Accuracy: 0.587, AVG Validation MCC: 0.116
+
+2022-08-27 12:47:32,581 | INFO | -----------------------------------------------------
+
+2022-08-27 12:47:51,560 | INFO | Threshold of 0.10 provides Large bucket size: 38, Small Bucket size: 26, Extra Bucket size: 9
+
+2022-08-27 12:47:51,570 | INFO | SVC with RBF Kernel Results:
+
+2022-08-27 12:58:33,426 | INFO | SFS only results:
+
+2022-08-27 12:58:33,797 | INFO | Best parameter set: {'C': 10, 'break_ties': True, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 12:58:33,797 | INFO | Best MCC score: 0.532
+
+2022-08-27 12:58:33,803 | INFO | Training Accuracy: 0.948, Training MCC: 0.913, Validation Accuracy: 0.600, Validation MCC: 0.246, Fold: 1
+2022-08-27 12:58:33,808 | INFO | Training Accuracy: 0.914, Training MCC: 0.857, Validation Accuracy: 0.667, Validation MCC: 0.379, Fold: 2
+2022-08-27 12:58:33,812 | INFO | Training Accuracy: 0.966, Training MCC: 0.940, Validation Accuracy: 0.533, Validation MCC: 0.198, Fold: 3
+2022-08-27 12:58:33,817 | INFO | Training Accuracy: 0.948, Training MCC: 0.913, Validation Accuracy: 0.467, Validation MCC: 0.042, Fold: 4
+2022-08-27 12:58:33,822 | INFO | Training Accuracy: 0.897, Training MCC: 0.818, Validation Accuracy: 0.667, Validation MCC: 0.512, Fold: 5
+2022-08-27 12:58:33,823 | INFO | AVG Training Accuracy: 0.934, AVG Training MCC: 0.888, AVG Validation Accuracy: 0.587, AVG Validation MCC: 0.275
+
+2022-08-27 12:58:33,829 | INFO | Results after PCA:
+
+2022-08-27 12:58:34,178 | INFO | Best parameter set: {'C': 10, 'break_ties': True, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 12:58:34,179 | INFO | Best MCC score: 0.532
+
+2022-08-27 12:58:34,184 | INFO | Training Accuracy: 0.948, Training MCC: 0.913, Validation Accuracy: 0.600, Validation MCC: 0.246, Fold: 1
+2022-08-27 12:58:34,188 | INFO | Training Accuracy: 0.914, Training MCC: 0.857, Validation Accuracy: 0.667, Validation MCC: 0.379, Fold: 2
+2022-08-27 12:58:34,193 | INFO | Training Accuracy: 0.966, Training MCC: 0.940, Validation Accuracy: 0.533, Validation MCC: 0.198, Fold: 3
+2022-08-27 12:58:34,197 | INFO | Training Accuracy: 0.948, Training MCC: 0.913, Validation Accuracy: 0.467, Validation MCC: 0.042, Fold: 4
+2022-08-27 12:58:34,201 | INFO | Training Accuracy: 0.897, Training MCC: 0.818, Validation Accuracy: 0.667, Validation MCC: 0.512, Fold: 5
+2022-08-27 12:58:34,202 | INFO | AVG Training Accuracy: 0.934, AVG Training MCC: 0.888, AVG Validation Accuracy: 0.587, AVG Validation MCC: 0.275
+
+2022-08-27 12:58:34,209 | INFO | XGBoost Classifier Results:
+
+2022-08-27 13:38:28,039 | INFO | SFS only results:
+
+2022-08-27 13:43:19,840 | INFO | Best parameter set: {'alpha': 1.0, 'gamma': 1, 'lambda': 1, 'max_depth': 4, 'n_estimators': 22, 'subsample': 0.5}
+
+2022-08-27 13:43:19,840 | INFO | Best MCC score: 0.458
+
+2022-08-27 13:43:19,885 | INFO | Training Accuracy: 0.793, Training MCC: 0.643, Validation Accuracy: 0.600, Validation MCC: 0.246, Fold: 1
+2022-08-27 13:43:19,908 | INFO | Training Accuracy: 0.776, Training MCC: 0.608, Validation Accuracy: 0.400, Validation MCC: -0.134, Fold: 2
+2022-08-27 13:43:19,931 | INFO | Training Accuracy: 0.776, Training MCC: 0.600, Validation Accuracy: 0.467, Validation MCC: 0.086, Fold: 3
+2022-08-27 13:43:19,954 | INFO | Training Accuracy: 0.776, Training MCC: 0.612, Validation Accuracy: 0.333, Validation MCC: -0.232, Fold: 4
+2022-08-27 13:43:19,977 | INFO | Training Accuracy: 0.828, Training MCC: 0.691, Validation Accuracy: 0.600, Validation MCC: 0.343, Fold: 5
+2022-08-27 13:43:19,978 | INFO | AVG Training Accuracy: 0.790, AVG Training MCC: 0.631, AVG Validation Accuracy: 0.480, AVG Validation MCC: 0.062
+
+2022-08-27 13:43:19,983 | INFO | Results after PCA:
+
+2022-08-27 13:47:31,940 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 1, 'lambda': 1, 'max_depth': 3, 'n_estimators': 14, 'subsample': 0.5}
+
+2022-08-27 13:47:31,940 | INFO | Best MCC score: 0.112
+
+2022-08-27 13:47:31,984 | INFO | Training Accuracy: 0.897, Training MCC: 0.825, Validation Accuracy: 0.667, Validation MCC: 0.419, Fold: 1
+2022-08-27 13:47:31,999 | INFO | Training Accuracy: 0.879, Training MCC: 0.796, Validation Accuracy: 0.600, Validation MCC: 0.285, Fold: 2
+2022-08-27 13:47:32,016 | INFO | Training Accuracy: 0.879, Training MCC: 0.791, Validation Accuracy: 0.467, Validation MCC: 0.121, Fold: 3
+2022-08-27 13:47:32,032 | INFO | Training Accuracy: 0.845, Training MCC: 0.745, Validation Accuracy: 0.600, Validation MCC: 0.245, Fold: 4
+2022-08-27 13:47:32,048 | INFO | Training Accuracy: 0.862, Training MCC: 0.759, Validation Accuracy: 0.400, Validation MCC: -0.030, Fold: 5
+2022-08-27 13:47:32,050 | INFO | AVG Training Accuracy: 0.872, AVG Training MCC: 0.783, AVG Validation Accuracy: 0.547, AVG Validation MCC: 0.208
+
+2022-08-27 13:47:32,061 | INFO | Random Forest Classifier Results:
+
+2022-08-27 14:38:32,108 | INFO | SFS only results:
+
+2022-08-27 14:39:13,707 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 9, 'max_features': 0.3, 'n_estimators': 2}
+
+2022-08-27 14:39:13,707 | INFO | Best MCC score: 0.444
+
+2022-08-27 14:39:13,717 | INFO | Training Accuracy: 0.810, Training MCC: 0.688, Validation Accuracy: 0.667, Validation MCC: 0.419, Fold: 1
+2022-08-27 14:39:13,723 | INFO | Training Accuracy: 0.931, Training MCC: 0.886, Validation Accuracy: 0.667, Validation MCC: 0.379, Fold: 2
+2022-08-27 14:39:13,729 | INFO | Training Accuracy: 0.724, Training MCC: 0.522, Validation Accuracy: 0.400, Validation MCC: -0.065, Fold: 3
+2022-08-27 14:39:13,735 | INFO | Training Accuracy: 0.879, Training MCC: 0.803, Validation Accuracy: 0.467, Validation MCC: 0.164, Fold: 4
+2022-08-27 14:39:13,742 | INFO | Training Accuracy: 0.793, Training MCC: 0.654, Validation Accuracy: 0.533, Validation MCC: 0.214, Fold: 5
+2022-08-27 14:39:13,743 | INFO | AVG Training Accuracy: 0.828, AVG Training MCC: 0.711, AVG Validation Accuracy: 0.547, AVG Validation MCC: 0.222
+
+2022-08-27 14:39:13,747 | INFO | Results after PCA:
+
+2022-08-27 14:39:53,743 | INFO | Best parameter set: {'ccp_alpha': 0.1, 'criterion': 'entropy', 'max_depth': 3, 'max_features': 0.3, 'n_estimators': 12}
+
+2022-08-27 14:39:53,743 | INFO | Best MCC score: 0.450
+
+2022-08-27 14:39:53,765 | INFO | Training Accuracy: 0.948, Training MCC: 0.913, Validation Accuracy: 0.400, Validation MCC: -0.131, Fold: 1
+2022-08-27 14:39:53,784 | INFO | Training Accuracy: 0.966, Training MCC: 0.942, Validation Accuracy: 0.467, Validation MCC: 0.000, Fold: 2
+2022-08-27 14:39:53,799 | INFO | Training Accuracy: 0.914, Training MCC: 0.853, Validation Accuracy: 0.400, Validation MCC: -0.043, Fold: 3
+2022-08-27 14:39:53,816 | INFO | Training Accuracy: 0.914, Training MCC: 0.854, Validation Accuracy: 0.333, Validation MCC: -0.109, Fold: 4
+2022-08-27 14:39:53,832 | INFO | Training Accuracy: 0.948, Training MCC: 0.911, Validation Accuracy: 0.333, Validation MCC: -0.178, Fold: 5
+2022-08-27 14:39:53,834 | INFO | AVG Training Accuracy: 0.938, AVG Training MCC: 0.895, AVG Validation Accuracy: 0.387, AVG Validation MCC: -0.092
+
+2022-08-27 14:39:53,841 | INFO | -----------------------------------------------------
+
+2022-08-27 14:40:10,145 | INFO | Threshold of 0.50 provides Large bucket size: 34, Small Bucket size: 30, Extra Bucket size: 9
+
+2022-08-27 14:40:10,154 | INFO | SVC with RBF Kernel Results:
+
+2022-08-27 14:51:05,472 | INFO | SFS only results:
+
+2022-08-27 14:51:05,862 | INFO | Best parameter set: {'C': 10, 'break_ties': False, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 14:51:05,862 | INFO | Best MCC score: 0.545
+
+2022-08-27 14:51:05,869 | INFO | Training Accuracy: 0.966, Training MCC: 0.943, Validation Accuracy: 0.467, Validation MCC: 0.037, Fold: 1
+2022-08-27 14:51:05,873 | INFO | Training Accuracy: 0.879, Training MCC: 0.812, Validation Accuracy: 0.533, Validation MCC: 0.134, Fold: 2
+2022-08-27 14:51:05,878 | INFO | Training Accuracy: 0.897, Training MCC: 0.832, Validation Accuracy: 0.333, Validation MCC: 0.000, Fold: 3
+2022-08-27 14:51:05,882 | INFO | Training Accuracy: 0.948, Training MCC: 0.913, Validation Accuracy: 0.267, Validation MCC: -0.165, Fold: 4
+2022-08-27 14:51:05,886 | INFO | Training Accuracy: 0.879, Training MCC: 0.795, Validation Accuracy: 0.600, Validation MCC: 0.445, Fold: 5
+2022-08-27 14:51:05,887 | INFO | AVG Training Accuracy: 0.914, AVG Training MCC: 0.859, AVG Validation Accuracy: 0.440, AVG Validation MCC: 0.090
+
+2022-08-27 14:51:05,892 | INFO | Results after PCA:
+
+2022-08-27 14:51:06,227 | INFO | Best parameter set: {'C': 10, 'break_ties': False, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 14:51:06,227 | INFO | Best MCC score: 0.545
+
+2022-08-27 14:51:06,233 | INFO | Training Accuracy: 0.966, Training MCC: 0.943, Validation Accuracy: 0.467, Validation MCC: 0.037, Fold: 1
+2022-08-27 14:51:06,237 | INFO | Training Accuracy: 0.879, Training MCC: 0.812, Validation Accuracy: 0.533, Validation MCC: 0.134, Fold: 2
+2022-08-27 14:51:06,241 | INFO | Training Accuracy: 0.897, Training MCC: 0.832, Validation Accuracy: 0.333, Validation MCC: 0.000, Fold: 3
+2022-08-27 14:51:06,245 | INFO | Training Accuracy: 0.948, Training MCC: 0.913, Validation Accuracy: 0.267, Validation MCC: -0.165, Fold: 4
+2022-08-27 14:51:06,249 | INFO | Training Accuracy: 0.879, Training MCC: 0.795, Validation Accuracy: 0.600, Validation MCC: 0.445, Fold: 5
+2022-08-27 14:51:06,250 | INFO | AVG Training Accuracy: 0.914, AVG Training MCC: 0.859, AVG Validation Accuracy: 0.440, AVG Validation MCC: 0.090
+
+2022-08-27 14:51:06,258 | INFO | XGBoost Classifier Results:
+
+2022-08-27 15:32:03,243 | INFO | SFS only results:
+
+2022-08-27 15:37:01,745 | INFO | Best parameter set: {'alpha': 1.0, 'gamma': 1, 'lambda': 1, 'max_depth': 4, 'n_estimators': 22, 'subsample': 0.5}
+
+2022-08-27 15:37:01,745 | INFO | Best MCC score: 0.538
+
+2022-08-27 15:37:01,791 | INFO | Training Accuracy: 0.810, Training MCC: 0.689, Validation Accuracy: 0.467, Validation MCC: 0.050, Fold: 1
+2022-08-27 15:37:01,813 | INFO | Training Accuracy: 0.707, Training MCC: 0.511, Validation Accuracy: 0.533, Validation MCC: 0.126, Fold: 2
+2022-08-27 15:37:01,836 | INFO | Training Accuracy: 0.793, Training MCC: 0.642, Validation Accuracy: 0.467, Validation MCC: 0.032, Fold: 3
+2022-08-27 15:37:01,857 | INFO | Training Accuracy: 0.793, Training MCC: 0.652, Validation Accuracy: 0.533, Validation MCC: 0.113, Fold: 4
+2022-08-27 15:37:01,879 | INFO | Training Accuracy: 0.724, Training MCC: 0.530, Validation Accuracy: 0.533, Validation MCC: 0.261, Fold: 5
+2022-08-27 15:37:01,881 | INFO | AVG Training Accuracy: 0.766, AVG Training MCC: 0.605, AVG Validation Accuracy: 0.507, AVG Validation MCC: 0.116
+
+2022-08-27 15:37:01,904 | INFO | Results after PCA:
+
+2022-08-27 15:41:17,272 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 2, 'n_estimators': 20, 'subsample': 0.5}
+
+2022-08-27 15:41:17,272 | INFO | Best MCC score: 0.362
+
+2022-08-27 15:41:17,321 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.300, Fold: 1
+2022-08-27 15:41:17,336 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.667, Validation MCC: 0.379, Fold: 2
+2022-08-27 15:41:17,351 | INFO | Training Accuracy: 0.948, Training MCC: 0.911, Validation Accuracy: 0.533, Validation MCC: 0.212, Fold: 3
+2022-08-27 15:41:17,366 | INFO | Training Accuracy: 0.966, Training MCC: 0.943, Validation Accuracy: 0.600, Validation MCC: 0.416, Fold: 4
+2022-08-27 15:41:17,382 | INFO | Training Accuracy: 0.948, Training MCC: 0.913, Validation Accuracy: 0.733, Validation MCC: 0.543, Fold: 5
+2022-08-27 15:41:17,383 | INFO | AVG Training Accuracy: 0.969, AVG Training MCC: 0.948, AVG Validation Accuracy: 0.627, AVG Validation MCC: 0.370
+
+2022-08-27 15:41:17,399 | INFO | Random Forest Classifier Results:
+
+2022-08-27 16:30:52,521 | INFO | SFS only results:
+
+2022-08-27 16:31:34,630 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 7, 'max_features': 1.0, 'n_estimators': 24}
+
+2022-08-27 16:31:34,630 | INFO | Best MCC score: 0.411
+
+2022-08-27 16:31:34,681 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.297, Fold: 1
+2022-08-27 16:31:34,727 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.667, Validation MCC: 0.379, Fold: 2
+2022-08-27 16:31:34,771 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.600, Validation MCC: 0.225, Fold: 3
+2022-08-27 16:31:34,819 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.333, Validation MCC: -0.071, Fold: 4
+2022-08-27 16:31:34,866 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.667, Validation MCC: 0.444, Fold: 5
+2022-08-27 16:31:34,867 | INFO | AVG Training Accuracy: 0.993, AVG Training MCC: 0.989, AVG Validation Accuracy: 0.573, AVG Validation MCC: 0.255
+
+2022-08-27 16:31:34,875 | INFO | Results after PCA:
+
+2022-08-27 16:32:15,366 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 10, 'max_features': 1.0, 'n_estimators': 12}
+
+2022-08-27 16:32:15,366 | INFO | Best MCC score: 0.442
+
+2022-08-27 16:32:15,392 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.200, Validation MCC: -0.429, Fold: 1
+2022-08-27 16:32:15,413 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.000, Fold: 2
+2022-08-27 16:32:15,434 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: -0.045, Fold: 3
+2022-08-27 16:32:15,455 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.400, Validation MCC: 0.244, Fold: 4
+2022-08-27 16:32:15,476 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.296, Fold: 5
+2022-08-27 16:32:15,477 | INFO | AVG Training Accuracy: 0.997, AVG Training MCC: 0.994, AVG Validation Accuracy: 0.427, AVG Validation MCC: 0.013
+
+2022-08-27 16:32:15,485 | INFO | -----------------------------------------------------
+
+2022-08-27 16:32:31,869 | INFO | Threshold of 5.00 provides Large bucket size: 25, Small Bucket size: 39, Extra Bucket size: 9
+
+2022-08-27 16:32:31,879 | INFO | SVC with RBF Kernel Results:
+
+2022-08-27 16:43:28,189 | INFO | SFS only results:
+
+2022-08-27 16:43:28,573 | INFO | Best parameter set: {'C': 10, 'break_ties': False, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 16:43:28,573 | INFO | Best MCC score: 0.590
+
+2022-08-27 16:43:28,579 | INFO | Training Accuracy: 0.897, Training MCC: 0.830, Validation Accuracy: 0.667, Validation MCC: 0.306, Fold: 1
+2022-08-27 16:43:28,583 | INFO | Training Accuracy: 0.845, Training MCC: 0.745, Validation Accuracy: 0.733, Validation MCC: 0.400, Fold: 2
+2022-08-27 16:43:28,587 | INFO | Training Accuracy: 0.845, Training MCC: 0.746, Validation Accuracy: 0.867, Validation MCC: 0.695, Fold: 3
+2022-08-27 16:43:28,591 | INFO | Training Accuracy: 0.862, Training MCC: 0.759, Validation Accuracy: 0.467, Validation MCC: 0.167, Fold: 4
+2022-08-27 16:43:28,595 | INFO | Training Accuracy: 0.897, Training MCC: 0.830, Validation Accuracy: 0.667, Validation MCC: 0.400, Fold: 5
+2022-08-27 16:43:28,597 | INFO | AVG Training Accuracy: 0.869, AVG Training MCC: 0.782, AVG Validation Accuracy: 0.680, AVG Validation MCC: 0.394
+
+2022-08-27 16:43:28,601 | INFO | Results after PCA:
+
+2022-08-27 16:43:28,921 | INFO | Best parameter set: {'C': 10, 'break_ties': False, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 16:43:28,921 | INFO | Best MCC score: 0.590
+
+2022-08-27 16:43:28,926 | INFO | Training Accuracy: 0.897, Training MCC: 0.830, Validation Accuracy: 0.667, Validation MCC: 0.306, Fold: 1
+2022-08-27 16:43:28,930 | INFO | Training Accuracy: 0.845, Training MCC: 0.745, Validation Accuracy: 0.733, Validation MCC: 0.400, Fold: 2
+2022-08-27 16:43:28,934 | INFO | Training Accuracy: 0.845, Training MCC: 0.746, Validation Accuracy: 0.867, Validation MCC: 0.695, Fold: 3
+2022-08-27 16:43:28,937 | INFO | Training Accuracy: 0.862, Training MCC: 0.759, Validation Accuracy: 0.467, Validation MCC: 0.167, Fold: 4
+2022-08-27 16:43:28,941 | INFO | Training Accuracy: 0.897, Training MCC: 0.830, Validation Accuracy: 0.667, Validation MCC: 0.400, Fold: 5
+2022-08-27 16:43:28,942 | INFO | AVG Training Accuracy: 0.869, AVG Training MCC: 0.782, AVG Validation Accuracy: 0.680, AVG Validation MCC: 0.394
+
+2022-08-27 16:43:28,950 | INFO | XGBoost Classifier Results:
+
+2022-08-27 17:25:40,470 | INFO | SFS only results:
+
+2022-08-27 17:30:42,719 | INFO | Best parameter set: {'alpha': 1.0, 'gamma': 1, 'lambda': 1, 'max_depth': 2, 'n_estimators': 21, 'subsample': 0.5}
+
+2022-08-27 17:30:42,719 | INFO | Best MCC score: 0.578
+
+2022-08-27 17:30:42,759 | INFO | Training Accuracy: 0.828, Training MCC: 0.713, Validation Accuracy: 0.600, Validation MCC: 0.236, Fold: 1
+2022-08-27 17:30:42,777 | INFO | Training Accuracy: 0.793, Training MCC: 0.653, Validation Accuracy: 0.667, Validation MCC: 0.382, Fold: 2
+2022-08-27 17:30:42,795 | INFO | Training Accuracy: 0.776, Training MCC: 0.620, Validation Accuracy: 0.800, Validation MCC: 0.555, Fold: 3
+2022-08-27 17:30:42,813 | INFO | Training Accuracy: 0.776, Training MCC: 0.584, Validation Accuracy: 0.667, Validation MCC: 0.421, Fold: 4
+2022-08-27 17:30:42,831 | INFO | Training Accuracy: 0.776, Training MCC: 0.600, Validation Accuracy: 0.600, Validation MCC: 0.261, Fold: 5
+2022-08-27 17:30:42,832 | INFO | AVG Training Accuracy: 0.790, AVG Training MCC: 0.634, AVG Validation Accuracy: 0.667, AVG Validation MCC: 0.371
+
+2022-08-27 17:30:42,837 | INFO | Results after PCA:
+
+2022-08-27 17:34:56,074 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 2, 'n_estimators': 2, 'subsample': 0.5}
+
+2022-08-27 17:34:56,074 | INFO | Best MCC score: 0.221
+
+2022-08-27 17:34:56,107 | INFO | Training Accuracy: 0.724, Training MCC: 0.526, Validation Accuracy: 0.533, Validation MCC: 0.245, Fold: 1
+2022-08-27 17:34:56,117 | INFO | Training Accuracy: 0.707, Training MCC: 0.497, Validation Accuracy: 0.667, Validation MCC: 0.204, Fold: 2
+2022-08-27 17:34:56,126 | INFO | Training Accuracy: 0.707, Training MCC: 0.501, Validation Accuracy: 0.467, Validation MCC: -0.145, Fold: 3
+2022-08-27 17:34:56,135 | INFO | Training Accuracy: 0.793, Training MCC: 0.633, Validation Accuracy: 0.267, Validation MCC: -0.162, Fold: 4
+2022-08-27 17:34:56,144 | INFO | Training Accuracy: 0.776, Training MCC: 0.602, Validation Accuracy: 0.600, Validation MCC: 0.251, Fold: 5
+2022-08-27 17:34:56,145 | INFO | AVG Training Accuracy: 0.741, AVG Training MCC: 0.552, AVG Validation Accuracy: 0.507, AVG Validation MCC: 0.079
+
+2022-08-27 17:34:56,155 | INFO | Random Forest Classifier Results:
+
+2022-08-27 18:23:34,801 | INFO | SFS only results:
+
+2022-08-27 18:24:16,257 | INFO | Best parameter set: {'ccp_alpha': 0.2, 'criterion': 'gini', 'max_depth': 5, 'max_features': 1.0, 'n_estimators': 19}
+
+2022-08-27 18:24:16,257 | INFO | Best MCC score: 0.482
+
+2022-08-27 18:24:16,291 | INFO | Training Accuracy: 0.707, Training MCC: 0.484, Validation Accuracy: 0.600, Validation MCC: 0.236, Fold: 1
+2022-08-27 18:24:16,319 | INFO | Training Accuracy: 0.707, Training MCC: 0.490, Validation Accuracy: 0.667, Validation MCC: 0.289, Fold: 2
+2022-08-27 18:24:16,350 | INFO | Training Accuracy: 0.690, Training MCC: 0.454, Validation Accuracy: 0.667, Validation MCC: 0.306, Fold: 3
+2022-08-27 18:24:16,380 | INFO | Training Accuracy: 0.569, Training MCC: 0.000, Validation Accuracy: 0.400, Validation MCC: 0.000, Fold: 4
+2022-08-27 18:24:16,409 | INFO | Training Accuracy: 0.724, Training MCC: 0.500, Validation Accuracy: 0.667, Validation MCC: 0.402, Fold: 5
+2022-08-27 18:24:16,410 | INFO | AVG Training Accuracy: 0.679, AVG Training MCC: 0.386, AVG Validation Accuracy: 0.600, AVG Validation MCC: 0.247
+
+2022-08-27 18:24:16,418 | INFO | Results after PCA:
+
+2022-08-27 18:24:56,388 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 4, 'max_features': 0.3, 'n_estimators': 7}
+
+2022-08-27 18:24:56,388 | INFO | Best MCC score: 0.455
+
+2022-08-27 18:24:56,403 | INFO | Training Accuracy: 0.948, Training MCC: 0.913, Validation Accuracy: 0.533, Validation MCC: -0.098, Fold: 1
+2022-08-27 18:24:56,414 | INFO | Training Accuracy: 0.948, Training MCC: 0.914, Validation Accuracy: 0.667, Validation MCC: 0.268, Fold: 2
+2022-08-27 18:24:56,424 | INFO | Training Accuracy: 0.897, Training MCC: 0.827, Validation Accuracy: 0.667, Validation MCC: 0.228, Fold: 3
+2022-08-27 18:24:56,434 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.467, Validation MCC: 0.065, Fold: 4
+2022-08-27 18:24:56,445 | INFO | Training Accuracy: 0.931, Training MCC: 0.881, Validation Accuracy: 0.467, Validation MCC: 0.101, Fold: 5
+2022-08-27 18:24:56,446 | INFO | AVG Training Accuracy: 0.941, AVG Training MCC: 0.901, AVG Validation Accuracy: 0.560, AVG Validation MCC: 0.113
+
+2022-08-27 18:24:56,452 | INFO | -----------------------------------------------------
+
+2022-08-27 18:25:13,001 | INFO | Threshold of 10.00 provides Large bucket size: 20, Small Bucket size: 44, Extra Bucket size: 9
+
+2022-08-27 18:25:13,010 | INFO | SVC with RBF Kernel Results:
+
+2022-08-27 18:36:02,116 | INFO | SFS only results:
+
+2022-08-27 18:36:02,469 | INFO | Best parameter set: {'C': 10, 'break_ties': True, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 18:36:02,470 | INFO | Best MCC score: 0.619
+
+2022-08-27 18:36:02,476 | INFO | Training Accuracy: 0.931, Training MCC: 0.883, Validation Accuracy: 0.733, Validation MCC: 0.459, Fold: 1
+2022-08-27 18:36:02,480 | INFO | Training Accuracy: 0.914, Training MCC: 0.849, Validation Accuracy: 0.800, Validation MCC: 0.443, Fold: 2
+2022-08-27 18:36:02,484 | INFO | Training Accuracy: 0.931, Training MCC: 0.878, Validation Accuracy: 0.800, Validation MCC: 0.537, Fold: 3
+2022-08-27 18:36:02,488 | INFO | Training Accuracy: 0.931, Training MCC: 0.872, Validation Accuracy: 0.667, Validation MCC: 0.469, Fold: 4
+2022-08-27 18:36:02,493 | INFO | Training Accuracy: 0.948, Training MCC: 0.904, Validation Accuracy: 0.667, Validation MCC: 0.400, Fold: 5
+2022-08-27 18:36:02,494 | INFO | AVG Training Accuracy: 0.931, AVG Training MCC: 0.877, AVG Validation Accuracy: 0.733, AVG Validation MCC: 0.462
+
+2022-08-27 18:36:02,500 | INFO | Results after PCA:
+
+2022-08-27 18:36:02,826 | INFO | Best parameter set: {'C': 10, 'break_ties': True, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 18:36:02,827 | INFO | Best MCC score: 0.619
+
+2022-08-27 18:36:02,832 | INFO | Training Accuracy: 0.931, Training MCC: 0.883, Validation Accuracy: 0.733, Validation MCC: 0.459, Fold: 1
+2022-08-27 18:36:02,836 | INFO | Training Accuracy: 0.914, Training MCC: 0.849, Validation Accuracy: 0.800, Validation MCC: 0.443, Fold: 2
+2022-08-27 18:36:02,840 | INFO | Training Accuracy: 0.931, Training MCC: 0.878, Validation Accuracy: 0.800, Validation MCC: 0.537, Fold: 3
+2022-08-27 18:36:02,844 | INFO | Training Accuracy: 0.931, Training MCC: 0.872, Validation Accuracy: 0.667, Validation MCC: 0.469, Fold: 4
+2022-08-27 18:36:02,848 | INFO | Training Accuracy: 0.948, Training MCC: 0.904, Validation Accuracy: 0.667, Validation MCC: 0.400, Fold: 5
+2022-08-27 18:36:02,849 | INFO | AVG Training Accuracy: 0.931, AVG Training MCC: 0.877, AVG Validation Accuracy: 0.733, AVG Validation MCC: 0.462
+
+2022-08-27 18:36:02,857 | INFO | XGBoost Classifier Results:
+
+2022-08-27 19:27:58,441 | INFO | SFS only results:
+
+2022-08-27 19:34:00,363 | INFO | Best parameter set: {'alpha': 1.0, 'gamma': 1, 'lambda': 1, 'max_depth': 2, 'n_estimators': 19, 'subsample': 0.5}
+
+2022-08-27 19:34:00,364 | INFO | Best MCC score: 0.670
+
+2022-08-27 19:34:00,404 | INFO | Training Accuracy: 0.897, Training MCC: 0.820, Validation Accuracy: 0.667, Validation MCC: 0.397, Fold: 1
+2022-08-27 19:34:00,422 | INFO | Training Accuracy: 0.845, Training MCC: 0.721, Validation Accuracy: 0.667, Validation MCC: 0.187, Fold: 2
+2022-08-27 19:34:00,441 | INFO | Training Accuracy: 0.845, Training MCC: 0.718, Validation Accuracy: 0.800, Validation MCC: 0.555, Fold: 3
+2022-08-27 19:34:00,458 | INFO | Training Accuracy: 0.897, Training MCC: 0.803, Validation Accuracy: 0.667, Validation MCC: 0.422, Fold: 4
+2022-08-27 19:34:00,475 | INFO | Training Accuracy: 0.897, Training MCC: 0.802, Validation Accuracy: 0.600, Validation MCC: 0.261, Fold: 5
+2022-08-27 19:34:00,476 | INFO | AVG Training Accuracy: 0.876, AVG Training MCC: 0.773, AVG Validation Accuracy: 0.680, AVG Validation MCC: 0.364
+
+2022-08-27 19:34:00,544 | INFO | Results after PCA:
+
+2022-08-27 19:38:08,822 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 2, 'lambda': 1, 'max_depth': 2, 'n_estimators': 2, 'subsample': 1}
+
+2022-08-27 19:38:08,823 | INFO | Best MCC score: 0.217
+
+2022-08-27 19:38:08,859 | INFO | Training Accuracy: 0.793, Training MCC: 0.632, Validation Accuracy: 0.533, Validation MCC: 0.066, Fold: 1
+2022-08-27 19:38:08,868 | INFO | Training Accuracy: 0.828, Training MCC: 0.700, Validation Accuracy: 0.600, Validation MCC: 0.103, Fold: 2
+2022-08-27 19:38:08,878 | INFO | Training Accuracy: 0.793, Training MCC: 0.628, Validation Accuracy: 0.600, Validation MCC: -0.167, Fold: 3
+2022-08-27 19:38:08,887 | INFO | Training Accuracy: 0.845, Training MCC: 0.706, Validation Accuracy: 0.467, Validation MCC: 0.049, Fold: 4
+2022-08-27 19:38:08,896 | INFO | Training Accuracy: 0.897, Training MCC: 0.806, Validation Accuracy: 0.533, Validation MCC: 0.072, Fold: 5
+2022-08-27 19:38:08,898 | INFO | AVG Training Accuracy: 0.831, AVG Training MCC: 0.695, AVG Validation Accuracy: 0.547, AVG Validation MCC: 0.025
+
+2022-08-27 19:38:08,908 | INFO | Random Forest Classifier Results:
+
+2022-08-27 20:26:57,621 | INFO | SFS only results:
+
+2022-08-27 20:27:38,653 | INFO | Best parameter set: {'ccp_alpha': 0.2, 'criterion': 'gini', 'max_depth': 2, 'max_features': 1.0, 'n_estimators': 13}
+
+2022-08-27 20:27:38,653 | INFO | Best MCC score: 0.575
+
+2022-08-27 20:27:38,676 | INFO | Training Accuracy: 0.759, Training MCC: 0.564, Validation Accuracy: 0.800, Validation MCC: 0.538, Fold: 1
+2022-08-27 20:27:38,695 | INFO | Training Accuracy: 0.828, Training MCC: 0.689, Validation Accuracy: 0.733, Validation MCC: 0.413, Fold: 2
+2022-08-27 20:27:38,714 | INFO | Training Accuracy: 0.759, Training MCC: 0.549, Validation Accuracy: 0.733, Validation MCC: 0.325, Fold: 3
+2022-08-27 20:27:38,733 | INFO | Training Accuracy: 0.793, Training MCC: 0.588, Validation Accuracy: 0.667, Validation MCC: 0.402, Fold: 4
+2022-08-27 20:27:38,752 | INFO | Training Accuracy: 0.810, Training MCC: 0.641, Validation Accuracy: 0.533, Validation MCC: 0.151, Fold: 5
+2022-08-27 20:27:38,753 | INFO | AVG Training Accuracy: 0.790, AVG Training MCC: 0.606, AVG Validation Accuracy: 0.693, AVG Validation MCC: 0.366
+
+2022-08-27 20:27:38,767 | INFO | Results after PCA:
+
+2022-08-27 20:28:18,307 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 4, 'max_features': 0.3, 'n_estimators': 8}
+
+2022-08-27 20:28:18,307 | INFO | Best MCC score: 0.560
+
+2022-08-27 20:28:18,321 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.667, Validation MCC: 0.397, Fold: 1
+2022-08-27 20:28:18,332 | INFO | Training Accuracy: 0.966, Training MCC: 0.940, Validation Accuracy: 0.733, Validation MCC: 0.000, Fold: 2
+2022-08-27 20:28:18,343 | INFO | Training Accuracy: 0.931, Training MCC: 0.878, Validation Accuracy: 0.333, Validation MCC: -0.338, Fold: 3
+2022-08-27 20:28:18,353 | INFO | Training Accuracy: 0.966, Training MCC: 0.937, Validation Accuracy: 0.733, Validation MCC: 0.529, Fold: 4
+2022-08-27 20:28:18,364 | INFO | Training Accuracy: 0.983, Training MCC: 0.968, Validation Accuracy: 0.533, Validation MCC: 0.135, Fold: 5
+2022-08-27 20:28:18,365 | INFO | AVG Training Accuracy: 0.969, AVG Training MCC: 0.945, AVG Validation Accuracy: 0.600, AVG Validation MCC: 0.145
+
+2022-08-27 20:28:18,378 | INFO | -----------------------------------------------------
+
+2022-08-27 20:28:34,990 | INFO | Threshold of 15.00 provides Large bucket size: 19, Small Bucket size: 45, Extra Bucket size: 9
+
+2022-08-27 20:28:35,000 | INFO | SVC with RBF Kernel Results:
+
+2022-08-27 20:39:20,902 | INFO | SFS only results:
+
+2022-08-27 20:39:21,268 | INFO | Best parameter set: {'C': 10, 'break_ties': False, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 20:39:21,268 | INFO | Best MCC score: 0.451
+
+2022-08-27 20:39:21,274 | INFO | Training Accuracy: 0.897, Training MCC: 0.823, Validation Accuracy: 0.800, Validation MCC: 0.538, Fold: 1
+2022-08-27 20:39:21,278 | INFO | Training Accuracy: 0.879, Training MCC: 0.785, Validation Accuracy: 0.800, Validation MCC: 0.443, Fold: 2
+2022-08-27 20:39:21,283 | INFO | Training Accuracy: 0.914, Training MCC: 0.845, Validation Accuracy: 0.800, Validation MCC: 0.467, Fold: 3
+2022-08-27 20:39:21,287 | INFO | Training Accuracy: 0.897, Training MCC: 0.804, Validation Accuracy: 0.600, Validation MCC: 0.362, Fold: 4
+2022-08-27 20:39:21,291 | INFO | Training Accuracy: 0.914, Training MCC: 0.836, Validation Accuracy: 0.600, Validation MCC: 0.246, Fold: 5
+2022-08-27 20:39:21,293 | INFO | AVG Training Accuracy: 0.900, AVG Training MCC: 0.819, AVG Validation Accuracy: 0.720, AVG Validation MCC: 0.411
+
+2022-08-27 20:39:21,297 | INFO | Results after PCA:
+
+2022-08-27 20:39:21,613 | INFO | Best parameter set: {'C': 10, 'break_ties': False, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 20:39:21,613 | INFO | Best MCC score: 0.451
+
+2022-08-27 20:39:21,618 | INFO | Training Accuracy: 0.897, Training MCC: 0.823, Validation Accuracy: 0.800, Validation MCC: 0.538, Fold: 1
+2022-08-27 20:39:21,622 | INFO | Training Accuracy: 0.879, Training MCC: 0.785, Validation Accuracy: 0.800, Validation MCC: 0.443, Fold: 2
+2022-08-27 20:39:21,626 | INFO | Training Accuracy: 0.914, Training MCC: 0.845, Validation Accuracy: 0.800, Validation MCC: 0.467, Fold: 3
+2022-08-27 20:39:21,630 | INFO | Training Accuracy: 0.897, Training MCC: 0.804, Validation Accuracy: 0.600, Validation MCC: 0.362, Fold: 4
+2022-08-27 20:39:21,634 | INFO | Training Accuracy: 0.914, Training MCC: 0.836, Validation Accuracy: 0.600, Validation MCC: 0.246, Fold: 5
+2022-08-27 20:39:21,635 | INFO | AVG Training Accuracy: 0.900, AVG Training MCC: 0.819, AVG Validation Accuracy: 0.720, AVG Validation MCC: 0.411
+
+2022-08-27 20:39:21,642 | INFO | XGBoost Classifier Results:
+
+2022-08-27 21:21:46,719 | INFO | SFS only results:
+
+2022-08-27 21:26:51,139 | INFO | Best parameter set: {'alpha': 1.0, 'gamma': 1, 'lambda': 1, 'max_depth': 3, 'n_estimators': 22, 'subsample': 0.5}
+
+2022-08-27 21:26:51,140 | INFO | Best MCC score: 0.644
+
+2022-08-27 21:26:51,183 | INFO | Training Accuracy: 0.828, Training MCC: 0.688, Validation Accuracy: 0.733, Validation MCC: 0.459, Fold: 1
+2022-08-27 21:26:51,206 | INFO | Training Accuracy: 0.810, Training MCC: 0.650, Validation Accuracy: 0.733, Validation MCC: 0.292, Fold: 2
+2022-08-27 21:26:51,229 | INFO | Training Accuracy: 0.810, Training MCC: 0.645, Validation Accuracy: 0.800, Validation MCC: 0.467, Fold: 3
+2022-08-27 21:26:51,250 | INFO | Training Accuracy: 0.828, Training MCC: 0.651, Validation Accuracy: 0.733, Validation MCC: 0.543, Fold: 4
+2022-08-27 21:26:51,270 | INFO | Training Accuracy: 0.862, Training MCC: 0.729, Validation Accuracy: 0.600, Validation MCC: 0.251, Fold: 5
+2022-08-27 21:26:51,272 | INFO | AVG Training Accuracy: 0.828, AVG Training MCC: 0.672, AVG Validation Accuracy: 0.720, AVG Validation MCC: 0.402
+
+2022-08-27 21:26:51,283 | INFO | Results after PCA:
+
+2022-08-27 21:31:01,322 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 4, 'n_estimators': 23, 'subsample': 1}
+
+2022-08-27 21:31:01,322 | INFO | Best MCC score: 0.245
+
+2022-08-27 21:31:01,367 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.667, Validation MCC: 0.171, Fold: 1
+2022-08-27 21:31:01,387 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.667, Validation MCC: 0.109, Fold: 2
+2022-08-27 21:31:01,407 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.533, Validation MCC: -0.211, Fold: 3
+2022-08-27 21:31:01,428 | INFO | Training Accuracy: 0.983, Training MCC: 0.967, Validation Accuracy: 0.533, Validation MCC: 0.072, Fold: 4
+2022-08-27 21:31:01,448 | INFO | Training Accuracy: 0.983, Training MCC: 0.967, Validation Accuracy: 0.467, Validation MCC: -0.109, Fold: 5
+2022-08-27 21:31:01,449 | INFO | AVG Training Accuracy: 0.983, AVG Training MCC: 0.969, AVG Validation Accuracy: 0.573, AVG Validation MCC: 0.007
+
+2022-08-27 21:31:01,460 | INFO | Random Forest Classifier Results:
+
+2022-08-27 22:22:08,477 | INFO | SFS only results:
+
+2022-08-27 22:22:50,312 | INFO | Best parameter set: {'ccp_alpha': 0.1, 'criterion': 'entropy', 'max_depth': 2, 'max_features': 1.0, 'n_estimators': 3}
+
+2022-08-27 22:22:50,313 | INFO | Best MCC score: 0.474
+
+2022-08-27 22:22:50,324 | INFO | Training Accuracy: 0.759, Training MCC: 0.563, Validation Accuracy: 0.733, Validation MCC: 0.459, Fold: 1
+2022-08-27 22:22:50,333 | INFO | Training Accuracy: 0.810, Training MCC: 0.655, Validation Accuracy: 0.800, Validation MCC: 0.517, Fold: 2
+2022-08-27 22:22:50,341 | INFO | Training Accuracy: 0.793, Training MCC: 0.661, Validation Accuracy: 0.800, Validation MCC: 0.531, Fold: 3
+2022-08-27 22:22:50,351 | INFO | Training Accuracy: 0.828, Training MCC: 0.661, Validation Accuracy: 0.733, Validation MCC: 0.558, Fold: 4
+2022-08-27 22:22:50,359 | INFO | Training Accuracy: 0.862, Training MCC: 0.729, Validation Accuracy: 0.600, Validation MCC: 0.261, Fold: 5
+2022-08-27 22:22:50,360 | INFO | AVG Training Accuracy: 0.810, AVG Training MCC: 0.654, AVG Validation Accuracy: 0.733, AVG Validation MCC: 0.465
+
+2022-08-27 22:22:50,367 | INFO | Results after PCA:
+
+2022-08-27 22:23:31,488 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 7, 'max_features': 0.3, 'n_estimators': 18}
+
+2022-08-27 22:23:31,488 | INFO | Best MCC score: 0.389
+
+2022-08-27 22:23:31,511 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.733, Validation MCC: -0.087, Fold: 1
+2022-08-27 22:23:31,530 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.600, Validation MCC: -0.073, Fold: 2
+2022-08-27 22:23:31,550 | INFO | Training Accuracy: 0.983, Training MCC: 0.969, Validation Accuracy: 0.733, Validation MCC: 0.174, Fold: 3
+2022-08-27 22:23:31,570 | INFO | Training Accuracy: 0.983, Training MCC: 0.968, Validation Accuracy: 0.467, Validation MCC: -0.148, Fold: 4
+2022-08-27 22:23:31,589 | INFO | Training Accuracy: 0.983, Training MCC: 0.968, Validation Accuracy: 0.533, Validation MCC: 0.092, Fold: 5
+2022-08-27 22:23:31,590 | INFO | AVG Training Accuracy: 0.983, AVG Training MCC: 0.969, AVG Validation Accuracy: 0.613, AVG Validation MCC: -0.008
+
+2022-08-27 22:23:31,599 | INFO | -----------------------------------------------------
+
+2022-08-27 22:23:47,824 | INFO | Threshold of 18.00 provides Large bucket size: 18, Small Bucket size: 46, Extra Bucket size: 9
+
+2022-08-27 22:23:47,834 | INFO | SVC with RBF Kernel Results:
+
+2022-08-27 22:34:21,271 | INFO | SFS only results:
+
+2022-08-27 22:34:21,635 | INFO | Best parameter set: {'C': 10, 'break_ties': True, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 22:34:21,635 | INFO | Best MCC score: 0.482
+
+2022-08-27 22:34:21,641 | INFO | Training Accuracy: 0.931, Training MCC: 0.878, Validation Accuracy: 0.800, Validation MCC: 0.328, Fold: 1
+2022-08-27 22:34:21,645 | INFO | Training Accuracy: 0.914, Training MCC: 0.846, Validation Accuracy: 0.867, Validation MCC: 0.656, Fold: 2
+2022-08-27 22:34:21,650 | INFO | Training Accuracy: 0.948, Training MCC: 0.907, Validation Accuracy: 0.800, Validation MCC: 0.467, Fold: 3
+2022-08-27 22:34:21,654 | INFO | Training Accuracy: 0.931, Training MCC: 0.868, Validation Accuracy: 0.667, Validation MCC: 0.390, Fold: 4
+2022-08-27 22:34:21,658 | INFO | Training Accuracy: 0.931, Training MCC: 0.864, Validation Accuracy: 0.533, Validation MCC: 0.049, Fold: 5
+2022-08-27 22:34:21,659 | INFO | AVG Training Accuracy: 0.931, AVG Training MCC: 0.873, AVG Validation Accuracy: 0.733, AVG Validation MCC: 0.378
+
+2022-08-27 22:34:21,664 | INFO | Results after PCA:
+
+2022-08-27 22:34:21,997 | INFO | Best parameter set: {'C': 10, 'break_ties': True, 'class_weight': None, 'gamma': 0.01}
+
+2022-08-27 22:34:21,998 | INFO | Best MCC score: 0.482
+
+2022-08-27 22:34:22,003 | INFO | Training Accuracy: 0.931, Training MCC: 0.878, Validation Accuracy: 0.800, Validation MCC: 0.328, Fold: 1
+2022-08-27 22:34:22,007 | INFO | Training Accuracy: 0.914, Training MCC: 0.846, Validation Accuracy: 0.867, Validation MCC: 0.656, Fold: 2
+2022-08-27 22:34:22,011 | INFO | Training Accuracy: 0.948, Training MCC: 0.907, Validation Accuracy: 0.800, Validation MCC: 0.467, Fold: 3
+2022-08-27 22:34:22,015 | INFO | Training Accuracy: 0.931, Training MCC: 0.868, Validation Accuracy: 0.667, Validation MCC: 0.390, Fold: 4
+2022-08-27 22:34:22,019 | INFO | Training Accuracy: 0.931, Training MCC: 0.864, Validation Accuracy: 0.533, Validation MCC: 0.049, Fold: 5
+2022-08-27 22:34:22,020 | INFO | AVG Training Accuracy: 0.931, AVG Training MCC: 0.873, AVG Validation Accuracy: 0.733, AVG Validation MCC: 0.378
+
+2022-08-27 22:34:22,028 | INFO | XGBoost Classifier Results:
+
+2022-08-27 23:17:31,941 | INFO | SFS only results:
+
+2022-08-27 23:22:45,176 | INFO | Best parameter set: {'alpha': 1.0, 'gamma': 1, 'lambda': 1, 'max_depth': 4, 'n_estimators': 20, 'subsample': 0.5}
+
+2022-08-27 23:22:45,176 | INFO | Best MCC score: 0.568
+
+2022-08-27 23:22:45,223 | INFO | Training Accuracy: 0.776, Training MCC: 0.575, Validation Accuracy: 0.733, Validation MCC: 0.111, Fold: 1
+2022-08-27 23:22:45,245 | INFO | Training Accuracy: 0.741, Training MCC: 0.494, Validation Accuracy: 0.733, Validation MCC: 0.000, Fold: 2
+2022-08-27 23:22:45,266 | INFO | Training Accuracy: 0.741, Training MCC: 0.489, Validation Accuracy: 0.733, Validation MCC: 0.325, Fold: 3
+2022-08-27 23:22:45,288 | INFO | Training Accuracy: 0.759, Training MCC: 0.490, Validation Accuracy: 0.600, Validation MCC: 0.191, Fold: 4
+2022-08-27 23:22:45,309 | INFO | Training Accuracy: 0.776, Training MCC: 0.515, Validation Accuracy: 0.533, Validation MCC: 0.072, Fold: 5
+2022-08-27 23:22:45,310 | INFO | AVG Training Accuracy: 0.759, AVG Training MCC: 0.513, AVG Validation Accuracy: 0.667, AVG Validation MCC: 0.140
+
+2022-08-27 23:22:45,347 | INFO | Results after PCA:
+
+2022-08-27 23:27:02,487 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 1, 'lambda': 1, 'max_depth': 3, 'n_estimators': 1, 'subsample': 1}
+
+2022-08-27 23:27:02,488 | INFO | Best MCC score: 0.129
+
+2022-08-27 23:27:02,523 | INFO | Training Accuracy: 0.845, Training MCC: 0.723, Validation Accuracy: 0.667, Validation MCC: 0.041, Fold: 1
+2022-08-27 23:27:02,535 | INFO | Training Accuracy: 0.862, Training MCC: 0.751, Validation Accuracy: 0.533, Validation MCC: -0.052, Fold: 2
+2022-08-27 23:27:02,545 | INFO | Training Accuracy: 0.914, Training MCC: 0.842, Validation Accuracy: 0.667, Validation MCC: 0.042, Fold: 3
+2022-08-27 23:27:02,567 | INFO | Training Accuracy: 0.879, Training MCC: 0.762, Validation Accuracy: 0.667, Validation MCC: 0.339, Fold: 4
+2022-08-27 23:27:02,587 | INFO | Training Accuracy: 0.897, Training MCC: 0.793, Validation Accuracy: 0.600, Validation MCC: 0.270, Fold: 5
+2022-08-27 23:27:02,589 | INFO | AVG Training Accuracy: 0.879, AVG Training MCC: 0.774, AVG Validation Accuracy: 0.627, AVG Validation MCC: 0.128
+
+2022-08-27 23:27:02,599 | INFO | Random Forest Classifier Results:
+
+2022-08-28 00:19:08,583 | INFO | SFS only results:
+
+2022-08-28 00:19:57,790 | INFO | Best parameter set: {'ccp_alpha': 0.1, 'criterion': 'gini', 'max_depth': 4, 'max_features': 1.0, 'n_estimators': 4}
+
+2022-08-28 00:19:57,790 | INFO | Best MCC score: 0.494
+
+2022-08-28 00:19:57,805 | INFO | Training Accuracy: 0.707, Training MCC: 0.520, Validation Accuracy: 0.600, Validation MCC: 0.300, Fold: 1
+2022-08-28 00:19:57,815 | INFO | Training Accuracy: 0.793, Training MCC: 0.611, Validation Accuracy: 0.800, Validation MCC: 0.517, Fold: 2
+2022-08-28 00:19:57,826 | INFO | Training Accuracy: 0.776, Training MCC: 0.581, Validation Accuracy: 0.800, Validation MCC: 0.463, Fold: 3
+2022-08-28 00:19:57,836 | INFO | Training Accuracy: 0.845, Training MCC: 0.689, Validation Accuracy: 0.533, Validation MCC: 0.216, Fold: 4
+2022-08-28 00:19:57,845 | INFO | Training Accuracy: 0.845, Training MCC: 0.682, Validation Accuracy: 0.667, Validation MCC: 0.390, Fold: 5
+2022-08-28 00:19:57,846 | INFO | AVG Training Accuracy: 0.793, AVG Training MCC: 0.616, AVG Validation Accuracy: 0.680, AVG Validation MCC: 0.377
+
+2022-08-28 00:19:57,851 | INFO | Results after PCA:
+
+2022-08-28 00:20:45,170 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 6, 'max_features': 'sqrt', 'n_estimators': 5}
+
+2022-08-28 00:20:45,171 | INFO | Best MCC score: 0.367
+
+2022-08-28 00:20:45,183 | INFO | Training Accuracy: 0.948, Training MCC: 0.906, Validation Accuracy: 0.600, Validation MCC: -0.024, Fold: 1
+2022-08-28 00:20:45,191 | INFO | Training Accuracy: 0.931, Training MCC: 0.874, Validation Accuracy: 0.467, Validation MCC: -0.119, Fold: 2
+2022-08-28 00:20:45,199 | INFO | Training Accuracy: 0.845, Training MCC: 0.713, Validation Accuracy: 0.667, Validation MCC: -0.116, Fold: 3
+2022-08-28 00:20:45,208 | INFO | Training Accuracy: 0.948, Training MCC: 0.901, Validation Accuracy: 0.533, Validation MCC: 0.082, Fold: 4
+2022-08-28 00:20:45,216 | INFO | Training Accuracy: 0.948, Training MCC: 0.897, Validation Accuracy: 0.467, Validation MCC: -0.197, Fold: 5
+2022-08-28 00:20:45,217 | INFO | AVG Training Accuracy: 0.924, AVG Training MCC: 0.858, AVG Validation Accuracy: 0.547, AVG Validation MCC: -0.075
+
+2022-08-28 00:20:45,223 | INFO | -----------------------------------------------------
+
