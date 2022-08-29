@@ -1,0 +1,6 @@
+["SeqLength", "Aromaticity", "IsoelectricPoint", "Q", "H", "K", "F", "W", "_PolarizabilityC1", "_PolarizabilityC3", "_SolventAccessibilityC1",
+ "_SecondaryStrC1", "_SecondaryStrC3", "_ChargeC1", "_PolarityC2", "_PolarityC3", "_NormalizedVDWVC1", "_NormalizedVDWVC3", "_PolarizabilityT23", "_SolventAccessibilityT13", "_PolarityT12",
+ "_PolarityT13", "_PolarityT23", "_NormalizedVDWVT12", "_HydrophobicityT13", "_PolarizabilityD2075", "_PolarizabilityD3025", "_PolarizabilityD3050", "_SolventAccessibilityD1001",
+ "_SolventAccessibilityD1075", "_SolventAccessibilityD2075", "_SolventAccessibilityD3001", "_SecondaryStrD2001", "_SecondaryStrD2100", "_ChargeD1100", "_ChargeD2001", "_ChargeD2025",
+ "_PolarityD2025", "_PolarityD3001", "_PolarityD3075", "_PolarityD3100", "RE", "EE", "EG", "QH", "QK", "QS", "GG", "HP", "IG", "IS", "IY", "LP", "LV", "KN", "KF", "KT",
+ "MG", "FE", "FP", "FT", "FV", "PN", "PH", "PL", "PW", "SD", "SI", "TA", "TI", "TF", "WP", "YD"]
