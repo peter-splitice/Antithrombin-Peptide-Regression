@@ -95,13 +95,12 @@ def import_data():
     logger.debug('The full dataset has %i examples.' %(len(df)))
     
     # Remove all but the 73 features that were relavant in Nivedha's Classification pipeline
-    labels = pd.read_json('features.json')
-    df = df[labels]
+    extracted_features = pd.read_json('features.json', typ='Series')
 
     # Rescaling the dataframe in the log10 (-5,5) range.
     df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=(-5,5))
 
-    return df, base_range
+    return df, extracted_features, base_range
 
 ## Logarithmically scalling the values.
 def rescale(array=np.array(0), destination_interval=(-5,5)):
@@ -235,8 +234,8 @@ def forward_selection(x, y, model):
 
     # Fit a feature selector to SVM w/RBF kernel classifier and use the 'accuracy' score.
     logger.debug('Forward Selection Starting')
-    sfs = SequentialFeatureSelector(model, n_jobs=-1, scoring=make_scorer(matthews_corrcoef), tol=None,
-                                    n_features_to_select='auto')
+    sfs = SequentialFeatureSelector(model, n_jobs=-1, scoring=make_scorer(matthews_corrcoef), tol=0.005,
+                                    n_features_to_select='auto', direction='backward')
     sfs.fit(x, y)
     x = sfs.transform(x)
     logger.debug('Forward Selection Finished')
@@ -423,7 +422,7 @@ def threshold_finder(threshold):
     """
     
     # Import the data.
-    df, _ = import_data()
+    df, extracted_features, _ = import_data()
     path = os.getcwd()
 
     # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
@@ -446,13 +445,13 @@ def threshold_finder(threshold):
     else:
         logger.info('Threshold of %2.2f provides Large bucket size: %i, Small Bucket size: %i, Extra Bucket size: %i\n'
                     %(threshold, large_bucket_count, small_bucket_count, extra_bucket_count))
-        x = df[df.columns[1:573]]
+        x = df[extracted_features]
         y = df['Bucket']
 
         # Add MinMaxScaler here.  Data seems to be overfitting.
         scaler = MinMaxScaler()
         scaler.fit(x)
-        x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+        x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
 
         # In a for loop, create a directory for the 3 models and then deposit the hyperparameter tuning results as well
         #   as the SFS and PCA models/
@@ -461,8 +460,8 @@ def threshold_finder(threshold):
 
         for params, name, model in attributes:
             # Every time I iterate through this loop, I need to recreate x.
-            x = df[df.columns[1:573]]
-            x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+            x = df[extracted_features]
+            x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
 
             logger.info('%s Results:\n' %(name))
 
@@ -514,7 +513,7 @@ def forward_selection_only(threshold):
     """
 
     # Import the data.
-    df, _ = import_data()
+    df, extracted_features, _ = import_data()
     path = os.getcwd()
 
     # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
@@ -537,13 +536,13 @@ def forward_selection_only(threshold):
     else:
         logger.info('Threshold of %2.2f provides Large bucket size: %i, Small Bucket size: %i, Extra Bucket size: %i\n'
                     %(threshold, large_bucket_count, small_bucket_count, extra_bucket_count))
-        x = df[df.columns[1:573]]
+        x = df[extracted_features]
         y = df['Bucket']
 
         # Add MinMaxScaler here.  Data seems to be overfitting.
         scaler = MinMaxScaler()
         scaler.fit(x)
-        x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+        x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
 
         # In a for loop, create a directory for the 3 models and then deposit the hyperparameter tuning results as well
         #   as the SFS and PCA models/
@@ -551,8 +550,8 @@ def forward_selection_only(threshold):
         extracted_features = pd.DataFrame()
         for params, name, model in attributes:
             # Reevaluate X every time you iterate the loop.
-            x = df[df.columns[1:573]]
-            x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+            x = df[extracted_features]
+            x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
 
             logger.info('%s Results:\n' %(name))
 
@@ -590,22 +589,22 @@ def pca_tuning(threshold):
     path = os.getcwd()
 
     # DataFrame importing and adding 'Bucket' column
-    df, _ = import_data()
+    df, extracted_features, _ = import_data()
     df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
 
     # Get x and y values.
-    x = df[df.columns[1:573]]
+    x = df[extracted_features]
     y = df['Bucket']
 
     # Add minMaxScaler here to reduce overfitting.
     scaler = MinMaxScaler()
     scaler.fit(x)
-    x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+    x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
 
     attributes = param_name_model_zipper()
 
     for params, name, model in attributes:
-        x = df[df.columns[1:573]]
+        x = df[extracted_features]
         sfs = load(path + '/%s/sfs/%s %2.2f fs.joblib' %(name, name, threshold))
         x = sfs.transform(x)
 
@@ -659,71 +658,6 @@ def param_name_model_zipper():
 
     return attributes
 
-
-def ki_pipeline(df=pd.DataFrame(), base_range=(-10,10)):
-    """
-    This function takes either one of the small or large bucketed dataframes and contains the KI regression pipeline.
-
-    Parameters
-    ----------
-    df: Pandas DataFrame for either the small or large bucketed dataset.
-    """
-
-    # Initialize the x and y values.
-    x = df[df.columns[1:573]]
-    y_log = df[df.columns[574]]
-    y = df[df.columns[573]]
-
-    # Apply Forward Selection and PCA.  Keep the SFS and PCA pipeline components for use on the test set.
-    x, sfs = forward_selection(x,y_log)
-    x, pca = principal_component_analysis(x)
-
-    # Train/test splits
-    x_train, x_valid, y_log_train, y_log_valid = train_test_split(x, y_log, test_size=0.2, random_state=42)
-    _, _, y_train, y_valid = train_test_split(x, y, test_size=0.2, random_state=42)
-
-    # Train and fit the model
-    reg = SVR(kernel='rbf')
-    reg.fit(x_train, y_log_train)
-    y_log_pred = reg.predict(x_valid)
-
-    # Reconvert back to base
-    y_pred = unscale(y_log_pred, base_range)
-
-    # Calculate the rmse for both log and base.
-    rmse_log = np.sqrt(mean_squared_error(y_log_valid, y_log_pred))
-    rmse = np.sqrt(mean_squared_error(y_valid, y_pred))
-
-
-# Calculating the MCC scores of the classifiers.
-def regressor():
-    """
-    This function loads the classification models, calculates the MCC scores, stores them in dataframes,
-        and then visualizes them in a chart.  This will export my results into an external file.
-
-
-    """
-    # Import the bucket classifier models we created from before.
-    bucket_clf = load('bucket_clf.joblib')
-    bucket_sfs = load('bucket_sfs.joblib')
-    bucket_pca = load('bucket_pca.joblib')
-
-    # This time, I actually want to use base_range
-    df, base_range = import_data()
-
-    # Transform the input data and then use the created classifier to split the values into buckets.
-    x = df[df.columns[1:573]]
-    x = bucket_sfs.transform(x)
-    x = bucket_pca.transform(x)
-    df['Bucket'] = bucket_clf.predict(x)
-
-    # Create new Dataframes with the Large and Small buckets
-    df_large = df[df['Bucket'] == True]
-    df_small = df[df['Bucket'] == False]
-
-    ki_pipeline(df_large, base_range)
-    ki_pipeline(df_small, base_range)
-
 def hyperparameter_pipeline(threshold):
     """
     This function is responsible for testing and optimizing for our hyperparameters.  The models used will be:
@@ -736,7 +670,7 @@ def hyperparameter_pipeline(threshold):
     """
 
     # Import the data.
-    df, _ = import_data()
+    df, extracted_features, _ = import_data()
     path = os.getcwd()
 
     # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
@@ -744,13 +678,13 @@ def hyperparameter_pipeline(threshold):
     df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
 
     # Create the x and y values.  X = all the features.  y = the columns of buckets
-    x = df[df.columns[1:573]]
+    x = df[extracted_features]
     y = df[df.columns[575]]
 
     # Add MinMaxScaler here.  Data seems to be overfitting.
     scaler = MinMaxScaler()
     scaler.fit(x)
-    x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+    x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
 
 
     # Create the feature set for the 3 classifiers.
@@ -804,9 +738,6 @@ if threshold != None:
 elif hyperparameter_test != None:
     logger = log_files('hyperparameter test.log')
     hyperparameter_pipeline(hyperparameter_test)
-elif regression == True:
-    logger = log_files('regressor.log')
-    regressor()
 elif sfsonly != None:
     logger = log_files('forward selection only.log')
     forward_selection_only(sfsonly)
