@@ -93,6 +93,10 @@ def import_data():
     path = os.getcwd()
     df = pd.read_csv(path + '/PositivePeptide_Ki.csv')
     logger.debug('The full dataset has %i examples.' %(len(df)))
+    
+    # Remove all but the 73 features that were relavant in Nivedha's Classification pipeline
+    labels = pd.read_json('features.json')
+    df = df[labels]
 
     # Rescaling the dataframe in the log10 (-5,5) range.
     df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=(-5,5))
