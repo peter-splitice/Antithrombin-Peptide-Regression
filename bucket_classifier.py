@@ -1,6 +1,7 @@
 ## Importing Dependencies
 
 # Standard libraries
+from statistics import variance
 import pandas as pd
 import numpy as np
 import os
@@ -234,7 +235,7 @@ def forward_selection(x, y, model):
 
     # Fit a feature selector to SVM w/RBF kernel classifier and use the 'accuracy' score.
     logger.debug('Forward Selection Starting')
-    sfs = SequentialFeatureSelector(model, n_jobs=-1, scoring=make_scorer(matthews_corrcoef), tol=0.005,
+    sfs = SequentialFeatureSelector(model, n_jobs=-1, scoring=make_scorer(matthews_corrcoef), tol=0.001,
                                     n_features_to_select='auto', direction='backward')
     sfs.fit(x, y)
     x = sfs.transform(x)
@@ -244,13 +245,15 @@ def forward_selection(x, y, model):
 
 
 ## Code for Principal Component Analysis
-def principal_component_analysis(x):
+def principal_component_analysis(x, var=100):
     """
     Perform PCA and return the transformed inputs with the principal components.
 
     Parameters
     ----------
     x: Input values to perform PCA on.
+
+    variance: Parameter that reduces dimensionality of the PCA.  Enter as an int from 0-100.
 
     Returns
     -------
@@ -265,6 +268,15 @@ def principal_component_analysis(x):
     pca = PCA()
     pca.fit(x)
     x = pca.transform(x)
+    
+    # Dimensonality Reduction based on accepted variance.
+    ratios = np.array(pca.explained_variance_ratio_)
+    ratios = ratios[ratios.cumsum() <= (var/100)]
+    
+    # Readjust the dimensions of x based on the variance we want.
+    length = len(ratios)
+    logger.info('Selecting %i principal components making up %i%% of the variance.\n' %(length,var))
+    x = x[:,0:length]    
     logger.debug('PCA Finished')
 
     return x, pca
@@ -456,7 +468,7 @@ def threshold_finder(threshold):
         # In a for loop, create a directory for the 3 models and then deposit the hyperparameter tuning results as well
         #   as the SFS and PCA models/
         attributes = param_name_model_zipper()
-        extracted_features = pd.DataFrame()
+        fs_features = pd.DataFrame()
 
         for params, name, model in attributes:
             # Every time I iterate through this loop, I need to recreate x.
@@ -482,12 +494,12 @@ def threshold_finder(threshold):
             logger.info('SFS only results:\n')
             results_sfsonly = classifier_trainer(df, x, y, params, model)
             results_sfsonly.to_csv(path + '/%s/sfs/%s SFS only results with threshold %2.2f.csv' %(name, name, threshold))
-            extracted_features[name] = sfs.get_feature_names_out()
+            #fs_features[name] = sfs.get_feature_names_out()
             dump(sfs, path + '/%s/sfs/%s %2.2f fs.joblib' %(name, name, threshold))
 
             # Now do PCA.
             logger.info('Results after PCA:\n')
-            x, pca = principal_component_analysis(x)
+            x, pca = principal_component_analysis(x, var=100)
             results = classifier_trainer(df, x, y, params, model)
 
             # Exporting the hyperparameter optimizations, sfs, and pca models.
@@ -496,7 +508,7 @@ def threshold_finder(threshold):
             dump(pca, path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name, name, threshold))
         
         # Exporting the extracted features.
-        extracted_features.to_csv(path + '/SFS Extracted Features/Saved Features for Threshold %2.2f.csv' %(threshold))
+        #fs_features.to_csv(path + '/SFS Extracted Features/Saved Features for Threshold %2.2f.csv' %(threshold))
 
     # Formatting for the logger.
     logger.info('-----------------------------------------------------\n')
@@ -584,9 +596,23 @@ def forward_selection_only(threshold):
         # Exporting the extracted features.
         extracted_features.to_csv(path + '/SFS Extracted Features/Saved Features for Threshold %2.2f.csv' %(threshold))
 
-def pca_tuning(threshold):
-
+def pca_tuning(threshold, var):
+    """
+    Use this function when you already finished feature selection (forwards/backwards) and then want to tune the PCA portion
+        of the pipeline by adjusting the amount of variance accepted.
+        
+    Parameters
+    ----------
+    threshold: threshold for the bucket splits
+    
+    var: percent variance to account for when doing PCA
+    """
+    ## Use this function to tune the PCA of a particular subset of models.
     path = os.getcwd()
+
+    # Formatting
+    logger.info('Threshold level %2.2f:\n' %(threshold))
+    logger.info('----------------------\n')
 
     # DataFrame importing and adding 'Bucket' column
     df, extracted_features, _ = import_data()
@@ -604,7 +630,12 @@ def pca_tuning(threshold):
     attributes = param_name_model_zipper()
 
     for params, name, model in attributes:
+        # Re-initialize "x"
         x = df[extracted_features]
+        x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
+        logger.info('Beginning analysis on %s:\n' %(name))
+
+        # Perform Forward Selection with our saved models
         sfs = load(path + '/%s/sfs/%s %2.2f fs.joblib' %(name, name, threshold))
         x = sfs.transform(x)
 
@@ -612,13 +643,21 @@ def pca_tuning(threshold):
             os.mkdir('%s/PCA Tuning' %(name))
 
         logger.info('Beginning PCA only section')
-        pca = PCA()
-        pca.fit(x)
+        x, pca = principal_component_analysis(x, var=var)
+
+        results = classifier_trainer(df, x, y, params, model)
+        results.to_csv(path + '/%s/PCA Tuning/%s results with threshold %2.2f and %i%% of the variance.csv' %(name, name, threshold, var))
+        dump(pca, path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name, name, threshold))
 
 
 def param_name_model_zipper():
     """
-    Zips up and creates 
+    This function initializes the models, parameters, and names and zips them up.  This is done before a lot of 
+        the for loops between models.
+
+    Returns
+    -------
+    attributes: zipped up parameters, names, and models.
     """
     
     # Create the feature set for the 3 classifiers.  Put them all into an array.
@@ -638,18 +677,9 @@ def param_name_model_zipper():
 
     # Create the models.  We've selected our 'base' hyperparameters from earlier.
 
-    # Mean_Test_Score = 0.394548, Std_Test_score = 0.133936, mean_train_score = 0.94489, std_train_score = 0.022332.  It looks like
-    # when gamma = 0.01, C = 1 and when gamma = 0.001, c = 100.  break_ties can be true or false.  no effect.  class weight always 'None'
-    rbf = SVC(C=10,gamma=0.01,break_ties=True,class_weight=None)
-
-    # mean_test_score = 0.43961, std_test_score = 0.0879, mean_train_score = 0.854369, std_train_score = 0.32907
-    # Max depth doesn't seem to matter too much past 3.
-    # Another parameter set can be {'alpha': 0.4, 'gamma': 0, 'lambda': 5, 'max_depth': 9, 'n_estimators': 9, 'subsample': 0.5}
-    # mean_test_score = 0.466982, std_test_score = 0.070494, mean_train_score = 0.815888, std_train_score = 0.049071
-    xgb = XGBClassifier(alpha=1.0,gamma=1,reg_lambda=1,max_depth=4,n_estimators=22,subsample=0.5)
-
-    # mean_test_score = 0.465951, std_test_score = 0.056089, mean_test_score = 0.894403, std_train_score = 0.01336
-    rfc = RandomForestClassifier(ccp_alpha=0.0,criterion='gini',max_depth=3,max_features='sqrt',n_estimators=23)
+    rbf = SVC(C=100,gamma=0.01,break_ties=False,class_weight=None)
+    xgb = XGBClassifier(alpha=0.6,gamma=0,reg_lambda=1,max_depth=4,n_estimators=15,subsample=0.5)
+    rfc = RandomForestClassifier(ccp_alpha=0.0,criterion='entropy',max_depth=5,max_features='log2',n_estimators=11)
     models = [rbf, xgb, rfc]
 
     # In a for loop, create a directory for the 3 models and then deposit the hyperparameter tuning results as well
@@ -657,6 +687,9 @@ def param_name_model_zipper():
     attributes = zip(params_list, names, models)
 
     return attributes
+
+#def tree_based_zipper():
+
 
 def hyperparameter_pipeline(threshold):
     """
@@ -723,6 +756,8 @@ parser.add_argument('-ht', '--hyperparameter_test', help='hyperparameter_test = 
                     type=float)
 parser.add_argument('-sfs', '--sfs_only', help='sfs_only = only do Sequential Forward Selection.  Note: do not do this'
                     ' until after you already passed the --threshold argument at least once.', type=float)
+parser.add_argument('-pca', '--pca_tuning', help='pca_tuning = provide a "var" element to get the principal components needed to account'
+                    ' for a certain amount of variance in the system', type=float)
            
 args = parser.parse_args()
 
@@ -730,6 +765,7 @@ threshold = args.threshold
 regression = args.regression
 hyperparameter_test = args.hyperparameter_test
 sfsonly = args.sfs_only
+pcatuner = args.pca_tuning
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
 if threshold != None:
@@ -741,6 +777,9 @@ elif hyperparameter_test != None:
 elif sfsonly != None:
     logger = log_files('forward selection only.log')
     forward_selection_only(sfsonly)
+elif pcatuner != None:
+    logger = log_files('PCA Tuning.log')
+    pca_tuning(pcatuner, var=95)
 
 ## Add email to the slurm address to get notifications.
 

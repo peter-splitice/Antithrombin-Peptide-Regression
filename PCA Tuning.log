@@ -1,0 +1,364 @@
+2022-08-31 18:12:48,049 | INFO | Threshold level 0.01:
+
+2022-08-31 18:12:48,050 | INFO | ----------------------
+
+2022-08-31 18:12:48,073 | INFO | Beginning analysis on SVC with RBF Kernel:
+
+2022-08-31 18:12:48,075 | INFO | Beginning PCA only section
+2022-08-31 18:12:48,078 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:12:50,325 | INFO | Best parameter set: {'C': 100, 'break_ties': True, 'class_weight': None, 'gamma': 'auto'}
+
+2022-08-31 18:12:50,325 | INFO | Best MCC score: 0.494
+
+2022-08-31 18:12:50,331 | INFO | Training Accuracy: 0.983, Training MCC: 0.969, Validation Accuracy: 0.867, Validation MCC: 0.564, Fold: 1
+2022-08-31 18:12:50,336 | INFO | Training Accuracy: 0.983, Training MCC: 0.965, Validation Accuracy: 0.867, Validation MCC: 0.772, Fold: 2
+2022-08-31 18:12:50,340 | INFO | Training Accuracy: 0.983, Training MCC: 0.965, Validation Accuracy: 0.800, Validation MCC: 0.693, Fold: 3
+2022-08-31 18:12:50,344 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.733, Validation MCC: 0.375, Fold: 4
+2022-08-31 18:12:50,349 | INFO | Training Accuracy: 0.983, Training MCC: 0.966, Validation Accuracy: 0.733, Validation MCC: 0.528, Fold: 5
+2022-08-31 18:12:50,350 | INFO | AVG Training Accuracy: 0.986, AVG Training MCC: 0.973, AVG Validation Accuracy: 0.800, AVG Validation MCC: 0.586
+
+2022-08-31 18:12:50,355 | INFO | Beginning analysis on XGBoost Classifier:
+
+2022-08-31 18:12:50,372 | INFO | Beginning PCA only section
+2022-08-31 18:12:50,375 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:15:36,993 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 2, 'lambda': 1, 'max_depth': 3, 'n_estimators': 4, 'subsample': 0.5}
+
+2022-08-31 18:15:36,993 | INFO | Best MCC score: 0.478
+
+2022-08-31 18:15:37,027 | INFO | Training Accuracy: 0.862, Training MCC: 0.752, Validation Accuracy: 0.800, Validation MCC: 0.000, Fold: 1
+2022-08-31 18:15:37,045 | INFO | Training Accuracy: 0.828, Training MCC: 0.627, Validation Accuracy: 0.600, Validation MCC: 0.371, Fold: 2
+2022-08-31 18:15:37,059 | INFO | Training Accuracy: 0.845, Training MCC: 0.672, Validation Accuracy: 0.467, Validation MCC: 0.016, Fold: 3
+2022-08-31 18:15:37,071 | INFO | Training Accuracy: 0.776, Training MCC: 0.563, Validation Accuracy: 0.733, Validation MCC: 0.255, Fold: 4
+2022-08-31 18:15:37,082 | INFO | Training Accuracy: 0.862, Training MCC: 0.720, Validation Accuracy: 0.600, Validation MCC: 0.246, Fold: 5
+2022-08-31 18:15:37,084 | INFO | AVG Training Accuracy: 0.834, AVG Training MCC: 0.667, AVG Validation Accuracy: 0.640, AVG Validation MCC: 0.178
+
+2022-08-31 18:15:37,208 | INFO | Beginning analysis on Random Forest Classifier:
+
+2022-08-31 18:15:37,212 | INFO | Beginning PCA only section
+2022-08-31 18:15:37,214 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:16:15,587 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 6, 'max_features': 'log2', 'n_estimators': 21}
+
+2022-08-31 18:16:15,587 | INFO | Best MCC score: 0.540
+
+2022-08-31 18:16:15,612 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.733, Validation MCC: 0.224, Fold: 1
+2022-08-31 18:16:15,634 | INFO | Training Accuracy: 0.983, Training MCC: 0.965, Validation Accuracy: 0.467, Validation MCC: 0.000, Fold: 2
+2022-08-31 18:16:15,654 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.000, Fold: 3
+2022-08-31 18:16:15,674 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.667, Validation MCC: 0.144, Fold: 4
+2022-08-31 18:16:15,701 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.667, Validation MCC: 0.435, Fold: 5
+2022-08-31 18:16:15,702 | INFO | AVG Training Accuracy: 0.997, AVG Training MCC: 0.993, AVG Validation Accuracy: 0.600, AVG Validation MCC: 0.161
+
+2022-08-31 18:16:17,698 | INFO | Threshold level 0.10:
+
+2022-08-31 18:16:17,698 | INFO | ----------------------
+
+2022-08-31 18:16:17,721 | INFO | Beginning analysis on SVC with RBF Kernel:
+
+2022-08-31 18:16:17,724 | INFO | Beginning PCA only section
+2022-08-31 18:16:17,726 | INFO | Selecting 26 principal components making up 95% of the variance.
+
+2022-08-31 18:16:19,822 | INFO | Best parameter set: {'C': 100, 'break_ties': True, 'class_weight': 'balanced', 'gamma': 'auto'}
+
+2022-08-31 18:16:19,823 | INFO | Best MCC score: 0.443
+
+2022-08-31 18:16:19,828 | INFO | Training Accuracy: 0.966, Training MCC: 0.944, Validation Accuracy: 0.667, Validation MCC: 0.390, Fold: 1
+2022-08-31 18:16:19,833 | INFO | Training Accuracy: 0.948, Training MCC: 0.917, Validation Accuracy: 0.600, Validation MCC: 0.253, Fold: 2
+2022-08-31 18:16:19,838 | INFO | Training Accuracy: 0.966, Training MCC: 0.943, Validation Accuracy: 0.533, Validation MCC: 0.174, Fold: 3
+2022-08-31 18:16:19,842 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.600, Validation MCC: 0.405, Fold: 4
+2022-08-31 18:16:19,848 | INFO | Training Accuracy: 0.914, Training MCC: 0.865, Validation Accuracy: 0.867, Validation MCC: 0.794, Fold: 5
+2022-08-31 18:16:19,849 | INFO | AVG Training Accuracy: 0.955, AVG Training MCC: 0.928, AVG Validation Accuracy: 0.653, AVG Validation MCC: 0.403
+
+2022-08-31 18:16:19,854 | INFO | Beginning analysis on XGBoost Classifier:
+
+2022-08-31 18:16:19,873 | INFO | Beginning PCA only section
+2022-08-31 18:16:19,876 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:19:08,930 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 2, 'n_estimators': 13, 'subsample': 0.5}
+
+2022-08-31 18:19:08,930 | INFO | Best MCC score: 0.372
+
+2022-08-31 18:19:08,964 | INFO | Training Accuracy: 0.966, Training MCC: 0.942, Validation Accuracy: 0.667, Validation MCC: 0.392, Fold: 1
+2022-08-31 18:19:08,977 | INFO | Training Accuracy: 0.948, Training MCC: 0.914, Validation Accuracy: 0.533, Validation MCC: 0.157, Fold: 2
+2022-08-31 18:19:08,989 | INFO | Training Accuracy: 0.948, Training MCC: 0.911, Validation Accuracy: 0.467, Validation MCC: 0.065, Fold: 3
+2022-08-31 18:19:09,002 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.400, Validation MCC: -0.036, Fold: 4
+2022-08-31 18:19:09,014 | INFO | Training Accuracy: 0.931, Training MCC: 0.880, Validation Accuracy: 0.600, Validation MCC: 0.343, Fold: 5
+2022-08-31 18:19:09,016 | INFO | AVG Training Accuracy: 0.955, AVG Training MCC: 0.924, AVG Validation Accuracy: 0.533, AVG Validation MCC: 0.184
+
+2022-08-31 18:19:09,035 | INFO | Beginning analysis on Random Forest Classifier:
+
+2022-08-31 18:19:09,041 | INFO | Beginning PCA only section
+2022-08-31 18:19:09,043 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:19:45,658 | INFO | Best parameter set: {'ccp_alpha': 0.1, 'criterion': 'entropy', 'max_depth': 6, 'max_features': 0.3, 'n_estimators': 1}
+
+2022-08-31 18:19:45,659 | INFO | Best MCC score: 0.415
+
+2022-08-31 18:19:45,667 | INFO | Training Accuracy: 0.776, Training MCC: 0.627, Validation Accuracy: 0.533, Validation MCC: 0.188, Fold: 1
+2022-08-31 18:19:45,671 | INFO | Training Accuracy: 0.793, Training MCC: 0.658, Validation Accuracy: 0.467, Validation MCC: 0.048, Fold: 2
+2022-08-31 18:19:45,676 | INFO | Training Accuracy: 0.759, Training MCC: 0.608, Validation Accuracy: 0.600, Validation MCC: 0.416, Fold: 3
+2022-08-31 18:19:45,680 | INFO | Training Accuracy: 0.810, Training MCC: 0.674, Validation Accuracy: 0.267, Validation MCC: -0.221, Fold: 4
+2022-08-31 18:19:45,685 | INFO | Training Accuracy: 0.690, Training MCC: 0.510, Validation Accuracy: 0.533, Validation MCC: 0.178, Fold: 5
+2022-08-31 18:19:45,686 | INFO | AVG Training Accuracy: 0.766, AVG Training MCC: 0.616, AVG Validation Accuracy: 0.480, AVG Validation MCC: 0.122
+
+2022-08-31 18:19:47,580 | INFO | Threshold level 0.50:
+
+2022-08-31 18:19:47,581 | INFO | ----------------------
+
+2022-08-31 18:19:47,603 | INFO | Beginning analysis on SVC with RBF Kernel:
+
+2022-08-31 18:19:47,605 | INFO | Beginning PCA only section
+2022-08-31 18:19:47,608 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:19:49,765 | INFO | Best parameter set: {'C': 250, 'break_ties': True, 'class_weight': 'balanced', 'gamma': 0.01}
+
+2022-08-31 18:19:49,765 | INFO | Best MCC score: 0.396
+
+2022-08-31 18:19:49,772 | INFO | Training Accuracy: 0.966, Training MCC: 0.944, Validation Accuracy: 0.667, Validation MCC: 0.434, Fold: 1
+2022-08-31 18:19:49,776 | INFO | Training Accuracy: 0.931, Training MCC: 0.886, Validation Accuracy: 0.667, Validation MCC: 0.386, Fold: 2
+2022-08-31 18:19:49,780 | INFO | Training Accuracy: 0.931, Training MCC: 0.885, Validation Accuracy: 0.667, Validation MCC: 0.343, Fold: 3
+2022-08-31 18:19:49,784 | INFO | Training Accuracy: 0.966, Training MCC: 0.944, Validation Accuracy: 0.667, Validation MCC: 0.470, Fold: 4
+2022-08-31 18:19:49,788 | INFO | Training Accuracy: 0.897, Training MCC: 0.834, Validation Accuracy: 0.733, Validation MCC: 0.543, Fold: 5
+2022-08-31 18:19:49,790 | INFO | AVG Training Accuracy: 0.938, AVG Training MCC: 0.899, AVG Validation Accuracy: 0.680, AVG Validation MCC: 0.435
+
+2022-08-31 18:19:49,796 | INFO | Beginning analysis on XGBoost Classifier:
+
+2022-08-31 18:19:49,812 | INFO | Beginning PCA only section
+2022-08-31 18:19:49,815 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:23:02,184 | INFO | Best parameter set: {'alpha': 0.6000000000000001, 'gamma': 3, 'lambda': 1, 'max_depth': 3, 'n_estimators': 7, 'subsample': 1}
+
+2022-08-31 18:23:02,184 | INFO | Best MCC score: 0.186
+
+2022-08-31 18:23:02,218 | INFO | Training Accuracy: 0.759, Training MCC: 0.594, Validation Accuracy: 0.533, Validation MCC: 0.171, Fold: 1
+2022-08-31 18:23:02,230 | INFO | Training Accuracy: 0.759, Training MCC: 0.610, Validation Accuracy: 0.400, Validation MCC: -0.126, Fold: 2
+2022-08-31 18:23:02,242 | INFO | Training Accuracy: 0.672, Training MCC: 0.435, Validation Accuracy: 0.467, Validation MCC: 0.180, Fold: 3
+2022-08-31 18:23:02,254 | INFO | Training Accuracy: 0.741, Training MCC: 0.550, Validation Accuracy: 0.400, Validation MCC: 0.094, Fold: 4
+2022-08-31 18:23:02,267 | INFO | Training Accuracy: 0.741, Training MCC: 0.554, Validation Accuracy: 0.533, Validation MCC: 0.261, Fold: 5
+2022-08-31 18:23:02,268 | INFO | AVG Training Accuracy: 0.734, AVG Training MCC: 0.549, AVG Validation Accuracy: 0.467, AVG Validation MCC: 0.116
+
+2022-08-31 18:23:02,273 | INFO | Beginning analysis on Random Forest Classifier:
+
+2022-08-31 18:23:02,277 | INFO | Beginning PCA only section
+2022-08-31 18:23:02,279 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:23:42,276 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 4, 'max_features': 0.3, 'n_estimators': 1}
+
+2022-08-31 18:23:42,276 | INFO | Best MCC score: 0.434
+
+2022-08-31 18:23:42,285 | INFO | Training Accuracy: 0.741, Training MCC: 0.572, Validation Accuracy: 0.333, Validation MCC: -0.198, Fold: 1
+2022-08-31 18:23:42,291 | INFO | Training Accuracy: 0.741, Training MCC: 0.580, Validation Accuracy: 0.467, Validation MCC: 0.055, Fold: 2
+2022-08-31 18:23:42,297 | INFO | Training Accuracy: 0.741, Training MCC: 0.577, Validation Accuracy: 0.333, Validation MCC: -0.170, Fold: 3
+2022-08-31 18:23:42,303 | INFO | Training Accuracy: 0.793, Training MCC: 0.657, Validation Accuracy: 0.467, Validation MCC: 0.284, Fold: 4
+2022-08-31 18:23:42,309 | INFO | Training Accuracy: 0.741, Training MCC: 0.594, Validation Accuracy: 0.333, Validation MCC: -0.022, Fold: 5
+2022-08-31 18:23:42,311 | INFO | AVG Training Accuracy: 0.752, AVG Training MCC: 0.596, AVG Validation Accuracy: 0.387, AVG Validation MCC: -0.010
+
+2022-08-31 18:23:44,491 | INFO | Threshold level 5.00:
+
+2022-08-31 18:23:44,491 | INFO | ----------------------
+
+2022-08-31 18:23:44,514 | INFO | Beginning analysis on SVC with RBF Kernel:
+
+2022-08-31 18:23:44,516 | INFO | Beginning PCA only section
+2022-08-31 18:23:44,519 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:23:46,983 | INFO | Best parameter set: {'C': 100, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 0.001}
+
+2022-08-31 18:23:46,983 | INFO | Best MCC score: 0.338
+
+2022-08-31 18:23:46,989 | INFO | Training Accuracy: 0.776, Training MCC: 0.647, Validation Accuracy: 0.667, Validation MCC: 0.306, Fold: 1
+2022-08-31 18:23:46,995 | INFO | Training Accuracy: 0.793, Training MCC: 0.682, Validation Accuracy: 0.600, Validation MCC: 0.092, Fold: 2
+2022-08-31 18:23:47,000 | INFO | Training Accuracy: 0.793, Training MCC: 0.673, Validation Accuracy: 0.733, Validation MCC: 0.434, Fold: 3
+2022-08-31 18:23:47,004 | INFO | Training Accuracy: 0.845, Training MCC: 0.744, Validation Accuracy: 0.467, Validation MCC: 0.268, Fold: 4
+2022-08-31 18:23:47,009 | INFO | Training Accuracy: 0.793, Training MCC: 0.658, Validation Accuracy: 0.533, Validation MCC: 0.111, Fold: 5
+2022-08-31 18:23:47,010 | INFO | AVG Training Accuracy: 0.800, AVG Training MCC: 0.681, AVG Validation Accuracy: 0.600, AVG Validation MCC: 0.242
+
+2022-08-31 18:23:47,014 | INFO | Beginning analysis on XGBoost Classifier:
+
+2022-08-31 18:23:47,034 | INFO | Beginning PCA only section
+2022-08-31 18:23:47,037 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:26:49,529 | INFO | Best parameter set: {'alpha': 0.2, 'gamma': 3, 'lambda': 1, 'max_depth': 2, 'n_estimators': 3, 'subsample': 0.5}
+
+2022-08-31 18:26:49,529 | INFO | Best MCC score: 0.372
+
+2022-08-31 18:26:49,561 | INFO | Training Accuracy: 0.655, Training MCC: 0.419, Validation Accuracy: 0.733, Validation MCC: 0.250, Fold: 1
+2022-08-31 18:26:49,572 | INFO | Training Accuracy: 0.638, Training MCC: 0.360, Validation Accuracy: 0.667, Validation MCC: 0.246, Fold: 2
+2022-08-31 18:26:49,581 | INFO | Training Accuracy: 0.707, Training MCC: 0.494, Validation Accuracy: 0.667, Validation MCC: 0.383, Fold: 3
+2022-08-31 18:26:49,591 | INFO | Training Accuracy: 0.759, Training MCC: 0.560, Validation Accuracy: 0.467, Validation MCC: 0.111, Fold: 4
+2022-08-31 18:26:49,601 | INFO | Training Accuracy: 0.690, Training MCC: 0.434, Validation Accuracy: 0.600, Validation MCC: 0.261, Fold: 5
+2022-08-31 18:26:49,603 | INFO | AVG Training Accuracy: 0.690, AVG Training MCC: 0.453, AVG Validation Accuracy: 0.627, AVG Validation MCC: 0.250
+
+2022-08-31 18:26:49,610 | INFO | Beginning analysis on Random Forest Classifier:
+
+2022-08-31 18:26:49,614 | INFO | Beginning PCA only section
+2022-08-31 18:26:49,616 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:27:28,466 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 2, 'max_features': 'log2', 'n_estimators': 12}
+
+2022-08-31 18:27:28,467 | INFO | Best MCC score: 0.415
+
+2022-08-31 18:27:28,485 | INFO | Training Accuracy: 0.810, Training MCC: 0.674, Validation Accuracy: 0.600, Validation MCC: -0.170, Fold: 1
+2022-08-31 18:27:28,498 | INFO | Training Accuracy: 0.776, Training MCC: 0.635, Validation Accuracy: 0.667, Validation MCC: 0.160, Fold: 2
+2022-08-31 18:27:28,512 | INFO | Training Accuracy: 0.776, Training MCC: 0.636, Validation Accuracy: 0.600, Validation MCC: -0.036, Fold: 3
+2022-08-31 18:27:28,526 | INFO | Training Accuracy: 0.759, Training MCC: 0.575, Validation Accuracy: 0.467, Validation MCC: 0.121, Fold: 4
+2022-08-31 18:27:28,539 | INFO | Training Accuracy: 0.793, Training MCC: 0.655, Validation Accuracy: 0.533, Validation MCC: 0.000, Fold: 5
+2022-08-31 18:27:28,541 | INFO | AVG Training Accuracy: 0.783, AVG Training MCC: 0.635, AVG Validation Accuracy: 0.573, AVG Validation MCC: 0.015
+
+2022-08-31 18:27:30,570 | INFO | Threshold level 10.00:
+
+2022-08-31 18:27:30,570 | INFO | ----------------------
+
+2022-08-31 18:27:30,593 | INFO | Beginning analysis on SVC with RBF Kernel:
+
+2022-08-31 18:27:30,596 | INFO | Beginning PCA only section
+2022-08-31 18:27:30,598 | INFO | Selecting 26 principal components making up 95% of the variance.
+
+2022-08-31 18:27:32,781 | INFO | Best parameter set: {'C': 10, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 'auto'}
+
+2022-08-31 18:27:32,781 | INFO | Best MCC score: 0.547
+
+2022-08-31 18:27:32,786 | INFO | Training Accuracy: 0.914, Training MCC: 0.855, Validation Accuracy: 0.733, Validation MCC: 0.459, Fold: 1
+2022-08-31 18:27:32,791 | INFO | Training Accuracy: 0.914, Training MCC: 0.853, Validation Accuracy: 0.733, Validation MCC: 0.413, Fold: 2
+2022-08-31 18:27:32,794 | INFO | Training Accuracy: 0.931, Training MCC: 0.882, Validation Accuracy: 0.800, Validation MCC: 0.555, Fold: 3
+2022-08-31 18:27:32,798 | INFO | Training Accuracy: 0.897, Training MCC: 0.812, Validation Accuracy: 0.733, Validation MCC: 0.601, Fold: 4
+2022-08-31 18:27:32,802 | INFO | Training Accuracy: 0.914, Training MCC: 0.842, Validation Accuracy: 0.600, Validation MCC: 0.296, Fold: 5
+2022-08-31 18:27:32,803 | INFO | AVG Training Accuracy: 0.914, AVG Training MCC: 0.849, AVG Validation Accuracy: 0.720, AVG Validation MCC: 0.465
+
+2022-08-31 18:27:32,809 | INFO | Beginning analysis on XGBoost Classifier:
+
+2022-08-31 18:27:32,826 | INFO | Beginning PCA only section
+2022-08-31 18:27:32,829 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:30:32,306 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 2, 'n_estimators': 5, 'subsample': 0.5}
+
+2022-08-31 18:30:32,307 | INFO | Best MCC score: 0.533
+
+2022-08-31 18:30:32,370 | INFO | Training Accuracy: 0.914, Training MCC: 0.854, Validation Accuracy: 0.733, Validation MCC: 0.331, Fold: 1
+2022-08-31 18:30:32,384 | INFO | Training Accuracy: 0.914, Training MCC: 0.848, Validation Accuracy: 0.667, Validation MCC: 0.109, Fold: 2
+2022-08-31 18:30:32,399 | INFO | Training Accuracy: 0.897, Training MCC: 0.816, Validation Accuracy: 0.733, Validation MCC: 0.459, Fold: 3
+2022-08-31 18:30:32,411 | INFO | Training Accuracy: 0.862, Training MCC: 0.736, Validation Accuracy: 0.667, Validation MCC: 0.442, Fold: 4
+2022-08-31 18:30:32,422 | INFO | Training Accuracy: 0.897, Training MCC: 0.807, Validation Accuracy: 0.733, Validation MCC: 0.529, Fold: 5
+2022-08-31 18:30:32,425 | INFO | AVG Training Accuracy: 0.897, AVG Training MCC: 0.812, AVG Validation Accuracy: 0.707, AVG Validation MCC: 0.374
+
+2022-08-31 18:30:32,588 | INFO | Beginning analysis on Random Forest Classifier:
+
+2022-08-31 18:30:32,592 | INFO | Beginning PCA only section
+2022-08-31 18:30:32,595 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:31:10,824 | INFO | Best parameter set: {'ccp_alpha': 0.2, 'criterion': 'entropy', 'max_depth': 8, 'max_features': 1.0, 'n_estimators': 19}
+
+2022-08-31 18:31:10,825 | INFO | Best MCC score: 0.572
+
+2022-08-31 18:31:10,858 | INFO | Training Accuracy: 0.845, Training MCC: 0.724, Validation Accuracy: 0.733, Validation MCC: 0.355, Fold: 1
+2022-08-31 18:31:10,888 | INFO | Training Accuracy: 0.828, Training MCC: 0.690, Validation Accuracy: 0.667, Validation MCC: 0.187, Fold: 2
+2022-08-31 18:31:10,916 | INFO | Training Accuracy: 0.862, Training MCC: 0.755, Validation Accuracy: 0.667, Validation MCC: 0.383, Fold: 3
+2022-08-31 18:31:10,943 | INFO | Training Accuracy: 0.862, Training MCC: 0.733, Validation Accuracy: 0.667, Validation MCC: 0.515, Fold: 4
+2022-08-31 18:31:10,971 | INFO | Training Accuracy: 0.914, Training MCC: 0.837, Validation Accuracy: 0.667, Validation MCC: 0.392, Fold: 5
+2022-08-31 18:31:10,973 | INFO | AVG Training Accuracy: 0.862, AVG Training MCC: 0.748, AVG Validation Accuracy: 0.680, AVG Validation MCC: 0.366
+
+2022-08-31 18:31:13,125 | INFO | Threshold level 15.00:
+
+2022-08-31 18:31:13,125 | INFO | ----------------------
+
+2022-08-31 18:31:13,151 | INFO | Beginning analysis on SVC with RBF Kernel:
+
+2022-08-31 18:31:13,153 | INFO | Beginning PCA only section
+2022-08-31 18:31:13,156 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:31:15,437 | INFO | Best parameter set: {'C': 250, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 0.001}
+
+2022-08-31 18:31:15,437 | INFO | Best MCC score: 0.485
+
+2022-08-31 18:31:15,444 | INFO | Training Accuracy: 0.879, Training MCC: 0.794, Validation Accuracy: 0.867, Validation MCC: 0.649, Fold: 1
+2022-08-31 18:31:15,448 | INFO | Training Accuracy: 0.879, Training MCC: 0.791, Validation Accuracy: 0.667, Validation MCC: 0.187, Fold: 2
+2022-08-31 18:31:15,452 | INFO | Training Accuracy: 0.879, Training MCC: 0.786, Validation Accuracy: 0.800, Validation MCC: 0.589, Fold: 3
+2022-08-31 18:31:15,456 | INFO | Training Accuracy: 0.879, Training MCC: 0.775, Validation Accuracy: 0.600, Validation MCC: 0.408, Fold: 4
+2022-08-31 18:31:15,460 | INFO | Training Accuracy: 0.879, Training MCC: 0.778, Validation Accuracy: 0.600, Validation MCC: 0.261, Fold: 5
+2022-08-31 18:31:15,461 | INFO | AVG Training Accuracy: 0.879, AVG Training MCC: 0.785, AVG Validation Accuracy: 0.707, AVG Validation MCC: 0.419
+
+2022-08-31 18:31:15,467 | INFO | Beginning analysis on XGBoost Classifier:
+
+2022-08-31 18:31:15,486 | INFO | Beginning PCA only section
+2022-08-31 18:31:15,489 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:34:00,905 | INFO | Best parameter set: {'alpha': 1.0, 'gamma': 3, 'lambda': 1, 'max_depth': 2, 'n_estimators': 1, 'subsample': 0.5}
+
+2022-08-31 18:34:00,906 | INFO | Best MCC score: 0.425
+
+2022-08-31 18:34:00,939 | INFO | Training Accuracy: 0.655, Training MCC: 0.347, Validation Accuracy: 0.733, Validation MCC: -0.087, Fold: 1
+2022-08-31 18:34:00,952 | INFO | Training Accuracy: 0.586, Training MCC: 0.000, Validation Accuracy: 0.733, Validation MCC: 0.000, Fold: 2
+2022-08-31 18:34:00,967 | INFO | Training Accuracy: 0.707, Training MCC: 0.473, Validation Accuracy: 0.667, Validation MCC: 0.383, Fold: 3
+2022-08-31 18:34:00,980 | INFO | Training Accuracy: 0.724, Training MCC: 0.469, Validation Accuracy: 0.600, Validation MCC: 0.445, Fold: 4
+2022-08-31 18:34:00,990 | INFO | Training Accuracy: 0.655, Training MCC: 0.231, Validation Accuracy: 0.533, Validation MCC: 0.072, Fold: 5
+2022-08-31 18:34:00,991 | INFO | AVG Training Accuracy: 0.666, AVG Training MCC: 0.304, AVG Validation Accuracy: 0.653, AVG Validation MCC: 0.163
+
+2022-08-31 18:34:01,058 | INFO | Beginning analysis on Random Forest Classifier:
+
+2022-08-31 18:34:01,066 | INFO | Beginning PCA only section
+2022-08-31 18:34:01,069 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:34:37,463 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 5, 'max_features': 1.0, 'n_estimators': 22}
+
+2022-08-31 18:34:37,463 | INFO | Best MCC score: 0.466
+
+2022-08-31 18:34:37,491 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.600, Validation MCC: 0.347, Fold: 1
+2022-08-31 18:34:37,524 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.733, Validation MCC: 0.413, Fold: 2
+2022-08-31 18:34:37,549 | INFO | Training Accuracy: 0.983, Training MCC: 0.970, Validation Accuracy: 0.733, Validation MCC: 0.459, Fold: 3
+2022-08-31 18:34:37,574 | INFO | Training Accuracy: 0.983, Training MCC: 0.968, Validation Accuracy: 0.667, Validation MCC: 0.444, Fold: 4
+2022-08-31 18:34:37,600 | INFO | Training Accuracy: 0.983, Training MCC: 0.968, Validation Accuracy: 0.667, Validation MCC: 0.392, Fold: 5
+2022-08-31 18:34:37,601 | INFO | AVG Training Accuracy: 0.983, AVG Training MCC: 0.969, AVG Validation Accuracy: 0.680, AVG Validation MCC: 0.411
+
+2022-08-31 18:34:39,528 | INFO | Threshold level 18.00:
+
+2022-08-31 18:34:39,529 | INFO | ----------------------
+
+2022-08-31 18:34:39,552 | INFO | Beginning analysis on SVC with RBF Kernel:
+
+2022-08-31 18:34:39,554 | INFO | Beginning PCA only section
+2022-08-31 18:34:39,556 | INFO | Selecting 27 principal components making up 95% of the variance.
+
+2022-08-31 18:34:41,607 | INFO | Best parameter set: {'C': 250, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 0.01}
+
+2022-08-31 18:34:41,607 | INFO | Best MCC score: 0.560
+
+2022-08-31 18:34:41,612 | INFO | Training Accuracy: 0.948, Training MCC: 0.909, Validation Accuracy: 0.800, Validation MCC: 0.446, Fold: 1
+2022-08-31 18:34:41,616 | INFO | Training Accuracy: 0.948, Training MCC: 0.905, Validation Accuracy: 0.800, Validation MCC: 0.625, Fold: 2
+2022-08-31 18:34:41,620 | INFO | Training Accuracy: 0.948, Training MCC: 0.905, Validation Accuracy: 0.867, Validation MCC: 0.695, Fold: 3
+2022-08-31 18:34:41,625 | INFO | Training Accuracy: 0.948, Training MCC: 0.903, Validation Accuracy: 0.800, Validation MCC: 0.648, Fold: 4
+2022-08-31 18:34:41,629 | INFO | Training Accuracy: 0.966, Training MCC: 0.932, Validation Accuracy: 0.667, Validation MCC: 0.400, Fold: 5
+2022-08-31 18:34:41,630 | INFO | AVG Training Accuracy: 0.952, AVG Training MCC: 0.911, AVG Validation Accuracy: 0.787, AVG Validation MCC: 0.563
+
+2022-08-31 18:34:41,636 | INFO | Beginning analysis on XGBoost Classifier:
+
+2022-08-31 18:34:41,656 | INFO | Beginning PCA only section
+2022-08-31 18:34:41,659 | INFO | Selecting 26 principal components making up 95% of the variance.
+
+2022-08-31 18:37:24,299 | INFO | Best parameter set: {'alpha': 0.6000000000000001, 'gamma': 0, 'lambda': 1, 'max_depth': 3, 'n_estimators': 15, 'subsample': 0.5}
+
+2022-08-31 18:37:24,300 | INFO | Best MCC score: 0.432
+
+2022-08-31 18:37:24,339 | INFO | Training Accuracy: 0.914, Training MCC: 0.843, Validation Accuracy: 0.733, Validation MCC: 0.459, Fold: 1
+2022-08-31 18:37:24,361 | INFO | Training Accuracy: 0.948, Training MCC: 0.905, Validation Accuracy: 0.733, Validation MCC: 0.229, Fold: 2
+2022-08-31 18:37:24,377 | INFO | Training Accuracy: 0.914, Training MCC: 0.845, Validation Accuracy: 0.733, Validation MCC: 0.325, Fold: 3
+2022-08-31 18:37:24,393 | INFO | Training Accuracy: 0.948, Training MCC: 0.900, Validation Accuracy: 0.533, Validation MCC: 0.090, Fold: 4
+2022-08-31 18:37:24,412 | INFO | Training Accuracy: 0.931, Training MCC: 0.861, Validation Accuracy: 0.600, Validation MCC: 0.253, Fold: 5
+2022-08-31 18:37:24,415 | INFO | AVG Training Accuracy: 0.931, AVG Training MCC: 0.871, AVG Validation Accuracy: 0.667, AVG Validation MCC: 0.271
+
+2022-08-31 18:37:24,545 | INFO | Beginning analysis on Random Forest Classifier:
+
+2022-08-31 18:37:24,548 | INFO | Beginning PCA only section
+2022-08-31 18:37:24,550 | INFO | Selecting 26 principal components making up 95% of the variance.
+
+2022-08-31 18:38:00,629 | INFO | Best parameter set: {'ccp_alpha': 0.1, 'criterion': 'entropy', 'max_depth': 7, 'max_features': 1.0, 'n_estimators': 1}
+
+2022-08-31 18:38:00,629 | INFO | Best MCC score: 0.439
+
+2022-08-31 18:38:00,638 | INFO | Training Accuracy: 0.845, Training MCC: 0.734, Validation Accuracy: 0.467, Validation MCC: 0.265, Fold: 1
+2022-08-31 18:38:00,643 | INFO | Training Accuracy: 0.707, Training MCC: 0.505, Validation Accuracy: 0.667, Validation MCC: 0.469, Fold: 2
+2022-08-31 18:38:00,648 | INFO | Training Accuracy: 0.793, Training MCC: 0.618, Validation Accuracy: 0.267, Validation MCC: -0.141, Fold: 3
+2022-08-31 18:38:00,653 | INFO | Training Accuracy: 0.793, Training MCC: 0.629, Validation Accuracy: 0.400, Validation MCC: 0.177, Fold: 4
+2022-08-31 18:38:00,657 | INFO | Training Accuracy: 0.810, Training MCC: 0.605, Validation Accuracy: 0.667, Validation MCC: 0.392, Fold: 5
+2022-08-31 18:38:00,659 | INFO | AVG Training Accuracy: 0.790, AVG Training MCC: 0.618, AVG Validation Accuracy: 0.493, AVG Validation MCC: 0.232
+
