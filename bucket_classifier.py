@@ -9,13 +9,14 @@ import csv
 
 # Preprocessing
 from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 
 # Models
 from sklearn.linear_model import Lasso
 from sklearn.svm import SVR, SVC
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
+from sklearn.neighbors import KNeighborsClassifier
 
 # Dimensionality Reduction
 from sklearn.decomposition import PCA
@@ -37,6 +38,7 @@ import argparse
 import logging
 import sys
 
+## Try KNN k from 1-100?
 
 ## Create the logger
 def log_files(logname):
@@ -94,14 +96,11 @@ def import_data():
     path = os.getcwd()
     df = pd.read_csv(path + '/PositivePeptide_Ki.csv')
     logger.debug('The full dataset has %i examples.' %(len(df)))
-    
-    # Remove all but the 73 features that were relavant in Nivedha's Classification pipeline
-    extracted_features = pd.read_json('features.json', typ='Series')
 
     # Rescaling the dataframe in the log10 (-5,5) range.
     df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=(-5,5))
 
-    return df, extracted_features, base_range
+    return df, base_range
 
 ## Logarithmically scalling the values.
 def rescale(array=np.array(0), destination_interval=(-5,5)):
@@ -235,8 +234,8 @@ def forward_selection(x, y, model):
 
     # Fit a feature selector to SVM w/RBF kernel classifier and use the 'accuracy' score.
     logger.debug('Forward Selection Starting')
-    sfs = SequentialFeatureSelector(model, n_jobs=-1, scoring=make_scorer(matthews_corrcoef), tol=0.001,
-                                    n_features_to_select='auto', direction='backward')
+    sfs = SequentialFeatureSelector(model, n_jobs=-1, scoring=make_scorer(matthews_corrcoef), tol=None,
+                                    n_features_to_select='auto', direction='forward')
     sfs.fit(x, y)
     x = sfs.transform(x)
     logger.debug('Forward Selection Finished')
@@ -369,7 +368,8 @@ def classifier_trainer(df, x, y, params, model=SVC()):
     for seed in seeds:
         i += 1
         logger.debug('Training:')
-        x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=0.2, random_state=seed)
+        # Stratify!
+        x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=0.2, random_state=seed, stratify=y)
         model.fit(x_train, y_train)
 
         logger.debug('Training Finished.')
@@ -426,15 +426,13 @@ def threshold_finder(threshold):
     ----------
     threshold: Threshold value to set the KI classification to.
 
-    df: Pandas DataFrame that is being "classified"
-
     Returns
     -------
     bucket: Dummy variable for now, returns a dummy variable
     """
     
     # Import the data.
-    df, extracted_features, _ = import_data()
+    df, _ = import_data()
     path = os.getcwd()
 
     # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
@@ -457,13 +455,14 @@ def threshold_finder(threshold):
     else:
         logger.info('Threshold of %2.2f provides Large bucket size: %i, Small Bucket size: %i, Extra Bucket size: %i\n'
                     %(threshold, large_bucket_count, small_bucket_count, extra_bucket_count))
-        x = df[extracted_features]
+
+        x = df[df.columns[1:573]]
         y = df['Bucket']
 
         # Add MinMaxScaler here.  Data seems to be overfitting.
         scaler = MinMaxScaler()
         scaler.fit(x)
-        x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
+        x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
 
         # In a for loop, create a directory for the 3 models and then deposit the hyperparameter tuning results as well
         #   as the SFS and PCA models/
@@ -472,8 +471,8 @@ def threshold_finder(threshold):
 
         for params, name, model in attributes:
             # Every time I iterate through this loop, I need to recreate x.
-            x = df[extracted_features]
-            x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
+            x = df[df.columns[1:573]]
+            x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
 
             logger.info('%s Results:\n' %(name))
 
@@ -525,7 +524,7 @@ def forward_selection_only(threshold):
     """
 
     # Import the data.
-    df, extracted_features, _ = import_data()
+    df, _ = import_data()
     path = os.getcwd()
 
     # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
@@ -548,13 +547,13 @@ def forward_selection_only(threshold):
     else:
         logger.info('Threshold of %2.2f provides Large bucket size: %i, Small Bucket size: %i, Extra Bucket size: %i\n'
                     %(threshold, large_bucket_count, small_bucket_count, extra_bucket_count))
-        x = df[extracted_features]
+        x = df[df.columns[1:573]]
         y = df['Bucket']
 
         # Add MinMaxScaler here.  Data seems to be overfitting.
         scaler = MinMaxScaler()
         scaler.fit(x)
-        x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
+        x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
 
         # In a for loop, create a directory for the 3 models and then deposit the hyperparameter tuning results as well
         #   as the SFS and PCA models/
@@ -562,8 +561,8 @@ def forward_selection_only(threshold):
         extracted_features = pd.DataFrame()
         for params, name, model in attributes:
             # Reevaluate X every time you iterate the loop.
-            x = df[extracted_features]
-            x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
+            x = df[df.columns[1:573]]
+            x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
 
             logger.info('%s Results:\n' %(name))
 
@@ -611,29 +610,30 @@ def pca_tuning(threshold, var):
     path = os.getcwd()
 
     # Formatting
-    logger.info('Threshold level %2.2f:\n' %(threshold))
-    logger.info('----------------------\n')
+    logger.info('Threshold level %2.2f:' %(threshold))
+    logger.info('---------------------\n')
 
     # DataFrame importing and adding 'Bucket' column
-    df, extracted_features, _ = import_data()
+    df, _ = import_data()
     df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
 
     # Get x and y values.
-    x = df[extracted_features]
+    x = df[df.columns[1:573]]
     y = df['Bucket']
 
     # Add minMaxScaler here to reduce overfitting.
     scaler = MinMaxScaler()
     scaler.fit(x)
-    x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
+    x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
 
     attributes = param_name_model_zipper()
 
     for params, name, model in attributes:
         # Re-initialize "x"
-        x = df[extracted_features]
-        x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
-        logger.info('Beginning analysis on %s:\n' %(name))
+        x = df[df.columns[1:573]]
+        x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+        logger.info('Beginning analysis on %s:' %(name))
+        logger.info('-----------------------\n')
 
         # Perform Forward Selection with our saved models
         sfs = load(path + '/%s/sfs/%s %2.2f fs.joblib' %(name, name, threshold))
@@ -642,7 +642,7 @@ def pca_tuning(threshold, var):
         if os.path.exists(path + '/%s/PCA Tuning' %(name)) == False:
             os.mkdir('%s/PCA Tuning' %(name))
 
-        logger.info('Beginning PCA only section')
+        logger.debug('Beginning PCA only section')
         x, pca = principal_component_analysis(x, var=var)
 
         results = classifier_trainer(df, x, y, params, model)
@@ -660,31 +660,34 @@ def param_name_model_zipper():
     attributes: zipped up parameters, names, and models.
     """
     
-    # Create the feature set for the 3 classifiers.  Put them all into an array.
+    # Create the feature set for the 3 classifiers.  Put them all into an array. # Check C between 5 and 100
     rbf_params = {'gamma': [1e-1,1e-2,1e-3,1e-4,'scale','auto'], 'C': [5,10,50,100,250,500,1000],
                   'class_weight': [None,'balanced'], 'break_ties': [False,True]}
     xgb_params = {'max_depth': np.arange(2,11,1), 'n_estimators': np.arange(1,25,1), 'gamma': np.arange(0,4,1),
                   'subsample': [0.5,1], 'lambda': [1,5,9], 'alpha': np.arange(0,1.1,0.2)}
     rfc_params = {'criterion': ['gini','entropy'], 'max_features': ['sqrt','log2',1.0,0.3], 'ccp_alpha': np.arange(0,0.3,0.1),
                   'n_estimators': np.arange(1,25,1), 'max_depth': np.arange(2,11,1)}
-    params_list = [rbf_params, xgb_params, rfc_params]
+    all_params = [rbf_params, xgb_params, rfc_params]
 
     # Create the string titles for the various models.
     rbf_name = 'SVC with RBF Kernel'
     xgb_name = 'XGBoost Classifier'
     rfc_name = 'Random Forest Classifier'
-    names = [rbf_name, xgb_name, rfc_name]
+    knn_name = 'KNN Classifier'
+    names = [rbf_name, xgb_name, rfc_name, knn_name]
+    names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier', 'KNN Classifier']
+    
+    # Initialize models with the necessary hyperparameters.
+    rbf = SVC(C=10,gamma=0.01,break_ties=True,class_weight=None)
+    xgb = XGBClassifier(alpha=1.0,gamma=1,reg_lambda=1,max_depth=4,n_estimators=22,subsample=0.5)
+    rfc = RandomForestClassifier(ccp_alpha=0.0,criterion='gini',max_depth=3,max_features='sqrt',n_estimators=23)
+    knn = KNeighborsClassifier()
 
-    # Create the models.  We've selected our 'base' hyperparameters from earlier.
-
-    rbf = SVC(C=100,gamma=0.01,break_ties=False,class_weight=None)
-    xgb = XGBClassifier(alpha=0.6,gamma=0,reg_lambda=1,max_depth=4,n_estimators=15,subsample=0.5)
-    rfc = RandomForestClassifier(ccp_alpha=0.0,criterion='entropy',max_depth=5,max_features='log2',n_estimators=11)
-    models = [rbf, xgb, rfc]
+    models = [rbf, xgb, rfc, knn]
 
     # In a for loop, create a directory for the 3 models and then deposit the hyperparameter tuning results as well
     #   as the SFS and PCA models/
-    attributes = zip(params_list, names, models)
+    attributes = zip(all_params, names, models)
 
     return attributes
 
@@ -703,7 +706,7 @@ def hyperparameter_pipeline(threshold):
     """
 
     # Import the data.
-    df, extracted_features, _ = import_data()
+    df, _ = import_data()
     path = os.getcwd()
 
     # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
@@ -711,27 +714,28 @@ def hyperparameter_pipeline(threshold):
     df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
 
     # Create the x and y values.  X = all the features.  y = the columns of buckets
-    x = df[extracted_features]
+    x = df[df.columns[1:573]]
     y = df[df.columns[575]]
 
     # Add MinMaxScaler here.  Data seems to be overfitting.
     scaler = MinMaxScaler()
     scaler.fit(x)
-    x = pd.DataFrame(scaler.transform(x), columns=extracted_features)
+    x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
 
 
-    # Create the feature set for the 3 classifiers.
+    # Create the feature set for the 3 classifiers.  adjustments to C here too
     rbf_params = {'gamma': [1e-1,1e-2,1e-3,1e-4,'scale','auto'], 'C': [5,10,50,100,250,500,1000],
                   'class_weight': [None,'balanced'], 'break_ties': [False,True]}
     xgb_params = {'max_depth': np.arange(2,11,1), 'n_estimators': np.arange(1,25,1), 'gamma': np.arange(0,4,1),
                   'subsample': [0.5,1], 'lambda': [1,5,9], 'alpha': np.arange(0,1.1,0.2)}
     rfc_params = {'criterion': ['gini','entropy'], 'max_features': ['sqrt','log2',1.0,0.3], 'ccp_alpha': np.arange(0,0.3,0.1),
                   'n_estimators': np.arange(1,25,1), 'max_depth': np.arange(2,11,1)}
-    all_params = [rbf_params, xgb_params, rfc_params]
+    knn_params = {'n_neighbors': np.arange(1,101,2), 'weights': ['uniform', 'distance']}
+    all_params = [rbf_params, xgb_params, rfc_params, knn_params]
 
     # Models and names
-    models = [SVC(), XGBClassifier(), RandomForestClassifier()]
-    names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier']
+    models = [SVC(), XGBClassifier(), RandomForestClassifier(), KNeighborsClassifier()]
+    names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier', 'KNN Classifier']
     
     logger.info('Hyperparameter Tuning for Threshold %2.2f:\n' %(threshold))
     # Classifier Training for all 3 classifiers.
@@ -779,7 +783,9 @@ elif sfsonly != None:
     forward_selection_only(sfsonly)
 elif pcatuner != None:
     logger = log_files('PCA Tuning.log')
-    pca_tuning(pcatuner, var=95)
+    vars = [75, 80, 85, 90, 95]  # remove 75 for threshold 10+
+    for var in vars:
+        pca_tuning(pcatuner, var=var)
 
 ## Add email to the slurm address to get notifications.
 
