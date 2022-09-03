@@ -8,7 +8,7 @@ import os
 import csv
 
 # Preprocessing
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
 from sklearn.preprocessing import MinMaxScaler
 
 # Models
@@ -312,11 +312,13 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
 
     # Showing the best paramets found on the development set.
     logger.info('Best parameter set: %s\n' %(clf.best_params_))
-    logger.info('Best MCC score: %3.3f\n' %(clf.best_score_))
 
     # Testing on the development set.  Save the results to a pandas dataframe and then sort it by
     # standard deviation of the test set.
     df = pd.DataFrame(clf.cv_results_)
+    index = clf.best_index_
+    logger.info('Best MCC Score: %3.3f.  StDev for best MCC: %3.3f\n' %(clf.best_score_, df['std_test_score'][index]))
+
     df = df.sort_values(by=['std_test_score'])
 
     # Clean up the output for the hyperparameters.  Eliminate any values that have too low of a test ranking
@@ -355,6 +357,8 @@ def classifier_trainer(df, x, y, params, model=SVC()):
     seeds = [33, 42, 55, 68, 74]
     i = 0
 
+    folds = len(seeds)
+
     # Initialize the sums of the acc/mcc's.
     train_accuracy_sum = 0
     train_mcc_sum = 0
@@ -369,7 +373,7 @@ def classifier_trainer(df, x, y, params, model=SVC()):
         i += 1
         logger.debug('Training:')
         # Stratify!
-        x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=0.2, random_state=seed, stratify=y)
+        x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=(1/folds), random_state=seed, stratify=y)
         model.fit(x_train, y_train)
 
         logger.debug('Training Finished.')
@@ -406,10 +410,10 @@ def classifier_trainer(df, x, y, params, model=SVC()):
         valid_mcc_sum += valid_mcc
     
     # Calculate the averages
-    train_accuracy_avg = train_accuracy_sum/5
-    train_mcc_avg = train_mcc_sum/5
-    valid_accuracy_avg = valid_accuracy_sum/5
-    valid_mcc_avg = valid_mcc_sum/5
+    train_accuracy_avg = train_accuracy_sum/folds
+    train_mcc_avg = train_mcc_sum/folds
+    valid_accuracy_avg = valid_accuracy_sum/folds
+    valid_mcc_avg = valid_mcc_sum/folds
 
     # Log the average scores for all the folds
     logger.info('AVG Training Accuracy: %3.3f, AVG Training MCC: %3.3f, AVG Validation Accuracy: %3.3f, '
@@ -724,13 +728,14 @@ def hyperparameter_pipeline(threshold):
 
 
     # Create the feature set for the 3 classifiers.  adjustments to C here too
-    rbf_params = {'gamma': [1e-1,1e-2,1e-3,1e-4,'scale','auto'], 'C': [5,10,50,100,250,500,1000],
+    rbf_params = {'gamma': [1e-1,1e-2,1e-3,1e-4,'scale','auto'], 'C': np.arange(1,101,5),
                   'class_weight': [None,'balanced'], 'break_ties': [False,True]}
     xgb_params = {'max_depth': np.arange(2,11,1), 'n_estimators': np.arange(1,25,1), 'gamma': np.arange(0,4,1),
                   'subsample': [0.5,1], 'lambda': [1,5,9], 'alpha': np.arange(0,1.1,0.2)}
     rfc_params = {'criterion': ['gini','entropy'], 'max_features': ['sqrt','log2',1.0,0.3], 'ccp_alpha': np.arange(0,0.3,0.1),
                   'n_estimators': np.arange(1,25,1), 'max_depth': np.arange(2,11,1)}
-    knn_params = {'n_neighbors': np.arange(1,101,2), 'weights': ['uniform', 'distance']}
+    knn_params = {'n_neighbors': np.arange(1,101,2), 'weights': ['uniform', 'distance'], 'leaf_size': np.arange(5,41,2),
+                  'p': [1, 2]}
     all_params = [rbf_params, xgb_params, rfc_params, knn_params]
 
     # Models and names
