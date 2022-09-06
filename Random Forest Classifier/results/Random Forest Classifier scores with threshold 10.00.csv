@@ -1,0 +1,9 @@
+,Name,Stage,Train MCC,Train Stdev,Test MCC,Test Stdev,Params
+0,Random Forest Classifier,Baseline,0.9125450402213631,0.03100323327970615,0.5483865167733001,0.1624585745982755,"{'ccp_alpha': 0.1, 'criterion': 'entropy', 'max_depth': 7, 'max_features': 'sqrt', 'n_estimators': 12}"
+1,Random Forest Classifier,SFS,0.6891914233162035,0.037492453893360415,0.5747360767077008,0.20944855902703252,"{'ccp_alpha': 0.2, 'criterion': 'entropy', 'max_depth': 5, 'max_features': 0.3, 'n_estimators': 3}"
+2,Random Forest Classifier,PCA 75% variance,0.8616205001520665,0.043531856494846595,0.5285597401942776,0.1709541872288868,"{'ccp_alpha': 0.1, 'criterion': 'entropy', 'max_depth': 8, 'max_features': 1.0, 'n_estimators': 8}"
+3,Random Forest Classifier,PCA 80% variance,0.529176157660104,0.049276628733711955,0.5352240634233107,0.23839978422512303,"{'ccp_alpha': 0.1, 'criterion': 'gini', 'max_depth': 10, 'max_features': 1.0, 'n_estimators': 1}"
+4,Random Forest Classifier,PCA 85% variance,0.7299534839103842,0.0292000054344087,0.6140151266243458,0.1444968526399175,"{'ccp_alpha': 0.1, 'criterion': 'gini', 'max_depth': 9, 'max_features': 1.0, 'n_estimators': 7}"
+5,Random Forest Classifier,PCA 90% variance,0.9197768393231078,0.023036592655472296,0.4994221168833537,0.11645173062101204,"{'ccp_alpha': 0.1, 'criterion': 'entropy', 'max_depth': 7, 'max_features': 0.3, 'n_estimators': 10}"
+6,Random Forest Classifier,PCA 95% variance,0.9253951734645034,0.04144079832312721,0.5169833680320373,0.22012394743962624,"{'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 3, 'max_features': 1.0, 'n_estimators': 18}"
+7,Random Forest Classifier,PCA 100% variance,0.7158290424605624,0.06311838636142825,0.5129440202302779,0.21368108609028122,"{'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 2, 'max_features': 1.0, 'n_estimators': 7}"

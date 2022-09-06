@@ -1,0 +1,16 @@
+2022-09-05 14:46:00,379 | INFO | Threshold of 15.00 provides Large bucket size: 19, Small Bucket size: 45, Extra Bucket size: 9
+
+2022-09-05 14:46:00,387 | INFO | SVC with RBF Kernel Results:
+
+2022-09-05 14:46:06,628 | INFO | Best parameter set: {'C': 26, 'break_ties': False, 'class_weight': None, 'gamma': 'auto'}
+2022-09-05 14:46:06,628 | INFO | -------------------------
+
+2022-09-05 14:46:06,629 | INFO | Train MCC Score: 0.872.  StDev for Train MCC: 0.029.  Test MCC Score: 0.335.  StDev for Test MCC: 0.131.
+
+2022-09-05 14:46:06,642 | INFO | Training Accuracy: 0.931, Training MCC: 0.870, Validation Accuracy: 0.600, Validation MCC: 0.204, Fold: 1
+2022-09-05 14:46:06,665 | INFO | Training Accuracy: 0.948, Training MCC: 0.902, Validation Accuracy: 0.667, Validation MCC: 0.359, Fold: 2
+2022-09-05 14:46:06,677 | INFO | Training Accuracy: 0.948, Training MCC: 0.904, Validation Accuracy: 0.600, Validation MCC: 0.259, Fold: 3
+2022-09-05 14:46:06,688 | INFO | Training Accuracy: 0.931, Training MCC: 0.870, Validation Accuracy: 0.733, Validation MCC: 0.476, Fold: 4
+2022-09-05 14:46:06,700 | INFO | Training Accuracy: 0.948, Training MCC: 0.904, Validation Accuracy: 0.533, Validation MCC: 0.090, Fold: 5
+2022-09-05 14:46:06,701 | INFO | AVG Training Accuracy: 0.941, AVG Training MCC: 0.890, AVG Validation Accuracy: 0.627, AVG Validation MCC: 0.278
+

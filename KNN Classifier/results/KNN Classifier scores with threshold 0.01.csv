@@ -1,0 +1,9 @@
+,Name,Stage,Train MCC,Train Stdev,Test MCC,Test Stdev,Params
+0,KNN Classifier,Baseline,1.0,0.0,0.37567062555252734,0.06199683765093779,"{'leaf_size': 5, 'n_neighbors': 7, 'p': 1, 'weights': 'distance'}"
+1,KNN Classifier,SFS,1.0,0.0,0.5445253026581921,0.11852941802281003,"{'leaf_size': 5, 'n_neighbors': 7, 'p': 1, 'weights': 'distance'}"
+2,KNN Classifier,PCA 75% variance,1.0,0.0,0.40927851230452134,0.10060802675186001,"{'leaf_size': 5, 'n_neighbors': 11, 'p': 1, 'weights': 'distance'}"
+3,KNN Classifier,PCA 80% variance,1.0,0.0,0.3702111674291417,0.08850211664344033,"{'leaf_size': 5, 'n_neighbors': 11, 'p': 2, 'weights': 'distance'}"
+4,KNN Classifier,PCA 85% variance,1.0,0.0,0.35709730604411455,0.2257184062887326,"{'leaf_size': 5, 'n_neighbors': 5, 'p': 1, 'weights': 'distance'}"
+5,KNN Classifier,PCA 90% variance,1.0,0.0,0.31706788391039203,0.11648924616264567,"{'leaf_size': 5, 'n_neighbors': 7, 'p': 2, 'weights': 'distance'}"
+6,KNN Classifier,PCA 95% variance,1.0,0.0,0.3576151080275852,0.1133355889075785,"{'leaf_size': 5, 'n_neighbors': 11, 'p': 1, 'weights': 'distance'}"
+7,KNN Classifier,PCA 100% variance,1.0,0.0,0.4022188710766045,0.061628115503590986,"{'leaf_size': 5, 'n_neighbors': 11, 'p': 1, 'weights': 'distance'}"

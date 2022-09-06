@@ -244,7 +244,7 @@ def forward_selection(x, y, model):
 
 
 ## Code for Principal Component Analysis
-def principal_component_analysis(x, var=100):
+def principal_component_analysis(x, var):
     """
     Perform PCA and return the transformed inputs with the principal components.
 
@@ -311,13 +311,16 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
     clf.fit(x,y)
 
     # Showing the best paramets found on the development set.
-    logger.info('Best parameter set: %s\n' %(clf.best_params_))
+    logger.info('Best parameter set: %s' %(clf.best_params_))
+    logger.info('-------------------------\n')
 
     # Testing on the development set.  Save the results to a pandas dataframe and then sort it by
     # standard deviation of the test set.
     df = pd.DataFrame(clf.cv_results_)
     index = clf.best_index_
-    logger.info('Best MCC Score: %3.3f.  StDev for best MCC: %3.3f\n' %(clf.best_score_, df['std_test_score'][index]))
+    scores = [df['mean_train_score'][index], df['std_train_score'][index], clf.best_score_, df['std_test_score'][index], clf.best_params_]
+    logger.info('Train MCC Score: %3.3f.  StDev for Train MCC: %3.3f.  Test MCC Score: %3.3f.  StDev for Test MCC: %3.3f.\n' 
+                %(scores[0], scores[1], scores[2], scores[3]))
 
     df = df.sort_values(by=['std_test_score'])
 
@@ -332,9 +335,9 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
     df = df[df['mean_test_score'] > 0.25]
 
     # Save the best parameters.
-    bestvals = clf.best_params_
+    bestparams = clf.best_params_
 
-    return bestvals, df
+    return bestparams, df, scores
 
 
 def classifier_trainer(df, x, y, params, model=SVC()):
@@ -349,8 +352,10 @@ def classifier_trainer(df, x, y, params, model=SVC()):
 
     Returns
     -------
-    optimizer_results: Pandas Dataframe that has the results of our hyperparameter tuning, sorted
+    optimizer_results: Pandas DataFrame that has the results of our hyperparameter tuning, sorted
         for results with the smallest standard deviation in the test scores.
+
+    model: Modfied model that has the optimized hyperparameters.
 
     """
     # Train our model
@@ -365,7 +370,7 @@ def classifier_trainer(df, x, y, params, model=SVC()):
     valid_accuracy_sum = 0
     valid_mcc_sum = 0
 
-    optimized_features, optimizer_results = hyperparameter_optimizer(x, y, params, model)
+    optimized_features, optimizer_results, scores = hyperparameter_optimizer(x, y, params, model)
 
     model.set_params(**optimized_features)
 
@@ -419,7 +424,7 @@ def classifier_trainer(df, x, y, params, model=SVC()):
     logger.info('AVG Training Accuracy: %3.3f, AVG Training MCC: %3.3f, AVG Validation Accuracy: %3.3f, '
                 'AVG Validation MCC: %3.3f\n' %(train_accuracy_avg, train_mcc_avg, valid_accuracy_avg, valid_mcc_avg))
     
-    return optimizer_results
+    return optimizer_results, model, scores
 
 # Function to separate items into buckets.
 def threshold_finder(threshold):
@@ -472,12 +477,13 @@ def threshold_finder(threshold):
         #   as the SFS and PCA models/
         attributes = param_name_model_zipper()
         fs_features = pd.DataFrame()
+        vars = [75, 80, 85, 90, 95, 100]
+        cols = ['Name', 'Stage', 'Train MCC', 'Train Stdev', 'Test MCC', 'Test Stdev', 'Params']
 
         for params, name, model in attributes:
             # Every time I iterate through this loop, I need to recreate x.
             x = df[df.columns[1:573]]
             x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
-
             logger.info('%s Results:\n' %(name))
 
             # Create a the directories for the models if they doesn't exist.
@@ -487,31 +493,57 @@ def threshold_finder(threshold):
                 os.mkdir('%s/sfs-pca' %(name))
             if os.path.exists(path + '/%s/sfs' %(name)) == False:
                 os.mkdir('%s/sfs' %(name))
-            if os.path.exists(path + '/SFS Extracted Features') == False:
-                os.mkdir('SFS Extracted Features')
+            if os.path.exists(path + '/%s/baseline' %(name)) == False:
+                os.mkdir('%s/baseline' %(name))
+            if os.path.exists(path + '/%s/SFS Extracted Features' %(name)) == False:
+                os.mkdir('%s/SFS Extracted Features' %(name))
+            if os.path.exists(path + '/%s/results' %(name)) == False:
+                os.mkdir('%s/results' %(name))
 
-            # Our main pipeline is Forward Selection -> Principal Component Analysis -> Hyperparameter Tuning
+            model_scores = pd.DataFrame(columns=cols)
+
+            # Our main pipeline is Initial Hyperparameter Tuning -> Forward Selection -> Principal Component Analysis -> Hyperparameter Tuning
+
+            # Baseline
+            results_baseline, model, scores_baseline = classifier_trainer(df, x, y, params, model)
+            model_scores.loc[len(model_scores)] = [name, 'Baseline', scores_baseline[0], scores_baseline[1], scores_baseline[2], scores_baseline[3],
+                                                     scores_baseline[4]]
+            results_baseline.to_csv(path + '/%s/baseline/%s Baseline results with threshold %2.2f.csv' %(name, name, threshold))
+
+            # Sequential Feature Selection
             x, sfs = forward_selection(x, y, model)
-
-            # SFS stage
             logger.info('SFS only results:\n')
-            results_sfsonly = classifier_trainer(df, x, y, params, model)
+            results_sfsonly, model, scores_sfs = classifier_trainer(df, x, y, params, model)
+            model_scores.loc[len(model_scores)] = [name, 'SFS', scores_sfs[0], scores_sfs[1], scores_sfs[2], scores_sfs[3], scores_sfs[4]]
             results_sfsonly.to_csv(path + '/%s/sfs/%s SFS only results with threshold %2.2f.csv' %(name, name, threshold))
-            #fs_features[name] = sfs.get_feature_names_out()
+            fs_features[name] = sfs.get_feature_names_out()
             dump(sfs, path + '/%s/sfs/%s %2.2f fs.joblib' %(name, name, threshold))
 
             # Now do PCA.
-            logger.info('Results after PCA:\n')
-            x, pca = principal_component_analysis(x, var=100)
-            results = classifier_trainer(df, x, y, params, model)
+            logger.info('Results after PCA:')
+            logger.info('------------------\n')
 
-            # Exporting the hyperparameter optimizations, sfs, and pca models.
-            results.to_csv(path + '/%s/sfs-pca/%s results with threshold %2.2f.csv' %(name, name, threshold))
-            dump(sfs, path + '/%s/sfs-pca/%s %2.2f fs.joblib' %(name, name, threshold))
+            # Do it for different 75-100 variances.
+            for var in vars:
+                # Run PCA.
+                x, pca = principal_component_analysis(x, var)
+                results, _, scores_pca = classifier_trainer(df, x, y, params, model)
+                model_scores.loc[len(model_scores)] = [name, 'PCA %i%% variance' %(var), scores_pca[0], scores_pca[1], scores_pca[2],
+                                                         scores_pca[3], scores_pca[4]]
+
+                # Reset x after each PCA iteration.
+                x = df[df.columns[1:573]]
+                x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+                x = sfs.transform(x)
+
+                # Exporting the hyperparameter optimizations, sfs, and pca models.
+                results.to_csv(path + '/%s/sfs-pca/%s results with threshold %2.2f and %i%% variance.csv' %(name, name, threshold, var))
+
+            model_scores.to_csv(path + '/%s/results/%s scores with threshold %2.2f.csv' %(name, name, threshold))
             dump(pca, path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name, name, threshold))
         
         # Exporting the extracted features.
-        #fs_features.to_csv(path + '/SFS Extracted Features/Saved Features for Threshold %2.2f.csv' %(threshold))
+        fs_features.to_csv(path + '/%s/SFS Extracted Features/Saved Features for Threshold %2.2f.csv' %(name, threshold))
 
     # Formatting for the logger.
     logger.info('-----------------------------------------------------\n')
@@ -591,7 +623,7 @@ def forward_selection_only(threshold):
             extracted_features[name] = sfs.get_feature_names_out()
 
             # Next we run the trainer to optimize.
-            results = classifier_trainer(df, x, y, params, model)
+            results, model, scores_sfs = classifier_trainer(df, x, y, params, model)
 
             # Exporting the gridsearch results.
             results.to_csv(path + '/%s/sfs/%s SFS only results with threshold %2.2f.csv' %(name, name, threshold))
@@ -647,9 +679,9 @@ def pca_tuning(threshold, var):
             os.mkdir('%s/PCA Tuning' %(name))
 
         logger.debug('Beginning PCA only section')
-        x, pca = principal_component_analysis(x, var=var)
+        x, pca = principal_component_analysis(x, var)
 
-        results = classifier_trainer(df, x, y, params, model)
+        results, model, scores_pca = classifier_trainer(df, x, y, params, model)
         results.to_csv(path + '/%s/PCA Tuning/%s results with threshold %2.2f and %i%% of the variance.csv' %(name, name, threshold, var))
         dump(pca, path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name, name, threshold))
 
@@ -664,14 +696,16 @@ def param_name_model_zipper():
     attributes: zipped up parameters, names, and models.
     """
     
-    # Create the feature set for the 3 classifiers.  Put them all into an array. # Check C between 5 and 100
-    rbf_params = {'gamma': [1e-1,1e-2,1e-3,1e-4,'scale','auto'], 'C': [5,10,50,100,250,500,1000],
+    # Create the feature set for the 3 classifiers.  adjustments to C here too
+    rbf_params = {'gamma': [1e-1,1e-2,1e-3,1e-4,'scale','auto'], 'C': np.arange(1,101,5),
                   'class_weight': [None,'balanced'], 'break_ties': [False,True]}
     xgb_params = {'max_depth': np.arange(2,11,1), 'n_estimators': np.arange(1,25,1), 'gamma': np.arange(0,4,1),
                   'subsample': [0.5,1], 'lambda': [1,5,9], 'alpha': np.arange(0,1.1,0.2)}
     rfc_params = {'criterion': ['gini','entropy'], 'max_features': ['sqrt','log2',1.0,0.3], 'ccp_alpha': np.arange(0,0.3,0.1),
                   'n_estimators': np.arange(1,25,1), 'max_depth': np.arange(2,11,1)}
-    all_params = [rbf_params, xgb_params, rfc_params]
+    knn_params = {'n_neighbors': np.arange(1,55,2), 'weights': ['uniform', 'distance'], 'leaf_size': np.arange(5,41,2),
+                  'p': [1, 2]}
+    all_params = [rbf_params, xgb_params, rfc_params, knn_params]
 
     # Create the string titles for the various models.
     rbf_name = 'SVC with RBF Kernel'
@@ -719,13 +753,12 @@ def hyperparameter_pipeline(threshold):
 
     # Create the x and y values.  X = all the features.  y = the columns of buckets
     x = df[df.columns[1:573]]
-    y = df[df.columns[575]]
+    y = df['Bucket']
 
     # Add MinMaxScaler here.  Data seems to be overfitting.
     scaler = MinMaxScaler()
     scaler.fit(x)
     x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
-
 
     # Create the feature set for the 3 classifiers.  adjustments to C here too
     rbf_params = {'gamma': [1e-1,1e-2,1e-3,1e-4,'scale','auto'], 'C': np.arange(1,101,5),
@@ -734,7 +767,7 @@ def hyperparameter_pipeline(threshold):
                   'subsample': [0.5,1], 'lambda': [1,5,9], 'alpha': np.arange(0,1.1,0.2)}
     rfc_params = {'criterion': ['gini','entropy'], 'max_features': ['sqrt','log2',1.0,0.3], 'ccp_alpha': np.arange(0,0.3,0.1),
                   'n_estimators': np.arange(1,25,1), 'max_depth': np.arange(2,11,1)}
-    knn_params = {'n_neighbors': np.arange(1,101,2), 'weights': ['uniform', 'distance'], 'leaf_size': np.arange(5,41,2),
+    knn_params = {'n_neighbors': np.arange(1,55,2), 'weights': ['uniform', 'distance'], 'leaf_size': np.arange(5,41,2),
                   'p': [1, 2]}
     all_params = [rbf_params, xgb_params, rfc_params, knn_params]
 
@@ -750,7 +783,7 @@ def hyperparameter_pipeline(threshold):
             os.mkdir('%s' %(name))
         if os.path.exists(path + '/%s/Initial Hyperparameter Tuning' %(name)) == False:
             os.mkdir('%s/Initial Hyperparameter Tuning' %(name))
-        results = classifier_trainer(df, x, y, params, model=model)
+        results, model, scores_hp = classifier_trainer(df, x, y, params, model=model)
         results.to_csv(path + '/%s/Initial Hyperparameter Tuning/%s Initial Hyperparameter Tuning at Threshold %2.2f.csv'
                        %(name, name, threshold))
 
@@ -778,16 +811,16 @@ pcatuner = args.pca_tuning
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
 if threshold != None:
-    logger = log_files('threshold.log')
+    logger = log_files('Threshold %2.2f.log' %(threshold))
     threshold_finder(threshold)
 elif hyperparameter_test != None:
-    logger = log_files('hyperparameter test.log')
+    logger = log_files('HP_Test.log')
     hyperparameter_pipeline(hyperparameter_test)
 elif sfsonly != None:
-    logger = log_files('forward selection only.log')
+    logger = log_files('FS_only.log')
     forward_selection_only(sfsonly)
 elif pcatuner != None:
-    logger = log_files('PCA Tuning.log')
+    logger = log_files('PCA_Tuning.log')
     vars = [75, 80, 85, 90, 95]  # remove 75 for threshold 10+
     for var in vars:
         pca_tuning(pcatuner, var=var)
