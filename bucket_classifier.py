@@ -507,7 +507,7 @@ def threshold_finder(threshold):
             # Baseline
             results_baseline, model, scores_baseline = classifier_trainer(df, x, y, params, model)
             model_scores.loc[len(model_scores)] = [name, 'Baseline', scores_baseline[0], scores_baseline[1], scores_baseline[2], scores_baseline[3],
-                                                     scores_baseline[4]]
+                                                   scores_baseline[4]]
             results_baseline.to_csv(path + '/%s/baseline/%s Baseline results with threshold %2.2f.csv' %(name, name, threshold))
 
             # Sequential Feature Selection
