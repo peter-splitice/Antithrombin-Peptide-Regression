@@ -374,6 +374,7 @@ def classifier_trainer(df, x, y, params, model=SVC()):
 
     model.set_params(**optimized_features)
 
+    # Manual implementation of Stratified K-Fold.
     for seed in seeds:
         i += 1
         logger.debug('Training:')
