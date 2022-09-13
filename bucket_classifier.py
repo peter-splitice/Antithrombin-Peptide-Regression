@@ -1,7 +1,11 @@
+"""
+This section of code covers the classifier which takes takes the input data and splits it into three separate buckets based on 
+    KI (nM) values.
+"""
+
 ## Importing Dependencies
 
 # Standard libraries
-from statistics import variance
 import pandas as pd
 import numpy as np
 import os
@@ -38,7 +42,6 @@ import argparse
 import logging
 import sys
 
-## Try KNN k from 1-100?
 
 ## Create the logger
 def log_files(logname):
@@ -427,6 +430,7 @@ def classifier_trainer(df, x, y, params, model=SVC()):
     
     return optimizer_results, model, scores
 
+
 # Function to separate items into buckets.
 def threshold_finder(threshold):
     """
@@ -788,6 +792,32 @@ def hyperparameter_pipeline(threshold):
         results.to_csv(path + '/%s/Initial Hyperparameter Tuning/%s Initial Hyperparameter Tuning at Threshold %2.2f.csv'
                        %(name, name, threshold))
 
+# Classification section of the pipeline.
+def classification():
+    """
+    This function takes the two best bucket models and saves them in a .joblib file to use in the 'Regression' section of the 
+        pipeline.  The models we will select are the following:
+
+        - XGBoost Classifier w/SFS. {'alpha': 0.0, 'gamma': 2, 'lambda': 1, 'max_depth': 2, 'n_estimators': 11, 'subsample': 0.5},
+            Test MCC = 0.661811, Train MCC = 0.709423, Threshold @ 0.01.  Large Bucket Size 46, Small Bucket Size 18, Extra Bucket Size
+            9.
+        
+        - SVC w/RBF Kernel w/SFS and PCA @80% variance. {'C': 61, 'break_ties': True, 'class_weight': None, 'gamma': 0.001},
+            Test MCC = 0.529094, Train MCC = 0.713933, Threshold @ 10.  Large Bucket Size 20, Small Bucket Size 44, Extra Bucket Size
+            9.
+
+        - Random Forest Classifier w/SFS and PCA @85% variance.  {'ccp_alpha': 0.1, 'criterion': 'gini', 'max_depth': 9, 
+            'max_features': 1.0, 'n_estimators': 7}, Test MCC = 0.614015, Train MCC = 0.729953, Threshold @ 10.  Large Bucket Size 20,
+            Small Bucket Size 44, Extra Bucket Size 9.
+
+        - KNN Classifier w/SFS and PCA @100% variance. {'leaf_size': 5, 'n_neighbors': 7, 'p': 2, 'weights': 'uniform'}, 
+            Test MCC = 0.61151, Train MCC = 0.564734, Threshold @10.  Large Bucket Size 20, Small Bucket Size 44, Extra Bucket Size 9.
+
+ 
+    """
+
+
+    print('test')
 
 ## Use argparse to pass various thresholds.
 parser = argparse.ArgumentParser()
@@ -801,6 +831,8 @@ parser.add_argument('-sfs', '--sfs_only', help='sfs_only = only do Sequential Fo
                     ' until after you already passed the --threshold argument at least once.', type=float)
 parser.add_argument('-pca', '--pca_tuning', help='pca_tuning = provide a "var" element to get the principal components needed to account'
                     ' for a certain amount of variance in the system', type=float)
+parser.add_argument('-cl', '--classifier', help='classifier = run the classification portion of the pipeline to generate the models '
+                    '& saved files for the classification section of the pipeline.', action='store_true')
            
 args = parser.parse_args()
 
@@ -809,6 +841,7 @@ regression = args.regression
 hyperparameter_test = args.hyperparameter_test
 sfsonly = args.sfs_only
 pcatuner = args.pca_tuning
+classifier = args.classifier
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
 if threshold != None:
@@ -825,6 +858,11 @@ elif pcatuner != None:
     vars = [75, 80, 85, 90, 95]  # remove 75 for threshold 10+
     for var in vars:
         pca_tuning(pcatuner, var=var)
+elif regression == True:
+    logger = log_files('Regression.log')
+elif classifier == True:
+    classifier = log_files('Classifier.log')
+    classification()
 
 ## Add email to the slurm address to get notifications.
 
