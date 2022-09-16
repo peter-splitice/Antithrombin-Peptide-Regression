@@ -5,42 +5,37 @@ This section of code covers the classifier which takes takes the input data and 
 
 ## Importing Dependencies
 
-# Standard libraries
-import pandas as pd
-import numpy as np
-import os
+# Argument Parser
+import argparse
 import csv
-
-# Preprocessing
-from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
-from sklearn.preprocessing import MinMaxScaler
-
-# Models
-from sklearn.linear_model import Lasso
-from sklearn.svm import SVR, SVC
-from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
-from sklearn.neighbors import KNeighborsClassifier
-
-# Dimensionality Reduction
-from sklearn.decomposition import PCA
-from sklearn.feature_selection import SequentialFeatureSelector
- 
-# Metrics
-from sklearn.metrics import matthews_corrcoef, mean_squared_error, accuracy_score, make_scorer
-
-# Model Persistence
-from joblib import dump, load
+# Write to a log file
+import logging
+import os
+import sys
 
 # Plotter
 import matplotlib.pyplot as plt
-
-# Argument Parser
-import argparse
-
-# Write to a log file
-import logging
-import sys
+import numpy as np
+# Standard libraries
+import pandas as pd
+# Model Persistence
+from joblib import dump, load
+# Dimensionality Reduction
+from sklearn.decomposition import PCA
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.feature_selection import SequentialFeatureSelector
+# Models
+from sklearn.linear_model import Lasso
+# Metrics
+from sklearn.metrics import (accuracy_score, make_scorer, matthews_corrcoef,
+                             mean_squared_error)
+# Preprocessing
+from sklearn.model_selection import (GridSearchCV, cross_val_score,
+                                     train_test_split)
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.svm import SVC, SVR
+from xgboost import XGBClassifier
 
 
 ## Create the logger
@@ -591,7 +586,7 @@ def forward_selection_only(threshold):
         x = df[df.columns[1:573]]
         y = df['Bucket']
 
-        # Add MinMaxScaler here.  Data seems to be overfitting.
+        # Rescale the data within the range [0,1]
         scaler = MinMaxScaler()
         scaler.fit(x)
         x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
@@ -795,15 +790,15 @@ def hyperparameter_pipeline(threshold):
 # Classification section of the pipeline.
 def classification():
     """
-    This function takes the two best bucket models and saves them in a .joblib file to use in the 'Regression' section of the 
-        pipeline.  The models we will select are the following:
-
-        - XGBoost Classifier w/SFS. {'alpha': 0.0, 'gamma': 2, 'lambda': 1, 'max_depth': 2, 'n_estimators': 11, 'subsample': 0.5},
-            Test MCC = 0.661811, Train MCC = 0.709423, Threshold @ 0.01.  Large Bucket Size 46, Small Bucket Size 18, Extra Bucket Size
-            9.
+    This section runs the finalized classification portion of the data across the various model types to bucketize our data
+        for inference.
         
         - SVC w/RBF Kernel w/SFS and PCA @80% variance. {'C': 61, 'break_ties': True, 'class_weight': None, 'gamma': 0.001},
             Test MCC = 0.529094, Train MCC = 0.713933, Threshold @ 10.  Large Bucket Size 20, Small Bucket Size 44, Extra Bucket Size
+            9.
+
+        - XGBoost Classifier w/SFS. {'alpha': 0.0, 'gamma': 2, 'lambda': 1, 'max_depth': 2, 'n_estimators': 11, 'subsample': 0.5},
+            Test MCC = 0.661811, Train MCC = 0.709423, Threshold @ 0.01.  Large Bucket Size 46, Small Bucket Size 18, Extra Bucket Size
             9.
 
         - Random Forest Classifier w/SFS and PCA @85% variance.  {'ccp_alpha': 0.1, 'criterion': 'gini', 'max_depth': 9, 
@@ -815,9 +810,97 @@ def classification():
 
  
     """
+    path = os.getcwd()
+
+    # Create the models with the relevant hyperparameters.
+    rbf = SVC(kernel='rbf', C=61, break_ties=True, class_weight=None, gamma=0.001)
+    rbf_threshold = 10
+    rbf_var = 80
+
+    xgb = XGBClassifier(alpha=0.0, gamma=2, reg_lambda=1, max_depth=2, n_estimators=11, subsample=0.5)
+    xgb_threshold = 0.01
+    xgb_var = False         # Variance of 'False' indicates that we will not be 
+
+    rfc = RandomForestClassifier(ccp_alpha=0.1, criterion='gini', max_depth=9, max_features=1.0, n_estimators=7)
+    rfc_threshold = 10
+    rfc_var = 85
+
+    knn = KNeighborsClassifier(leaf_size=5, n_neighbors=7, p=2, weights='uniform')
+    knn_threshold = 10
+    knn_var = 100
+
+    # Put the model information in 4 different list.  Models, Thresholds, Variances, and Names
+    models = [rbf, xgb, rfc, knn]
+    thresholds = [rbf_threshold, xgb_threshold, rfc_threshold, knn_threshold]
+    vars = [rbf_var, xgb_var, rfc_var, knn_var]
+    names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier', 'KNN Classifier']
+
+    for model, threshold, var, name in zip(models,thresholds,vars, names):
+        
+        # Import the data
+        df, initial_range = import_data()
+
+        # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
+        # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000
+        df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
+
+        # Create the x and y values.  X = all the features.  y = the columns of buckets
+        x = df[df.columns[1:573]]
+        y = df['Bucket']
+
+        # Apply MinMaxScaler and then transform X to rescale all the input variables.
+        scaler = MinMaxScaler()
+        scaler.fit(x)
+        x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+
+        # Apply Sequential Feature Selection
+        sfs = load(path + '/%s/sfs/%s %2.2f fs.joblib' %(name, name, threshold))
+        x = sfs.transform(x)
+
+        # Apply PCA if applicable.
+        if var != False:
+            pca = load(path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name, name, threshold))
+            x = pca.transform(x)
+    
+            # Dimensonality Reduction based on accepted variance.
+            ratios = np.array(pca.explained_variance_ratio_)
+            ratios = ratios[ratios.cumsum() <= (var/100)]
+            
+            # Readjust the dimensions of x based on the variance we want.
+            length = len(ratios)
+            x = x[:,0:length]
+
+        # I will need to split this data into different buckets.
+
+        # We will be testing the following models for Regression:
+        #   - SVR w/RBF Kernel
+        #   - SVR w/Linear Kernel
+        #   - Lasso Regression
+        #   
 
 
-    print('test')
+        print('test')
+
+def regression_trainer():
+    """
+    The regression_trainer() function is responsible for the overall pipeline of the regression portion of the model.
+        First, I will split the data into the 3 separate buckets and then run regression on the smaller and medium buckets
+        while ignoring the large bucket.
+    
+    """
+    df, ki_range = import_data()
+    path = os.getcwd()
+
+    # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
+    # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000   
+    df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
+
+    # Split the DataFrames into one large one and one small one.
+    df_sml = df[df['Bucket'] == 0]
+    df_med = df[df['Bucket'] == 1]
+
+    
+
 
 ## Use argparse to pass various thresholds.
 parser = argparse.ArgumentParser()
