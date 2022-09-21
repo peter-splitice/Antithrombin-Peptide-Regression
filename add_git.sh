@@ -6,6 +6,7 @@ git add bucket_classifier.py
 git add HP_Test.log
 git add local_activate.sh
 git add testbench.ipynb
+git add regression.py
 git add "Threshold 0.01.log"
 git add "Threshold 0.10.log"
 git add "Threshold 0.50.log"
