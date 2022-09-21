@@ -153,61 +153,6 @@ def unscale(array, destination_interval, source_interval=(-5,5)):
 
     return array
 
-
-def test_model(name, x_train, y_train, x_valid, y_valid, model=SVR()):
-
-    """
-    Fit, predict, and determine + plot the rmse of a given model.'
-
-    Displays a plot of the predicted vs actual validation results.
-
-    Parameters
-    ----------
-    name: String-like name for the model you are creating.  Example: 'Baseline Lasso Regression.'
-
-    model: Model from the sklearn library that you are trying to fit/predict/plot.
-
-    x_train: Inputs from the training set.
-
-    y_train: Outputs of the training set.
-
-    x_valid: Inputs from the validation set.
-
-    y_valid: Outputs of the validation set.
-
-
-    Returns
-    -------
-    model: Fitted model given in the input.
-
-    y_pred_log:  Log scale of the predicted validation set.
-
-    rmse: Root Mean-Squared-Error of the predicted vs actual validation set.
-
-    """
-
-    # Fitting and testing the model.
-    model.fit(x_train, y_train)
-
-    # With the validation set
-    y_pred_log = model.predict(x_valid)
-    rmse = np.sqrt(mean_squared_error(y_valid, y_pred_log))
-
-    # Creating the plots for the results
-    plt.figure(figsize=(10,6))
-    plt.plot(y_valid.values, label='Actual', marker='o', linestyle='dashed')
-    #plt.plot(y_train_log.values, label='Actual', marker='o', linestyle='dashed')
-    plt.plot(y_pred_log, label='Predicted', marker='x', linestyle='dashed')
-    plt.legend()
-    plt.title('Actual vs predicted results for %s: Log scale, range 5.' %(name))
-    plt.xlabel('Sample Number')
-    plt.ylabel('KI (nM): Log scale, range 5')
-
-    # Display the rmse that we need
-    print('The RMSE of the log of the values is: %f' %(rmse))
-
-    return model, y_pred_log, rmse
-
 ## Forward selection for our classifier.
 def forward_selection(x, y, model):
     """
@@ -299,7 +244,8 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
 
     df: Pandas Dataframe that has the results of our hyperparameter tuning, sorted
         for results with the smallest standard deviation in the test scores.
-    
+
+    scores: Pandas DataFrame of the Training + Test Scores
     """
 
     # Use GridsearchCV to get the optimized parameters.
@@ -308,7 +254,7 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
                        return_train_score=True,n_jobs=-1)
     clf.fit(x,y)
 
-    # Showing the best paramets found on the development set.
+    # Showing the best parameters found on the development set.
     logger.info('Best parameter set: %s' %(clf.best_params_))
     logger.info('-------------------------\n')
 
@@ -338,7 +284,7 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
     return bestparams, df, scores
 
 
-def classifier_trainer(df, x, y, params, model=SVC()):
+def classifier_trainer(x, y, params, model=SVC()):
     """
     Perform fitting on the reduced datasets and then make predictions.  The output values are in the log file.
 
@@ -348,6 +294,10 @@ def classifier_trainer(df, x, y, params, model=SVC()):
 
     y: Output KI values that we are using for the training and validation sets.
 
+    params: List of hyperparameters we will be doing hyperparameter tuning with.
+
+    model: Our model that we are optimizing hyperparameters for.
+
     Returns
     -------
     optimizer_results: Pandas DataFrame that has the results of our hyperparameter tuning, sorted
@@ -355,6 +305,7 @@ def classifier_trainer(df, x, y, params, model=SVC()):
 
     model: Modfied model that has the optimized hyperparameters.
 
+    scores: Pandas DataFrame of the training and test scores.
     """
     # Train our model
     seeds = [33, 42, 55, 68, 74]
@@ -396,16 +347,6 @@ def classifier_trainer(df, x, y, params, model=SVC()):
         logger.info('Training Accuracy: %3.3f, Training MCC: %3.3f, Validation Accuracy: %3.3f, '
                     'Validation MCC: %3.3f, Fold: %i'
                     %(train_accuracy, train_mcc, valid_accuracy, valid_mcc, i))
-
-        # Save the results into a dataframe and display them in the logger file.
-        trial = pd.DataFrame()
-        trial['y_valid'] = y_valid
-        trial['y_valid_pred'] = y_valid_pred
-        trial['KI (nM)'] = df['KI (nM)'][trial.index]
-        #logger.info('Actual: | Predicted: | KI (nM)')
-        #for valid, pred, ki in zip(trial['y_valid'], trial['y_valid_pred'], trial['KI (nM)']):
-        #    logger.info(' %i      |  %i         | %f' %(valid, pred, ki))
-        #logger.info('Fold %i finished:\n' %(i))
 
         # Add to the sums
         train_accuracy_sum += train_accuracy
@@ -505,7 +446,7 @@ def threshold_finder(threshold):
             # Our main pipeline is Initial Hyperparameter Tuning -> Forward Selection -> Principal Component Analysis -> Hyperparameter Tuning
 
             # Baseline
-            results_baseline, model, scores_baseline = classifier_trainer(df, x, y, params, model)
+            results_baseline, model, scores_baseline = classifier_trainer(x, y, params, model)
             model_scores.loc[len(model_scores)] = [name, 'Baseline', scores_baseline[0], scores_baseline[1], scores_baseline[2], scores_baseline[3],
                                                    scores_baseline[4]]
             results_baseline.to_csv(path + '/%s/baseline/%s Baseline results with threshold %2.2f.csv' %(name, name, threshold))
@@ -513,7 +454,7 @@ def threshold_finder(threshold):
             # Sequential Feature Selection
             x, sfs = forward_selection(x, y, model)
             logger.info('SFS only results:\n')
-            results_sfsonly, model, scores_sfs = classifier_trainer(df, x, y, params, model)
+            results_sfsonly, model, scores_sfs = classifier_trainer(x, y, params, model)
             model_scores.loc[len(model_scores)] = [name, 'SFS', scores_sfs[0], scores_sfs[1], scores_sfs[2], scores_sfs[3], scores_sfs[4]]
             results_sfsonly.to_csv(path + '/%s/sfs/%s SFS only results with threshold %2.2f.csv' %(name, name, threshold))
             fs_features[name] = sfs.get_feature_names_out()
@@ -527,7 +468,7 @@ def threshold_finder(threshold):
             for var in vars:
                 # Run PCA.
                 x, pca = principal_component_analysis(x, var)
-                results, _, scores_pca = classifier_trainer(df, x, y, params, model)
+                results, _, scores_pca = classifier_trainer(x, y, params, model)
                 model_scores.loc[len(model_scores)] = [name, 'PCA %i%% variance' %(var), scores_pca[0], scores_pca[1], scores_pca[2],
                                                          scores_pca[3], scores_pca[4]]
 
@@ -547,89 +488,6 @@ def threshold_finder(threshold):
 
     # Formatting for the logger.
     logger.info('-----------------------------------------------------\n')
-
-def forward_selection_only(threshold):
-    """
-    Use this function when you want to do forward selection and have already saved the models.  Note:  Don't do this
-        until you have done the threshold finder, or it will fail.  This should be called upon with a bash script, called 
-        in a for loop
-
-    Parameters
-    ----------
-    Threshold: The thresholds with which we are going to be running our models through.    
-    """
-
-    # Import the data.
-    df, _ = import_data()
-    path = os.getcwd()
-
-    # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
-    # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000
-    df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
-
-    large_bucket_count = df[df['Bucket'] == 1]['Name'].count()
-    small_bucket_count = df[df['Bucket'] == 0]['Name'].count()
-    extra_bucket_count = df[df['Bucket'] == 2]['Name'].count()
-
-    # If either bucket is less than a third of the total number of samples, I need to throw an exception.
-    cutoff_length = int(len(df['Bucket'])/4)
-
-    # The threshold was too large.
-    if large_bucket_count < cutoff_length or small_bucket_count < cutoff_length:
-        logger.error('Threshold of %2.2f was does not work. Large Bucket Size: %i, Small Bucket Size: %i, Extra Bucket size: %i' 
-                     %(threshold, large_bucket_count, small_bucket_count, extra_bucket_count))
-
-    # The threshold isn't too large.
-    else:
-        logger.info('Threshold of %2.2f provides Large bucket size: %i, Small Bucket size: %i, Extra Bucket size: %i\n'
-                    %(threshold, large_bucket_count, small_bucket_count, extra_bucket_count))
-        x = df[df.columns[1:573]]
-        y = df['Bucket']
-
-        # Rescale the data within the range [0,1]
-        scaler = MinMaxScaler()
-        scaler.fit(x)
-        x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
-
-        # In a for loop, create a directory for the 3 models and then deposit the hyperparameter tuning results as well
-        #   as the SFS and PCA models/
-        attributes = param_name_model_zipper()
-        extracted_features = pd.DataFrame()
-        for params, name, model in attributes:
-            # Reevaluate X every time you iterate the loop.
-            x = df[df.columns[1:573]]
-            x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
-
-            logger.info('%s Results:\n' %(name))
-
-            # Create the needed directories if they don't exist.
-            if os.path.exists(path + '/%s' %(name)) == False:
-                os.mkdir('%s' %(name))
-            if os.path.exists(path + '/%s/sfs' %(name)) == False:
-                os.mkdir('%s/sfs' %(name))
-            if os.path.exists(path + '/SFS Extracted Features') == False:
-                os.mkdir('SFS Extracted Features')
-
-            # If the .joblib files have been saved already from previous runs, use them.  If not, create new ones and save
-            #   them in the SFS only folder.
-            if os.path.exists(path + '/%s/sfs-pca/%s %2.2f fs.joblib' %(name, name, threshold)) == True:
-                sfs = load(path + '/%s/sfs-pca/%s %2.2f fs.joblib' %(name, name, threshold))
-                x = sfs.transform(x)
-            else:
-                x, sfs = forward_selection(x, y, model)
-                dump(sfs, path + '/%s/sfs/%s %2.2f fs' %(name, name, threshold))
-
-            # We will want to show our extracted features from sfs
-            extracted_features[name] = sfs.get_feature_names_out()
-
-            # Next we run the trainer to optimize.
-            results, model, scores_sfs = classifier_trainer(df, x, y, params, model)
-
-            # Exporting the gridsearch results.
-            results.to_csv(path + '/%s/sfs/%s SFS only results with threshold %2.2f.csv' %(name, name, threshold))
-        
-        # Exporting the extracted features.
-        extracted_features.to_csv(path + '/SFS Extracted Features/Saved Features for Threshold %2.2f.csv' %(threshold))
 
 def pca_tuning(threshold, var):
     """
@@ -681,7 +539,7 @@ def pca_tuning(threshold, var):
         logger.debug('Beginning PCA only section')
         x, pca = principal_component_analysis(x, var)
 
-        results, model, scores_pca = classifier_trainer(df, x, y, params, model)
+        results, model, scores_pca = classifier_trainer(x, y, params, model)
         results.to_csv(path + '/%s/PCA Tuning/%s results with threshold %2.2f and %i%% of the variance.csv' %(name, name, threshold, var))
         dump(pca, path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name, name, threshold))
 
@@ -783,7 +641,7 @@ def hyperparameter_pipeline(threshold):
             os.mkdir('%s' %(name))
         if os.path.exists(path + '/%s/Initial Hyperparameter Tuning' %(name)) == False:
             os.mkdir('%s/Initial Hyperparameter Tuning' %(name))
-        results, model, scores_hp = classifier_trainer(df, x, y, params, model=model)
+        results, model, scores_hp = classifier_trainer(x, y, params, model=model)
         results.to_csv(path + '/%s/Initial Hyperparameter Tuning/%s Initial Hyperparameter Tuning at Threshold %2.2f.csv'
                        %(name, name, threshold))
 
@@ -870,48 +728,12 @@ def classification():
             length = len(ratios)
             x = x[:,0:length]
 
-        # I will need to split this data into different buckets.
-
-        # We will be testing the following models for Regression:
-        #   - SVR w/RBF Kernel
-        #   - SVR w/Linear Kernel
-        #   - Lasso Regression
-        #   
-
-
-        print('test')
-
-def regression_trainer():
-    """
-    The regression_trainer() function is responsible for the overall pipeline of the regression portion of the model.
-        First, I will split the data into the 3 separate buckets and then run regression on the smaller and medium buckets
-        while ignoring the large bucket.
-    
-    """
-    df, ki_range = import_data()
-    path = os.getcwd()
-
-    # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
-    # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000   
-    df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
-
-    # Split the DataFrames into one large one and one small one.
-    df_sml = df[df['Bucket'] == 0]
-    df_med = df[df['Bucket'] == 1]
-
-    
-
-
 ## Use argparse to pass various thresholds.
 parser = argparse.ArgumentParser()
 parser.add_argument('-t', '--threshold', help='threshold = set the threshold to split the dataset into'
                     ' large and small buckets', type=float)
-parser.add_argument('-r', '--regression', help='regression = use the pre-generated models to apply'
-                    ' regression onto the whole dataset.', action='store_true')
 parser.add_argument('-ht', '--hyperparameter_test', help='hyperparameter_test = test for various hyperparameters',
                     type=float)
-parser.add_argument('-sfs', '--sfs_only', help='sfs_only = only do Sequential Forward Selection.  Note: do not do this'
-                    ' until after you already passed the --threshold argument at least once.', type=float)
 parser.add_argument('-pca', '--pca_tuning', help='pca_tuning = provide a "var" element to get the principal components needed to account'
                     ' for a certain amount of variance in the system', type=float)
 parser.add_argument('-cl', '--classifier', help='classifier = run the classification portion of the pipeline to generate the models '
@@ -920,9 +742,7 @@ parser.add_argument('-cl', '--classifier', help='classifier = run the classifica
 args = parser.parse_args()
 
 threshold = args.threshold
-regression = args.regression
 hyperparameter_test = args.hyperparameter_test
-sfsonly = args.sfs_only
 pcatuner = args.pca_tuning
 classifier = args.classifier
 
@@ -933,16 +753,11 @@ if threshold != None:
 elif hyperparameter_test != None:
     logger = log_files('HP_Test.log')
     hyperparameter_pipeline(hyperparameter_test)
-elif sfsonly != None:
-    logger = log_files('FS_only.log')
-    forward_selection_only(sfsonly)
 elif pcatuner != None:
     logger = log_files('PCA_Tuning.log')
     vars = [75, 80, 85, 90, 95]  # remove 75 for threshold 10+
     for var in vars:
         pca_tuning(pcatuner, var=var)
-elif regression == True:
-    logger = log_files('Regression.log')
 elif classifier == True:
     classifier = log_files('Classifier.log')
     classification()
