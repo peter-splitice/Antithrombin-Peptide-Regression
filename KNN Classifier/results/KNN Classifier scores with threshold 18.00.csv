@@ -5,5 +5,5 @@
 3,KNN Classifier,PCA 80% variance,0.9811322207901274,0.015410290443470294,0.2621051924155122,0.15636534706550256,"{'leaf_size': 5, 'n_neighbors': 1, 'p': 2, 'weights': 'uniform'}"
 4,KNN Classifier,PCA 85% variance,0.5969049695415414,0.10539122056720818,0.23901429851502912,0.23952104976891583,"{'leaf_size': 5, 'n_neighbors': 3, 'p': 2, 'weights': 'uniform'}"
 5,KNN Classifier,PCA 90% variance,0.9811322207901274,0.015410290443470294,0.20137573696776617,0.19991834477485446,"{'leaf_size': 5, 'n_neighbors': 1, 'p': 1, 'weights': 'uniform'}"
-6,KNN Classifier,PCA 95% variance,0.9811322207901274,0.015410290443470294,0.24406909429275628,0.16892792575964366,"{'leaf_size': 5, 'n_neighbors': 1, 'p': 2, 'weights': 'uniform'}"
+6,KNN Classifier,PCA 95% variance,0.9811322207901274,0.015410290443470294,0.21507691104832713,0.14964171899227066,"{'leaf_size': 5, 'n_neighbors': 1, 'p': 2, 'weights': 'uniform'}"
 7,KNN Classifier,PCA 100% variance,0.9811322207901274,0.015410290443470294,0.44818918033183747,0.13958125714115438,"{'leaf_size': 5, 'n_neighbors': 1, 'p': 2, 'weights': 'uniform'}"
