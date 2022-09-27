@@ -8,9 +8,7 @@ This portion of the pipeline is responsible for regression.  The pipeline for th
 
 """
 
-## Importing Dependencies
-
-# Standard libraries
+# Importing Dependencies
 import pandas as pd
 import numpy as np
 import os
@@ -47,7 +45,7 @@ import argparse
 import logging
 import sys
 
-## Create the logger
+# Create a logger for various outputs.
 def log_files(logname):
     """
     Create the meachanism for which we log results to a .log file.
@@ -82,7 +80,7 @@ def log_files(logname):
 
     return logger
 
-## Import the complete dataset.
+# Importing the datasets
 def import_data(threshold):
     """
     Import the full dataset from the current path.  Also apply some of the necessary preprocessing.
@@ -111,7 +109,7 @@ def import_data(threshold):
 
     return df, base_range
 
-    ## Logarithmically scalling the values.
+# Rescaling the data into log scale.
 def rescale(array=np.array(0), destination_interval=(-5,5)):
     """
     Rescale the KI values from nM to a log scale within the range of
@@ -139,7 +137,7 @@ def rescale(array=np.array(0), destination_interval=(-5,5)):
 
     return array, saved_range
 
-## Inverse of the rescale function to rescale the outputs.
+# Scaling the data back into KI (nM) scale
 def unscale(array, destination_interval, source_interval=(-5,5)):
     """
     Rescales an array of log-transformed values back into "KI (nM)" form.
@@ -150,7 +148,7 @@ def unscale(array, destination_interval, source_interval=(-5,5)):
 
     destination_interval:  The original range of KI values.
 
-    source_interval: The current range of KI log transformed values.
+    source_interval: The current range of KI log transformed values.  It'll default to -5,5
 
     Returns
     -------
@@ -164,6 +162,7 @@ def unscale(array, destination_interval, source_interval=(-5,5)):
 
     return array
 
+# Optimization of hyperparameters for regression models using GridSearchCV
 def hyperparameter_optimizer(x, y, params, model=SVR()):
     """
     This function is responsible for running GridSearchCV and opatimizing our hyperparameters.  I might need to fine-tune this.
@@ -173,8 +172,6 @@ def hyperparameter_optimizer(x, y, params, model=SVR()):
     x: Input values to perform GridSearchCV with.
 
     y: Output values to create GridSearchCV with.
-    
-    buckets: Might need this.  This contains the bucket info of the data.
 
     params: Dictionary of parameters to run GridSearchCV on.
 
@@ -190,7 +187,9 @@ def hyperparameter_optimizer(x, y, params, model=SVR()):
     scores: Pandas DataFrame of the Training + Test Scores    
     """
 
-    logger.info('GridSearchCV Starting:\n')
+    logger.debug('GridSearchCV Starting:')
+    logger.debug('-----------------------\n')
+
     reg = GridSearchCV(model, param_grid=params, scoring='neg_root_mean_squared_error', cv=5, return_train_score=True,
                        n_jobs=-1)
     reg.fit(x,y)
@@ -199,31 +198,14 @@ def hyperparameter_optimizer(x, y, params, model=SVR()):
     logger.info('Best parameter set: %s' %(reg.best_params_))
     logger.info('-------------------------\n')
 
-    # Testing on the development set.  Save the results to a pandas dataframe and then sort it by
-    # standard deviation of the test set.
-    df = pd.DataFrame(reg.cv_results_)
-    index = reg.best_index_
-    scores = [df['mean_train_score'][index], df['std_train_score'][index], reg.best_score_, df['std_test_score'][index], reg.best_params_]
-    logger.info('Train RMSE Score: %3.3f.  StDev for Train RMSE: %3.3f.  Test RMSE Score: %3.3f.  StDev for Test RMSE: %3.3f.\n' 
-                %(scores[0], scores[1], scores[2], scores[3]))
-
-    df = df.sort_values(by=['std_test_score'])
-
-    # Clean up the output for the hyperparameters.  Eliminate any values that have too low of a test ranking
-    #   as well as eliminate anything with too high of a training score.
-    max_test_rank = df['rank_test_score'].max()
-    col_start = 'split0_train_score'
-    index_start = df.columns.get_loc(col_start)
-    df = df[~(df.iloc[:,index_start:]>0.98).any(1)]
-    df = df[df['mean_train_score'] > 0.65]
-    df = df[df['rank_test_score'] < (0.20*max_test_rank)]
-    df = df[df['mean_test_score'] > 0.25]
-
     # Save the best parameters.
     bestparams = reg.best_params_
 
-    return bestparams, df, scores
+    model.set_params(**bestparams)
 
+    return model
+
+# Loading saved classification models w/parameters.
 def load_saved_clf():
     """
     This section runs the finalized classification portion of the data across the various model types to bucketize our data
@@ -244,165 +226,225 @@ def load_saved_clf():
         - KNN Classifier w/SFS and PCA @100% variance. {'leaf_size': 5, 'n_neighbors': 7, 'p': 2, 'weights': 'uniform'}, 
             Test MCC = 0.61151, Train MCC = 0.564734, Threshold @10.  Large Bucket Size 20, Small Bucket Size 44, Extra Bucket Size 9.
 
+    Returns
+    -------
+    saved_clf: saved dict containing the models with tuned hyperparameters, thresholds, PCA variances, and names of our classification section.
 
     """
     # Create the models with the relevant hyperparameters.
     rbf = SVC(kernel='rbf', C=61, break_ties=True, class_weight=None, gamma=0.001)
-    rbf_threshold = 10
-    rbf_var = 80
-
     xgb = XGBClassifier(alpha=0.0, gamma=2, reg_lambda=1, max_depth=2, n_estimators=11, subsample=0.5)
-    xgb_threshold = 0.01
-    xgb_var = False         # Variance of 'False' indicates that we will not be 
-
     rfc = RandomForestClassifier(ccp_alpha=0.1, criterion='gini', max_depth=9, max_features=1.0, n_estimators=7)
-    rfc_threshold = 10
-    rfc_var = 85
-
     knn = KNeighborsClassifier(leaf_size=5, n_neighbors=7, p=2, weights='uniform')
-    knn_threshold = 10
-    knn_var = 100
-
-    # Put the model information in 4 different list.  Models, Thresholds, Variances, and Names
+    
     models = [rbf, xgb, rfc, knn]
-    thresholds = [rbf_threshold, xgb_threshold, rfc_threshold, knn_threshold]
-    vars = [rbf_var, xgb_var, rfc_var, knn_var]
+    thresholds = [10, 0.01, 10, 10]
+    variances = [80, False, 85, 100]
     names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier', 'KNN Classifier']
 
-    saved_clf = zip(models,thresholds,vars, names)
+    saved_clf = list(zip(thresholds, variances, names, models))
+
     return saved_clf
 
-def fit_and_inference(x, y, buckets, params, reg_threshold, bucket_name, model=SVR()):
+# Loading regression models.
+def load_regression_models():
     """
-    Perform fitting on the optimized models and then make predictions.  Output values are in the log file.
+    This function will create two lists that have their own sets of models, params, and names.
+    
+    Parameters
+    ----------
+    None
+    
+    Returns
+    -------
+    small: list for our small threshold models.  Contains lists including strings representing the name, the models, and a dict of hyperparameters.
+
+    medium: list for our medium threshold models.  Contains lists including strings representing the name, the models, and a dict of hyperparameters.
+    """
+    rbf_params = {'gamma': ['scale', 'auto'], 'C': np.arange(1,101,5), 'epsilon': np.arange(0.1, 1, 0.1)}
+    lin_params = {'gamma': ['scale', 'auto'], 'C': np.arange(1,101,5), 'epsilon': np.arange(0.1, 1, 0.1)}
+    las_params = {'alpha': [1e-1, 1e0, 1e1, 1e2, 1e3, 1e4], 'selection': ['cyclic', 'random']}
+    
+    # names and hyperparameters to sort through are shared.
+    names = ['SVR with RBF Kernel', 'SVR with Linear Kernel', 'Lasso Regression']
+    params = [rbf_params, lin_params, las_params]
+
+    # I need to instantiate new models for both the small and medium buckets.
+    sml_models = [SVR(kernel='rbf'), SVR(kernel='linear'), Lasso()]
+    med_models = [SVR(kernel='rbf'), SVR(kernel='linear'), Lasso()]
+
+    # Create the list.
+    reg_models = list(zip(names, params, sml_models, med_models))
+
+    return reg_models
+
+# Inference for the classification + regression portion of the pipeline
+def inference(x, y, buckets, ki_range, clf=SVC(), sml_reg=SVR(), med_reg=SVR()):
+
+    # Training set
+    # Bucketize
+    buckets_actual = buckets[y.index]
+    buckets_pred = clf.predict(x)
+
+    # Make predictions for all of the buckets.  The large bucket we'll just predict as 0 for now.  Only make predictions if the arrays 
+    #   aren't empty.
+    
+    if x[buckets_pred==0].size != 0:
+        sml_pred = sml_reg.predict(x[buckets_pred==0])
+    if x[buckets_pred==1].size !=0:
+        med_pred = med_reg.predict(x[buckets_pred==1])
+    lrg_pred = np.zeros(np.count_nonzero(x[buckets_pred==2]))
+
+    # Put back the predictions in the original order.
+    y_pred = np.array([])
+    for i in buckets_pred:
+        if i == 0:
+            y_pred = np.append(y_pred, sml_pred[0])
+            sml_pred = np.delete(sml_pred, 0)
+        elif i == 1:
+            y_pred = np.append(y_pred, med_pred[0])
+            med_pred = np.delete(med_pred, 0)
+        elif i == 2:
+            y_pred = np.append(y_pred, lrg_pred[0])
+            lrg_pred = np.delete(lrg_pred, 0)
+
+    # Convert results back to KI (nM) scale from log scale.
+    y_pred_unscaled = unscale(y_pred, ki_range)
+    y_unscaled = unscale(y, ki_range)
+
+    # Calculate RMSE metrics.
+    train_rmse = mean_squared_error(y_unscaled, y_pred_unscaled)**0.5
+    log_train_rmse = mean_squared_error(y, y_pred)**0.5
+
+    # Save the results in a dataframe.
+    cols = ['Log Y Actual', 'Log Y Predicted', 'Y Actual', 'Y Predicted', 'Actual Bucket', 'Predicted Bucket']
+    df_data = zip(y, y_pred, y_unscaled, y_pred_unscaled, buckets_actual, buckets_pred)
+    df = pd.DataFrame(data=df_data, columns=cols)
+
+    return train_rmse, log_train_rmse, df
+
+# Entire data pipeline for classification + regression dual model.
+def clf_reg_pipeline(threshold, var, name_clf, clf=SVC()):
+    """
+    Code containing the pipeline for classification and regression.  All of the transformations are applied here as well.
+
+    Parameters
+    ----------
+    threshold: threshold that we did the classification with.
+    
+    var: variance that we use for PCA, where applicable
+
+    name: name of the classification model we are working with at the moment
+
+    model: classification model
 
     """
 
-    ## Model Building
-    # Initialized with seed and counter variable
-    seeds = [33, 42, 55, 68, 74]
-    i = 0
-    folds = len(seeds)
+    # Logging the model we are classifying with first.
+    logger.info('Classification + Regression Pipeline using %s.\n' %(name_clf))
+
+    # Data and path import.
+    df, ki_range = import_data(threshold)
     path = os.getcwd()
 
-    # If Bucket Name is 'small' or 'medium', we will do the fit/inference accordingly using a bucketflag.
-    if bucket_name == 'Small':
-        bucketflag = 0
-    elif bucket_name == 'Medium':
-        bucketflag = 1
+    # Extract the x, y, and bucket information.
+    x = df[df.columns[1:573]]
+    y = df['KI (nM) rescaled']
+    buckets = df['Bucket']
 
-    # Initialize metrics are using.
-    train_accuracy_sum = 0
-    train_rmse_sum = 0
-    valid_accuracy_sum = 0
-    valid_rmse_sum = 0
+    # Apply MinMaxScaler to the initial x values.
+    scaler = MinMaxScaler()
+    scaler.fit(x)
+    x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
 
-    # Split into small and large X values.
-    x_split = x[buckets==bucketflag]
-    y_split = y[buckets==bucketflag]
+    # Sequential Feature Selection with the saved model.  Make sure to extract the features here too.
+    sfs = load(path + '/%s/sfs/%s %2.2f fs.joblib' %(name_clf, name_clf, threshold))
+    x = sfs.transform(x)
+    fs_features = sfs.get_feature_names_out()
 
-    # Run Hyperparameter optimization on either the small or medium split.
-    model_params, reg_tuning_results, reg_scores = hyperparameter_optimizer(x_split, y_split, params, model)
-    model.set_params(**model_params)
+    # Where applicable, apply PCA tuning as well.
+    if var != False:
+        pca = load(path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name_clf, name_clf, threshold))
+        x = pca.transform(x)
 
-    # First of all, training needs to be done on the proper 'bucketized' data.  But when we are running testing, we want to
-    #   take pre-bucketed data, bucket them, and then predict.  This provides us with a different kind of challenge in our
-    #   overall design.
+        # Dimensonality Reduction based on accepted variance.
+        ratios = np.array(pca.explained_variance_ratio_)
+        ratios = ratios[ratios.cumsum() <= (var/100)]
+        
+        # Readjust the dimensions of x based on the variance we want.
+        length = len(ratios)
+        x = x[:,0:length]
 
-    # Manual implementation of Stratified K-Fold.  First I'll gather up all the saved classification models.
-    saved_clf = load_saved_clf()
+    # Load up the regression models here:
+    reg_models = load_regression_models()
 
-    # Doing this the less-efficient way just to get it up and going.
-    for clf, threshold, var, name in saved_clf:
+    ## Seed values and k-folding required variables.
+    seeds = [33, 42, 55, 68, 74]
+    folds = len(seeds)
 
-        # If the thresholds line up.
-        if reg_threshold==threshold:
+    for name_reg, params, sml_reg, med_reg in reg_models:
 
-            logger.info('Regression results with %s classification.' %(name))
-            logger.info('-----------------------------------------\n')
+        # Logger formatting
+        logger.info('Model Results for %s:' %(name_reg))
+        logger.info('---------------------\n')
 
-            for seed in seeds:
-                i += 1
-                logger.debug('Training:')
-                # Stratify!
-                x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=(1/folds), random_state=seed, stratify=buckets)
+        # Run the hyperparameter optimizer function to set the hyperparameters of the regression.
+        logger.info('Hyperparameters for the small bucket regression model:')
+        sml_reg = hyperparameter_optimizer(x, y, params, sml_reg)
 
-                # Create a small and large training set
-                buckets_train = buckets[y_train.index]
-                #buckets_valid = buckets[y_valid.index]
+        logger.info('Hyperparameters for the medium bucket regression model:')
+        med_reg = hyperparameter_optimizer(x, y, params, med_reg)
 
-                x_train_reg = x_train[buckets_train==bucketflag]
-                buckets_train_reg = buckets_train[buckets_train==bucketflag]
-                y_train_reg = y_train[buckets_train==bucketflag]
+        # Initialize metrics we are using.
+        train_rmse_sum = 0
+        train_rmse_log_sum = 0
+        valid_rmse_sum = 0
+        valid_rmse_log_sum = 0
+        fold = 0
 
-                model.fit(x_train_reg, y_train_reg)
+        # Create the necessary paths for result storage.
+        if os.path.exists(path + '/%s/%s' %(name_clf, name_reg)) == False:
+            os.mkdir('%s/%s' %(name_clf, name_reg))
 
-                logger.debug('Training Finished.')
+        for seed in seeds:
+            fold += 1
 
-                # Now we need to train and apply our classifier on the original dataset.  I think we should apply whichever transformations
-                #   already existing on that part of the pipeline.  We should already have the saved .joblib files so this should be easier.
-
-                # Apply Sequential Feature Selection to the x_train values.
-                sfs = load(path + '/%s/sfs/%s %2.2f fs.joblib' %(name, name, threshold))
-                x_train_clf = sfs.transform(x_train)
-                x_valid_clf = sfs.transform(x_valid)
-
-                # Apply PCA if applicable with the necessary var.
-                if var != False:
-                    pca = load(path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name, name, threshold))
-                    x_train_clf = pca.transform(x_train_clf)
-                    x_valid_clf = pca.transform(x_valid_clf)
+            # Create the training and validation sets.
+            x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=(1/folds), random_state=seed, stratify=buckets)
+            buckets_train = buckets[y_train.index]
             
-                    # Dimensonality Reduction based on accepted variance.
-                    ratios = np.array(pca.explained_variance_ratio_)
-                    ratios = ratios[ratios.cumsum() <= (var/100)]
-                    
-                    # Readjust the dimensions of x based on the variance we want.
-                    length = len(ratios)
-                    x_train_clf = x_train_clf[:,0:length]
-                    x_valid_clf = x_valid_clf[:,0:length]
+            # Fitting the classification and regression models.
+            clf.fit(x_train, buckets_train)
+            sml_reg.fit(x_train[buckets_train==0], y_train[buckets_train==0])
+            med_reg.fit(x_train[buckets_train==1], y_train[buckets_train==1])
 
-                clf.fit(x_train_clf, buckets_train)
+            # Inference on the training and test sets.
+            train_rmse, train_rmse_log, train_df = inference(x_train, y_train, buckets, ki_range, clf, sml_reg, med_reg)
+            train_df.to_csv(path + '/%s/%s/Training Predictions Fold %i.csv' %(name_clf, name_reg, fold))
 
-                # Apply the transformations to the Validation set:
-                bucket_valid = clf.predict(x_valid_clf)
-                x_valid_reg = x_valid[bucket_valid==bucketflag]
+            valid_rmse, valid_rmse_log, valid_df = inference(x_valid, y_valid, buckets, ki_range, clf, sml_reg, med_reg)
+            valid_df.to_csv(path + '/%s/%s/Validation Predictions Fold %i.csv' %(name_clf, name_reg, fold))
 
-                # Test the model on the training set.
-                y_train_pred = model.predict(x_train_reg)
-                train_accuracy = accuracy_score(y_train, y_train_pred)
-                train_rmse = mean_squared_error(y_train, y_train_pred)
+            # Log the individual folds
+            logger.info('Training RMSE: %3.3f, Training RMSE (log): %3.3f, Validation RMSE: %3.3f, Validation RMSE (log): %3.3f,'
+                        ' Fold: %i'  %(train_rmse, train_rmse_log, valid_rmse, valid_rmse_log, fold))
 
-                # Test the model on the validation set.
-                y_valid_pred = model.predict(x_valid_reg)
-                valid_accuracy = accuracy_score(y_valid, y_valid_pred)
-                valid_rmse = mean_squared_error(y_valid, y_valid_pred)
+            train_rmse_sum += train_rmse
+            train_rmse_log_sum += train_rmse_log
+            valid_rmse_sum += valid_rmse
+            valid_rmse_log_sum += valid_rmse_log
+        
+        train_rmse_avg = train_rmse_sum/folds
+        train_rmse_log_avg = train_rmse_log_sum/folds
+        valid_rmse_avg = valid_rmse_sum/folds
+        valid_rmse_log_avg = valid_rmse_log_sum/folds
 
-                # Log the individual folds
-                logger.info('Training Accuracy: %3.3f, Training RMSE: %3.3f, Validation Accuracy: %3.3f, '
-                            'Validation RMSE: %3.3f, Fold: %i'
-                            %(train_accuracy, train_rmse, valid_accuracy, valid_rmse, i))
+        logger.info('---------------------------------------------------------------------------------------------\n')
+        logger.info('AVG Training RMSE: %3.3f, AVG training RMSE (log): %3.3f, AVG Validation RMSE: %3.3f, AVG Validation RMSE '
+                    '(log): %3.3f\n' %(train_rmse_avg, train_rmse_log_avg, valid_rmse_avg, valid_rmse_log_avg))
 
-
-                # Add to the sums
-                train_accuracy_sum += train_accuracy
-                train_rmse_sum += train_rmse
-                valid_accuracy_sum += valid_accuracy
-                valid_rmse_sum += valid_rmse
-            
-            # Calculate the averages
-            train_accuracy_avg = train_accuracy_sum/folds
-            train_rmse_avg = train_rmse_sum/folds
-            valid_accuracy_avg = valid_accuracy_sum/folds
-            valid_rmse_avg = valid_rmse_sum/folds
-
-            # Log the average scores for all the folds
-            logger.info('AVG Training Accuracy: %3.3f, AVG Training RMSE: %3.3f, AVG Validation Accuracy: %3.3f, '
-                        'AVG Validation RMSE: %3.3f\n' %(train_accuracy_avg, train_rmse_avg, valid_accuracy_avg, valid_rmse_avg))
-
-    return reg_tuning_results, model, reg_scores
-
-def hyperparameter_tuning(reg_threshold):
+# Main function that handles regression.
+def regression():
     """
     This function is responsible for the initial phase of hyperparameter tuning for the regression section of the pipeline.
         The models used will be:
@@ -411,62 +453,27 @@ def hyperparameter_tuning(reg_threshold):
         -> Lasso Regression
         This is the first stage of hyperparameter tuning to be done before Forward Selection and PCA.
 
-    Parameters
-    ----------
-    threshold: Int value that is the KI threshold that we are doing hyperparameter tuning at.
     """
 
-    # Import the necessary data.
-    df, ki_range = import_data(reg_threshold)
-    path = os.getcwd()
-
-    # Extract the x, y, and bucket information.
-    x = df[df.columns[1:573]]
-    y = df['KI (nM) rescaled']
-    buckets = df['Buckets']
-
-    # Apply MinMaxScaler to the initial x values.
-    scaler = MinMaxScaler()
-    scaler.fit(x)
-    x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+    # Run the regression model without using the classification models?
     
-    # Create the feature set for the 3 regressors.
-    rbf_params = {}
-    lin_params = {}
-    las_params = {}
-    all_params = [rbf_params, lin_params, las_params]
 
-    # Models and names
-    models = [SVR(kernel='rbf'), SVR(kernel='linear'), Lasso()]
-    names = ['SVR with RBF Kernel', 'SVR with Linear Kernel', 'Lasso Regression']
-    logger.info('Hyperparameter Tuning based on buckets created by setting a threshold of %2.2f' %(reg_threshold))
+    # Create the models with the relevant hyperparameters.
+    saved_clf = load_saved_clf()
 
-    # We will need to do tuning for all the models within the small and medium sized buckets.
+    # I'm going to run fitting and inference 4 different times, one for each cassifier.
+    for threshold, var, name_clf, clf in saved_clf:
+        clf_reg_pipeline(threshold, var, name_clf, clf)
 
-    for name, model, params in zip(names, models, all_params):        
-        # Make sure all of the necessary folders exist before we create and save the models.
-        if os.path.exists(path + '/Threshold %2.2f/' %(reg_threshold)) == False:
-            os.mkdir('Threshold %2.2f' %(reg_threshold))
-        if os.path.exists(path + 'Threshold %2.2f/%s/' %(reg_threshold, name)) == False:
-            os.mkdir('Threshold %2.2f/%s' %(reg_threshold, name))
-        
-        # Run the regression training here.
-        results_sml, model_sml, scores_hp_sml = fit_and_inference(x, y, buckets, params, reg_threshold, bucket_name='Small',
-                                                                  model=model)
-        results_sml.to_csv(path + '%2.2f/%s/Initial Hyperparameter Tuning.csv' %(reg_threshold, name))
-
-        results_med, model_med, scores_hp_med = fit_and_inference(x, y, buckets, params, reg_threshold, bucket_name='Medium',
-                                                                  model=model)
-        results_med.to_csv(path + '%2.2f/%s/Initial Hyperparameter Tuning.csv' %(reg_threshold, name))
-
+# Argument parser section.
 parser = argparse.ArgumentParser()
-parser.add_argument('-ht', '--hyperparameter_test', help='hyperparameter_test = initial stage of hyperparmeter tuning for '
-                    'various hyperparameters.', type=float)
+parser.add_argument('-reg', '--regressor', help='regressor = initial stage of hyperparmeter tuning for '
+                    'various hyperparameters.', action='store_true')
 args = parser.parse_args()
 
-hyperparameter_test = args.hyperparameter_test
+regressor = args.regressor
 
 # Certain sections of the code will run depending on what we specify with the run script.
-if hyperparameter_test != None:
-    logger = log_files('Regression_HT.log')
-    hyperparameter_tuning(hyperparameter_test)
+if regressor == True:
+    logger = log_files('Regression_Log.log')
+    regression()

@@ -14,3 +14,5 @@ git add "Threshold 5.00.log"
 git add "Threshold 10.00.log"
 git add "Threshold 15.00.log"
 git add "Threshold 18.00.log"
+git add Regression_Log.log
+git add analysis.py

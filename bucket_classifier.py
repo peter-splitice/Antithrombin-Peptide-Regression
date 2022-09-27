@@ -3,9 +3,7 @@ This section of code covers the classifier which takes takes the input data and 
     KI (nM) values.
 """
 
-## Importing Dependencies
-
-# Argument Parser
+# Importing Dependencies
 import argparse
 import csv
 # Write to a log file
@@ -38,7 +36,7 @@ from sklearn.svm import SVC, SVR
 from xgboost import XGBClassifier
 
 
-## Create the logger
+# Creating a logger to record and save information.
 def log_files(logname):
     """
     Create the meachanism for which we log results to a .log file.
@@ -73,7 +71,7 @@ def log_files(logname):
 
     return logger
 
-## Import the complete dataset.
+# Import the complete dataset.
 def import_data():
     """
     Import the full dataset from the current path.  Also apply some of the necessary preprocessing.
@@ -86,8 +84,6 @@ def import_data():
     -------
     df:  Dataframe of the full KI training dataset, with any values above 50,000 removed.
 
-    base_range:  Contains the range of values within the dataframe for rescaling purposes.
-
     """
 
     # Importing the full KI set into a dataframe.
@@ -96,11 +92,11 @@ def import_data():
     logger.debug('The full dataset has %i examples.' %(len(df)))
 
     # Rescaling the dataframe in the log10 (-5,5) range.
-    df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=(-5,5))
+    df['KI (nM) rescaled']  = rescale(df['KI (nM)'], destination_interval=(-5,5))
 
-    return df, base_range
+    return df
 
-## Logarithmically scalling the values.
+# Scaling the KI (nM) values into log scale within the interval (-5, 5)
 def rescale(array=np.array(0), destination_interval=(-5,5)):
     """
     Rescale the KI values from nM to a log scale within the range of
@@ -126,34 +122,9 @@ def rescale(array=np.array(0), destination_interval=(-5,5)):
     saved_range = (array.min(), array.max())
     array = np.interp(array, saved_range, destination_interval)
 
-    return array, saved_range
-
-## Inverse of the rescale function to rescale the outputs.
-def unscale(array, destination_interval, source_interval=(-5,5)):
-    """
-    Rescales an array of log-transformed values back into "KI (nM)" form.
-
-    Parameters
-    ----------
-    array:  A numpy array of KI values in log-transformed form.
-
-    destination_interval:  The original range of KI values.
-
-    source_interval: The current range of KI log transformed values.
-
-    Returns
-    -------
-    array:  A numpy array of the KI values back in the original format.
-
-    """
-
-    # Undoing the previous rescaling.
-    array = np.interp(array, source_interval, destination_interval)
-    array = np.exp(array)
-
     return array
 
-## Forward selection for our classifier.
+# Sequential Forward Selection for feature reduction in our data.
 def forward_selection(x, y, model):
     """
     Perform Sequential Forward Selection on the given dataset, but for 
@@ -185,8 +156,7 @@ def forward_selection(x, y, model):
 
     return x, sfs
 
-
-## Code for Principal Component Analysis
+# Code for Principal Component Analysis
 def principal_component_analysis(x, var):
     """
     Perform PCA and return the transformed inputs with the principal components.
@@ -195,7 +165,7 @@ def principal_component_analysis(x, var):
     ----------
     x: Input values to perform PCA on.
 
-    variance: Parameter that reduces dimensionality of the PCA.  Enter as an int from 0-100.
+    var: Parameter that reduces dimensionality of the PCA.  Enter as an int from 0-100.
 
     Returns
     -------
@@ -223,6 +193,7 @@ def principal_component_analysis(x, var):
 
     return x, pca
 
+# Optimize the hyperparameters of the classifiers using GridSearchCV
 def hyperparameter_optimizer(x, y, params, model=SVC()):
     """
     Perform GridSearchCV to find and return the best hyperparmeters.  I'll use MCC score here.  I'll also display the training
@@ -283,7 +254,7 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
 
     return bestparams, df, scores
 
-
+# Perform optimization on the classifier as well as a k-fold cross validation.
 def classifier_trainer(x, y, params, model=SVC()):
     """
     Perform fitting on the reduced datasets and then make predictions.  The output values are in the log file.
@@ -366,7 +337,6 @@ def classifier_trainer(x, y, params, model=SVC()):
     
     return optimizer_results, model, scores
 
-
 # Function to separate items into buckets.
 def threshold_finder(threshold):
     """
@@ -382,7 +352,7 @@ def threshold_finder(threshold):
     """
     
     # Import the data.
-    df, _ = import_data()
+    df = import_data()
     path = os.getcwd()
 
     # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
@@ -421,6 +391,10 @@ def threshold_finder(threshold):
         vars = [75, 80, 85, 90, 95, 100]
         cols = ['Name', 'Stage', 'Train MCC', 'Train Stdev', 'Test MCC', 'Test Stdev', 'Params']
 
+        # Create a folder for the extracted Features.
+        if os.path.exists(path + '/SFS Extracted Features') == False:
+            os.mkdir('SFS Extracted Features')
+
         for params, name, model in attributes:
             # Every time I iterate through this loop, I need to recreate x.
             x = df[df.columns[1:573]]
@@ -436,8 +410,6 @@ def threshold_finder(threshold):
                 os.mkdir('%s/sfs' %(name))
             if os.path.exists(path + '/%s/baseline' %(name)) == False:
                 os.mkdir('%s/baseline' %(name))
-            if os.path.exists(path + '/%s/SFS Extracted Features' %(name)) == False:
-                os.mkdir('%s/SFS Extracted Features' %(name))
             if os.path.exists(path + '/%s/results' %(name)) == False:
                 os.mkdir('%s/results' %(name))
 
@@ -484,66 +456,12 @@ def threshold_finder(threshold):
             dump(pca, path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name, name, threshold))
         
         # Exporting the extracted features.
-        fs_features.to_csv(path + '/%s/SFS Extracted Features/Saved Features for Threshold %2.2f.csv' %(name, threshold))
+        fs_features.to_csv(path + '/SFS Extracted Features/Saved Features for Threshold %2.2f.csv' %(threshold))
 
     # Formatting for the logger.
     logger.info('-----------------------------------------------------\n')
 
-def pca_tuning(threshold, var):
-    """
-    Use this function when you already finished feature selection (forwards/backwards) and then want to tune the PCA portion
-        of the pipeline by adjusting the amount of variance accepted.
-        
-    Parameters
-    ----------
-    threshold: threshold for the bucket splits
-    
-    var: percent variance to account for when doing PCA
-    """
-    ## Use this function to tune the PCA of a particular subset of models.
-    path = os.getcwd()
-
-    # Formatting
-    logger.info('Threshold level %2.2f:' %(threshold))
-    logger.info('---------------------\n')
-
-    # DataFrame importing and adding 'Bucket' column
-    df, _ = import_data()
-    df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
-
-    # Get x and y values.
-    x = df[df.columns[1:573]]
-    y = df['Bucket']
-
-    # Add minMaxScaler here to reduce overfitting.
-    scaler = MinMaxScaler()
-    scaler.fit(x)
-    x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
-
-    attributes = param_name_model_zipper()
-
-    for params, name, model in attributes:
-        # Re-initialize "x"
-        x = df[df.columns[1:573]]
-        x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
-        logger.info('Beginning analysis on %s:' %(name))
-        logger.info('-----------------------\n')
-
-        # Perform Forward Selection with our saved models
-        sfs = load(path + '/%s/sfs/%s %2.2f fs.joblib' %(name, name, threshold))
-        x = sfs.transform(x)
-
-        if os.path.exists(path + '/%s/PCA Tuning' %(name)) == False:
-            os.mkdir('%s/PCA Tuning' %(name))
-
-        logger.debug('Beginning PCA only section')
-        x, pca = principal_component_analysis(x, var)
-
-        results, model, scores_pca = classifier_trainer(x, y, params, model)
-        results.to_csv(path + '/%s/PCA Tuning/%s results with threshold %2.2f and %i%% of the variance.csv' %(name, name, threshold, var))
-        dump(pca, path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name, name, threshold))
-
-
+# Put together the variosu classification models.
 def param_name_model_zipper():
     """
     This function initializes the models, parameters, and names and zips them up.  This is done before a lot of 
@@ -587,9 +505,7 @@ def param_name_model_zipper():
 
     return attributes
 
-#def tree_based_zipper():
-
-
+# Function that finds the initial set of hyperparameters for the classifiers, pre-data transformation.
 def hyperparameter_pipeline(threshold):
     """
     This function is responsible for testing and optimizing for our hyperparameters.  The models used will be:
@@ -602,7 +518,7 @@ def hyperparameter_pipeline(threshold):
     """
 
     # Import the data.
-    df, _ = import_data()
+    df = import_data()
     path = os.getcwd()
 
     # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
@@ -645,106 +561,19 @@ def hyperparameter_pipeline(threshold):
         results.to_csv(path + '/%s/Initial Hyperparameter Tuning/%s Initial Hyperparameter Tuning at Threshold %2.2f.csv'
                        %(name, name, threshold))
 
-# Classification section of the pipeline.
-def classification():
-    """
-    This section runs the finalized classification portion of the data across the various model types to bucketize our data
-        for inference.
-        
-        - SVC w/RBF Kernel w/SFS and PCA @80% variance. {'C': 61, 'break_ties': True, 'class_weight': None, 'gamma': 0.001},
-            Test MCC = 0.529094, Train MCC = 0.713933, Threshold @ 10.  Large Bucket Size 20, Small Bucket Size 44, Extra Bucket Size
-            9.
-
-        - XGBoost Classifier w/SFS. {'alpha': 0.0, 'gamma': 2, 'lambda': 1, 'max_depth': 2, 'n_estimators': 11, 'subsample': 0.5},
-            Test MCC = 0.661811, Train MCC = 0.709423, Threshold @ 0.01.  Large Bucket Size 46, Small Bucket Size 18, Extra Bucket Size
-            9.
-
-        - Random Forest Classifier w/SFS and PCA @85% variance.  {'ccp_alpha': 0.1, 'criterion': 'gini', 'max_depth': 9, 
-            'max_features': 1.0, 'n_estimators': 7}, Test MCC = 0.614015, Train MCC = 0.729953, Threshold @ 10.  Large Bucket Size 20,
-            Small Bucket Size 44, Extra Bucket Size 9.
-
-        - KNN Classifier w/SFS and PCA @100% variance. {'leaf_size': 5, 'n_neighbors': 7, 'p': 2, 'weights': 'uniform'}, 
-            Test MCC = 0.61151, Train MCC = 0.564734, Threshold @10.  Large Bucket Size 20, Small Bucket Size 44, Extra Bucket Size 9.
-
- 
-    """
-    path = os.getcwd()
-
-    # Create the models with the relevant hyperparameters.
-    rbf = SVC(kernel='rbf', C=61, break_ties=True, class_weight=None, gamma=0.001)
-    rbf_threshold = 10
-    rbf_var = 80
-
-    xgb = XGBClassifier(alpha=0.0, gamma=2, reg_lambda=1, max_depth=2, n_estimators=11, subsample=0.5)
-    xgb_threshold = 0.01
-    xgb_var = False         # Variance of 'False' indicates that we will not be 
-
-    rfc = RandomForestClassifier(ccp_alpha=0.1, criterion='gini', max_depth=9, max_features=1.0, n_estimators=7)
-    rfc_threshold = 10
-    rfc_var = 85
-
-    knn = KNeighborsClassifier(leaf_size=5, n_neighbors=7, p=2, weights='uniform')
-    knn_threshold = 10
-    knn_var = 100
-
-    # Put the model information in 4 different list.  Models, Thresholds, Variances, and Names
-    models = [rbf, xgb, rfc, knn]
-    thresholds = [rbf_threshold, xgb_threshold, rfc_threshold, knn_threshold]
-    vars = [rbf_var, xgb_var, rfc_var, knn_var]
-    names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier', 'KNN Classifier']
-
-    for model, threshold, var, name in zip(models,thresholds,vars, names):
-        
-        # Import the data
-        df, initial_range = import_data()
-
-        # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
-        # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000
-        df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
-
-        # Create the x and y values.  X = all the features.  y = the columns of buckets
-        x = df[df.columns[1:573]]
-        y = df['Bucket']
-
-        # Apply MinMaxScaler and then transform X to rescale all the input variables.
-        scaler = MinMaxScaler()
-        scaler.fit(x)
-        x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
-
-        # Apply Sequential Feature Selection
-        sfs = load(path + '/%s/sfs/%s %2.2f fs.joblib' %(name, name, threshold))
-        x = sfs.transform(x)
-
-        # Apply PCA if applicable.
-        if var != False:
-            pca = load(path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name, name, threshold))
-            x = pca.transform(x)
-    
-            # Dimensonality Reduction based on accepted variance.
-            ratios = np.array(pca.explained_variance_ratio_)
-            ratios = ratios[ratios.cumsum() <= (var/100)]
-            
-            # Readjust the dimensions of x based on the variance we want.
-            length = len(ratios)
-            x = x[:,0:length]
-
-## Use argparse to pass various thresholds.
+# Use argparse to pass various thresholds.
 parser = argparse.ArgumentParser()
 parser.add_argument('-t', '--threshold', help='threshold = set the threshold to split the dataset into'
                     ' large and small buckets', type=float)
 parser.add_argument('-ht', '--hyperparameter_test', help='hyperparameter_test = test for various hyperparameters',
                     type=float)
-parser.add_argument('-pca', '--pca_tuning', help='pca_tuning = provide a "var" element to get the principal components needed to account'
-                    ' for a certain amount of variance in the system', type=float)
-parser.add_argument('-cl', '--classifier', help='classifier = run the classification portion of the pipeline to generate the models '
-                    '& saved files for the classification section of the pipeline.', action='store_true')
+parser.add_argument('-reg', '--regressor', help='regressor = perform the regression section of the code once we have finished with '
+                    'the classification section of the pipeline', action='store_true')
            
 args = parser.parse_args()
 
 threshold = args.threshold
 hyperparameter_test = args.hyperparameter_test
-pcatuner = args.pca_tuning
-classifier = args.classifier
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
 if threshold != None:
@@ -753,19 +582,3 @@ if threshold != None:
 elif hyperparameter_test != None:
     logger = log_files('HP_Test.log')
     hyperparameter_pipeline(hyperparameter_test)
-elif pcatuner != None:
-    logger = log_files('PCA_Tuning.log')
-    vars = [75, 80, 85, 90, 95]  # remove 75 for threshold 10+
-    for var in vars:
-        pca_tuning(pcatuner, var=var)
-elif classifier == True:
-    classifier = log_files('Classifier.log')
-    classification()
-
-## Add email to the slurm address to get notifications.
-
-## 
-
-## Requirements.txt 
-## python -m pip freeze
-## pipe it into a txt file
