@@ -33,7 +33,7 @@ from sklearn.feature_selection import SequentialFeatureSelector
 from sklearn.metrics import matthews_corrcoef, mean_squared_error, accuracy_score, make_scorer
 
 # Model Persistence
-from joblib import dump, load
+from pickle import dump, load
 
 # Plotter
 import matplotlib.pyplot as plt
@@ -466,12 +466,12 @@ def clf_reg_pipeline(threshold, var, name_clf, results_df = pd.DataFrame(), clf=
     x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
 
     # Sequential Feature Selection with the saved model.  Make sure to extract the features here too.
-    rfe = load(PATH + '/%s/rfe/%s %2.2f rfe.joblib' %(name_clf, name_clf, threshold))
+    rfe = load(open(PATH + '/%s/rfe/%s %2.2f rfe.pkl' %(name_clf, name_clf, threshold), 'rb'))
     x = pd.DataFrame(rfe.transform(x), columns=rfe.get_feature_names_out())
 
     # Where applicable, apply PCA tuning as well.
     if var != False:
-        pca = load(PATH + '/%s/rfe-pca/%s %2.2f pca.joblib' %(name_clf, name_clf, threshold))
+        pca = load(open(PATH + '/%s/rfe-pca/%s %2.2f pca.pkl' %(name_clf, name_clf, threshold), 'rb'))
         x = pd.DataFrame(pca.transform(x))
 
         # Dimensonality Reduction based on accepted variance.
