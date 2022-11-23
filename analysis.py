@@ -18,11 +18,15 @@ import matplotlib.pyplot as plt
 import logging
 import sys
 
+# Joblib
+from joblib import dump, load
+
 # Models
-from sklearn.svm import SVC
+from sklearn.svm import SVC, SVR
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from xgboost import XGBClassifier
+from sklearn.linear_model import Lasso
 
 def load_saved_clf():
     """
@@ -55,16 +59,83 @@ def load_saved_clf():
     rfc = RandomForestClassifier(ccp_alpha=0.1, criterion='gini', max_depth=9, max_features=1.0, n_estimators=7)
     knn = KNeighborsClassifier(leaf_size=5, n_neighbors=7, p=2, weights='uniform')
     
-    models = [rbf, xgb, rfc, knn]
+    clfs = [rbf, xgb, rfc, knn]
     thresholds = [10, 0.01, 10, 10]
     variances = [80, False, 85, 100]
     names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier', 'KNN Classifier']
 
-    saved_clf = list(zip(thresholds, variances, names, models))
+    saved_clf = list(zip(thresholds, variances, names, clfs))
 
     return saved_clf
 
+# Loading regression models.
+def load_regression_models():
+    """
+    This function will create two lists that have their own sets of models, params, and names.
+    
+    Parameters
+    ----------
+    None
+    
+    Returns
+    -------
+    small: list for our small threshold models.  Contains lists including strings representing the name, the models, and a dict of hyperparameters.
+
+    medium: list for our medium threshold models.  Contains lists including strings representing the name, the models, and a dict of hyperparameters.
+    """
+    rbf_params = {'gamma': ['scale', 'auto'], 'C': np.arange(1,101,5), 'epsilon': np.arange(0.1, 1, 0.1)}
+    lin_params = {'gamma': ['scale', 'auto'], 'C': np.arange(1,101,5), 'epsilon': np.arange(0.1, 1, 0.1)}
+    las_params = {'alpha': [1e-1, 1e0, 1e1, 1e2, 1e3, 1e4], 'selection': ['cyclic', 'random']}
+    
+    # names and hyperparameters to sort through are shared.
+    names = ['SVR with RBF Kernel', 'SVR with Linear Kernel', 'Lasso Regression']
+    params = [rbf_params, lin_params, las_params]
+
+    # I need to instantiate new models for both the small and medium buckets.
+    sml_models = [SVR(kernel='rbf'), SVR(kernel='linear'), Lasso()]
+    med_models = [SVR(kernel='rbf'), SVR(kernel='linear'), Lasso()]
+
+    # Create the list.
+    reg_models = list(zip(names, params, sml_models, med_models))
+
+    return reg_models
+
 # Path
 def results_import():
+
+    path = os.getcwd()
     ## Note that the features selected here were done based on model.
+    saved_clf = load_saved_clf()
+    reg_names = ['SVR with RBF Kernel', 'SVR with Linear Kernel', 'Lasso Regression']
+
+    for threshold, var_clf, name_clf, clf in saved_clf:
+        features_df = pd.read_csv(path + '/SFS Extracted Features/Saved Features for Threshold %2.2f.csv' %(threshold))
+        extracted_features = features_df['%s' %(name_clf)]
+        sfs = load(path + '/%s/sfs/%s %2.2f fs.joblib' %(name_clf, name_clf, threshold))
+        extracted_features = sfs.get_feature_names_out()
+
+        # Information for the validation sets:
+        for reg in reg_names:
+
+            # Load Training Sets
+            train_fold1 = pd.read_csv(path + '/%s/%s/Training Predictions Fold 1' %(name_clf, reg))
+            train_fold2 = pd.read_csv(path + '/%s/%s/Training Predictions Fold 2' %(name_clf, reg))
+            train_fold3 = pd.read_csv(path + '/%s/%s/Training Predictions Fold 3' %(name_clf, reg))
+            train_fold4 = pd.read_csv(path + '/%s/%s/Training Predictions Fold 4' %(name_clf, reg))
+            train_fold5 = pd.read_csv(path + '/%s/%s/Training Predictions Fold 5' %(name_clf, reg))
+            
+            
+
+            # Validation Sets
+            valid_fold1 = pd.read_csv(path + '/%s/%s/Validation Predictions Fold 1' %(name_clf, reg))
+            valid_fold2 = pd.read_csv(path + '/%s/%s/Validation Predictions Fold 2' %(name_clf, reg))
+            valid_fold3 = pd.read_csv(path + '/%s/%s/Validation Predictions Fold 3' %(name_clf, reg))
+            valid_fold4 = pd.read_csv(path + '/%s/%s/Validation Predictions Fold 4' %(name_clf, reg))
+            valid_fold5 = pd.read_csv(path + '/%s/%s/Validation Predictions Fold 5' %(name_clf, reg))
+
+
+
     return 0
+
+
+results_import()

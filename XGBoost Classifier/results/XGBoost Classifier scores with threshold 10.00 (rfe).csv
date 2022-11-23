@@ -1,0 +1,9 @@
+,Name,Stage,Features Selected,Train MCC,Train Stdev,Test MCC,Test Stdev,Params
+0,XGBoost Classifier,Baseline,572,0.8724339469368575,0.0337078160768642,0.488741356738008,0.18992859115316318,"{'alpha': 0.2, 'gamma': 1, 'lambda': 1, 'max_depth': 2, 'n_estimators': 13, 'subsample': 0.5}"
+1,XGBoost Classifier,rfe,136,0.9744596345209361,0.024060443328094462,0.47377702616261647,0.1637282319041181,"{'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 3, 'n_estimators': 24, 'subsample': 0.5}"
+2,XGBoost Classifier,PCA 75% variance,136,0.682038632457695,0.0365602717667702,0.5249872781197615,0.1283971806685311,"{'alpha': 0.0, 'gamma': 1, 'lambda': 1, 'max_depth': 3, 'n_estimators': 3, 'subsample': 0.5}"
+3,XGBoost Classifier,PCA 80% variance,136,0.7098939316923436,0.07718970831321402,0.4945644649422,0.11106374135676898,"{'alpha': 0.0, 'gamma': 1, 'lambda': 1, 'max_depth': 3, 'n_estimators': 3, 'subsample': 0.5}"
+4,XGBoost Classifier,PCA 85% variance,136,0.5792349551371421,0.03337343527437729,0.48354243143106623,0.1050766880710652,"{'alpha': 0.0, 'gamma': 2, 'lambda': 1, 'max_depth': 2, 'n_estimators': 3, 'subsample': 0.5}"
+5,XGBoost Classifier,PCA 90% variance,136,0.844572524311021,0.05158771432744963,0.48097387807652303,0.1042867904294432,"{'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 4, 'n_estimators': 7, 'subsample': 0.5}"
+6,XGBoost Classifier,PCA 95% variance,136,0.6950408974621235,0.09224332749315815,0.49044259804786805,0.14014470806200777,"{'alpha': 0.0, 'gamma': 3, 'lambda': 1, 'max_depth': 3, 'n_estimators': 4, 'subsample': 1}"
+7,XGBoost Classifier,PCA 100% variance,136,0.7294702428236739,0.12707798126196312,0.43734130429979257,0.16326861494924352,"{'alpha': 0.0, 'gamma': 3, 'lambda': 1, 'max_depth': 3, 'n_estimators': 7, 'subsample': 1}"

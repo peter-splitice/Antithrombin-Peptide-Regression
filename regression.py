@@ -4,8 +4,6 @@ This portion of the pipeline is responsible for regression.  The pipeline for th
     -> Forward Selection
     -> PCA
     -> Models
-
-
 """
 
 # Importing Dependencies
@@ -14,8 +12,10 @@ import numpy as np
 import os
 import csv
 
+from operator import add
+
 # Preprocessing
-from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
+from sklearn.model_selection import train_test_split, GridSearchCV, StratifiedKFold
 from sklearn.preprocessing import MinMaxScaler
 
 # Models
@@ -45,6 +45,93 @@ import argparse
 import logging
 import sys
 
+## Packages to use the .fasta file.
+# Compute protein descriptors
+from propy import PyPro
+from propy import AAComposition
+from propy import CTD
+
+# Build Sequence Object
+from Bio.SeqUtils.ProtParam import ProteinAnalysis
+
+# Read Fasta File
+from pyfaidx import Fasta
+
+# Grouping iterable
+from itertools import chain
+
+# Return file path
+import glob
+
+# Global Variables
+PATH = os.getcwd()
+FOLDS = 5
+RAND = 42
+
+def inferenceSingleSeqence(seq):
+    
+    """ The inference function gets the protein sequence, trained model, preprocessing function and selected
+    features as input. 
+    
+    The function read the sequence as string and extract the peptide features using appropriate packages into 
+    the dataframe.
+    
+    The necessary features are selected from the extracted features which then undergoes preprocessing function, the
+    target value is predicted using trained function and give out the results. """
+    
+    # empty list to save the features
+    listing = []
+    
+    # Make sure the sequence is a string
+    s = str(seq)
+    
+    # replace the unappropriate peptide sequence to A
+    s = s.replace('X','A')
+    s = s.replace('x','A')
+    s = s.replace('U','A')
+    s = s.replace('Z','A')
+    s = s.replace('B','A')
+    
+    # Calculating primary features
+    analysed_seq = ProteinAnalysis(s)
+    wt = analysed_seq.molecular_weight()
+    arm = analysed_seq.aromaticity()
+    instab = analysed_seq.instability_index()
+    flex = analysed_seq.flexibility()
+    pI = analysed_seq.isoelectric_point()
+    
+    # create a list for the primary features
+    pFeatures = [seq, s, len(seq), wt, arm, instab, pI]
+    
+    # Get secondary structure in a list
+    sectruc = analysed_seq.secondary_structure_fraction()
+    sFeatures = list(sectruc)
+    
+    # Get Amino Acid Composition (AAC), Composition Transition Distribution (CTD) and Dipeptide Composition (DPC)
+    resultAAC = AAComposition.CalculateAAComposition(s)
+    resultCTD = CTD.CalculateCTD(s)
+    resultDPC = AAComposition.CalculateDipeptideComposition(s)
+    
+    # Collect all the features into lists
+    aacFeatures = [j for i,j in resultAAC.items()]
+    ctdFeatures = [l for k,l in resultCTD.items()]
+    dpcFeatures = [n for m,n in resultDPC.items()]
+    listing.append(pFeatures + sFeatures + aacFeatures + ctdFeatures + dpcFeatures)
+    
+    # Collect feature names
+    name1 = ['Name','Seq' ,'SeqLength','Weight','Aromaticity','Instability','IsoelectricPoint','Helix','Turn','Sheet']
+    name2 = [i for i,j in resultAAC.items()]
+    name3 = [k for k,l in resultCTD.items()]
+    name4 = [m for m,n in resultDPC.items()]
+    name  = []
+    name.append(name1+name2+name3+name4)
+    flatten_list = list(chain.from_iterable(name))
+    
+    # create dataframe using all extracted features and the names
+    allFeatures = pd.DataFrame(listing, columns = flatten_list)
+
+    return allFeatures
+
 # Create a logger for various outputs.
 def log_files(logname):
     """
@@ -61,12 +148,12 @@ def log_files(logname):
 
     # Instantiate the logger and set the formatting and minimum level to DEBUG.
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
     formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
 
     # Display the logs in the output
     stdout_handler = logging.StreamHandler(sys.stdout)
-    stdout_handler.setLevel(logging.DEBUG)
+    stdout_handler.setLevel(logging.INFO)
     stdout_handler.setFormatter(formatter)
 
     # Write the logs to a file
@@ -97,9 +184,19 @@ def import_data(threshold):
 
     """
 
-    # Importing the full KI set into a dataframe.
-    path = os.getcwd()
-    df = pd.read_csv(path + '/PositivePeptide_Ki.csv')
+    # Extracting peptide sequence + formatting
+    peptide_sequences = pd.read_excel(PATH + '/Positive_KI.xlsx')
+    peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
+    peptide_sequences.rename(columns={'Sequence':'Name'}, inplace=True)
+
+    # Feature Extraction
+    df = pd.DataFrame()
+    for i in range(len(peptide_sequences)):
+        df = pd.concat([df, inferenceSingleSeqence(peptide_sequences.iloc[i][0])])
+
+    # Merging into a single dataframe. Removing extra seq column and others.
+    df = pd.merge(df,peptide_sequences)
+    df = df.drop(columns=['Seq','Helix','Turn','Sheet'])
 
     # Rescaling the dataframe in the log10 (-5,5) range.
     df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=(-5,5))
@@ -211,20 +308,20 @@ def load_saved_clf():
     This section runs the finalized classification portion of the data across the various model types to bucketize our data
         for inference.
         
-        - SVC w/RBF Kernel w/SFS and PCA @80% variance. {'C': 61, 'break_ties': True, 'class_weight': None, 'gamma': 0.001},
-            Test MCC = 0.529094, Train MCC = 0.713933, Threshold @ 10.  Large Bucket Size 20, Small Bucket Size 44, Extra Bucket Size
+        - SVC w/RBF Kernel w/SFS. {'C': 21, 'break_ties': False, 'class_weight': None, 'gamma': 'auto'},
+            Test MCC = 0.60, Train MCC = 0.897055, Threshold @ 0.01.  Large Bucket Size 46, Small Bucket Size 18, Extra Bucket Size
+            9. (old)
+
+        - XGBoost Classifier w/SFS. {'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 3, 'n_estimators': 13, 'subsample': 1},
+            Test MCC = 0.802, Train MCC = 0.955382, Threshold @ 0.01.  Large Bucket Size 46, Small Bucket Size 18, Extra Bucket Size
             9.
 
-        - XGBoost Classifier w/SFS. {'alpha': 0.0, 'gamma': 2, 'lambda': 1, 'max_depth': 2, 'n_estimators': 11, 'subsample': 0.5},
-            Test MCC = 0.661811, Train MCC = 0.709423, Threshold @ 0.01.  Large Bucket Size 46, Small Bucket Size 18, Extra Bucket Size
-            9.
-
-        - Random Forest Classifier w/SFS and PCA @85% variance.  {'ccp_alpha': 0.1, 'criterion': 'gini', 'max_depth': 9, 
-            'max_features': 1.0, 'n_estimators': 7}, Test MCC = 0.614015, Train MCC = 0.729953, Threshold @ 10.  Large Bucket Size 20,
+        - Random Forest Classifier w/SFS.  {'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 9,
+            'max_features': 0.3, 'n_estimators': 9}, Test MCC = 0.604743, Train MCC = 0.86625, Threshold @ 10.  Large Bucket Size 20,
             Small Bucket Size 44, Extra Bucket Size 9.
 
-        - KNN Classifier w/SFS and PCA @100% variance. {'leaf_size': 5, 'n_neighbors': 7, 'p': 2, 'weights': 'uniform'}, 
-            Test MCC = 0.61151, Train MCC = 0.564734, Threshold @10.  Large Bucket Size 20, Small Bucket Size 44, Extra Bucket Size 9.
+        - KNN Classifier w/SFS and PCA @100% variance. {'leaf_size': 5, 'n_neighbors': 23, 'p': 1, 'weights': 'distance'}, 
+            Test MCC = 0.700322, Train MCC = 0.977248, Threshold @0.1.  Large Bucket Size 20, Small Bucket Size 44, Extra Bucket Size 9.
 
     Returns
     -------
@@ -232,14 +329,14 @@ def load_saved_clf():
 
     """
     # Create the models with the relevant hyperparameters.
-    rbf = SVC(kernel='rbf', C=61, break_ties=True, class_weight=None, gamma=0.001)
-    xgb = XGBClassifier(alpha=0.0, gamma=2, reg_lambda=1, max_depth=2, n_estimators=11, subsample=0.5)
-    rfc = RandomForestClassifier(ccp_alpha=0.1, criterion='gini', max_depth=9, max_features=1.0, n_estimators=7)
-    knn = KNeighborsClassifier(leaf_size=5, n_neighbors=7, p=2, weights='uniform')
+    rbf = SVC(kernel='rbf', C=21, break_ties=False, class_weight=None, gamma='auto')
+    xgb = XGBClassifier(alpha=0.0, gamma=0, reg_lambda=1, max_depth=3, n_estimators=13, subsample=1)
+    rfc = RandomForestClassifier(ccp_alpha=0.0, criterion='entropy', max_depth=9, max_features=0.3, n_estimators=9)
+    knn = KNeighborsClassifier(leaf_size=5, n_neighbors=23, p=1, weights='distance')
     
     models = [rbf, xgb, rfc, knn]
-    thresholds = [10, 0.01, 10, 10]
-    variances = [80, False, 85, 100]
+    thresholds = [0.01, 0.01, 0.1, 0.1]
+    variances = [False, False, False, False]
     names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier', 'KNN Classifier']
 
     saved_clf = list(zip(thresholds, variances, names, models))
@@ -280,7 +377,16 @@ def load_regression_models():
 
 # Inference for the classification + regression portion of the pipeline
 def inference(x, y, buckets, ki_range, clf=SVC(), sml_reg=SVR(), med_reg=SVR()):
+    """
+    This function is responsible for training and predicting the results.
 
+    Parameters
+    ----------
+    x: Input data for the dataset.
+    
+    y: KI (nM) values.
+
+    """
     # Training set
     # Bucketize
     buckets_actual = buckets[y.index]
@@ -288,10 +394,9 @@ def inference(x, y, buckets, ki_range, clf=SVC(), sml_reg=SVR(), med_reg=SVR()):
 
     # Make predictions for all of the buckets.  The large bucket we'll just predict as 0 for now.  Only make predictions if the arrays 
     #   aren't empty.
-    
     if x[buckets_pred==0].size != 0:
         sml_pred = sml_reg.predict(x[buckets_pred==0])
-    if x[buckets_pred==1].size !=0:
+    if x[buckets_pred==1].size != 0:
         med_pred = med_reg.predict(x[buckets_pred==1])
     lrg_pred = np.zeros(np.count_nonzero(x[buckets_pred==2]))
 
@@ -312,19 +417,35 @@ def inference(x, y, buckets, ki_range, clf=SVC(), sml_reg=SVR(), med_reg=SVR()):
     y_pred_unscaled = unscale(y_pred, ki_range)
     y_unscaled = unscale(y, ki_range)
 
-    # Calculate RMSE metrics.
-    train_rmse = mean_squared_error(y_unscaled, y_pred_unscaled)**0.5
-    log_train_rmse = mean_squared_error(y, y_pred)**0.5
-
     # Save the results in a dataframe.
     cols = ['Log Y Actual', 'Log Y Predicted', 'Y Actual', 'Y Predicted', 'Actual Bucket', 'Predicted Bucket']
     df_data = zip(y, y_pred, y_unscaled, y_pred_unscaled, buckets_actual, buckets_pred)
     df = pd.DataFrame(data=df_data, columns=cols)
 
-    return train_rmse, log_train_rmse, df
+    # Calculate RMSE metrics.
+    rmse = mean_squared_error(df['Y Actual'], df['Y Predicted'])**0.5
+    log_rmse = mean_squared_error(df['Log Y Actual'], df['Log Y Predicted'])**0.5
+
+    # We also want to calculate the classification errors.  In this case we care about MCC score.
+    mcc = matthews_corrcoef(df['Actual Bucket'], df['Predicted Bucket'])
+
+    # We want to find the RMSE's where we remove all of the values that we predicted to be in bucket 2 (KI > 4000 nM)
+    y_trimmed = df['Y Actual'][df['Predicted Bucket'] != 2]
+    y_pred_trimmed = df['Y Predicted'][df['Predicted Bucket'] != 2]
+    log_y_trimmed = df['Log Y Actual'][df['Predicted Bucket'] != 2]
+    log_y_pred_trimmed = df['Log Y Predicted'][df['Predicted Bucket'] != 2]
+
+    # Associated RMSE scores.
+    rmse_trimmed = mean_squared_error(y_trimmed, y_pred_trimmed)**0.5
+    log_rmse_trimmed = mean_squared_error(log_y_trimmed, log_y_pred_trimmed)**0.5
+
+    # List of the various RMSE scores.
+    scores_list = [rmse, log_rmse, rmse_trimmed, log_rmse_trimmed, mcc]
+
+    return scores_list, df
 
 # Entire data pipeline for classification + regression dual model.
-def clf_reg_pipeline(threshold, var, name_clf, clf=SVC()):
+def clf_reg_pipeline(threshold, var, name_clf, results_df = pd.DataFrame(), clf=SVC()):
     """
     Code containing the pipeline for classification and regression.  All of the transformations are applied here as well.
 
@@ -345,7 +466,6 @@ def clf_reg_pipeline(threshold, var, name_clf, clf=SVC()):
 
     # Data and path import.
     df, ki_range = import_data(threshold)
-    path = os.getcwd()
 
     # Extract the x, y, and bucket information.
     x = df[df.columns[1:573]]
@@ -358,14 +478,13 @@ def clf_reg_pipeline(threshold, var, name_clf, clf=SVC()):
     x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
 
     # Sequential Feature Selection with the saved model.  Make sure to extract the features here too.
-    sfs = load(path + '/%s/sfs/%s %2.2f fs.joblib' %(name_clf, name_clf, threshold))
-    x = sfs.transform(x)
-    fs_features = sfs.get_feature_names_out()
+    sfs = load(PATH + '/%s/narrowed/%s Threshold %2.2f SFS.joblib' %(name_clf, name_clf, threshold))
+    x = pd.DataFrame(sfs.transform(x), columns=sfs.get_feature_names_out())
 
     # Where applicable, apply PCA tuning as well.
     if var != False:
-        pca = load(path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name_clf, name_clf, threshold))
-        x = pca.transform(x)
+        pca = load(PATH + '/%s/narrowed/%s Threshold %2.2f PCA.joblib' %(name_clf, name_clf, threshold))
+        x = pd.DataFrame(pca.transform(x))
 
         # Dimensonality Reduction based on accepted variance.
         ratios = np.array(pca.explained_variance_ratio_)
@@ -373,14 +492,11 @@ def clf_reg_pipeline(threshold, var, name_clf, clf=SVC()):
         
         # Readjust the dimensions of x based on the variance we want.
         length = len(ratios)
-        x = x[:,0:length]
+        if length > 0:
+            x = x[x.columns[0:length]]
 
     # Load up the regression models here:
     reg_models = load_regression_models()
-
-    ## Seed values and k-folding required variables.
-    seeds = [33, 42, 55, 68, 74]
-    folds = len(seeds)
 
     for name_reg, params, sml_reg, med_reg in reg_models:
 
@@ -396,52 +512,74 @@ def clf_reg_pipeline(threshold, var, name_clf, clf=SVC()):
         med_reg = hyperparameter_optimizer(x, y, params, med_reg)
 
         # Initialize metrics we are using.
-        train_rmse_sum = 0
-        train_rmse_log_sum = 0
-        valid_rmse_sum = 0
-        valid_rmse_log_sum = 0
+        train_scores_list_sum = [0, 0, 0, 0, 0]
+        valid_scores_list_sum = [0, 0, 0, 0, 0]
+
         fold = 0
 
         # Create the necessary paths for result storage.
-        if os.path.exists(path + '/%s/%s' %(name_clf, name_reg)) == False:
+        if os.path.exists(PATH + '/%s/%s' %(name_clf, name_reg)) == False:
             os.mkdir('%s/%s' %(name_clf, name_reg))
 
-        for seed in seeds:
-            fold += 1
+        skf = StratifiedKFold(n_splits=FOLDS, random_state=RAND, shuffle=True)
+        for train_index, test_index in skf.split(x,buckets):
+            fold+=1
 
             # Create the training and validation sets.
-            x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=(1/folds), random_state=seed, stratify=buckets)
-            buckets_train = buckets[y_train.index]
-            
+            x_train, x_valid = x.loc[train_index], x.loc[test_index]
+            y_train, y_valid = y[train_index], y[test_index]
+            buckets_train = buckets[train_index]
+
             # Fitting the classification and regression models.
             clf.fit(x_train, buckets_train)
             sml_reg.fit(x_train[buckets_train==0], y_train[buckets_train==0])
             med_reg.fit(x_train[buckets_train==1], y_train[buckets_train==1])
 
             # Inference on the training and test sets.
-            train_rmse, train_rmse_log, train_df = inference(x_train, y_train, buckets, ki_range, clf, sml_reg, med_reg)
-            train_df.to_csv(path + '/%s/%s/Training Predictions Fold %i.csv' %(name_clf, name_reg, fold))
+            train_scores_list, train_df = inference(x_train, y_train, buckets, ki_range, clf, sml_reg, med_reg)
+            train_df.to_csv(PATH + '/%s/%s/Training Predictions Fold %i.csv' %(name_clf, name_reg, fold))
 
-            valid_rmse, valid_rmse_log, valid_df = inference(x_valid, y_valid, buckets, ki_range, clf, sml_reg, med_reg)
-            valid_df.to_csv(path + '/%s/%s/Validation Predictions Fold %i.csv' %(name_clf, name_reg, fold))
+            valid_scores_list, valid_df = inference(x_valid, y_valid, buckets, ki_range, clf, sml_reg, med_reg)
+            valid_df.to_csv(PATH + '/%s/%s/Validation Predictions Fold %i.csv' %(name_clf, name_reg, fold))
 
             # Log the individual folds
-            logger.info('Training RMSE: %3.3f, Training RMSE (log): %3.3f, Validation RMSE: %3.3f, Validation RMSE (log): %3.3f,'
-                        ' Fold: %i'  %(train_rmse, train_rmse_log, valid_rmse, valid_rmse_log, fold))
+            logger.info('Fold %i' %(fold))
+            logger.info('Classifier Training MCC: %3.3f, Classifier Validation MCC: %3.3f' 
+                        %(train_scores_list[4], valid_scores_list[4]))
+            logger.info('Without removing any of the > 4000 values.')
+            logger.info('Training RMSE: %3.3f, Training RMSE (log): %3.3f, Validation RMSE: %3.3f, Validation RMSE (log): %3.3f'
+                        %(train_scores_list[0], train_scores_list[1], valid_scores_list[0], valid_scores_list[1]))
+            logger.info('After removing predicted > 4000 values.')
+            logger.info('Training RMSE: %3.3f, Training RMSE (log): %3.3f, Validation RMSE: %3.3f, Validation RMSE (log): %3.3f'
+                        %(train_scores_list[2], train_scores_list[3], valid_scores_list[2], valid_scores_list[3]))
 
-            train_rmse_sum += train_rmse
-            train_rmse_log_sum += train_rmse_log
-            valid_rmse_sum += valid_rmse
-            valid_rmse_log_sum += valid_rmse_log
+            # We will take the RMSE values from each individual fold and then add them to the sum total of the RMSE values.
+            train_scores_list_sum = list(map(add, train_scores_list_sum, train_scores_list))
+            valid_scores_list_sum = list(map(add, valid_scores_list_sum, valid_scores_list))
         
-        train_rmse_avg = train_rmse_sum/folds
-        train_rmse_log_avg = train_rmse_log_sum/folds
-        valid_rmse_avg = valid_rmse_sum/folds
-        valid_rmse_log_avg = valid_rmse_log_sum/folds
+        # Get the average values of the RMSE by dividing by the total number of folds.
+        train_scores_list_avg = [i/FOLDS for i in train_scores_list_sum]
+        valid_scores_list_avg = [i/FOLDS for i in valid_scores_list_sum]
 
+        # Display the overall results within the logger file.
+        logger.info('Averaged Results:')
         logger.info('---------------------------------------------------------------------------------------------\n')
+        logger.info('AVG Classifier Training MCC: %3.3f, AVG Classifier Validation MCC: %3.3f'
+                    %(train_scores_list_avg[4], valid_scores_list_avg[4]))
+        logger.info('Without removing any of the >4000 values.')
         logger.info('AVG Training RMSE: %3.3f, AVG training RMSE (log): %3.3f, AVG Validation RMSE: %3.3f, AVG Validation RMSE '
-                    '(log): %3.3f\n' %(train_rmse_avg, train_rmse_log_avg, valid_rmse_avg, valid_rmse_log_avg))
+                    '(log): %3.3f\n' %(train_scores_list_avg[0], train_scores_list_avg[1], valid_scores_list_avg[0], valid_scores_list_avg[1]))
+        logger.info('After removing predicted >4000 values.')
+        logger.info('AVG Training RMSE: %3.3f, AVG Training RMSE (log): %3.3f, AVG Validation RMSE: %3.3f, AVG Validation RMSE (log): %3.3f\n'
+                    %(train_scores_list_avg[2], train_scores_list_avg[3], valid_scores_list_avg[2], valid_scores_list_avg[3]))
+
+        results_df.loc[len(results_df)] = [name_clf, name_reg, train_scores_list_avg[0], valid_scores_list_avg[0], train_scores_list_avg[1],
+                                           valid_scores_list_avg[1], train_scores_list_avg[2], valid_scores_list_avg[2],
+                                           train_scores_list_avg[3], valid_scores_list_avg[3], train_scores_list_avg[4],
+                                           valid_scores_list_avg[4]]
+
+    # Return the end result and reuse in later callouts with different classification models.
+    return results_df
 
 # Main function that handles regression.
 def regression():
@@ -452,28 +590,140 @@ def regression():
         -> SVR with Linear Kernel
         -> Lasso Regression
         This is the first stage of hyperparameter tuning to be done before Forward Selection and PCA.
-
     """
-
-    # Run the regression model without using the classification models?
-    
 
     # Create the models with the relevant hyperparameters.
     saved_clf = load_saved_clf()
 
+    # Create an empty pandas dataframe dataframe with the results.
+    results_cols = ['Classification Model', 'Regression Model', 'Training RMSE', 'Validation RMSE', 'Log Training RMSE',
+                    'Log Validation RMSE', 'Trimmed Training RMSE', 'Trimmed Validation RMSE', 'Trimmed Log Training RMSE',
+                    'Trimmed Log Validation RMSE', 'Training MCC', 'Validation MCC']
+    results_df = pd.DataFrame(columns=results_cols)
+
     # I'm going to run fitting and inference 4 different times, one for each cassifier.
     for threshold, var, name_clf, clf in saved_clf:
-        clf_reg_pipeline(threshold, var, name_clf, clf)
+        results_df = clf_reg_pipeline(threshold, var, name_clf, results_df, clf)
+
+    results_df.to_csv('Results.csv')
+    graph_results()
+
+# Graphing out our results.
+def graph_results():
+    """ This function handles all of the graphing of our results."""
+    
+    # Import our results.
+    results_df = pd.read_csv('Results.csv')
+    results_df = results_df.iloc[:,1:]
+
+    # Running the results:
+    clf_names = results_df['Classification Model'].unique()
+
+    # Empty array for the training/test mcc's
+    train_mccs = np.ndarray(0)
+    valid_mccs = np.ndarray(0)
+
+    n=0
+    for name in clf_names:
+        # Get a smaller subset of the results based on the classification model.
+        clf_results = results_df[results_df['Classification Model'] == name]
+        clf_results = clf_results.iloc[:,1:]
+
+        # Data for graphs
+        labels = list(clf_results['Regression Model'])
+        train_rmse = clf_results['Trimmed Log Training RMSE']
+        valid_rmse = clf_results['Trimmed Log Validation RMSE']
+
+        # Positioning of Bars
+        x = np.arange(len(labels))
+        width = 0.35
+
+        # Baseline
+        fig, ax = plt.subplots(figsize=(7.5,5))
+        rects1 = ax.bar(x - width/2, train_rmse, width, label='train')
+        rects2 = ax.bar(x + width/2, valid_rmse, width, label='valid')
+
+        # Text Formatting
+        ax.set_ylabel('Log RMSE Scores')
+        ax.set_title(name)
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels)
+        ax.legend()
+
+        def autolabel(rects):
+            """ Attach a text label above each bar in rects, displaying its height."""
+            for rect in rects:
+                height = rect.get_height()
+                ax.annotate('{0:2.2f}'.format(height),
+                            xy=(rect.get_x() + rect.get_width() /2, height),
+                            xytext=(0, 3), textcoords='offset points',
+                            ha='center', va='bottom')
+
+        autolabel(rects1)
+        autolabel(rects2)
+
+        fig.tight_layout()
+        print(n)
+        n+=1
+        fig.savefig(PATH + '/%s/%s Reduced Log RMSE Scores.png' %(name, name))
+
+        # Extract the mcc's.
+        train_mcc_clf = clf_results['Training MCC'].mean()
+        valid_mcc_clf = clf_results['Validation MCC'].mean()
+
+        train_mccs = np.append(train_mccs, train_mcc_clf)
+        valid_mccs = np.append(valid_mccs, valid_mcc_clf)
+
+    x = np.arange(len(clf_names))
+    width = 0.35
+
+    fig, ax = plt.subplots(figsize=(7.5,5))
+    rects1 = ax.bar(x - width/2, train_mccs, width, label='train')
+    rects2 = ax.bar(x + width/2, valid_mccs, width, label='valid')
+
+    ax.set_ylabel('MCC Scores')
+    ax.set_title('Classifier Comparisons')
+    ax.set_xticks(x)
+    ax.set_xticklabels(clf_names)
+    ax.legend()
+
+    def autolabel(rects):
+        """ Attach a text label above each bar in rects, displaying its height."""
+        for rect in rects:
+            height = rect.get_height()
+            ax.annotate('{0:2.2f}'.format(height),
+                        xy=(rect.get_x() + rect.get_width() /2, height),
+                        xytext=(0, 3), textcoords='offset points',
+                        ha='center', va='bottom')
+
+    autolabel(rects1)
+    autolabel(rects2)
+
+    fig.tight_layout()
+    fig.savefig(PATH + '/Figures/Classifier Results.png')
+    print(2)
+
 
 # Argument parser section.
 parser = argparse.ArgumentParser()
 parser.add_argument('-reg', '--regressor', help='regressor = initial stage of hyperparmeter tuning for '
                     'various hyperparameters.', action='store_true')
+parser.add_argument('-gr', '--grapher', help='grapher = create plots for all of our results and save them.',
+                    action='store_true')
+
 args = parser.parse_args()
 
 regressor = args.regressor
+grapher = args.grapher
 
 # Certain sections of the code will run depending on what we specify with the run script.
 if regressor == True:
-    logger = log_files('Regression_Log.log')
+    logger = log_files(PATH + '/Log Files/sfs_regression_log.log')
     regression()
+elif grapher == True:
+    graph_results()
+
+
+## Note: look into usein scikit-learn-intelex
+# conda install scikit-learn-intelex
+# python -m sklearnex my_application.py

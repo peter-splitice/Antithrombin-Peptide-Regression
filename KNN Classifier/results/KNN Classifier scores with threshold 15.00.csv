@@ -1,9 +1,9 @@
-,Name,Stage,Train MCC,Train Stdev,Test MCC,Test Stdev,Params
-0,KNN Classifier,Baseline,0.2915802710772774,0.08597957536242855,0.16693318562986426,0.13402633258446292,"{'leaf_size': 5, 'n_neighbors': 5, 'p': 2, 'weights': 'uniform'}"
-1,KNN Classifier,SFS,0.5005758417424075,0.04323864013045613,0.5917865975427336,0.16046359714756442,"{'leaf_size': 5, 'n_neighbors': 5, 'p': 2, 'weights': 'uniform'}"
-2,KNN Classifier,PCA 75% variance,0.9809864114857758,0.015530809620540549,0.4030935173277312,0.22481040545829267,"{'leaf_size': 5, 'n_neighbors': 7, 'p': 2, 'weights': 'distance'}"
-3,KNN Classifier,PCA 80% variance,0.9809864114857758,0.015530809620540549,0.4030935173277312,0.22481040545829267,"{'leaf_size': 5, 'n_neighbors': 7, 'p': 2, 'weights': 'distance'}"
-4,KNN Classifier,PCA 85% variance,0.5252722437137651,0.06408359380945726,0.3482809257075442,0.26008190760338323,"{'leaf_size': 5, 'n_neighbors': 5, 'p': 2, 'weights': 'uniform'}"
-5,KNN Classifier,PCA 90% variance,0.5317822474687774,0.07169986942840954,0.3975602750970183,0.2654586330938665,"{'leaf_size': 5, 'n_neighbors': 5, 'p': 2, 'weights': 'uniform'}"
-6,KNN Classifier,PCA 95% variance,0.9809864114857758,0.015530809620540549,0.38803731096076133,0.23465082263880055,"{'leaf_size': 5, 'n_neighbors': 7, 'p': 2, 'weights': 'distance'}"
-7,KNN Classifier,PCA 100% variance,0.5005758417424075,0.04323864013045613,0.5917865975427336,0.16046359714756442,"{'leaf_size': 5, 'n_neighbors': 5, 'p': 2, 'weights': 'uniform'}"
+,Name,Stage,Features,Train MCC,Train Stdev,Test MCC,Test Stdev,Params
+0,KNN Classifier,Baseline,572,0.4476458029975571,0.08324548647861606,0.1725506737867376,0.14039811195771854,"{'leaf_size': 5, 'n_neighbors': 5, 'p': 1, 'weights': 'uniform'}"
+1,KNN Classifier,SFS,286,0.6829399987429787,0.07710996756172052,0.6192395576375972,0.1821765839036594,"{'leaf_size': 5, 'n_neighbors': 5, 'p': 1, 'weights': 'uniform'}"
+2,KNN Classifier,SFS + PCA w/75% variance,21,0.6141684862087797,0.030611527784104163,0.28443421973607547,0.18576195859561104,"{'leaf_size': 5, 'n_neighbors': 3, 'p': 1, 'weights': 'uniform'}"
+3,KNN Classifier,SFS + PCA w/80% variance,24,0.5968474532866916,0.0626658446868907,0.3529588710313258,0.15680388175023305,"{'leaf_size': 5, 'n_neighbors': 5, 'p': 2, 'weights': 'uniform'}"
+4,KNN Classifier,SFS + PCA w/85% variance,28,0.576152373136136,0.09404406159979005,0.3651320125270517,0.08989672814683244,"{'leaf_size': 5, 'n_neighbors': 7, 'p': 2, 'weights': 'uniform'}"
+5,KNN Classifier,SFS + PCA w/90% variance,33,0.7151123867165106,0.04686056584626898,0.36528078051800483,0.2361191138794606,"{'leaf_size': 5, 'n_neighbors': 3, 'p': 1, 'weights': 'uniform'}"
+6,KNN Classifier,SFS + PCA w/95% variance,40,0.6318908053612193,0.06164328381329866,0.3997331509652665,0.13039890728876938,"{'leaf_size': 5, 'n_neighbors': 5, 'p': 2, 'weights': 'uniform'}"
+7,KNN Classifier,SFS + PCA w/100% variance,71,1.0,0.0,0.4681683263938273,0.22699794720107677,"{'leaf_size': 5, 'n_neighbors': 5, 'p': 2, 'weights': 'distance'}"

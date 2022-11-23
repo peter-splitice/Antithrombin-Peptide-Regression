@@ -1,0 +1,582 @@
+2022-10-28 16:41:06,875 | INFO | SVC with RBF Kernel Results:
+
+2022-10-28 16:41:06,875 | INFO | -------------------
+
+2022-10-28 16:41:06,877 | INFO | Baseline Results
+
+2022-10-28 16:41:06,877 | INFO | -------------------
+
+2022-10-28 16:41:06,877 | INFO | GridSearchCV Starting
+2022-10-28 16:41:14,200 | INFO | Best parameter set: {'C': 21, 'break_ties': False, 'class_weight': None, 'gamma': 'auto'}
+2022-10-28 16:41:14,200 | INFO | -------------------------
+
+2022-10-28 16:41:14,201 | INFO | Train MCC Score: 0.871.  StDev for Train MCC: 0.036.  Test MCC Score: 0.427.  StDev for Test MCC: 0.175.
+
+2022-10-28 16:41:14,223 | INFO | Training Accuracy: 0.914, Training MCC: 0.836, Validation Accuracy: 0.733, Validation MCC: 0.498, Fold: 1
+2022-10-28 16:41:14,236 | INFO | Training Accuracy: 0.914, Training MCC: 0.834, Validation Accuracy: 0.733, Validation MCC: 0.479, Fold: 2
+2022-10-28 16:41:14,249 | INFO | Training Accuracy: 0.948, Training MCC: 0.901, Validation Accuracy: 0.667, Validation MCC: 0.350, Fold: 3
+2022-10-28 16:41:14,267 | INFO | Training Accuracy: 0.915, Training MCC: 0.847, Validation Accuracy: 0.857, Validation MCC: 0.674, Fold: 4
+2022-10-28 16:41:14,280 | INFO | Training Accuracy: 0.915, Training MCC: 0.840, Validation Accuracy: 0.714, Validation MCC: 0.388, Fold: 5
+2022-10-28 16:41:14,280 | INFO | AVG Training Accuracy: 0.921, AVG Training MCC: 0.852, AVG Validation Accuracy: 0.741, AVG Validation MCC: 0.478
+
+2022-10-28 16:41:14,281 | INFO | Forward Selection Starting
+2022-10-28 17:14:11,327 | INFO | Forward Selection Finished
+2022-10-28 17:14:11,328 | INFO | SFS only results:
+
+2022-10-28 17:14:11,328 | INFO | -------------------
+
+2022-10-28 17:14:11,328 | INFO | GridSearchCV Starting
+2022-10-28 17:14:12,546 | INFO | Best parameter set: {'C': 21, 'break_ties': False, 'class_weight': None, 'gamma': 'auto'}
+2022-10-28 17:14:12,546 | INFO | -------------------------
+
+2022-10-28 17:14:12,547 | INFO | Train MCC Score: 0.779.  StDev for Train MCC: 0.041.  Test MCC Score: 0.745.  StDev for Test MCC: 0.172.
+
+2022-10-28 17:14:12,552 | INFO | Training Accuracy: 0.914, Training MCC: 0.834, Validation Accuracy: 0.800, Validation MCC: 0.639, Fold: 1
+2022-10-28 17:14:12,557 | INFO | Training Accuracy: 0.862, Training MCC: 0.733, Validation Accuracy: 0.933, Validation MCC: 0.881, Fold: 2
+2022-10-28 17:14:12,561 | INFO | Training Accuracy: 0.897, Training MCC: 0.800, Validation Accuracy: 0.733, Validation MCC: 0.516, Fold: 3
+2022-10-28 17:14:12,566 | INFO | Training Accuracy: 0.864, Training MCC: 0.747, Validation Accuracy: 0.857, Validation MCC: 0.674, Fold: 4
+2022-10-28 17:14:12,570 | INFO | Training Accuracy: 0.915, Training MCC: 0.840, Validation Accuracy: 0.714, Validation MCC: 0.391, Fold: 5
+2022-10-28 17:14:12,570 | INFO | AVG Training Accuracy: 0.890, AVG Training MCC: 0.791, AVG Validation Accuracy: 0.808, AVG Validation MCC: 0.620
+
+2022-10-28 17:14:12,573 | INFO | Results after PCA:
+2022-10-28 17:14:12,573 | INFO | ------------------
+
+2022-10-28 17:14:12,573 | INFO | PCA Starting
+2022-10-28 17:14:12,592 | INFO | Selecting 10 principal components making up 75% of the variance.
+
+2022-10-28 17:14:12,593 | INFO | PCA Finished
+2022-10-28 17:14:12,593 | INFO | GridSearchCV Starting
+2022-10-28 17:14:13,732 | INFO | Best parameter set: {'C': 31, 'break_ties': False, 'class_weight': None, 'gamma': 0.1}
+2022-10-28 17:14:13,732 | INFO | -------------------------
+
+2022-10-28 17:14:13,733 | INFO | Train MCC Score: 0.740.  StDev for Train MCC: 0.070.  Test MCC Score: 0.568.  StDev for Test MCC: 0.237.
+
+2022-10-28 17:14:13,738 | INFO | Training Accuracy: 0.879, Training MCC: 0.762, Validation Accuracy: 0.733, Validation MCC: 0.513, Fold: 1
+2022-10-28 17:14:13,742 | INFO | Training Accuracy: 0.810, Training MCC: 0.622, Validation Accuracy: 0.800, Validation MCC: 0.628, Fold: 2
+2022-10-28 17:14:13,746 | INFO | Training Accuracy: 0.879, Training MCC: 0.761, Validation Accuracy: 0.600, Validation MCC: 0.347, Fold: 3
+2022-10-28 17:14:13,751 | INFO | Training Accuracy: 0.831, Training MCC: 0.679, Validation Accuracy: 0.786, Validation MCC: 0.556, Fold: 4
+2022-10-28 17:14:13,755 | INFO | Training Accuracy: 0.898, Training MCC: 0.804, Validation Accuracy: 0.643, Validation MCC: 0.274, Fold: 5
+2022-10-28 17:14:13,755 | INFO | AVG Training Accuracy: 0.860, AVG Training MCC: 0.726, AVG Validation Accuracy: 0.712, AVG Validation MCC: 0.464
+
+2022-10-28 17:14:13,757 | INFO | PCA Starting
+2022-10-28 17:14:13,759 | INFO | Selecting 12 principal components making up 80% of the variance.
+
+2022-10-28 17:14:13,759 | INFO | PCA Finished
+2022-10-28 17:14:13,760 | INFO | GridSearchCV Starting
+2022-10-28 17:14:14,948 | INFO | Best parameter set: {'C': 1, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 'scale'}
+2022-10-28 17:14:14,948 | INFO | -------------------------
+
+2022-10-28 17:14:14,949 | INFO | Train MCC Score: 0.774.  StDev for Train MCC: 0.024.  Test MCC Score: 0.567.  StDev for Test MCC: 0.213.
+
+2022-10-28 17:14:14,955 | INFO | Training Accuracy: 0.914, Training MCC: 0.838, Validation Accuracy: 0.800, Validation MCC: 0.622, Fold: 1
+2022-10-28 17:14:14,959 | INFO | Training Accuracy: 0.793, Training MCC: 0.703, Validation Accuracy: 0.600, Validation MCC: 0.422, Fold: 2
+2022-10-28 17:14:14,964 | INFO | Training Accuracy: 0.862, Training MCC: 0.755, Validation Accuracy: 0.600, Validation MCC: 0.359, Fold: 3
+2022-10-28 17:14:14,968 | INFO | Training Accuracy: 0.864, Training MCC: 0.769, Validation Accuracy: 0.857, Validation MCC: 0.675, Fold: 4
+2022-10-28 17:14:14,973 | INFO | Training Accuracy: 0.932, Training MCC: 0.871, Validation Accuracy: 0.571, Validation MCC: 0.176, Fold: 5
+2022-10-28 17:14:14,973 | INFO | AVG Training Accuracy: 0.873, AVG Training MCC: 0.787, AVG Validation Accuracy: 0.686, AVG Validation MCC: 0.451
+
+2022-10-28 17:14:14,975 | INFO | PCA Starting
+2022-10-28 17:14:14,978 | INFO | Selecting 15 principal components making up 85% of the variance.
+
+2022-10-28 17:14:14,979 | INFO | PCA Finished
+2022-10-28 17:14:14,979 | INFO | GridSearchCV Starting
+2022-10-28 17:14:16,157 | INFO | Best parameter set: {'C': 86, 'break_ties': False, 'class_weight': None, 'gamma': 0.01}
+2022-10-28 17:14:16,157 | INFO | -------------------------
+
+2022-10-28 17:14:16,158 | INFO | Train MCC Score: 0.753.  StDev for Train MCC: 0.077.  Test MCC Score: 0.632.  StDev for Test MCC: 0.216.
+
+2022-10-28 17:14:16,163 | INFO | Training Accuracy: 0.879, Training MCC: 0.762, Validation Accuracy: 0.733, Validation MCC: 0.513, Fold: 1
+2022-10-28 17:14:16,168 | INFO | Training Accuracy: 0.845, Training MCC: 0.690, Validation Accuracy: 0.933, Validation MCC: 0.881, Fold: 2
+2022-10-28 17:14:16,172 | INFO | Training Accuracy: 0.862, Training MCC: 0.728, Validation Accuracy: 0.667, Validation MCC: 0.422, Fold: 3
+2022-10-28 17:14:16,177 | INFO | Training Accuracy: 0.864, Training MCC: 0.747, Validation Accuracy: 0.929, Validation MCC: 0.836, Fold: 4
+2022-10-28 17:14:16,181 | INFO | Training Accuracy: 0.881, Training MCC: 0.775, Validation Accuracy: 0.714, Validation MCC: 0.391, Fold: 5
+2022-10-28 17:14:16,181 | INFO | AVG Training Accuracy: 0.866, AVG Training MCC: 0.740, AVG Validation Accuracy: 0.795, AVG Validation MCC: 0.609
+
+2022-10-28 17:14:16,183 | INFO | PCA Starting
+2022-10-28 17:14:16,185 | INFO | Selecting 17 principal components making up 90% of the variance.
+
+2022-10-28 17:14:16,186 | INFO | PCA Finished
+2022-10-28 17:14:16,186 | INFO | GridSearchCV Starting
+2022-10-28 17:14:17,357 | INFO | Best parameter set: {'C': 96, 'break_ties': False, 'class_weight': None, 'gamma': 0.01}
+2022-10-28 17:14:17,358 | INFO | -------------------------
+
+2022-10-28 17:14:17,359 | INFO | Train MCC Score: 0.762.  StDev for Train MCC: 0.059.  Test MCC Score: 0.624.  StDev for Test MCC: 0.224.
+
+2022-10-28 17:14:17,364 | INFO | Training Accuracy: 0.897, Training MCC: 0.796, Validation Accuracy: 0.733, Validation MCC: 0.513, Fold: 1
+2022-10-28 17:14:17,368 | INFO | Training Accuracy: 0.845, Training MCC: 0.690, Validation Accuracy: 0.933, Validation MCC: 0.881, Fold: 2
+2022-10-28 17:14:17,373 | INFO | Training Accuracy: 0.879, Training MCC: 0.761, Validation Accuracy: 0.667, Validation MCC: 0.422, Fold: 3
+2022-10-28 17:14:17,377 | INFO | Training Accuracy: 0.847, Training MCC: 0.711, Validation Accuracy: 0.786, Validation MCC: 0.556, Fold: 4
+2022-10-28 17:14:17,381 | INFO | Training Accuracy: 0.915, Training MCC: 0.840, Validation Accuracy: 0.643, Validation MCC: 0.274, Fold: 5
+2022-10-28 17:14:17,382 | INFO | AVG Training Accuracy: 0.877, AVG Training MCC: 0.760, AVG Validation Accuracy: 0.752, AVG Validation MCC: 0.529
+
+2022-10-28 17:14:17,383 | INFO | PCA Starting
+2022-10-28 17:14:17,385 | INFO | Selecting 21 principal components making up 95% of the variance.
+
+2022-10-28 17:14:17,386 | INFO | PCA Finished
+2022-10-28 17:14:17,386 | INFO | GridSearchCV Starting
+2022-10-28 17:14:18,547 | INFO | Best parameter set: {'C': 16, 'break_ties': False, 'class_weight': None, 'gamma': 'auto'}
+2022-10-28 17:14:18,547 | INFO | -------------------------
+
+2022-10-28 17:14:18,548 | INFO | Train MCC Score: 0.769.  StDev for Train MCC: 0.049.  Test MCC Score: 0.689.  StDev for Test MCC: 0.179.
+
+2022-10-28 17:14:18,553 | INFO | Training Accuracy: 0.914, Training MCC: 0.834, Validation Accuracy: 0.733, Validation MCC: 0.513, Fold: 1
+2022-10-28 17:14:18,558 | INFO | Training Accuracy: 0.845, Training MCC: 0.690, Validation Accuracy: 0.933, Validation MCC: 0.881, Fold: 2
+2022-10-28 17:14:18,562 | INFO | Training Accuracy: 0.862, Training MCC: 0.728, Validation Accuracy: 0.667, Validation MCC: 0.422, Fold: 3
+2022-10-28 17:14:18,567 | INFO | Training Accuracy: 0.847, Training MCC: 0.711, Validation Accuracy: 0.857, Validation MCC: 0.674, Fold: 4
+2022-10-28 17:14:18,572 | INFO | Training Accuracy: 0.915, Training MCC: 0.840, Validation Accuracy: 0.643, Validation MCC: 0.274, Fold: 5
+2022-10-28 17:14:18,572 | INFO | AVG Training Accuracy: 0.877, AVG Training MCC: 0.761, AVG Validation Accuracy: 0.767, AVG Validation MCC: 0.553
+
+2022-10-28 17:14:18,573 | INFO | PCA Starting
+2022-10-28 17:14:18,575 | INFO | Selecting 34 principal components making up 100% of the variance.
+
+2022-10-28 17:14:18,576 | INFO | PCA Finished
+2022-10-28 17:14:18,576 | INFO | GridSearchCV Starting
+2022-10-28 17:14:19,814 | INFO | Best parameter set: {'C': 21, 'break_ties': False, 'class_weight': None, 'gamma': 'auto'}
+2022-10-28 17:14:19,814 | INFO | -------------------------
+
+2022-10-28 17:14:19,815 | INFO | Train MCC Score: 0.779.  StDev for Train MCC: 0.041.  Test MCC Score: 0.745.  StDev for Test MCC: 0.172.
+
+2022-10-28 17:14:19,821 | INFO | Training Accuracy: 0.914, Training MCC: 0.834, Validation Accuracy: 0.800, Validation MCC: 0.639, Fold: 1
+2022-10-28 17:14:19,825 | INFO | Training Accuracy: 0.862, Training MCC: 0.733, Validation Accuracy: 0.933, Validation MCC: 0.881, Fold: 2
+2022-10-28 17:14:19,830 | INFO | Training Accuracy: 0.897, Training MCC: 0.800, Validation Accuracy: 0.733, Validation MCC: 0.516, Fold: 3
+2022-10-28 17:14:19,835 | INFO | Training Accuracy: 0.864, Training MCC: 0.747, Validation Accuracy: 0.857, Validation MCC: 0.674, Fold: 4
+2022-10-28 17:14:19,839 | INFO | Training Accuracy: 0.915, Training MCC: 0.840, Validation Accuracy: 0.714, Validation MCC: 0.391, Fold: 5
+2022-10-28 17:14:19,840 | INFO | AVG Training Accuracy: 0.890, AVG Training MCC: 0.791, AVG Validation Accuracy: 0.808, AVG Validation MCC: 0.620
+
+2022-10-28 17:14:20,475 | INFO | XGBoost Classifier Results:
+
+2022-10-28 17:14:20,475 | INFO | -------------------
+
+2022-10-28 17:14:20,476 | INFO | Baseline Results
+
+2022-10-28 17:14:20,476 | INFO | -------------------
+
+2022-10-28 17:14:20,477 | INFO | GridSearchCV Starting
+2022-10-28 17:31:52,268 | INFO | Best parameter set: {'alpha': 0.2, 'gamma': 0, 'lambda': 1, 'max_depth': 3, 'n_estimators': 13, 'subsample': 1}
+2022-10-28 17:31:52,268 | INFO | -------------------------
+
+2022-10-28 17:31:52,277 | INFO | Train MCC Score: 1.000.  StDev for Train MCC: 0.000.  Test MCC Score: 0.396.  StDev for Test MCC: 0.215.
+
+2022-10-28 17:31:52,341 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.733, Validation MCC: 0.513, Fold: 1
+2022-10-28 17:31:52,400 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.533, Validation MCC: 0.090, Fold: 2
+2022-10-28 17:31:52,458 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.667, Validation MCC: 0.373, Fold: 3
+2022-10-28 17:31:52,518 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.857, Validation MCC: 0.675, Fold: 4
+2022-10-28 17:31:52,577 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.571, Validation MCC: 0.059, Fold: 5
+2022-10-28 17:31:52,577 | INFO | AVG Training Accuracy: 1.000, AVG Training MCC: 1.000, AVG Validation Accuracy: 0.672, AVG Validation MCC: 0.342
+
+2022-10-28 17:31:52,579 | INFO | Forward Selection Starting
+2022-10-28 20:03:43,774 | INFO | Forward Selection Finished
+2022-10-28 20:03:43,775 | INFO | SFS only results:
+
+2022-10-28 20:03:43,776 | INFO | -------------------
+
+2022-10-28 20:03:43,776 | INFO | GridSearchCV Starting
+2022-10-28 20:10:21,070 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 3, 'n_estimators': 13, 'subsample': 1}
+2022-10-28 20:10:21,071 | INFO | -------------------------
+
+2022-10-28 20:10:21,079 | INFO | Train MCC Score: 0.936.  StDev for Train MCC: 0.035.  Test MCC Score: 0.803.  StDev for Test MCC: 0.138.
+
+2022-10-28 20:10:21,112 | INFO | Training Accuracy: 0.966, Training MCC: 0.935, Validation Accuracy: 0.733, Validation MCC: 0.476, Fold: 1
+2022-10-28 20:10:21,139 | INFO | Training Accuracy: 0.931, Training MCC: 0.868, Validation Accuracy: 0.733, Validation MCC: 0.493, Fold: 2
+2022-10-28 20:10:21,166 | INFO | Training Accuracy: 0.983, Training MCC: 0.967, Validation Accuracy: 0.733, Validation MCC: 0.548, Fold: 3
+2022-10-28 20:10:21,193 | INFO | Training Accuracy: 0.966, Training MCC: 0.939, Validation Accuracy: 0.929, Validation MCC: 0.836, Fold: 4
+2022-10-28 20:10:21,219 | INFO | Training Accuracy: 0.949, Training MCC: 0.904, Validation Accuracy: 0.857, Validation MCC: 0.722, Fold: 5
+2022-10-28 20:10:21,219 | INFO | AVG Training Accuracy: 0.959, AVG Training MCC: 0.923, AVG Validation Accuracy: 0.797, AVG Validation MCC: 0.615
+
+2022-10-28 20:10:21,224 | INFO | Results after PCA:
+2022-10-28 20:10:21,224 | INFO | ------------------
+
+2022-10-28 20:10:21,224 | INFO | PCA Starting
+2022-10-28 20:10:21,230 | INFO | Selecting 22 principal components making up 75% of the variance.
+
+2022-10-28 20:10:21,231 | INFO | PCA Finished
+2022-10-28 20:10:21,231 | INFO | GridSearchCV Starting
+2022-10-28 20:13:52,446 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 3, 'lambda': 1, 'max_depth': 2, 'n_estimators': 4, 'subsample': 1}
+2022-10-28 20:13:52,446 | INFO | -------------------------
+
+2022-10-28 20:13:52,454 | INFO | Train MCC Score: 0.594.  StDev for Train MCC: 0.076.  Test MCC Score: 0.420.  StDev for Test MCC: 0.156.
+
+2022-10-28 20:13:52,472 | INFO | Training Accuracy: 0.776, Training MCC: 0.549, Validation Accuracy: 0.667, Validation MCC: 0.339, Fold: 1
+2022-10-28 20:13:52,484 | INFO | Training Accuracy: 0.776, Training MCC: 0.548, Validation Accuracy: 0.600, Validation MCC: 0.000, Fold: 2
+2022-10-28 20:13:52,496 | INFO | Training Accuracy: 0.828, Training MCC: 0.655, Validation Accuracy: 0.400, Validation MCC: -0.180, Fold: 3
+2022-10-28 20:13:52,508 | INFO | Training Accuracy: 0.729, Training MCC: 0.477, Validation Accuracy: 0.857, Validation MCC: 0.654, Fold: 4
+2022-10-28 20:13:52,520 | INFO | Training Accuracy: 0.746, Training MCC: 0.475, Validation Accuracy: 0.571, Validation MCC: -0.029, Fold: 5
+2022-10-28 20:13:52,521 | INFO | AVG Training Accuracy: 0.771, AVG Training MCC: 0.541, AVG Validation Accuracy: 0.619, AVG Validation MCC: 0.157
+
+2022-10-28 20:13:52,523 | INFO | PCA Starting
+2022-10-28 20:13:52,528 | INFO | Selecting 26 principal components making up 80% of the variance.
+
+2022-10-28 20:13:52,529 | INFO | PCA Finished
+2022-10-28 20:13:52,529 | INFO | GridSearchCV Starting
+2022-10-28 20:17:31,396 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 3, 'lambda': 1, 'max_depth': 3, 'n_estimators': 7, 'subsample': 1}
+2022-10-28 20:17:31,396 | INFO | -------------------------
+
+2022-10-28 20:17:31,404 | INFO | Train MCC Score: 0.517.  StDev for Train MCC: 0.056.  Test MCC Score: 0.481.  StDev for Test MCC: 0.175.
+
+2022-10-28 20:17:31,424 | INFO | Training Accuracy: 0.741, Training MCC: 0.465, Validation Accuracy: 0.600, Validation MCC: 0.000, Fold: 1
+2022-10-28 20:17:31,438 | INFO | Training Accuracy: 0.776, Training MCC: 0.548, Validation Accuracy: 0.800, Validation MCC: 0.635, Fold: 2
+2022-10-28 20:17:31,451 | INFO | Training Accuracy: 0.828, Training MCC: 0.655, Validation Accuracy: 0.400, Validation MCC: -0.180, Fold: 3
+2022-10-28 20:17:31,466 | INFO | Training Accuracy: 0.712, Training MCC: 0.437, Validation Accuracy: 0.786, Validation MCC: 0.444, Fold: 4
+2022-10-28 20:17:31,480 | INFO | Training Accuracy: 0.712, Training MCC: 0.407, Validation Accuracy: 0.643, Validation MCC: 0.000, Fold: 5
+2022-10-28 20:17:31,480 | INFO | AVG Training Accuracy: 0.754, AVG Training MCC: 0.502, AVG Validation Accuracy: 0.646, AVG Validation MCC: 0.180
+
+2022-10-28 20:17:31,482 | INFO | PCA Starting
+2022-10-28 20:17:31,487 | INFO | Selecting 30 principal components making up 85% of the variance.
+
+2022-10-28 20:17:31,488 | INFO | PCA Finished
+2022-10-28 20:17:31,488 | INFO | GridSearchCV Starting
+2022-10-28 20:21:20,146 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 3, 'lambda': 1, 'max_depth': 3, 'n_estimators': 7, 'subsample': 1}
+2022-10-28 20:21:20,147 | INFO | -------------------------
+
+2022-10-28 20:21:20,156 | INFO | Train MCC Score: 0.517.  StDev for Train MCC: 0.056.  Test MCC Score: 0.481.  StDev for Test MCC: 0.175.
+
+2022-10-28 20:21:20,177 | INFO | Training Accuracy: 0.741, Training MCC: 0.465, Validation Accuracy: 0.600, Validation MCC: 0.000, Fold: 1
+2022-10-28 20:21:20,197 | INFO | Training Accuracy: 0.776, Training MCC: 0.548, Validation Accuracy: 0.800, Validation MCC: 0.635, Fold: 2
+2022-10-28 20:21:20,211 | INFO | Training Accuracy: 0.828, Training MCC: 0.655, Validation Accuracy: 0.400, Validation MCC: -0.180, Fold: 3
+2022-10-28 20:21:20,225 | INFO | Training Accuracy: 0.712, Training MCC: 0.437, Validation Accuracy: 0.786, Validation MCC: 0.444, Fold: 4
+2022-10-28 20:21:20,240 | INFO | Training Accuracy: 0.712, Training MCC: 0.407, Validation Accuracy: 0.643, Validation MCC: 0.000, Fold: 5
+2022-10-28 20:21:20,241 | INFO | AVG Training Accuracy: 0.754, AVG Training MCC: 0.502, AVG Validation Accuracy: 0.646, AVG Validation MCC: 0.180
+
+2022-10-28 20:21:20,242 | INFO | PCA Starting
+2022-10-28 20:21:20,248 | INFO | Selecting 36 principal components making up 90% of the variance.
+
+2022-10-28 20:21:20,248 | INFO | PCA Finished
+2022-10-28 20:21:20,249 | INFO | GridSearchCV Starting
+2022-10-28 20:25:26,032 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 3, 'lambda': 1, 'max_depth': 3, 'n_estimators': 7, 'subsample': 1}
+2022-10-28 20:25:26,032 | INFO | -------------------------
+
+2022-10-28 20:25:26,042 | INFO | Train MCC Score: 0.517.  StDev for Train MCC: 0.056.  Test MCC Score: 0.481.  StDev for Test MCC: 0.175.
+
+2022-10-28 20:25:26,064 | INFO | Training Accuracy: 0.741, Training MCC: 0.465, Validation Accuracy: 0.600, Validation MCC: 0.000, Fold: 1
+2022-10-28 20:25:26,080 | INFO | Training Accuracy: 0.776, Training MCC: 0.548, Validation Accuracy: 0.800, Validation MCC: 0.635, Fold: 2
+2022-10-28 20:25:26,096 | INFO | Training Accuracy: 0.828, Training MCC: 0.655, Validation Accuracy: 0.400, Validation MCC: -0.180, Fold: 3
+2022-10-28 20:25:26,111 | INFO | Training Accuracy: 0.712, Training MCC: 0.437, Validation Accuracy: 0.786, Validation MCC: 0.444, Fold: 4
+2022-10-28 20:25:26,126 | INFO | Training Accuracy: 0.712, Training MCC: 0.407, Validation Accuracy: 0.643, Validation MCC: 0.000, Fold: 5
+2022-10-28 20:25:26,127 | INFO | AVG Training Accuracy: 0.754, AVG Training MCC: 0.502, AVG Validation Accuracy: 0.646, AVG Validation MCC: 0.180
+
+2022-10-28 20:25:26,129 | INFO | PCA Starting
+2022-10-28 20:25:26,136 | INFO | Selecting 43 principal components making up 95% of the variance.
+
+2022-10-28 20:25:26,136 | INFO | PCA Finished
+2022-10-28 20:25:26,136 | INFO | GridSearchCV Starting
+2022-10-28 20:29:45,683 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 3, 'lambda': 1, 'max_depth': 2, 'n_estimators': 7, 'subsample': 1}
+2022-10-28 20:29:45,684 | INFO | -------------------------
+
+2022-10-28 20:29:45,692 | INFO | Train MCC Score: 0.526.  StDev for Train MCC: 0.050.  Test MCC Score: 0.481.  StDev for Test MCC: 0.175.
+
+2022-10-28 20:29:45,714 | INFO | Training Accuracy: 0.759, Training MCC: 0.509, Validation Accuracy: 0.600, Validation MCC: 0.000, Fold: 1
+2022-10-28 20:29:45,728 | INFO | Training Accuracy: 0.724, Training MCC: 0.421, Validation Accuracy: 0.600, Validation MCC: 0.000, Fold: 2
+2022-10-28 20:29:45,742 | INFO | Training Accuracy: 0.828, Training MCC: 0.655, Validation Accuracy: 0.400, Validation MCC: -0.180, Fold: 3
+2022-10-28 20:29:45,757 | INFO | Training Accuracy: 0.695, Training MCC: 0.395, Validation Accuracy: 0.786, Validation MCC: 0.444, Fold: 4
+2022-10-28 20:29:45,772 | INFO | Training Accuracy: 0.712, Training MCC: 0.407, Validation Accuracy: 0.643, Validation MCC: 0.000, Fold: 5
+2022-10-28 20:29:45,772 | INFO | AVG Training Accuracy: 0.743, AVG Training MCC: 0.477, AVG Validation Accuracy: 0.606, AVG Validation MCC: 0.053
+
+2022-10-28 20:29:45,774 | INFO | PCA Starting
+2022-10-28 20:29:45,779 | INFO | Selecting 73 principal components making up 100% of the variance.
+
+2022-10-28 20:29:45,780 | INFO | PCA Finished
+2022-10-28 20:29:45,780 | INFO | GridSearchCV Starting
+2022-10-28 20:35:17,737 | INFO | Best parameter set: {'alpha': 0.0, 'gamma': 3, 'lambda': 1, 'max_depth': 3, 'n_estimators': 7, 'subsample': 1}
+2022-10-28 20:35:17,737 | INFO | -------------------------
+
+2022-10-28 20:35:17,746 | INFO | Train MCC Score: 0.567.  StDev for Train MCC: 0.039.  Test MCC Score: 0.376.  StDev for Test MCC: 0.217.
+
+2022-10-28 20:35:17,770 | INFO | Training Accuracy: 0.741, Training MCC: 0.465, Validation Accuracy: 0.600, Validation MCC: 0.000, Fold: 1
+2022-10-28 20:35:17,787 | INFO | Training Accuracy: 0.759, Training MCC: 0.507, Validation Accuracy: 0.600, Validation MCC: 0.000, Fold: 2
+2022-10-28 20:35:17,803 | INFO | Training Accuracy: 0.828, Training MCC: 0.662, Validation Accuracy: 0.600, Validation MCC: 0.125, Fold: 3
+2022-10-28 20:35:17,820 | INFO | Training Accuracy: 0.746, Training MCC: 0.518, Validation Accuracy: 0.643, Validation MCC: -0.148, Fold: 4
+2022-10-28 20:35:17,836 | INFO | Training Accuracy: 0.746, Training MCC: 0.490, Validation Accuracy: 0.643, Validation MCC: 0.000, Fold: 5
+2022-10-28 20:35:17,837 | INFO | AVG Training Accuracy: 0.764, AVG Training MCC: 0.529, AVG Validation Accuracy: 0.617, AVG Validation MCC: -0.005
+
+2022-10-28 20:35:18,533 | INFO | Random Forest Classifier Results:
+
+2022-10-28 20:35:18,533 | INFO | -------------------
+
+2022-10-28 20:35:18,534 | INFO | Baseline Results
+
+2022-10-28 20:35:18,534 | INFO | -------------------
+
+2022-10-28 20:35:18,534 | INFO | GridSearchCV Starting
+2022-10-28 20:36:41,288 | INFO | Best parameter set: {'ccp_alpha': 0.1, 'criterion': 'entropy', 'max_depth': 9, 'max_features': 'sqrt', 'n_estimators': 20}
+2022-10-28 20:36:41,289 | INFO | -------------------------
+
+2022-10-28 20:36:41,290 | INFO | Train MCC Score: 0.895.  StDev for Train MCC: 0.055.  Test MCC Score: 0.492.  StDev for Test MCC: 0.105.
+
+2022-10-28 20:36:41,321 | INFO | Training Accuracy: 0.948, Training MCC: 0.911, Validation Accuracy: 0.667, Validation MCC: 0.446, Fold: 1
+2022-10-28 20:36:41,350 | INFO | Training Accuracy: 0.966, Training MCC: 0.942, Validation Accuracy: 0.600, Validation MCC: 0.276, Fold: 2
+2022-10-28 20:36:41,379 | INFO | Training Accuracy: 0.931, Training MCC: 0.882, Validation Accuracy: 0.733, Validation MCC: 0.625, Fold: 3
+2022-10-28 20:36:41,416 | INFO | Training Accuracy: 0.949, Training MCC: 0.916, Validation Accuracy: 0.571, Validation MCC: 0.178, Fold: 4
+2022-10-28 20:36:41,446 | INFO | Training Accuracy: 0.949, Training MCC: 0.912, Validation Accuracy: 0.786, Validation MCC: 0.659, Fold: 5
+2022-10-28 20:36:41,446 | INFO | AVG Training Accuracy: 0.949, AVG Training MCC: 0.913, AVG Validation Accuracy: 0.671, AVG Validation MCC: 0.437
+
+2022-10-28 20:36:41,447 | INFO | Forward Selection Starting
+2022-10-29 00:14:29,152 | INFO | Forward Selection Finished
+2022-10-29 00:14:29,159 | INFO | SFS only results:
+
+2022-10-29 00:14:29,159 | INFO | -------------------
+
+2022-10-29 00:14:29,159 | INFO | GridSearchCV Starting
+2022-10-29 00:15:19,038 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 9, 'max_features': 0.3, 'n_estimators': 9}
+2022-10-29 00:15:19,038 | INFO | -------------------------
+
+2022-10-29 00:15:19,040 | INFO | Train MCC Score: 0.942.  StDev for Train MCC: 0.032.  Test MCC Score: 0.680.  StDev for Test MCC: 0.166.
+
+2022-10-29 00:15:19,059 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.733, Validation MCC: 0.570, Fold: 1
+2022-10-29 00:15:19,074 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.733, Validation MCC: 0.539, Fold: 2
+2022-10-29 00:15:19,095 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.326, Fold: 3
+2022-10-29 00:15:19,108 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.714, Validation MCC: 0.434, Fold: 4
+2022-10-29 00:15:19,122 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.714, Validation MCC: 0.542, Fold: 5
+2022-10-29 00:15:19,123 | INFO | AVG Training Accuracy: 0.997, AVG Training MCC: 0.994, AVG Validation Accuracy: 0.699, AVG Validation MCC: 0.482
+
+2022-10-29 00:15:19,131 | INFO | Results after PCA:
+2022-10-29 00:15:19,131 | INFO | ------------------
+
+2022-10-29 00:15:19,131 | INFO | PCA Starting
+2022-10-29 00:15:19,136 | INFO | Selecting 15 principal components making up 75% of the variance.
+
+2022-10-29 00:15:19,137 | INFO | PCA Finished
+2022-10-29 00:15:19,139 | INFO | GridSearchCV Starting
+2022-10-29 00:16:05,901 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 9, 'max_features': 1.0, 'n_estimators': 15}
+2022-10-29 00:16:05,902 | INFO | -------------------------
+
+2022-10-29 00:16:05,904 | INFO | Train MCC Score: 0.989.  StDev for Train MCC: 0.023.  Test MCC Score: 0.484.  StDev for Test MCC: 0.183.
+
+2022-10-29 00:16:05,927 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.733, Validation MCC: 0.585, Fold: 1
+2022-10-29 00:16:05,947 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.733, Validation MCC: 0.522, Fold: 2
+2022-10-29 00:16:05,969 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.533, Validation MCC: 0.209, Fold: 3
+2022-10-29 00:16:05,989 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.714, Validation MCC: 0.472, Fold: 4
+2022-10-29 00:16:06,008 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.714, Validation MCC: 0.511, Fold: 5
+2022-10-29 00:16:06,008 | INFO | AVG Training Accuracy: 1.000, AVG Training MCC: 1.000, AVG Validation Accuracy: 0.686, AVG Validation MCC: 0.460
+
+2022-10-29 00:16:06,010 | INFO | PCA Starting
+2022-10-29 00:16:06,014 | INFO | Selecting 18 principal components making up 80% of the variance.
+
+2022-10-29 00:16:06,015 | INFO | PCA Finished
+2022-10-29 00:16:06,015 | INFO | GridSearchCV Starting
+2022-10-29 00:16:56,791 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 7, 'max_features': 1.0, 'n_estimators': 12}
+2022-10-29 00:16:56,792 | INFO | -------------------------
+
+2022-10-29 00:16:56,793 | INFO | Train MCC Score: 0.977.  StDev for Train MCC: 0.034.  Test MCC Score: 0.469.  StDev for Test MCC: 0.349.
+
+2022-10-29 00:16:56,811 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.800, Validation MCC: 0.686, Fold: 1
+2022-10-29 00:16:56,829 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.326, Fold: 2
+2022-10-29 00:16:56,845 | INFO | Training Accuracy: 0.966, Training MCC: 0.942, Validation Accuracy: 0.733, Validation MCC: 0.539, Fold: 3
+2022-10-29 00:16:56,863 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.786, Validation MCC: 0.586, Fold: 4
+2022-10-29 00:16:56,881 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.714, Validation MCC: 0.511, Fold: 5
+2022-10-29 00:16:56,881 | INFO | AVG Training Accuracy: 0.990, AVG Training MCC: 0.983, AVG Validation Accuracy: 0.727, AVG Validation MCC: 0.530
+
+2022-10-29 00:16:56,883 | INFO | PCA Starting
+2022-10-29 00:16:56,886 | INFO | Selecting 22 principal components making up 85% of the variance.
+
+2022-10-29 00:16:56,886 | INFO | PCA Finished
+2022-10-29 00:16:56,887 | INFO | GridSearchCV Starting
+2022-10-29 00:17:43,532 | INFO | Best parameter set: {'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 5, 'max_features': 'log2', 'n_estimators': 17}
+2022-10-29 00:17:43,532 | INFO | -------------------------
+
+2022-10-29 00:17:43,534 | INFO | Train MCC Score: 0.989.  StDev for Train MCC: 0.023.  Test MCC Score: 0.464.  StDev for Test MCC: 0.067.
+
+2022-10-29 00:17:43,555 | INFO | Training Accuracy: 0.966, Training MCC: 0.941, Validation Accuracy: 0.733, Validation MCC: 0.585, Fold: 1
+2022-10-29 00:17:43,575 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.049, Fold: 2
+2022-10-29 00:17:43,594 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.467, Validation MCC: 0.101, Fold: 3
+2022-10-29 00:17:43,614 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.714, Validation MCC: 0.434, Fold: 4
+2022-10-29 00:17:43,633 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.714, Validation MCC: 0.511, Fold: 5
+2022-10-29 00:17:43,633 | INFO | AVG Training Accuracy: 0.990, AVG Training MCC: 0.983, AVG Validation Accuracy: 0.619, AVG Validation MCC: 0.336
+
+2022-10-29 00:17:43,635 | INFO | PCA Starting
+2022-10-29 00:17:43,638 | INFO | Selecting 26 principal components making up 90% of the variance.
+
+2022-10-29 00:17:43,639 | INFO | PCA Finished
+2022-10-29 00:17:43,640 | INFO | GridSearchCV Starting
+2022-10-29 00:18:30,387 | INFO | Best parameter set: {'ccp_alpha': 0.1, 'criterion': 'entropy', 'max_depth': 9, 'max_features': 'sqrt', 'n_estimators': 14}
+2022-10-29 00:18:30,387 | INFO | -------------------------
+
+2022-10-29 00:18:30,390 | INFO | Train MCC Score: 0.954.  StDev for Train MCC: 0.023.  Test MCC Score: 0.454.  StDev for Test MCC: 0.118.
+
+2022-10-29 00:18:30,410 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.667, Validation MCC: 0.421, Fold: 1
+2022-10-29 00:18:30,429 | INFO | Training Accuracy: 0.948, Training MCC: 0.913, Validation Accuracy: 0.467, Validation MCC: 0.000, Fold: 2
+2022-10-29 00:18:30,448 | INFO | Training Accuracy: 0.948, Training MCC: 0.914, Validation Accuracy: 0.533, Validation MCC: 0.226, Fold: 3
+2022-10-29 00:18:30,467 | INFO | Training Accuracy: 0.966, Training MCC: 0.943, Validation Accuracy: 0.643, Validation MCC: 0.361, Fold: 4
+2022-10-29 00:18:30,484 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.643, Validation MCC: 0.376, Fold: 5
+2022-10-29 00:18:30,485 | INFO | AVG Training Accuracy: 0.973, AVG Training MCC: 0.954, AVG Validation Accuracy: 0.590, AVG Validation MCC: 0.277
+
+2022-10-29 00:18:30,486 | INFO | PCA Starting
+2022-10-29 00:18:30,489 | INFO | Selecting 33 principal components making up 95% of the variance.
+
+2022-10-29 00:18:30,490 | INFO | PCA Finished
+2022-10-29 00:18:30,490 | INFO | GridSearchCV Starting
+2022-10-29 00:19:17,430 | INFO | Best parameter set: {'ccp_alpha': 0.1, 'criterion': 'entropy', 'max_depth': 4, 'max_features': 0.3, 'n_estimators': 13}
+2022-10-29 00:19:17,431 | INFO | -------------------------
+
+2022-10-29 00:19:17,432 | INFO | Train MCC Score: 0.903.  StDev for Train MCC: 0.052.  Test MCC Score: 0.428.  StDev for Test MCC: 0.124.
+
+2022-10-29 00:19:17,453 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.600, Validation MCC: 0.297, Fold: 1
+2022-10-29 00:19:17,469 | INFO | Training Accuracy: 0.897, Training MCC: 0.825, Validation Accuracy: 0.533, Validation MCC: 0.135, Fold: 2
+2022-10-29 00:19:17,486 | INFO | Training Accuracy: 0.966, Training MCC: 0.942, Validation Accuracy: 0.533, Validation MCC: 0.151, Fold: 3
+2022-10-29 00:19:17,503 | INFO | Training Accuracy: 0.932, Training MCC: 0.887, Validation Accuracy: 0.714, Validation MCC: 0.434, Fold: 4
+2022-10-29 00:19:17,520 | INFO | Training Accuracy: 0.949, Training MCC: 0.914, Validation Accuracy: 0.786, Validation MCC: 0.659, Fold: 5
+2022-10-29 00:19:17,520 | INFO | AVG Training Accuracy: 0.945, AVG Training MCC: 0.908, AVG Validation Accuracy: 0.633, AVG Validation MCC: 0.335
+
+2022-10-29 00:19:17,522 | INFO | PCA Starting
+2022-10-29 00:19:17,524 | INFO | Selecting 71 principal components making up 100% of the variance.
+
+2022-10-29 00:19:17,525 | INFO | PCA Finished
+2022-10-29 00:19:17,525 | INFO | GridSearchCV Starting
+2022-10-29 00:20:07,247 | INFO | Best parameter set: {'ccp_alpha': 0.1, 'criterion': 'entropy', 'max_depth': 10, 'max_features': 'sqrt', 'n_estimators': 23}
+2022-10-29 00:20:07,247 | INFO | -------------------------
+
+2022-10-29 00:20:07,249 | INFO | Train MCC Score: 0.983.  StDev for Train MCC: 0.023.  Test MCC Score: 0.440.  StDev for Test MCC: 0.117.
+
+2022-10-29 00:20:07,278 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.467, Validation MCC: 0.024, Fold: 1
+2022-10-29 00:20:07,306 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.533, Validation MCC: 0.111, Fold: 2
+2022-10-29 00:20:07,333 | INFO | Training Accuracy: 0.966, Training MCC: 0.942, Validation Accuracy: 0.667, Validation MCC: 0.402, Fold: 3
+2022-10-29 00:20:07,360 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.500, Validation MCC: 0.040, Fold: 4
+2022-10-29 00:20:07,388 | INFO | Training Accuracy: 0.949, Training MCC: 0.915, Validation Accuracy: 0.643, Validation MCC: 0.425, Fold: 5
+2022-10-29 00:20:07,389 | INFO | AVG Training Accuracy: 0.976, AVG Training MCC: 0.960, AVG Validation Accuracy: 0.562, AVG Validation MCC: 0.200
+
+2022-10-29 00:20:08,090 | INFO | KNN Classifier Results:
+
+2022-10-29 00:20:08,091 | INFO | -------------------
+
+2022-10-29 00:20:08,092 | INFO | Baseline Results
+
+2022-10-29 00:20:08,092 | INFO | -------------------
+
+2022-10-29 00:20:08,092 | INFO | GridSearchCV Starting
+2022-10-29 00:21:06,037 | INFO | Best parameter set: {'leaf_size': 5, 'n_neighbors': 27, 'p': 1, 'weights': 'distance'}
+2022-10-29 00:21:06,038 | INFO | -------------------------
+
+2022-10-29 00:21:06,039 | INFO | Train MCC Score: 1.000.  StDev for Train MCC: 0.000.  Test MCC Score: 0.239.  StDev for Test MCC: 0.216.
+
+2022-10-29 00:21:06,186 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.381, Fold: 1
+2022-10-29 00:21:06,269 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.533, Validation MCC: 0.197, Fold: 2
+2022-10-29 00:21:06,352 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.533, Validation MCC: 0.197, Fold: 3
+2022-10-29 00:21:06,435 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.643, Validation MCC: 0.297, Fold: 4
+2022-10-29 00:21:06,517 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.571, Validation MCC: 0.226, Fold: 5
+2022-10-29 00:21:06,518 | INFO | AVG Training Accuracy: 1.000, AVG Training MCC: 1.000, AVG Validation Accuracy: 0.576, AVG Validation MCC: 0.260
+
+2022-10-29 00:21:06,519 | INFO | Forward Selection Starting
+2022-10-29 01:09:12,201 | INFO | Forward Selection Finished
+2022-10-29 01:09:12,208 | INFO | SFS only results:
+
+2022-10-29 01:09:12,208 | INFO | -------------------
+
+2022-10-29 01:09:12,209 | INFO | GridSearchCV Starting
+2022-10-29 01:10:05,948 | INFO | Best parameter set: {'leaf_size': 5, 'n_neighbors': 23, 'p': 1, 'weights': 'distance'}
+2022-10-29 01:10:05,948 | INFO | -------------------------
+
+2022-10-29 01:10:05,950 | INFO | Train MCC Score: 0.977.  StDev for Train MCC: 0.011.  Test MCC Score: 0.700.  StDev for Test MCC: 0.092.
+
+2022-10-29 01:10:06,017 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.933, Validation MCC: 0.897, Fold: 1
+2022-10-29 01:10:06,092 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.261, Fold: 2
+2022-10-29 01:10:06,167 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.800, Validation MCC: 0.703, Fold: 3
+2022-10-29 01:10:06,245 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-10-29 01:10:06,322 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.714, Validation MCC: 0.535, Fold: 5
+2022-10-29 01:10:06,322 | INFO | AVG Training Accuracy: 0.986, AVG Training MCC: 0.977, AVG Validation Accuracy: 0.810, AVG Validation MCC: 0.679
+
+2022-10-29 01:10:06,331 | INFO | Results after PCA:
+2022-10-29 01:10:06,331 | INFO | ------------------
+
+2022-10-29 01:10:06,332 | INFO | PCA Starting
+2022-10-29 01:10:06,336 | INFO | Selecting 5 principal components making up 75% of the variance.
+
+2022-10-29 01:10:06,337 | INFO | PCA Finished
+2022-10-29 01:10:06,340 | INFO | GridSearchCV Starting
+2022-10-29 01:10:37,768 | INFO | Best parameter set: {'leaf_size': 5, 'n_neighbors': 37, 'p': 2, 'weights': 'distance'}
+2022-10-29 01:10:37,768 | INFO | -------------------------
+
+2022-10-29 01:10:37,770 | INFO | Train MCC Score: 0.977.  StDev for Train MCC: 0.011.  Test MCC Score: 0.619.  StDev for Test MCC: 0.165.
+
+2022-10-29 01:10:37,847 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.733, Validation MCC: 0.550, Fold: 1
+2022-10-29 01:10:37,920 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.261, Fold: 2
+2022-10-29 01:10:37,998 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.800, Validation MCC: 0.703, Fold: 3
+2022-10-29 01:10:38,072 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.786, Validation MCC: 0.598, Fold: 4
+2022-10-29 01:10:38,150 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.643, Validation MCC: 0.407, Fold: 5
+2022-10-29 01:10:38,150 | INFO | AVG Training Accuracy: 0.986, AVG Training MCC: 0.977, AVG Validation Accuracy: 0.712, AVG Validation MCC: 0.504
+
+2022-10-29 01:10:38,155 | INFO | PCA Starting
+2022-10-29 01:10:38,158 | INFO | Selecting 7 principal components making up 80% of the variance.
+
+2022-10-29 01:10:38,159 | INFO | PCA Finished
+2022-10-29 01:10:38,159 | INFO | GridSearchCV Starting
+2022-10-29 01:11:09,762 | INFO | Best parameter set: {'leaf_size': 5, 'n_neighbors': 23, 'p': 2, 'weights': 'distance'}
+2022-10-29 01:11:09,763 | INFO | -------------------------
+
+2022-10-29 01:11:09,764 | INFO | Train MCC Score: 0.977.  StDev for Train MCC: 0.011.  Test MCC Score: 0.629.  StDev for Test MCC: 0.078.
+
+2022-10-29 01:11:09,772 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.800, Validation MCC: 0.678, Fold: 1
+2022-10-29 01:11:09,779 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.261, Fold: 2
+2022-10-29 01:11:09,786 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.800, Validation MCC: 0.703, Fold: 3
+2022-10-29 01:11:09,791 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.857, Validation MCC: 0.738, Fold: 4
+2022-10-29 01:11:09,797 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.643, Validation MCC: 0.441, Fold: 5
+2022-10-29 01:11:09,797 | INFO | AVG Training Accuracy: 0.986, AVG Training MCC: 0.977, AVG Validation Accuracy: 0.740, AVG Validation MCC: 0.564
+
+2022-10-29 01:11:09,799 | INFO | PCA Starting
+2022-10-29 01:11:09,801 | INFO | Selecting 8 principal components making up 85% of the variance.
+
+2022-10-29 01:11:09,801 | INFO | PCA Finished
+2022-10-29 01:11:09,801 | INFO | GridSearchCV Starting
+2022-10-29 01:11:41,296 | INFO | Best parameter set: {'leaf_size': 5, 'n_neighbors': 19, 'p': 2, 'weights': 'distance'}
+2022-10-29 01:11:41,296 | INFO | -------------------------
+
+2022-10-29 01:11:41,297 | INFO | Train MCC Score: 0.977.  StDev for Train MCC: 0.011.  Test MCC Score: 0.625.  StDev for Test MCC: 0.085.
+
+2022-10-29 01:11:41,304 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.733, Validation MCC: 0.550, Fold: 1
+2022-10-29 01:11:41,311 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.533, Validation MCC: 0.151, Fold: 2
+2022-10-29 01:11:41,316 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.800, Validation MCC: 0.703, Fold: 3
+2022-10-29 01:11:41,322 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.929, Validation MCC: 0.870, Fold: 4
+2022-10-29 01:11:41,328 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.643, Validation MCC: 0.441, Fold: 5
+2022-10-29 01:11:41,328 | INFO | AVG Training Accuracy: 0.986, AVG Training MCC: 0.977, AVG Validation Accuracy: 0.728, AVG Validation MCC: 0.543
+
+2022-10-29 01:11:41,330 | INFO | PCA Starting
+2022-10-29 01:11:41,332 | INFO | Selecting 10 principal components making up 90% of the variance.
+
+2022-10-29 01:11:41,333 | INFO | PCA Finished
+2022-10-29 01:11:41,333 | INFO | GridSearchCV Starting
+2022-10-29 01:12:12,102 | INFO | Best parameter set: {'leaf_size': 5, 'n_neighbors': 23, 'p': 2, 'weights': 'distance'}
+2022-10-29 01:12:12,102 | INFO | -------------------------
+
+2022-10-29 01:12:12,104 | INFO | Train MCC Score: 0.977.  StDev for Train MCC: 0.011.  Test MCC Score: 0.628.  StDev for Test MCC: 0.081.
+
+2022-10-29 01:12:12,111 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.800, Validation MCC: 0.678, Fold: 1
+2022-10-29 01:12:12,118 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.261, Fold: 2
+2022-10-29 01:12:12,124 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.800, Validation MCC: 0.703, Fold: 3
+2022-10-29 01:12:12,130 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.857, Validation MCC: 0.738, Fold: 4
+2022-10-29 01:12:12,135 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.643, Validation MCC: 0.441, Fold: 5
+2022-10-29 01:12:12,136 | INFO | AVG Training Accuracy: 0.986, AVG Training MCC: 0.977, AVG Validation Accuracy: 0.740, AVG Validation MCC: 0.564
+
+2022-10-29 01:12:12,137 | INFO | PCA Starting
+2022-10-29 01:12:12,140 | INFO | Selecting 11 principal components making up 95% of the variance.
+
+2022-10-29 01:12:12,141 | INFO | PCA Finished
+2022-10-29 01:12:12,141 | INFO | GridSearchCV Starting
+2022-10-29 01:12:42,669 | INFO | Best parameter set: {'leaf_size': 5, 'n_neighbors': 25, 'p': 2, 'weights': 'distance'}
+2022-10-29 01:12:42,669 | INFO | -------------------------
+
+2022-10-29 01:12:42,671 | INFO | Train MCC Score: 0.977.  StDev for Train MCC: 0.011.  Test MCC Score: 0.657.  StDev for Test MCC: 0.127.
+
+2022-10-29 01:12:42,678 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.800, Validation MCC: 0.678, Fold: 1
+2022-10-29 01:12:42,685 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.261, Fold: 2
+2022-10-29 01:12:42,692 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.800, Validation MCC: 0.703, Fold: 3
+2022-10-29 01:12:42,699 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-10-29 01:12:42,705 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.786, Validation MCC: 0.641, Fold: 5
+2022-10-29 01:12:42,705 | INFO | AVG Training Accuracy: 0.986, AVG Training MCC: 0.977, AVG Validation Accuracy: 0.797, AVG Validation MCC: 0.657
+
+2022-10-29 01:12:42,707 | INFO | PCA Starting
+2022-10-29 01:12:42,709 | INFO | Selecting 15 principal components making up 100% of the variance.
+
+2022-10-29 01:12:42,710 | INFO | PCA Finished
+2022-10-29 01:12:42,710 | INFO | GridSearchCV Starting
+2022-10-29 01:13:13,753 | INFO | Best parameter set: {'leaf_size': 5, 'n_neighbors': 21, 'p': 2, 'weights': 'distance'}
+2022-10-29 01:13:13,754 | INFO | -------------------------
+
+2022-10-29 01:13:13,755 | INFO | Train MCC Score: 0.977.  StDev for Train MCC: 0.011.  Test MCC Score: 0.684.  StDev for Test MCC: 0.110.
+
+2022-10-29 01:13:13,761 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.867, Validation MCC: 0.806, Fold: 1
+2022-10-29 01:13:13,767 | INFO | Training Accuracy: 1.000, Training MCC: 1.000, Validation Accuracy: 0.600, Validation MCC: 0.261, Fold: 2
+2022-10-29 01:13:13,773 | INFO | Training Accuracy: 0.983, Training MCC: 0.971, Validation Accuracy: 0.800, Validation MCC: 0.703, Fold: 3
+2022-10-29 01:13:13,779 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 1.000, Validation MCC: 1.000, Fold: 4
+2022-10-29 01:13:13,786 | INFO | Training Accuracy: 0.983, Training MCC: 0.972, Validation Accuracy: 0.714, Validation MCC: 0.535, Fold: 5
+2022-10-29 01:13:13,786 | INFO | AVG Training Accuracy: 0.986, AVG Training MCC: 0.977, AVG Validation Accuracy: 0.796, AVG Validation MCC: 0.661
+
+2022-10-29 01:13:13,790 | INFO | --------------------------------------------------------------------------------
+

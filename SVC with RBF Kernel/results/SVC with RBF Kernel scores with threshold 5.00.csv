@@ -1,9 +1,9 @@
-,Name,Stage,Train MCC,Train Stdev,Test MCC,Test Stdev,Params
-0,SVC with RBF Kernel,Baseline,0.5606968089110677,0.09962064325716553,0.1903822085057633,0.13129175201453167,"{'C': 61, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 0.0001}"
-1,SVC with RBF Kernel,SFS,0.41841577418028625,0.034178253422408406,0.2717238122530278,0.10646683126575403,"{'C': 61, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 0.0001}"
-2,SVC with RBF Kernel,PCA 75% variance,0.8055099126050944,0.05703519907008774,0.26722912632867263,0.3055992101923201,"{'C': 16, 'break_ties': True, 'class_weight': None, 'gamma': 0.01}"
-3,SVC with RBF Kernel,PCA 80% variance,0.374753777785905,0.03763602818215163,0.2717238122530278,0.10646683126575403,"{'C': 61, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 0.0001}"
-4,SVC with RBF Kernel,PCA 85% variance,0.5130265469822289,0.0632296508832345,0.2057200650263895,0.1249995681406099,"{'C': 11, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 0.001}"
-5,SVC with RBF Kernel,PCA 90% variance,1.0,0.0,0.24807465457017183,0.24830196624265063,"{'C': 51, 'break_ties': True, 'class_weight': None, 'gamma': 0.1}"
-6,SVC with RBF Kernel,PCA 95% variance,1.0,0.0,0.2251884881439234,0.17371591792252955,"{'C': 51, 'break_ties': False, 'class_weight': None, 'gamma': 0.1}"
-7,SVC with RBF Kernel,PCA 100% variance,0.41841577418028625,0.034178253422408406,0.2717238122530278,0.10646683126575403,"{'C': 61, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 0.0001}"
+,Name,Stage,Features,Train MCC,Train Stdev,Test MCC,Test Stdev,Params
+0,SVC with RBF Kernel,Baseline,572,0.41066989404934373,0.1259623253383996,0.16385337273141515,0.15973722772031057,"{'C': 11, 'break_ties': True, 'class_weight': None, 'gamma': 0.001}"
+1,SVC with RBF Kernel,SFS,286,0.660237968294343,0.08335992314033616,0.2609391171279281,0.23931808522510284,"{'C': 16, 'break_ties': True, 'class_weight': 'balanced', 'gamma': 0.001}"
+2,SVC with RBF Kernel,SFS + PCA w/75% variance,16,0.5361968363781126,0.08115559824519841,0.28817466222096577,0.2339584663695153,"{'C': 16, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 0.001}"
+3,SVC with RBF Kernel,SFS + PCA w/80% variance,20,1.0,0.0,0.2917789689385798,0.3156377679995502,"{'C': 61, 'break_ties': False, 'class_weight': None, 'gamma': 'scale'}"
+4,SVC with RBF Kernel,SFS + PCA w/85% variance,25,1.0,0.0,0.3173547553084969,0.27807753250295725,"{'C': 61, 'break_ties': False, 'class_weight': None, 'gamma': 'scale'}"
+5,SVC with RBF Kernel,SFS + PCA w/90% variance,31,1.0,0.0,0.29647977192576197,0.24933795720230553,"{'C': 81, 'break_ties': False, 'class_weight': None, 'gamma': 'scale'}"
+6,SVC with RBF Kernel,SFS + PCA w/95% variance,40,0.6357596943499415,0.07432028583959287,0.2609391171279281,0.23931808522510284,"{'C': 16, 'break_ties': True, 'class_weight': 'balanced', 'gamma': 0.001}"
+7,SVC with RBF Kernel,SFS + PCA w/100% variance,71,0.660237968294343,0.08335992314033616,0.2609391171279281,0.23931808522510284,"{'C': 16, 'break_ties': True, 'class_weight': 'balanced', 'gamma': 0.001}"

@@ -6,6 +6,7 @@ This section of code covers the classifier which takes takes the input data and 
 # Importing Dependencies
 import argparse
 import csv
+
 # Write to a log file
 import logging
 import os
@@ -14,27 +15,114 @@ import sys
 # Plotter
 import matplotlib.pyplot as plt
 import numpy as np
+
 # Standard libraries
 import pandas as pd
+
 # Model Persistence
-from joblib import dump, load
+from joblib import dump
+
 # Dimensionality Reduction
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SequentialFeatureSelector
-# Models
-from sklearn.linear_model import Lasso
+
 # Metrics
-from sklearn.metrics import (accuracy_score, make_scorer, matthews_corrcoef,
-                             mean_squared_error)
+from sklearn.metrics import accuracy_score, make_scorer, matthews_corrcoef
+
 # Preprocessing
-from sklearn.model_selection import (GridSearchCV, cross_val_score,
-                                     train_test_split)
+from sklearn.model_selection import GridSearchCV, StratifiedKFold, train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import SVC, SVR
 from xgboost import XGBClassifier
 
+## Packages to use the .fasta file.
+# Compute protein descriptors
+from propy import PyPro
+from propy import AAComposition
+from propy import CTD
+
+# Build Sequence Object
+from Bio.SeqUtils.ProtParam import ProteinAnalysis
+
+# Read Fasta File
+from pyfaidx import Fasta
+
+# Grouping iterable
+from itertools import chain
+
+# Return file path
+import glob
+
+## Global Variables
+PATH = os.getcwd()
+FOLDS = 5
+RAND = 42
+
+def inferenceSingleSeqence(seq):
+    
+    """ The inference function gets the protein sequence, trained model, preprocessing function and selected
+    features as input. 
+    
+    The function read the sequence as string and extract the peptide features using appropriate packages into 
+    the dataframe.
+    
+    The necessary features are selected from the extracted features which then undergoes preprocessing function, the
+    target value is predicted using trained function and give out the results. """
+    
+    # empty list to save the features
+    listing = []
+    
+    # Make sure the sequence is a string
+    s = str(seq)
+    
+    # replace the unappropriate peptide sequence to A
+    s = s.replace('X','A')
+    s = s.replace('x','A')
+    s = s.replace('U','A')
+    s = s.replace('Z','A')
+    s = s.replace('B','A')
+    
+    # Calculating primary features
+    analysed_seq = ProteinAnalysis(s)
+    wt = analysed_seq.molecular_weight()
+    arm = analysed_seq.aromaticity()
+    instab = analysed_seq.instability_index()
+    flex = analysed_seq.flexibility()
+    pI = analysed_seq.isoelectric_point()
+    
+    # create a list for the primary features
+    pFeatures = [seq, s, len(seq), wt, arm, instab, pI]
+    
+    # Get secondary structure in a list
+    sectruc = analysed_seq.secondary_structure_fraction()
+    sFeatures = list(sectruc)
+    
+    # Get Amino Acid Composition (AAC), Composition Transition Distribution (CTD) and Dipeptide Composition (DPC)
+    resultAAC = AAComposition.CalculateAAComposition(s)
+    resultCTD = CTD.CalculateCTD(s)
+    resultDPC = AAComposition.CalculateDipeptideComposition(s)
+    
+    # Collect all the features into lists
+    aacFeatures = [j for i,j in resultAAC.items()]
+    ctdFeatures = [l for k,l in resultCTD.items()]
+    dpcFeatures = [n for m,n in resultDPC.items()]
+    listing.append(pFeatures + sFeatures + aacFeatures + ctdFeatures + dpcFeatures)
+    
+    # Collect feature names
+    name1 = ['Name','Seq' ,'SeqLength','Weight','Aromaticity','Instability','IsoelectricPoint','Helix','Turn','Sheet']
+    name2 = [i for i,j in resultAAC.items()]
+    name3 = [k for k,l in resultCTD.items()]
+    name4 = [m for m,n in resultDPC.items()]
+    name  = []
+    name.append(name1+name2+name3+name4)
+    flatten_list = list(chain.from_iterable(name))
+    
+    # create dataframe using all extracted features and the names
+    allFeatures = pd.DataFrame(listing, columns = flatten_list)
+
+    return allFeatures
 
 # Creating a logger to record and save information.
 def log_files(logname):
@@ -52,12 +140,12 @@ def log_files(logname):
 
     # Instantiate the logger and set the formatting and minimum level to DEBUG.
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
     formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
 
     # Display the logs in the output
     stdout_handler = logging.StreamHandler(sys.stdout)
-    stdout_handler.setLevel(logging.DEBUG)
+    stdout_handler.setLevel(logging.INFO)
     stdout_handler.setFormatter(formatter)
 
     # Write the logs to a file
@@ -72,7 +160,7 @@ def log_files(logname):
     return logger
 
 # Import the complete dataset.
-def import_data():
+def import_data(threshold):
     """
     Import the full dataset from the current path.  Also apply some of the necessary preprocessing.
 
@@ -86,49 +174,31 @@ def import_data():
 
     """
 
-    # Importing the full KI set into a dataframe.
-    path = os.getcwd()
-    df = pd.read_csv(path + '/PositivePeptide_Ki.csv')
-    logger.debug('The full dataset has %i examples.' %(len(df)))
+    # Extracting peptide sequence + formatting
+    peptide_sequences = pd.read_excel(PATH + '/Positive_KI.xlsx')
+    peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
+    peptide_sequences.rename(columns={'Sequence':'Name'}, inplace=True)
 
-    # Rescaling the dataframe in the log10 (-5,5) range.
-    df['KI (nM) rescaled']  = rescale(df['KI (nM)'], destination_interval=(-5,5))
+    # Feature Extraction
+    df = pd.DataFrame()
+    for i in range(len(peptide_sequences)):
+        df = pd.concat([df, inferenceSingleSeqence(peptide_sequences.iloc[i][0])])
+
+    # Merging into a single dataframe. Removing extra seq column and others.
+    df = pd.merge(df,peptide_sequences)
+    df = df.drop(columns=['Seq','Helix','Turn','Sheet'])
+
+    # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
+    # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000   
+    df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
 
     return df
 
-# Scaling the KI (nM) values into log scale within the interval (-5, 5)
-def rescale(array=np.array(0), destination_interval=(-5,5)):
-    """
-    Rescale the KI values from nM to a log scale within the range of
-        a given destination interval.
-
-    Parameters
-    ----------
-    array:  A numpy array of KI values, in nM.
-
-    destination_interval: the interval that we set the range of the log scale to
-
-    Returns
-    -------
-    array:  Transformed array into the log scale.
-    
-    saved_range:  The (min, max) range of the original given array.  Used if we need
-        to rescale back into "KI (nM)" form.
-    
-    """
-
-    # Rescaling the values and saving the initial range.
-    array = np.log(array)
-    saved_range = (array.min(), array.max())
-    array = np.interp(array, saved_range, destination_interval)
-
-    return array
-
 # Sequential Forward Selection for feature reduction in our data.
-def forward_selection(x, y, model):
+def sequential_selection(x, y, name, threshold, model=SVC()):
     """
-    Perform Sequential Forward Selection on the given dataset, but for 
-        the classifer portion of the model.  MCC is the scorer used.
+    Perform Sequential Selection on the given dataset, but for the classifer portion of the 
+        model.  MCC is the scorer used.  We perform both forward and backward selection.
 
     Parameters
     ----------
@@ -140,21 +210,80 @@ def forward_selection(x, y, model):
 
     Returns
     -------
-    x: Input values of the dataset with half of the features selected.
+    final_x_sfs: Input values of the dataset with the proper number of features selected.
 
-    sfs: The SequentialFeatureSelector model
-
+    final_sfs: The SequentialFeatureSelector model selected
     """
 
     # Fit a feature selector to SVM w/RBF kernel classifier and use the 'accuracy' score.
-    logger.debug('Forward Selection Starting')
-    sfs = SequentialFeatureSelector(model, n_jobs=-1, scoring=make_scorer(matthews_corrcoef), tol=None,
-                                    n_features_to_select='auto', direction='forward')
-    sfs.fit(x, y)
-    x = sfs.transform(x)
-    logger.debug('Forward Selection Finished')
+    # Forward Selection Loop
+    logger.info('Forward Selection Starting')
+    ratios = np.arange(0.05, 0.55, 0.05)
+    
+    cols = ['Features Selected', 'Train Accuracy Score', 'Train MCC Score', 'Test Accuracy Score', 'Test MCC Score']
+    scores_df = pd.DataFrame(columns=cols)
 
-    return x, sfs
+    # Iterate through selecting from 10%-90% of the features in increments of 10.
+    for ratio in ratios:
+        sfs = SequentialFeatureSelector(model, n_jobs=-1, scoring=make_scorer(matthews_corrcoef),
+                                        n_features_to_select=ratio, direction='forward')
+        sfs.fit(x, y)
+        x_sfs = pd.DataFrame(sfs.transform(x), columns=sfs.get_feature_names_out())
+        
+        # Initialize measurements.
+        train_accuracy_sum = 0
+        train_mcc_sum = 0
+        test_accuracy_sum = 0
+        test_mcc_sum = 0
+        high_test_mcc = 0
+        
+        # Stratified Kfold to test the results of sequental feature selection.
+        skf = StratifiedKFold(n_splits=FOLDS, random_state=RAND, shuffle=True)
+        for train_index, test_index in skf.split(x_sfs,y):
+            x_train, x_test = x_sfs.loc[train_index], x_sfs.loc[test_index]
+            y_train, y_test = y[train_index], y[test_index]
+            model.fit(x_train, y_train)
+
+            # Predicting on the test set.
+            y_test_pred = model.predict(x_test)
+            test_accuracy = accuracy_score(y_test, y_test_pred)
+            test_mcc = matthews_corrcoef(y_test, y_test_pred)
+
+            # Predicting on the Trainign set.
+            y_train_pred = model.predict(x_train)
+            train_accuracy = accuracy_score(y_train, y_train_pred)
+            train_mcc = matthews_corrcoef(y_train, y_train_pred)
+
+            # Add to the sums
+            train_accuracy_sum += train_accuracy
+            train_mcc_sum += train_mcc
+            test_accuracy_sum += test_accuracy
+            test_mcc_sum += test_mcc
+        avg_test_mcc = test_mcc_sum/FOLDS
+        if (avg_test_mcc > high_test_mcc) or (ratio == 0.05):
+            high_test_mcc = avg_test_mcc
+            final_x_sfs = x_sfs
+            final_sfs = sfs
+
+        # Calculate the averages
+        scores_df.loc[len(scores_df)] = [x_sfs.shape[1],train_accuracy_sum/FOLDS, train_mcc_sum/FOLDS, test_accuracy_sum/FOLDS, 
+                                         test_mcc_sum/FOLDS]
+    
+    # Display the results:
+    plt.figure()
+    plt.plot(scores_df['Features Selected'], scores_df['Train MCC Score'])
+    plt.plot(scores_df['Features Selected'], scores_df['Test MCC Score'], '-.')
+    plt.xlabel('Number of features selected')
+    plt.ylabel('Cross Validation Score (MCC)')
+    plt.title('Forward Selection for %s at Threshold %2.2f' %(name, threshold))
+    plt.legend(['Train MCC', 'Test MCC'])
+    plt.savefig(PATH + '/%s/sfs/Forward Selection for %s at Threshold %2.2f.png' %(name, name, threshold))
+
+    logger.info('Forward Selection Finished')
+
+    scores_df.to_csv(PATH + '/%s/sfs/%s features selected with threshold %2.2f.csv' %(name, name, threshold))
+
+    return final_x_sfs, final_sfs
 
 # Code for Principal Component Analysis
 def principal_component_analysis(x, var):
@@ -165,21 +294,21 @@ def principal_component_analysis(x, var):
     ----------
     x: Input values to perform PCA on.
 
-    var: Parameter that reduces dimensionality of the PCA.  Enter as an int from 0-100.
+    var: Parameter that reduces dimensionality of the PCA.  Enter as an int from 0-100.  100 keeps full dimensionality
 
     Returns
     -------
-    x: x input transformed with PCA.
+    x: x input transformed with PCA.  The number of principal components returned is based on the "var" selected.
 
     pca: The PrincipalComponentAnalysis model.
     
     """
 
     # Run PCA on the given inputs.
-    logger.debug('PCA Starting')
+    logger.info('PCA Starting')
     pca = PCA()
     pca.fit(x)
-    x = pca.transform(x)
+    x_pca = pd.DataFrame(pca.transform(x))
     
     # Dimensonality Reduction based on accepted variance.
     ratios = np.array(pca.explained_variance_ratio_)
@@ -187,11 +316,14 @@ def principal_component_analysis(x, var):
     
     # Readjust the dimensions of x based on the variance we want.
     length = len(ratios)
-    logger.info('Selecting %i principal components making up %i%% of the variance.\n' %(length,var))
-    x = x[:,0:length]    
-    logger.debug('PCA Finished')
+    if length > 0:
+        logger.info('Selecting %i principal components making up %i%% of the variance.\n' %(length,var))
+        x_pca = x_pca[x_pca.columns[0:length]]
+    else:
+        logger.info('Kept all principal components for %i%% of the variance.\n' %(var))
+    logger.info('PCA Finished')
 
-    return x, pca
+    return x_pca, pca
 
 # Optimize the hyperparameters of the classifiers using GridSearchCV
 def hyperparameter_optimizer(x, y, params, model=SVC()):
@@ -220,7 +352,7 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
     """
 
     # Use GridsearchCV to get the optimized parameters.
-    logger.debug('GridSearchCV Starting')
+    logger.info('GridSearchCV Starting')
     clf = GridSearchCV(model,param_grid=params,scoring=make_scorer(matthews_corrcoef),cv=5,
                        return_train_score=True,n_jobs=-1)
     clf.fit(x,y)
@@ -237,22 +369,10 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
     logger.info('Train MCC Score: %3.3f.  StDev for Train MCC: %3.3f.  Test MCC Score: %3.3f.  StDev for Test MCC: %3.3f.\n' 
                 %(scores[0], scores[1], scores[2], scores[3]))
 
-    df = df.sort_values(by=['std_test_score'])
-
-    # Clean up the output for the hyperparameters.  Eliminate any values that have too low of a test ranking
-    #   as well as eliminate anything with too high of a training score.
-    max_test_rank = df['rank_test_score'].max()
-    col_start = 'split0_train_score'
-    index_start = df.columns.get_loc(col_start)
-    df = df[~(df.iloc[:,index_start:]>0.98).any(1)]
-    df = df[df['mean_train_score'] > 0.65]
-    df = df[df['rank_test_score'] < (0.20*max_test_rank)]
-    df = df[df['mean_test_score'] > 0.25]
-
     # Save the best parameters.
     bestparams = clf.best_params_
 
-    return bestparams, df, scores
+    return bestparams, scores
 
 # Perform optimization on the classifier as well as a k-fold cross validation.
 def classifier_trainer(x, y, params, model=SVC()):
@@ -271,9 +391,6 @@ def classifier_trainer(x, y, params, model=SVC()):
 
     Returns
     -------
-    optimizer_results: Pandas DataFrame that has the results of our hyperparameter tuning, sorted
-        for results with the smallest standard deviation in the test scores.
-
     model: Modfied model that has the optimized hyperparameters.
 
     scores: Pandas DataFrame of the training and test scores.
@@ -290,19 +407,19 @@ def classifier_trainer(x, y, params, model=SVC()):
     valid_accuracy_sum = 0
     valid_mcc_sum = 0
 
-    optimized_features, optimizer_results, scores = hyperparameter_optimizer(x, y, params, model)
+    optimized_features, scores = hyperparameter_optimizer(x, y, params, model)
 
     model.set_params(**optimized_features)
 
     # Manual implementation of Stratified K-Fold.
     for seed in seeds:
         i += 1
-        logger.debug('Training:')
+        logger.info('Training:')
         # Stratify!
         x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=(1/folds), random_state=seed, stratify=y)
         model.fit(x_train, y_train)
 
-        logger.debug('Training Finished.')
+        logger.info('Training Finished.')
 
         # Test the model on the training set.
         y_train_pred = model.predict(x_train)
@@ -335,7 +452,7 @@ def classifier_trainer(x, y, params, model=SVC()):
     logger.info('AVG Training Accuracy: %3.3f, AVG Training MCC: %3.3f, AVG Validation Accuracy: %3.3f, '
                 'AVG Validation MCC: %3.3f\n' %(train_accuracy_avg, train_mcc_avg, valid_accuracy_avg, valid_mcc_avg))
     
-    return optimizer_results, model, scores
+    return model, scores
 
 # Function to separate items into buckets.
 def threshold_finder(threshold):
@@ -352,12 +469,7 @@ def threshold_finder(threshold):
     """
     
     # Import the data.
-    df = import_data()
-    path = os.getcwd()
-
-    # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
-    # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000   
-    df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
+    df = import_data(threshold)
 
     large_bucket_count = df[df['Bucket'] == 1]['Name'].count()
     small_bucket_count = df[df['Bucket'] == 0]['Name'].count()
@@ -387,14 +499,9 @@ def threshold_finder(threshold):
         # In a for loop, create a directory for the 3 models and then deposit the hyperparameter tuning results as well
         #   as the SFS and PCA models/
         attributes = param_name_model_zipper()
-        fs_features = pd.DataFrame()
         vars = [75, 80, 85, 90, 95, 100]
-        cols = ['Name', 'Stage', 'Train MCC', 'Train Stdev', 'Test MCC', 'Test Stdev', 'Params']
-
-        # Create a folder for the extracted Features.
-        if os.path.exists(path + '/SFS Extracted Features') == False:
-            os.mkdir('SFS Extracted Features')
-
+        cols = ['Name', 'Stage', 'Features', 'Train MCC', 'Train Stdev', 'Test MCC', 'Test Stdev', 'Params']
+        
         for params, name, model in attributes:
             # Every time I iterate through this loop, I need to recreate x.
             x = df[df.columns[1:573]]
@@ -402,62 +509,51 @@ def threshold_finder(threshold):
             logger.info('%s Results:\n' %(name))
 
             # Create a the directories for the models if they doesn't exist.
-            if os.path.exists(path + '/%s' %(name)) == False:
+            if os.path.exists(PATH + '/%s' %(name)) == False:
                 os.mkdir('%s' %(name))
-            if os.path.exists(path + '/%s/sfs-pca' %(name)) == False:
+            if os.path.exists(PATH + '/%s/sfs-pca' %(name)) == False:
                 os.mkdir('%s/sfs-pca' %(name))
-            if os.path.exists(path + '/%s/sfs' %(name)) == False:
-                os.mkdir('%s/sfs' %(name))
-            if os.path.exists(path + '/%s/baseline' %(name)) == False:
+            if os.path.exists(PATH + '/%s/sfs' %(name)) == False:
+                os.mkdir('%s/sfs' %(name))    
+            if os.path.exists(PATH + '/%s/baseline' %(name)) == False:
                 os.mkdir('%s/baseline' %(name))
-            if os.path.exists(path + '/%s/results' %(name)) == False:
+            if os.path.exists(PATH + '/%s/results' %(name)) == False:
                 os.mkdir('%s/results' %(name))
 
             model_scores = pd.DataFrame(columns=cols)
 
-            # Our main pipeline is Initial Hyperparameter Tuning -> Forward Selection -> Principal Component Analysis -> Hyperparameter Tuning
+            # Our main pipeline is Initial Hyperparameter Tuning -> Sequential Selection -> Principal Component Analysis -> Hyperparameter Tuning
 
             # Baseline
-            results_baseline, model, scores_baseline = classifier_trainer(x, y, params, model)
-            model_scores.loc[len(model_scores)] = [name, 'Baseline', scores_baseline[0], scores_baseline[1], scores_baseline[2], scores_baseline[3],
-                                                   scores_baseline[4]]
-            results_baseline.to_csv(path + '/%s/baseline/%s Baseline results with threshold %2.2f.csv' %(name, name, threshold))
+            model, scores_baseline = classifier_trainer(x, y, params, model)
+            model_scores.loc[len(model_scores)] = [name, 'Baseline', len(x.columns[:]), scores_baseline[0], scores_baseline[1], scores_baseline[2], 
+                                                   scores_baseline[3], scores_baseline[4]]
 
             # Sequential Feature Selection
-            x, sfs = forward_selection(x, y, model)
+            x_sfs, sfs = sequential_selection(x, y, name, threshold, model)
             logger.info('SFS only results:\n')
-            results_sfsonly, model, scores_sfs = classifier_trainer(x, y, params, model)
-            model_scores.loc[len(model_scores)] = [name, 'SFS', scores_sfs[0], scores_sfs[1], scores_sfs[2], scores_sfs[3], scores_sfs[4]]
-            results_sfsonly.to_csv(path + '/%s/sfs/%s SFS only results with threshold %2.2f.csv' %(name, name, threshold))
-            fs_features[name] = sfs.get_feature_names_out()
-            dump(sfs, path + '/%s/sfs/%s %2.2f fs.joblib' %(name, name, threshold))
+
+            # SFS Block
+            model_sfs, scores_sfs = classifier_trainer(x_sfs, y, params, model)
+            model_scores.loc[len(model_scores)] = [name, 'SFS', len(x_sfs.columns[:]), scores_sfs[0], scores_sfs[1], scores_sfs[2], 
+                                                   scores_sfs[3], scores_sfs[4]]
+            dump(sfs, PATH + '/%s/sfs/%s %2.2f sfs.joblib' %(name, name, threshold))
 
             # Now do PCA.
             logger.info('Results after PCA:')
             logger.info('------------------\n')
 
-            # Do it for different 75-100 variances.
+            # Run PCA for different 75-100 variances.
             for var in vars:
-                # Run PCA.
-                x, pca = principal_component_analysis(x, var)
-                results, _, scores_pca = classifier_trainer(x, y, params, model)
-                model_scores.loc[len(model_scores)] = [name, 'PCA %i%% variance' %(var), scores_pca[0], scores_pca[1], scores_pca[2],
-                                                         scores_pca[3], scores_pca[4]]
+                # SFS block
+                x_sfs_pca, pca = principal_component_analysis(x_sfs, var)
+                _, scores_sfs_pca = classifier_trainer(x_sfs_pca, y, params, model_sfs)
+                model_scores.loc[len(model_scores)] = [name, 'SFS + PCA w/%i%% variance' %(var), len(x_sfs_pca.columns[:]), scores_sfs_pca[0],
+                                                       scores_sfs_pca[1], scores_sfs_pca[2], scores_sfs_pca[3], scores_sfs_pca[4]]
 
-                # Reset x after each PCA iteration.
-                x = df[df.columns[1:573]]
-                x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
-                x = sfs.transform(x)
-
-                # Exporting the hyperparameter optimizations, sfs, and pca models.
-                results.to_csv(path + '/%s/sfs-pca/%s results with threshold %2.2f and %i%% variance.csv' %(name, name, threshold, var))
-
-            model_scores.to_csv(path + '/%s/results/%s scores with threshold %2.2f.csv' %(name, name, threshold))
-            dump(pca, path + '/%s/sfs-pca/%s %2.2f pca.joblib' %(name, name, threshold))
-        
-        # Exporting the extracted features.
-        fs_features.to_csv(path + '/SFS Extracted Features/Saved Features for Threshold %2.2f.csv' %(threshold))
-
+            model_scores.to_csv(PATH + '/%s/results/%s scores with threshold %2.2f.csv' %(name, name, threshold))
+            dump(pca, PATH + '/%s/sfs-pca/%s %2.2f sfs-pca.joblib' %(name, name, threshold))
+    
     # Formatting for the logger.
     logger.info('-----------------------------------------------------\n')
 
@@ -518,12 +614,7 @@ def hyperparameter_pipeline(threshold):
     """
 
     # Import the data.
-    df = import_data()
-    path = os.getcwd()
-
-    # Creates a column in our dataframe to classify into 3 separate buckets.  A 'small' and 'large' bucket
-    # based on the threshold, and a 'do not measure bucket' for anything with a KI value of > 4000   
-    df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
+    df = import_data(threshold)
 
     # Create the x and y values.  X = all the features.  y = the columns of buckets
     x = df[df.columns[1:573]]
@@ -542,7 +633,7 @@ def hyperparameter_pipeline(threshold):
     rfc_params = {'criterion': ['gini','entropy'], 'max_features': ['sqrt','log2',1.0,0.3], 'ccp_alpha': np.arange(0,0.3,0.1),
                   'n_estimators': np.arange(1,25,1), 'max_depth': np.arange(2,11,1)}
     knn_params = {'n_neighbors': np.arange(1,55,2), 'weights': ['uniform', 'distance'], 'leaf_size': np.arange(5,41,2),
-                  'p': [1, 2]}
+                  'p': [1, 2], 'keepdims': [False,True]}
     all_params = [rbf_params, xgb_params, rfc_params, knn_params]
 
     # Models and names
@@ -553,12 +644,12 @@ def hyperparameter_pipeline(threshold):
     # Classifier Training for all 3 classifiers.
     for name, model, params in zip(names, models, all_params):
         logger.info('GridSearchCV on %s:\n' %(name))
-        if os.path.exists(path + '/%s/' %(name)) == False:
+        if os.path.exists(PATH + '/%s/' %(name)) == False:
             os.mkdir('%s' %(name))
-        if os.path.exists(path + '/%s/Initial Hyperparameter Tuning' %(name)) == False:
+        if os.path.exists(PATH + '/%s/Initial Hyperparameter Tuning' %(name)) == False:
             os.mkdir('%s/Initial Hyperparameter Tuning' %(name))
         results, model, scores_hp = classifier_trainer(x, y, params, model=model)
-        results.to_csv(path + '/%s/Initial Hyperparameter Tuning/%s Initial Hyperparameter Tuning at Threshold %2.2f.csv'
+        results.to_csv(PATH + '/%s/Initial Hyperparameter Tuning/%s Initial Hyperparameter Tuning at Threshold %2.2f.csv'
                        %(name, name, threshold))
 
 # Use argparse to pass various thresholds.
@@ -569,16 +660,24 @@ parser.add_argument('-ht', '--hyperparameter_test', help='hyperparameter_test = 
                     type=float)
 parser.add_argument('-reg', '--regressor', help='regressor = perform the regression section of the code once we have finished with '
                     'the classification section of the pipeline', action='store_true')
+parser.add_argument('-st', '--store_file', help='store_file = stores the extracted files into a csv', action='store_true')
            
 args = parser.parse_args()
 
 threshold = args.threshold
 hyperparameter_test = args.hyperparameter_test
+extract_file = args.store_file
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
 if threshold != None:
-    logger = log_files('Threshold %2.2f.log' %(threshold))
+    if os.path.exists(PATH + '/Bucket Classifier Logs') == False:
+        os.mkdir('Bucket Classifier Logs')
+    # remove old log file.
+    #os.remove(PATH + '/Bucket Classifier Logs/Threshold %2.2f.log' %(threshold))
+    logger = log_files(PATH + '/Bucket Classifier Logs/Threshold %2.2f.log' %(threshold))
     threshold_finder(threshold)
 elif hyperparameter_test != None:
-    logger = log_files('HP_Test.log')
+    logger = log_files(PATH + '/Log Files/HP_Test.log')
     hyperparameter_pipeline(hyperparameter_test)
+elif extract_file == True:
+    df = import_data(threshold=10)
