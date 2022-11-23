@@ -1,7 +1,7 @@
 for n in 0.01 0.1;
 do
     echo 'Threshold level' $n 'starting'
-    python ./bucket_classifier.py -t $n
+    python ./sfs_bucket_classifier.py -t $n
     python ./rfe_bucket_classifier.py -t $n
     #python ./bucket_classifier.py -pca $n
     #python ./bucket_classifier.py -ht $n
