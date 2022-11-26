@@ -6,4 +6,4 @@
 4,SVC with Linear Kernel,PCA 85% variance,20,0.9056137176309347,0.021994303280764776,0.6245671824432446,0.22138902794548795,"{'C': 51, 'break_ties': True, 'class_weight': None, 'gamma': 0.1}"
 5,SVC with Linear Kernel,PCA 90% variance,20,0.8578044968224084,0.03584933850664912,0.6125161691182377,0.2194851186304606,"{'C': 6, 'break_ties': False, 'class_weight': None, 'gamma': 0.1}"
 6,SVC with Linear Kernel,PCA 95% variance,20,0.9172287182559211,0.036154352549918174,0.6480838995551078,0.21352493813615137,"{'C': 6, 'break_ties': True, 'class_weight': None, 'gamma': 0.1}"
-7,SVC with Linear Kernel,PCA 100% variance,20,0.9241358532219867,0.024161804850698847,0.6178623734356684,0.22301654768754758,"{'C': 1, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 0.1}"
+7,SVC with Linear Kernel,PCA 100% variance,20,0.9241358532219867,0.024161804850698847,0.6432253194815261,0.20337269358130788,"{'C': 1, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 0.1}"

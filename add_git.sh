@@ -18,6 +18,7 @@ git add "RFE Extracted Features"
 git add "SFS Bucket Classifier Logs"
 git add "SFS Extracted Features"
 git add "SVC with RBF Kernel"
+git add "SVC with Linear Kernel"
 git add "XGBoost Classifier"
 
 # bash scripts
