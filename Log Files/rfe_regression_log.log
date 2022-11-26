@@ -463,3 +463,468 @@
 2022-11-08 23:39:00,199 | INFO | After removing predicted >4000 values.
 2022-11-08 23:39:00,199 | INFO | AVG Training RMSE: 3131434.589, AVG Training RMSE (log): 2.006, AVG Validation RMSE: 1710004.788, AVG Validation RMSE (log): 2.567
 
+2022-11-25 17:36:05,338 | INFO | Classification + Regression Pipeline using SVC with Linear Kernel.
+
+2022-11-25 17:36:06,198 | INFO | Model Results for SVR with RBF Kernel:
+2022-11-25 17:36:06,199 | INFO | ---------------------
+
+2022-11-25 17:36:06,200 | INFO | Hyperparameters for the small bucket regression model:
+2022-11-25 17:36:10,344 | INFO | Best parameter set: {'C': 16, 'epsilon': 0.1, 'gamma': 'auto'}
+2022-11-25 17:36:10,344 | INFO | -------------------------
+
+2022-11-25 17:36:10,345 | INFO | Hyperparameters for the medium bucket regression model:
+2022-11-25 17:36:11,207 | INFO | Best parameter set: {'C': 16, 'epsilon': 0.1, 'gamma': 'auto'}
+2022-11-25 17:36:11,208 | INFO | -------------------------
+
+2022-11-25 17:36:11,227 | INFO | Fold 1
+2022-11-25 17:36:11,227 | INFO | Classifier Training MCC: 0.936, Classifier Validation MCC: 0.763
+2022-11-25 17:36:11,228 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:11,228 | INFO | Training RMSE: 3848537.714, Training RMSE (log): 1.415, Validation RMSE: 469890.247, Validation RMSE (log): 2.055
+2022-11-25 17:36:11,229 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:11,229 | INFO | Training RMSE: 465.094, Training RMSE (log): 0.873, Validation RMSE: 469890.247, Validation RMSE (log): 2.055
+2022-11-25 17:36:11,246 | INFO | Fold 2
+2022-11-25 17:36:11,246 | INFO | Classifier Training MCC: 0.936, Classifier Validation MCC: 0.882
+2022-11-25 17:36:11,247 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:11,247 | INFO | Training RMSE: 3855937.294, Training RMSE (log): 1.526, Validation RMSE: 19740.556, Validation RMSE (log): 1.545
+2022-11-25 17:36:11,247 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:11,248 | INFO | Training RMSE: 511.315, Training RMSE (log): 0.935, Validation RMSE: 171.194, Validation RMSE (log): 1.249
+2022-11-25 17:36:11,264 | INFO | Fold 3
+2022-11-25 17:36:11,264 | INFO | Classifier Training MCC: 0.968, Classifier Validation MCC: 0.882
+2022-11-25 17:36:11,264 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:11,265 | INFO | Training RMSE: 3850777.698, Training RMSE (log): 1.450, Validation RMSE: 392609.296, Validation RMSE (log): 1.781
+2022-11-25 17:36:11,265 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:11,265 | INFO | Training RMSE: 521.801, Training RMSE (log): 0.873, Validation RMSE: 110.589, Validation RMSE (log): 1.373
+2022-11-25 17:36:11,281 | INFO | Fold 4
+2022-11-25 17:36:11,281 | INFO | Classifier Training MCC: 0.969, Classifier Validation MCC: 0.586
+2022-11-25 17:36:11,281 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:11,281 | INFO | Training RMSE: 3823129.585, Training RMSE (log): 1.535, Validation RMSE: 10752.408, Validation RMSE (log): 1.881
+2022-11-25 17:36:11,282 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:11,282 | INFO | Training RMSE: 47.264, Training RMSE (log): 0.888, Validation RMSE: 1112.804, Validation RMSE (log): 1.804
+2022-11-25 17:36:11,297 | INFO | Fold 5
+2022-11-25 17:36:11,297 | INFO | Classifier Training MCC: 0.938, Classifier Validation MCC: 0.865
+2022-11-25 17:36:11,298 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:11,298 | INFO | Training RMSE: 308962.325, Training RMSE (log): 1.425, Validation RMSE: 7822734.631, Validation RMSE (log): 2.437
+2022-11-25 17:36:11,298 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:11,298 | INFO | Training RMSE: 470.624, Training RMSE (log): 0.932, Validation RMSE: 7214.979, Validation RMSE (log): 2.115
+2022-11-25 17:36:11,298 | INFO | Averaged Results:
+2022-11-25 17:36:11,299 | INFO | ---------------------------------------------------------------------------------------------
+
+2022-11-25 17:36:11,299 | INFO | AVG Classifier Training MCC: 0.950, AVG Classifier Validation MCC: 0.796
+2022-11-25 17:36:11,299 | INFO | Without removing any of the >4000 values.
+2022-11-25 17:36:11,299 | INFO | AVG Training RMSE: 3137468.923, AVG training RMSE (log): 1.470, AVG Validation RMSE: 1743145.428, AVG Validation RMSE (log): 1.940
+
+2022-11-25 17:36:11,300 | INFO | After removing predicted >4000 values.
+2022-11-25 17:36:11,300 | INFO | AVG Training RMSE: 403.220, AVG Training RMSE (log): 0.900, AVG Validation RMSE: 95699.963, AVG Validation RMSE (log): 1.719
+
+2022-11-25 17:36:11,301 | INFO | Model Results for SVR with Linear Kernel:
+2022-11-25 17:36:11,302 | INFO | ---------------------
+
+2022-11-25 17:36:11,302 | INFO | Hyperparameters for the small bucket regression model:
+2022-11-25 17:36:12,586 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.1, 'gamma': 'scale'}
+2022-11-25 17:36:12,586 | INFO | -------------------------
+
+2022-11-25 17:36:12,586 | INFO | Hyperparameters for the medium bucket regression model:
+2022-11-25 17:36:13,872 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.1, 'gamma': 'scale'}
+2022-11-25 17:36:13,872 | INFO | -------------------------
+
+2022-11-25 17:36:13,889 | INFO | Fold 1
+2022-11-25 17:36:13,889 | INFO | Classifier Training MCC: 0.936, Classifier Validation MCC: 0.763
+2022-11-25 17:36:13,889 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:13,889 | INFO | Training RMSE: 3848537.710, Training RMSE (log): 1.403, Validation RMSE: 469887.154, Validation RMSE (log): 2.069
+2022-11-25 17:36:13,889 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:13,890 | INFO | Training RMSE: 421.750, Training RMSE (log): 0.851, Validation RMSE: 469887.154, Validation RMSE (log): 2.069
+2022-11-25 17:36:13,905 | INFO | Fold 2
+2022-11-25 17:36:13,905 | INFO | Classifier Training MCC: 0.936, Classifier Validation MCC: 0.882
+2022-11-25 17:36:13,905 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:13,906 | INFO | Training RMSE: 3855937.291, Training RMSE (log): 1.505, Validation RMSE: 19742.645, Validation RMSE (log): 1.573
+2022-11-25 17:36:13,906 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:13,906 | INFO | Training RMSE: 487.176, Training RMSE (log): 0.895, Validation RMSE: 352.861, Validation RMSE (log): 1.288
+2022-11-25 17:36:13,924 | INFO | Fold 3
+2022-11-25 17:36:13,925 | INFO | Classifier Training MCC: 0.968, Classifier Validation MCC: 0.882
+2022-11-25 17:36:13,925 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:13,925 | INFO | Training RMSE: 3850777.697, Training RMSE (log): 1.429, Validation RMSE: 392609.300, Validation RMSE (log): 1.793
+2022-11-25 17:36:13,925 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:13,925 | INFO | Training RMSE: 515.555, Training RMSE (log): 0.833, Validation RMSE: 126.381, Validation RMSE (log): 1.393
+2022-11-25 17:36:13,941 | INFO | Fold 4
+2022-11-25 17:36:13,941 | INFO | Classifier Training MCC: 0.969, Classifier Validation MCC: 0.586
+2022-11-25 17:36:13,941 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:13,942 | INFO | Training RMSE: 3823129.584, Training RMSE (log): 1.517, Validation RMSE: 10752.851, Validation RMSE (log): 1.873
+2022-11-25 17:36:13,942 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:13,942 | INFO | Training RMSE: 44.980, Training RMSE (log): 0.850, Validation RMSE: 1117.400, Validation RMSE (log): 1.795
+2022-11-25 17:36:13,957 | INFO | Fold 5
+2022-11-25 17:36:13,958 | INFO | Classifier Training MCC: 0.938, Classifier Validation MCC: 0.865
+2022-11-25 17:36:13,958 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:13,958 | INFO | Training RMSE: 308962.245, Training RMSE (log): 1.410, Validation RMSE: 7822734.631, Validation RMSE (log): 2.526
+2022-11-25 17:36:13,958 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:13,958 | INFO | Training RMSE: 406.676, Training RMSE (log): 0.905, Validation RMSE: 7214.886, Validation RMSE (log): 2.224
+2022-11-25 17:36:13,959 | INFO | Averaged Results:
+2022-11-25 17:36:13,959 | INFO | ---------------------------------------------------------------------------------------------
+
+2022-11-25 17:36:13,959 | INFO | AVG Classifier Training MCC: 0.950, AVG Classifier Validation MCC: 0.796
+2022-11-25 17:36:13,959 | INFO | Without removing any of the >4000 values.
+2022-11-25 17:36:13,959 | INFO | AVG Training RMSE: 3137468.906, AVG training RMSE (log): 1.453, AVG Validation RMSE: 1743145.316, AVG Validation RMSE (log): 1.967
+
+2022-11-25 17:36:13,960 | INFO | After removing predicted >4000 values.
+2022-11-25 17:36:13,960 | INFO | AVG Training RMSE: 375.228, AVG Training RMSE (log): 0.867, AVG Validation RMSE: 95739.737, AVG Validation RMSE (log): 1.754
+
+2022-11-25 17:36:13,961 | INFO | Model Results for Lasso Regression:
+2022-11-25 17:36:13,961 | INFO | ---------------------
+
+2022-11-25 17:36:13,962 | INFO | Hyperparameters for the small bucket regression model:
+2022-11-25 17:36:14,027 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'cyclic'}
+2022-11-25 17:36:14,027 | INFO | -------------------------
+
+2022-11-25 17:36:14,028 | INFO | Hyperparameters for the medium bucket regression model:
+2022-11-25 17:36:14,092 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'cyclic'}
+2022-11-25 17:36:14,092 | INFO | -------------------------
+
+2022-11-25 17:36:14,109 | INFO | Fold 1
+2022-11-25 17:36:14,109 | INFO | Classifier Training MCC: 0.936, Classifier Validation MCC: 0.763
+2022-11-25 17:36:14,110 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:14,110 | INFO | Training RMSE: 3848537.725, Training RMSE (log): 1.607, Validation RMSE: 469900.165, Validation RMSE (log): 2.169
+2022-11-25 17:36:14,110 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:14,110 | INFO | Training RMSE: 555.731, Training RMSE (log): 1.192, Validation RMSE: 469900.165, Validation RMSE (log): 2.169
+2022-11-25 17:36:14,126 | INFO | Fold 2
+2022-11-25 17:36:14,126 | INFO | Classifier Training MCC: 0.936, Classifier Validation MCC: 0.882
+2022-11-25 17:36:14,126 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:14,126 | INFO | Training RMSE: 3855937.299, Training RMSE (log): 1.726, Validation RMSE: 19739.955, Validation RMSE (log): 1.524
+2022-11-25 17:36:14,127 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:14,127 | INFO | Training RMSE: 553.615, Training RMSE (log): 1.270, Validation RMSE: 43.862, Validation RMSE (log): 1.219
+2022-11-25 17:36:14,143 | INFO | Fold 3
+2022-11-25 17:36:14,143 | INFO | Classifier Training MCC: 0.968, Classifier Validation MCC: 0.882
+2022-11-25 17:36:14,143 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:14,143 | INFO | Training RMSE: 3850777.702, Training RMSE (log): 1.622, Validation RMSE: 392609.290, Validation RMSE (log): 1.814
+2022-11-25 17:36:14,143 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:14,144 | INFO | Training RMSE: 556.885, Training RMSE (log): 1.167, Validation RMSE: 81.785, Validation RMSE (log): 1.423
+2022-11-25 17:36:14,159 | INFO | Fold 4
+2022-11-25 17:36:14,160 | INFO | Classifier Training MCC: 0.969, Classifier Validation MCC: 0.586
+2022-11-25 17:36:14,160 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:14,160 | INFO | Training RMSE: 3823129.586, Training RMSE (log): 1.702, Validation RMSE: 10752.110, Validation RMSE (log): 1.926
+2022-11-25 17:36:14,160 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:14,160 | INFO | Training RMSE: 126.143, Training RMSE (log): 1.188, Validation RMSE: 1109.699, Validation RMSE (log): 1.854
+2022-11-25 17:36:14,176 | INFO | Fold 5
+2022-11-25 17:36:14,176 | INFO | Classifier Training MCC: 0.938, Classifier Validation MCC: 0.865
+2022-11-25 17:36:14,177 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:14,177 | INFO | Training RMSE: 308962.436, Training RMSE (log): 1.619, Validation RMSE: 7822734.631, Validation RMSE (log): 2.289
+2022-11-25 17:36:14,177 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:14,177 | INFO | Training RMSE: 546.847, Training RMSE (log): 1.240, Validation RMSE: 7214.751, Validation RMSE (log): 1.929
+2022-11-25 17:36:14,177 | INFO | Averaged Results:
+2022-11-25 17:36:14,177 | INFO | ---------------------------------------------------------------------------------------------
+
+2022-11-25 17:36:14,178 | INFO | AVG Classifier Training MCC: 0.950, AVG Classifier Validation MCC: 0.796
+2022-11-25 17:36:14,178 | INFO | Without removing any of the >4000 values.
+2022-11-25 17:36:14,178 | INFO | AVG Training RMSE: 3137468.950, AVG training RMSE (log): 1.655, AVG Validation RMSE: 1743147.230, AVG Validation RMSE (log): 1.944
+
+2022-11-25 17:36:14,178 | INFO | After removing predicted >4000 values.
+2022-11-25 17:36:14,178 | INFO | AVG Training RMSE: 467.844, AVG Training RMSE (log): 1.212, AVG Validation RMSE: 95670.052, AVG Validation RMSE (log): 1.719
+
+2022-11-25 17:36:14,180 | INFO | Classification + Regression Pipeline using XGBoost Classifier.
+
+2022-11-25 17:36:14,837 | INFO | Model Results for SVR with RBF Kernel:
+2022-11-25 17:36:14,837 | INFO | ---------------------
+
+2022-11-25 17:36:14,837 | INFO | Hyperparameters for the small bucket regression model:
+2022-11-25 17:36:15,712 | INFO | Best parameter set: {'C': 11, 'epsilon': 0.8, 'gamma': 'auto'}
+2022-11-25 17:36:15,712 | INFO | -------------------------
+
+2022-11-25 17:36:15,712 | INFO | Hyperparameters for the medium bucket regression model:
+2022-11-25 17:36:16,520 | INFO | Best parameter set: {'C': 11, 'epsilon': 0.8, 'gamma': 'auto'}
+2022-11-25 17:36:16,520 | INFO | -------------------------
+
+2022-11-25 17:36:16,547 | INFO | Fold 1
+2022-11-25 17:36:16,547 | INFO | Classifier Training MCC: 0.591, Classifier Validation MCC: 0.189
+2022-11-25 17:36:16,547 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:16,547 | INFO | Training RMSE: 311598.469, Training RMSE (log): 1.706, Validation RMSE: 7557466.444, Validation RMSE (log): 2.075
+2022-11-25 17:36:16,547 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:16,547 | INFO | Training RMSE: 314275.180, Training RMSE (log): 1.684, Validation RMSE: 7557466.444, Validation RMSE (log): 2.075
+2022-11-25 17:36:16,574 | INFO | Fold 2
+2022-11-25 17:36:16,574 | INFO | Classifier Training MCC: 0.693, Classifier Validation MCC: 0.622
+2022-11-25 17:36:16,574 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:16,574 | INFO | Training RMSE: 3850221.963, Training RMSE (log): 1.686, Validation RMSE: 413096.700, Validation RMSE (log): 1.889
+2022-11-25 17:36:16,574 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:16,575 | INFO | Training RMSE: 9098.952, Training RMSE (log): 1.431, Validation RMSE: 413096.700, Validation RMSE (log): 1.889
+2022-11-25 17:36:16,601 | INFO | Fold 3
+2022-11-25 17:36:16,601 | INFO | Classifier Training MCC: 0.703, Classifier Validation MCC: 0.389
+2022-11-25 17:36:16,601 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:16,601 | INFO | Training RMSE: 3849094.065, Training RMSE (log): 1.758, Validation RMSE: 451960.991, Validation RMSE (log): 2.163
+2022-11-25 17:36:16,601 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:16,602 | INFO | Training RMSE: 71732.156, Training RMSE (log): 1.534, Validation RMSE: 10679.255, Validation RMSE (log): 1.965
+2022-11-25 17:36:16,628 | INFO | Fold 4
+2022-11-25 17:36:16,628 | INFO | Classifier Training MCC: 0.674, Classifier Validation MCC: 0.714
+2022-11-25 17:36:16,628 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:16,628 | INFO | Training RMSE: 3823124.065, Training RMSE (log): 1.903, Validation RMSE: 16300.805, Validation RMSE (log): 1.617
+2022-11-25 17:36:16,628 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:16,628 | INFO | Training RMSE: 252374.944, Training RMSE (log): 1.659, Validation RMSE: 16916.140, Validation RMSE (log): 1.674
+2022-11-25 17:36:16,654 | INFO | Fold 5
+2022-11-25 17:36:16,654 | INFO | Classifier Training MCC: 0.744, Classifier Validation MCC: 0.760
+2022-11-25 17:36:16,655 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:16,655 | INFO | Training RMSE: 3823124.533, Training RMSE (log): 1.799, Validation RMSE: 16720.432, Validation RMSE (log): 1.706
+2022-11-25 17:36:16,655 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:16,655 | INFO | Training RMSE: 70015.887, Training RMSE (log): 1.466, Validation RMSE: 80.918, Validation RMSE (log): 1.605
+2022-11-25 17:36:16,655 | INFO | Averaged Results:
+2022-11-25 17:36:16,655 | INFO | ---------------------------------------------------------------------------------------------
+
+2022-11-25 17:36:16,656 | INFO | AVG Classifier Training MCC: 0.681, AVG Classifier Validation MCC: 0.535
+2022-11-25 17:36:16,656 | INFO | Without removing any of the >4000 values.
+2022-11-25 17:36:16,656 | INFO | AVG Training RMSE: 3131432.619, AVG training RMSE (log): 1.771, AVG Validation RMSE: 1691109.074, AVG Validation RMSE (log): 1.890
+
+2022-11-25 17:36:16,656 | INFO | After removing predicted >4000 values.
+2022-11-25 17:36:16,656 | INFO | AVG Training RMSE: 143499.424, AVG Training RMSE (log): 1.555, AVG Validation RMSE: 1599647.891, AVG Validation RMSE (log): 1.842
+
+2022-11-25 17:36:16,659 | INFO | Model Results for SVR with Linear Kernel:
+2022-11-25 17:36:16,659 | INFO | ---------------------
+
+2022-11-25 17:36:16,659 | INFO | Hyperparameters for the small bucket regression model:
+2022-11-25 17:36:17,478 | INFO | Best parameter set: {'C': 21, 'epsilon': 0.9, 'gamma': 'scale'}
+2022-11-25 17:36:17,478 | INFO | -------------------------
+
+2022-11-25 17:36:17,478 | INFO | Hyperparameters for the medium bucket regression model:
+2022-11-25 17:36:18,290 | INFO | Best parameter set: {'C': 21, 'epsilon': 0.9, 'gamma': 'scale'}
+2022-11-25 17:36:18,290 | INFO | -------------------------
+
+2022-11-25 17:36:18,314 | INFO | Fold 1
+2022-11-25 17:36:18,315 | INFO | Classifier Training MCC: 0.591, Classifier Validation MCC: 0.189
+2022-11-25 17:36:18,315 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:18,315 | INFO | Training RMSE: 311565.074, Training RMSE (log): 1.687, Validation RMSE: 7557415.148, Validation RMSE (log): 2.021
+2022-11-25 17:36:18,315 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:18,315 | INFO | Training RMSE: 314241.488, Training RMSE (log): 1.664, Validation RMSE: 7557415.148, Validation RMSE (log): 2.021
+2022-11-25 17:36:18,344 | INFO | Fold 2
+2022-11-25 17:36:18,344 | INFO | Classifier Training MCC: 0.693, Classifier Validation MCC: 0.622
+2022-11-25 17:36:18,344 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:18,344 | INFO | Training RMSE: 3850221.896, Training RMSE (log): 1.695, Validation RMSE: 413071.639, Validation RMSE (log): 2.022
+2022-11-25 17:36:18,344 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:18,345 | INFO | Training RMSE: 9067.932, Training RMSE (log): 1.442, Validation RMSE: 413071.639, Validation RMSE (log): 2.022
+2022-11-25 17:36:18,370 | INFO | Fold 3
+2022-11-25 17:36:18,370 | INFO | Classifier Training MCC: 0.703, Classifier Validation MCC: 0.389
+2022-11-25 17:36:18,370 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:18,370 | INFO | Training RMSE: 3849094.035, Training RMSE (log): 1.811, Validation RMSE: 451959.822, Validation RMSE (log): 2.279
+2022-11-25 17:36:18,371 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:18,371 | INFO | Training RMSE: 71730.190, Training RMSE (log): 1.605, Validation RMSE: 10626.131, Validation RMSE (log): 2.101
+2022-11-25 17:36:18,396 | INFO | Fold 4
+2022-11-25 17:36:18,397 | INFO | Classifier Training MCC: 0.674, Classifier Validation MCC: 0.714
+2022-11-25 17:36:18,397 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:18,397 | INFO | Training RMSE: 3823124.065, Training RMSE (log): 1.957, Validation RMSE: 16300.805, Validation RMSE (log): 1.711
+2022-11-25 17:36:18,397 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:18,397 | INFO | Training RMSE: 252374.943, Training RMSE (log): 1.728, Validation RMSE: 16916.140, Validation RMSE (log): 1.771
+2022-11-25 17:36:18,426 | INFO | Fold 5
+2022-11-25 17:36:18,427 | INFO | Classifier Training MCC: 0.744, Classifier Validation MCC: 0.760
+2022-11-25 17:36:18,427 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:18,427 | INFO | Training RMSE: 3823124.534, Training RMSE (log): 1.852, Validation RMSE: 16720.424, Validation RMSE (log): 1.752
+2022-11-25 17:36:18,427 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:18,427 | INFO | Training RMSE: 70015.959, Training RMSE (log): 1.541, Validation RMSE: 78.554, Validation RMSE (log): 1.673
+2022-11-25 17:36:18,428 | INFO | Averaged Results:
+2022-11-25 17:36:18,428 | INFO | ---------------------------------------------------------------------------------------------
+
+2022-11-25 17:36:18,428 | INFO | AVG Classifier Training MCC: 0.681, AVG Classifier Validation MCC: 0.535
+2022-11-25 17:36:18,428 | INFO | Without removing any of the >4000 values.
+2022-11-25 17:36:18,428 | INFO | AVG Training RMSE: 3131425.921, AVG training RMSE (log): 1.800, AVG Validation RMSE: 1691093.568, AVG Validation RMSE (log): 1.957
+
+2022-11-25 17:36:18,428 | INFO | After removing predicted >4000 values.
+2022-11-25 17:36:18,429 | INFO | AVG Training RMSE: 143486.103, AVG Training RMSE (log): 1.596, AVG Validation RMSE: 1599621.523, AVG Validation RMSE (log): 1.918
+
+2022-11-25 17:36:18,431 | INFO | Model Results for Lasso Regression:
+2022-11-25 17:36:18,431 | INFO | ---------------------
+
+2022-11-25 17:36:18,431 | INFO | Hyperparameters for the small bucket regression model:
+2022-11-25 17:36:18,509 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'cyclic'}
+2022-11-25 17:36:18,509 | INFO | -------------------------
+
+2022-11-25 17:36:18,509 | INFO | Hyperparameters for the medium bucket regression model:
+2022-11-25 17:36:18,577 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'cyclic'}
+2022-11-25 17:36:18,577 | INFO | -------------------------
+
+2022-11-25 17:36:18,603 | INFO | Fold 1
+2022-11-25 17:36:18,603 | INFO | Classifier Training MCC: 0.591, Classifier Validation MCC: 0.189
+2022-11-25 17:36:18,603 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:18,603 | INFO | Training RMSE: 311598.308, Training RMSE (log): 1.785, Validation RMSE: 7557456.783, Validation RMSE (log): 2.074
+2022-11-25 17:36:18,603 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:18,604 | INFO | Training RMSE: 314275.017, Training RMSE (log): 1.765, Validation RMSE: 7557456.783, Validation RMSE (log): 2.074
+2022-11-25 17:36:18,630 | INFO | Fold 2
+2022-11-25 17:36:18,630 | INFO | Classifier Training MCC: 0.693, Classifier Validation MCC: 0.622
+2022-11-25 17:36:18,630 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:18,631 | INFO | Training RMSE: 3850221.996, Training RMSE (log): 1.731, Validation RMSE: 413127.432, Validation RMSE (log): 2.045
+2022-11-25 17:36:18,631 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:18,631 | INFO | Training RMSE: 9114.195, Training RMSE (log): 1.488, Validation RMSE: 413127.432, Validation RMSE (log): 2.045
+2022-11-25 17:36:18,658 | INFO | Fold 3
+2022-11-25 17:36:18,658 | INFO | Classifier Training MCC: 0.703, Classifier Validation MCC: 0.389
+2022-11-25 17:36:18,659 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:18,659 | INFO | Training RMSE: 3849094.073, Training RMSE (log): 1.862, Validation RMSE: 451960.868, Validation RMSE (log): 1.850
+2022-11-25 17:36:18,659 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:18,659 | INFO | Training RMSE: 71732.636, Training RMSE (log): 1.672, Validation RMSE: 10673.678, Validation RMSE (log): 1.586
+2022-11-25 17:36:18,686 | INFO | Fold 4
+2022-11-25 17:36:18,686 | INFO | Classifier Training MCC: 0.674, Classifier Validation MCC: 0.714
+2022-11-25 17:36:18,686 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:18,686 | INFO | Training RMSE: 3823124.212, Training RMSE (log): 1.958, Validation RMSE: 16306.136, Validation RMSE (log): 1.401
+2022-11-25 17:36:18,686 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:18,687 | INFO | Training RMSE: 252377.464, Training RMSE (log): 1.729, Validation RMSE: 16921.672, Validation RMSE (log): 1.449
+2022-11-25 17:36:18,713 | INFO | Fold 5
+2022-11-25 17:36:18,713 | INFO | Classifier Training MCC: 0.744, Classifier Validation MCC: 0.760
+2022-11-25 17:36:18,713 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:18,713 | INFO | Training RMSE: 3823124.537, Training RMSE (log): 1.880, Validation RMSE: 16720.303, Validation RMSE (log): 1.752
+2022-11-25 17:36:18,714 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:18,714 | INFO | Training RMSE: 70016.143, Training RMSE (log): 1.579, Validation RMSE: 22.783, Validation RMSE (log): 1.673
+2022-11-25 17:36:18,714 | INFO | Averaged Results:
+2022-11-25 17:36:18,714 | INFO | ---------------------------------------------------------------------------------------------
+
+2022-11-25 17:36:18,714 | INFO | AVG Classifier Training MCC: 0.681, AVG Classifier Validation MCC: 0.535
+2022-11-25 17:36:18,715 | INFO | Without removing any of the >4000 values.
+2022-11-25 17:36:18,715 | INFO | AVG Training RMSE: 3131432.625, AVG training RMSE (log): 1.843, AVG Validation RMSE: 1691114.304, AVG Validation RMSE (log): 1.824
+
+2022-11-25 17:36:18,715 | INFO | After removing predicted >4000 values.
+2022-11-25 17:36:18,715 | INFO | AVG Training RMSE: 143503.091, AVG Training RMSE (log): 1.647, AVG Validation RMSE: 1599640.469, AVG Validation RMSE (log): 1.766
+
+2022-11-25 17:36:18,717 | INFO | Classification + Regression Pipeline using Random Forest Classifier.
+
+2022-11-25 17:36:19,425 | INFO | Model Results for SVR with RBF Kernel:
+2022-11-25 17:36:19,425 | INFO | ---------------------
+
+2022-11-25 17:36:19,425 | INFO | Hyperparameters for the small bucket regression model:
+2022-11-25 17:36:20,428 | INFO | Best parameter set: {'C': 26, 'epsilon': 0.2, 'gamma': 'scale'}
+2022-11-25 17:36:20,428 | INFO | -------------------------
+
+2022-11-25 17:36:20,429 | INFO | Hyperparameters for the medium bucket regression model:
+2022-11-25 17:36:21,426 | INFO | Best parameter set: {'C': 26, 'epsilon': 0.2, 'gamma': 'scale'}
+2022-11-25 17:36:21,426 | INFO | -------------------------
+
+2022-11-25 17:36:21,452 | INFO | Fold 1
+2022-11-25 17:36:21,452 | INFO | Classifier Training MCC: 0.803, Classifier Validation MCC: 0.761
+2022-11-25 17:36:21,452 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:21,453 | INFO | Training RMSE: 3848537.676, Training RMSE (log): 1.461, Validation RMSE: 469924.411, Validation RMSE (log): 2.270
+2022-11-25 17:36:21,453 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:21,453 | INFO | Training RMSE: 5541.218, Training RMSE (log): 1.017, Validation RMSE: 133630.586, Validation RMSE (log): 2.091
+2022-11-25 17:36:21,477 | INFO | Fold 2
+2022-11-25 17:36:21,478 | INFO | Classifier Training MCC: 0.871, Classifier Validation MCC: -0.136
+2022-11-25 17:36:21,478 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:21,478 | INFO | Training RMSE: 3855937.275, Training RMSE (log): 1.445, Validation RMSE: 19746.699, Validation RMSE (log): 2.659
+2022-11-25 17:36:21,478 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:21,478 | INFO | Training RMSE: 5928.554, Training RMSE (log): 0.860, Validation RMSE: 20439.774, Validation RMSE (log): 2.632
+2022-11-25 17:36:21,504 | INFO | Fold 3
+2022-11-25 17:36:21,504 | INFO | Classifier Training MCC: 0.771, Classifier Validation MCC: 0.493
+2022-11-25 17:36:21,504 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:21,504 | INFO | Training RMSE: 3850777.744, Training RMSE (log): 1.783, Validation RMSE: 392608.523, Validation RMSE (log): 1.818
+2022-11-25 17:36:21,504 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:21,505 | INFO | Training RMSE: 69339.686, Training RMSE (log): 1.482, Validation RMSE: 11271.824, Validation RMSE (log): 1.555
+2022-11-25 17:36:21,530 | INFO | Fold 4
+2022-11-25 17:36:21,530 | INFO | Classifier Training MCC: 0.710, Classifier Validation MCC: 0.099
+2022-11-25 17:36:21,531 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:21,531 | INFO | Training RMSE: 3823129.620, Training RMSE (log): 1.819, Validation RMSE: 10727.912, Validation RMSE (log): 1.969
+2022-11-25 17:36:21,531 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:21,531 | INFO | Training RMSE: 68375.341, Training RMSE (log): 1.508, Validation RMSE: 10727.912, Validation RMSE (log): 1.969
+2022-11-25 17:36:21,557 | INFO | Fold 5
+2022-11-25 17:36:21,557 | INFO | Classifier Training MCC: 0.746, Classifier Validation MCC: 0.267
+2022-11-25 17:36:21,557 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:21,557 | INFO | Training RMSE: 308962.433, Training RMSE (log): 1.556, Validation RMSE: 7822716.620, Validation RMSE (log): 2.696
+2022-11-25 17:36:21,558 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:21,558 | INFO | Training RMSE: 67945.252, Training RMSE (log): 1.319, Validation RMSE: 8118016.687, Validation RMSE (log): 2.775
+2022-11-25 17:36:21,558 | INFO | Averaged Results:
+2022-11-25 17:36:21,558 | INFO | ---------------------------------------------------------------------------------------------
+
+2022-11-25 17:36:21,558 | INFO | AVG Classifier Training MCC: 0.780, AVG Classifier Validation MCC: 0.297
+2022-11-25 17:36:21,559 | INFO | Without removing any of the >4000 values.
+2022-11-25 17:36:21,559 | INFO | AVG Training RMSE: 3137468.950, AVG training RMSE (log): 1.613, AVG Validation RMSE: 1743144.833, AVG Validation RMSE (log): 2.282
+
+2022-11-25 17:36:21,559 | INFO | After removing predicted >4000 values.
+2022-11-25 17:36:21,559 | INFO | AVG Training RMSE: 43426.010, AVG Training RMSE (log): 1.237, AVG Validation RMSE: 1658817.356, AVG Validation RMSE (log): 2.204
+
+2022-11-25 17:36:21,561 | INFO | Model Results for SVR with Linear Kernel:
+2022-11-25 17:36:21,561 | INFO | ---------------------
+
+2022-11-25 17:36:21,561 | INFO | Hyperparameters for the small bucket regression model:
+2022-11-25 17:36:22,474 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.9, 'gamma': 'scale'}
+2022-11-25 17:36:22,475 | INFO | -------------------------
+
+2022-11-25 17:36:22,475 | INFO | Hyperparameters for the medium bucket regression model:
+2022-11-25 17:36:23,385 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.9, 'gamma': 'scale'}
+2022-11-25 17:36:23,385 | INFO | -------------------------
+
+2022-11-25 17:36:23,412 | INFO | Fold 1
+2022-11-25 17:36:23,412 | INFO | Classifier Training MCC: 0.743, Classifier Validation MCC: 0.548
+2022-11-25 17:36:23,412 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:23,412 | INFO | Training RMSE: 3848537.725, Training RMSE (log): 1.699, Validation RMSE: 469924.425, Validation RMSE (log): 2.182
+2022-11-25 17:36:23,412 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:23,412 | INFO | Training RMSE: 6066.479, Training RMSE (log): 1.193, Validation RMSE: 150755.662, Validation RMSE (log): 1.851
+2022-11-25 17:36:23,438 | INFO | Fold 2
+2022-11-25 17:36:23,438 | INFO | Classifier Training MCC: 0.871, Classifier Validation MCC: 0.318
+2022-11-25 17:36:23,439 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:23,439 | INFO | Training RMSE: 3855937.341, Training RMSE (log): 1.672, Validation RMSE: 19644.541, Validation RMSE (log): 1.625
+2022-11-25 17:36:23,439 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:23,439 | INFO | Training RMSE: 68902.194, Training RMSE (log): 1.314, Validation RMSE: 19644.541, Validation RMSE (log): 1.625
+2022-11-25 17:36:23,464 | INFO | Fold 3
+2022-11-25 17:36:23,464 | INFO | Classifier Training MCC: 0.968, Classifier Validation MCC: 0.482
+2022-11-25 17:36:23,465 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:23,465 | INFO | Training RMSE: 3850777.740, Training RMSE (log): 1.429, Validation RMSE: 392609.429, Validation RMSE (log): 2.246
+2022-11-25 17:36:23,465 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:23,465 | INFO | Training RMSE: 69339.471, Training RMSE (log): 0.962, Validation RMSE: 11305.601, Validation RMSE (log): 2.069
+2022-11-25 17:36:23,491 | INFO | Fold 4
+2022-11-25 17:36:23,492 | INFO | Classifier Training MCC: 0.711, Classifier Validation MCC: 0.099
+2022-11-25 17:36:23,492 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:23,492 | INFO | Training RMSE: 3823129.631, Training RMSE (log): 1.983, Validation RMSE: 10728.257, Validation RMSE (log): 2.008
+2022-11-25 17:36:23,492 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:23,492 | INFO | Training RMSE: 68925.716, Training RMSE (log): 1.701, Validation RMSE: 10728.257, Validation RMSE (log): 2.008
+2022-11-25 17:36:23,518 | INFO | Fold 5
+2022-11-25 17:36:23,519 | INFO | Classifier Training MCC: 0.808, Classifier Validation MCC: 0.617
+2022-11-25 17:36:23,519 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:23,519 | INFO | Training RMSE: 308962.955, Training RMSE (log): 1.608, Validation RMSE: 7822668.594, Validation RMSE (log): 2.238
+2022-11-25 17:36:23,519 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:23,519 | INFO | Training RMSE: 68286.358, Training RMSE (log): 1.346, Validation RMSE: 8449444.457, Validation RMSE (log): 2.275
+2022-11-25 17:36:23,520 | INFO | Averaged Results:
+2022-11-25 17:36:23,520 | INFO | ---------------------------------------------------------------------------------------------
+
+2022-11-25 17:36:23,520 | INFO | AVG Classifier Training MCC: 0.820, AVG Classifier Validation MCC: 0.413
+2022-11-25 17:36:23,520 | INFO | Without removing any of the >4000 values.
+2022-11-25 17:36:23,520 | INFO | AVG Training RMSE: 3137469.078, AVG training RMSE (log): 1.678, AVG Validation RMSE: 1743115.049, AVG Validation RMSE (log): 2.060
+
+2022-11-25 17:36:23,521 | INFO | After removing predicted >4000 values.
+2022-11-25 17:36:23,521 | INFO | AVG Training RMSE: 56304.043, AVG Training RMSE (log): 1.303, AVG Validation RMSE: 1728375.704, AVG Validation RMSE (log): 1.966
+
+2022-11-25 17:36:23,522 | INFO | Model Results for Lasso Regression:
+2022-11-25 17:36:23,523 | INFO | ---------------------
+
+2022-11-25 17:36:23,523 | INFO | Hyperparameters for the small bucket regression model:
+2022-11-25 17:36:23,588 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'cyclic'}
+2022-11-25 17:36:23,589 | INFO | -------------------------
+
+2022-11-25 17:36:23,589 | INFO | Hyperparameters for the medium bucket regression model:
+2022-11-25 17:36:23,653 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'random'}
+2022-11-25 17:36:23,653 | INFO | -------------------------
+
+2022-11-25 17:36:23,681 | INFO | Fold 1
+2022-11-25 17:36:23,681 | INFO | Classifier Training MCC: 0.837, Classifier Validation MCC: 0.760
+2022-11-25 17:36:23,681 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:23,681 | INFO | Training RMSE: 3848537.699, Training RMSE (log): 1.557, Validation RMSE: 469924.409, Validation RMSE (log): 2.059
+2022-11-25 17:36:23,681 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:23,682 | INFO | Training RMSE: 8003.194, Training RMSE (log): 1.212, Validation RMSE: 133630.581, Validation RMSE (log): 1.842
+2022-11-25 17:36:23,708 | INFO | Fold 2
+2022-11-25 17:36:23,709 | INFO | Classifier Training MCC: 0.870, Classifier Validation MCC: -0.026
+2022-11-25 17:36:23,709 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:23,709 | INFO | Training RMSE: 3855937.252, Training RMSE (log): 1.470, Validation RMSE: 19715.923, Validation RMSE (log): 2.840
+2022-11-25 17:36:23,709 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:23,709 | INFO | Training RMSE: 5541.998, Training RMSE (log): 0.898, Validation RMSE: 20407.919, Validation RMSE (log): 2.828
+2022-11-25 17:36:23,735 | INFO | Fold 3
+2022-11-25 17:36:23,735 | INFO | Classifier Training MCC: 0.835, Classifier Validation MCC: 0.482
+2022-11-25 17:36:23,735 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:23,735 | INFO | Training RMSE: 3850777.717, Training RMSE (log): 1.606, Validation RMSE: 392609.425, Validation RMSE (log): 2.405
+2022-11-25 17:36:23,736 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:23,736 | INFO | Training RMSE: 68900.578, Training RMSE (log): 1.278, Validation RMSE: 11305.427, Validation RMSE (log): 2.253
+2022-11-25 17:36:23,761 | INFO | Fold 4
+2022-11-25 17:36:23,761 | INFO | Classifier Training MCC: 0.810, Classifier Validation MCC: -0.058
+2022-11-25 17:36:23,761 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:23,761 | INFO | Training RMSE: 3823129.630, Training RMSE (log): 1.843, Validation RMSE: 10735.620, Validation RMSE (log): 1.953
+2022-11-25 17:36:23,762 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:23,762 | INFO | Training RMSE: 68925.675, Training RMSE (log): 1.515, Validation RMSE: 10735.620, Validation RMSE (log): 1.953
+2022-11-25 17:36:23,788 | INFO | Fold 5
+2022-11-25 17:36:23,788 | INFO | Classifier Training MCC: 0.810, Classifier Validation MCC: 0.617
+2022-11-25 17:36:23,788 | INFO | Without removing any of the > 4000 values.
+2022-11-25 17:36:23,788 | INFO | Training RMSE: 308962.962, Training RMSE (log): 1.629, Validation RMSE: 7822734.599, Validation RMSE (log): 2.221
+2022-11-25 17:36:23,789 | INFO | After removing predicted > 4000 values.
+2022-11-25 17:36:23,789 | INFO | Training RMSE: 68682.481, Training RMSE (log): 1.337, Validation RMSE: 7467.533, Validation RMSE (log): 1.882
+2022-11-25 17:36:23,789 | INFO | Averaged Results:
+2022-11-25 17:36:23,789 | INFO | ---------------------------------------------------------------------------------------------
+
+2022-11-25 17:36:23,789 | INFO | AVG Classifier Training MCC: 0.832, AVG Classifier Validation MCC: 0.355
+2022-11-25 17:36:23,790 | INFO | Without removing any of the >4000 values.
+2022-11-25 17:36:23,790 | INFO | AVG Training RMSE: 3137469.052, AVG training RMSE (log): 1.621, AVG Validation RMSE: 1743143.995, AVG Validation RMSE (log): 2.296
+
+2022-11-25 17:36:23,790 | INFO | After removing predicted >4000 values.
+2022-11-25 17:36:23,790 | INFO | AVG Training RMSE: 44010.785, AVG Training RMSE (log): 1.248, AVG Validation RMSE: 36709.416, AVG Validation RMSE (log): 2.152
+

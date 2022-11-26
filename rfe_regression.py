@@ -326,13 +326,13 @@ def load_saved_clf():
 
     """
     # Create the models with the relevant hyperparameters.
-    lin = SVC(kernel='linear', C=1, break_ties=False, class_weight=None, gamma=0.1)
+    lin = SVC(kernel='linear', C=1, break_ties=True, class_weight=None, gamma=0.1)
     xgb = XGBClassifier(alpha=0.0, gamma=0, reg_lambda=1, max_depth=3, n_estimators=3, subsample=0.5)
-    rfc = RandomForestClassifier(ccp_alpha=0.2, criterion='entropy', max_depth=4, max_features=1.0, n_estimators=15)
+    rfc = RandomForestClassifier(ccp_alpha=0.2, criterion='entropy', max_depth=6, max_features=1.0, n_estimators=6)
     
     models = [lin, xgb, rfc]
-    thresholds = [10, 18, 0.01]
-    variances = [100, 75, False]
+    thresholds = [10, 18, 15]   # Changed Random Forest and SVC Linear
+    variances = [100, 75, 100]
     names = ['SVC with Linear Kernel', 'XGBoost Classifier', 'Random Forest Classifier']
 
     saved_clf = list(zip(thresholds, variances, names, models))
@@ -601,7 +601,7 @@ def graph_results():
     """ This function handles all of the graphing of our results."""
     
     # Import our results.
-    results_df = pd.read_csv('Results.csv')
+    results_df = pd.read_csv(PATH + '/Results/rfe_results.csv')
     results_df = results_df.iloc[:,1:]
 
     # Running the results:

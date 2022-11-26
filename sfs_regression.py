@@ -331,11 +331,11 @@ def load_saved_clf():
     # Create the models with the relevant hyperparameters.
     rbf = SVC(kernel='rbf', C=21, break_ties=False, class_weight=None, gamma='auto')
     xgb = XGBClassifier(alpha=0.0, gamma=0, reg_lambda=1, max_depth=3, n_estimators=13, subsample=1)
-    rfc = RandomForestClassifier(ccp_alpha=0.0, criterion='entropy', max_depth=9, max_features=0.3, n_estimators=9)
+    rfc = RandomForestClassifier(ccp_alpha=0.0, criterion='gini', max_depth=3, max_features=0.3, n_estimators=12)
     knn = KNeighborsClassifier(leaf_size=5, n_neighbors=23, p=1, weights='distance')
     
     models = [rbf, xgb, rfc, knn]
-    thresholds = [0.01, 0.01, 0.1, 0.1]
+    thresholds = [0.01, 0.01, 15, 0.1]      # Changed Random Forest
     variances = [False, False, False, False]
     names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier', 'KNN Classifier']
 
@@ -613,7 +613,7 @@ def graph_results():
     """ This function handles all of the graphing of our results."""
     
     # Import our results.
-    results_df = pd.read_csv(PATH + 'sfs_results.csv')
+    results_df = pd.read_csv(PATH + '/Results/sfs_results.csv')
     results_df = results_df.iloc[:,1:]
 
     # Running the results:

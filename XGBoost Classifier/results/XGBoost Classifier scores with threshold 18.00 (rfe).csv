@@ -6,4 +6,4 @@
 4,XGBoost Classifier,PCA 85% variance,20,0.6453082495359534,0.04746716033526948,0.6123337754114788,0.2401545349372848,"{'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 2, 'n_estimators': 3, 'subsample': 0.5}"
 5,XGBoost Classifier,PCA 90% variance,20,0.7076550402984692,0.03614138021224475,0.6371219267847041,0.20235591025040944,"{'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 2, 'n_estimators': 6, 'subsample': 0.5}"
 6,XGBoost Classifier,PCA 95% variance,20,0.6965748079746542,0.04969601587409397,0.6180076551905601,0.18205740338341797,"{'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 3, 'n_estimators': 6, 'subsample': 0.5}"
-7,XGBoost Classifier,PCA 100% variance,20,0.730122572612904,0.06746034318540921,0.5629945178749596,0.19069174318764656,"{'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 3, 'n_estimators': 3, 'subsample': 0.5}"
+7,XGBoost Classifier,PCA 100% variance,20,0.9615244671163733,0.023877602060769044,0.5775424095388353,0.060867758075277514,"{'alpha': 0.0, 'gamma': 0, 'lambda': 1, 'max_depth': 4, 'n_estimators': 22, 'subsample': 0.5}"

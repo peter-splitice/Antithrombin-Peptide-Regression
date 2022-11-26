@@ -648,7 +648,7 @@ def hyperparameter_pipeline(threshold):
             os.mkdir('%s' %(name))
         if os.path.exists(PATH + '/%s/Initial Hyperparameter Tuning' %(name)) == False:
             os.mkdir('%s/Initial Hyperparameter Tuning' %(name))
-        results, model, scores_hp = classifier_trainer(x, y, params, model=model)
+        results, model = classifier_trainer(x, y, params, model=model)
         results.to_csv(PATH + '/%s/Initial Hyperparameter Tuning/%s Initial Hyperparameter Tuning at Threshold %2.2f.csv'
                        %(name, name, threshold))
 

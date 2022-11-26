@@ -1,4 +1,4 @@
-for n in 15 18;
+for n in 5;
 do
     echo 'Threshold level' $n 'starting'
     python ./sfs_bucket_classifier.py -t $n

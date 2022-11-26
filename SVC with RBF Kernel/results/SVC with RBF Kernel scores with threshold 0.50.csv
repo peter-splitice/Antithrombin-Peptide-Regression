@@ -6,4 +6,4 @@
 4,SVC with RBF Kernel,SFS + PCA w/85% variance,8,0.8369398223273976,0.022756350200114815,0.27376733846316986,0.17532857224485404,"{'C': 6, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 'scale'}"
 5,SVC with RBF Kernel,SFS + PCA w/90% variance,10,0.8520378710997907,0.029822343078786884,0.18303711091331576,0.26827479375888164,"{'C': 6, 'break_ties': False, 'class_weight': 'balanced', 'gamma': 'scale'}"
 6,SVC with RBF Kernel,SFS + PCA w/95% variance,12,0.9830234409923587,0.013861910811762012,0.25625846374063743,0.29540331896336947,"{'C': 66, 'break_ties': True, 'class_weight': 'balanced', 'gamma': 'scale'}"
-7,SVC with RBF Kernel,SFS + PCA w/100% variance,28,0.722240716728136,0.06890191089123061,0.210216951638788,0.22450879417650946,"{'C': 1, 'break_ties': False, 'class_weight': None, 'gamma': 'scale'}"
+7,SVC with RBF Kernel,SFS + PCA w/100% variance,27,0.722240716728136,0.06890191089123061,0.210216951638788,0.22450879417650946,"{'C': 1, 'break_ties': False, 'class_weight': None, 'gamma': 'scale'}"

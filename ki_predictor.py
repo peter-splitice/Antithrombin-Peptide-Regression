@@ -307,7 +307,7 @@ def main():
     pickle.dump(scaler, open(PATH + '/Inference Models/MinMaxScaler transformation.pkl', 'wb'))
 
     # Load the saved Sequential Forward Selection Model and apply the transform.
-    sfs = pickle.load(open(PATH + '/%s/narrowed/%s Threshold %2.2f SFS.pkl' %(CLF_NAME, CLF_NAME, THRESHOLD)), 'rb')
+    sfs = pickle.load(open(PATH + '/%s/narrowed/%s Threshold %2.2f SFS.pkl' %(CLF_NAME, CLF_NAME, THRESHOLD), 'rb'))
     x = pd.DataFrame(sfs.transform(x), columns=sfs.get_feature_names_out())
     features = sfs.get_feature_names_out()
 

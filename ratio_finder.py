@@ -193,7 +193,7 @@ def import_data(threshold):
     df['Bucket'] = pd.cut(x=df['KI (nM)'], bins=(0, threshold, 4000, float('inf')), labels=(0,1,2))
 
     # Save it to the directory.
-    df.to_csv('Current_Positive_Set.csv')
+    df.to_csv(PATH + '/Results/Current_Positive_Set.csv')
 
     return df
 
@@ -562,12 +562,12 @@ def param_name_model_zipper():
     models = [rbf, xgb, rfc, knn]
 
     # Thresholds
-    thresholds = [0.01, 0.01, 0.1, 0.1]
+    thresholds = [0.01, 0.01, 15, 0.1]
 
     # Ratio range to select from.
     rbf_ratios = np.arange(0.05, 0.16, 0.01)
     xgb_ratios = np.arange(0.3, 0.36, 0.01)
-    rfc_ratios = np.arange(0.10, 0.21, 0.01)
+    rfc_ratios = np.arange(0.20, 0.31, 0.01)
     knn_ratios = np.arange(0.05, 0.11, 0.01)
     all_ratios = [rbf_ratios, xgb_ratios, rfc_ratios, knn_ratios]
 
