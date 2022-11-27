@@ -50,5 +50,5 @@ git add Positive_Ki.xlsx            # Initial peptides for the regression traini
 git add testbench.ipynb
 
 # push the update.
-git commit -m 'Update Version 11/22/2022'
+git commit -m 'Update Version 11/26/2022'
 git push -u origin main
