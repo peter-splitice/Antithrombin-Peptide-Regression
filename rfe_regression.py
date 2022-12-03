@@ -667,7 +667,7 @@ def graph_results():
     rects2 = ax.bar(x + width/2, valid_mccs, width, label='valid')
 
     ax.set_ylabel('MCC Scores')
-    ax.set_title('Classifier Comparisons')
+    ax.set_title('RFECV Classifier Comparisons')
     ax.set_xticks(x)
     ax.set_xticklabels(clf_names)
     ax.legend()

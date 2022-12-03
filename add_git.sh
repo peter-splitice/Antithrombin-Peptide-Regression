@@ -39,6 +39,7 @@ git add sfs_regression.py
 
 # Text Files
 git add changelog.md
+git add README.md
 git add requirements.txt
 git add selected_features.json
 
@@ -50,5 +51,5 @@ git add Positive_Ki.xlsx            # Initial peptides for the regression traini
 git add testbench.ipynb
 
 # push the update.
-git commit -m 'Update Version 11/26/2022'
-git push -u origin main
+git commit -m 'Update Version 12/3/2022'
+# git push -u origin main

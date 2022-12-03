@@ -623,7 +623,6 @@ def graph_results():
     train_mccs = np.ndarray(0)
     valid_mccs = np.ndarray(0)
 
-    n=0
     for name in clf_names:
         # Get a smaller subset of the results based on the classification model.
         clf_results = results_df[results_df['Classification Model'] == name]
@@ -663,8 +662,6 @@ def graph_results():
         autolabel(rects2)
 
         fig.tight_layout()
-        print(n)
-        n+=1
         fig.savefig(PATH + '/%s/%s Reduced Log RMSE Scores.png' %(name, name))
 
         # Extract the mcc's.
@@ -682,7 +679,7 @@ def graph_results():
     rects2 = ax.bar(x + width/2, valid_mccs, width, label='valid')
 
     ax.set_ylabel('MCC Scores')
-    ax.set_title('Classifier Comparisons')
+    ax.set_title('SFS Classifier Comparisons')
     ax.set_xticks(x)
     ax.set_xticklabels(clf_names)
     ax.legend()
