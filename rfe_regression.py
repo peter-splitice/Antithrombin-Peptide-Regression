@@ -326,13 +326,13 @@ def load_saved_clf():
 
     """
     # Create the models with the relevant hyperparameters.
-    lin = SVC(kernel='linear', C=1, break_ties=True, class_weight=None, gamma=0.1)
-    xgb = XGBClassifier(alpha=0.0, gamma=0, reg_lambda=1, max_depth=3, n_estimators=3, subsample=0.5)
-    rfc = RandomForestClassifier(ccp_alpha=0.2, criterion='entropy', max_depth=6, max_features=1.0, n_estimators=6)
+    lin = SVC(kernel='linear', C=36, break_ties=True, class_weight=None, gamma=0.1)
+    xgb = XGBClassifier(alpha=0.0, gamma=2, reg_lambda=1, max_depth=3, n_estimators=2, subsample=1)
+    rfc = RandomForestClassifier(ccp_alpha=0.1, criterion='entropy', max_depth=3, max_features=1.0, n_estimators=9)
     
     models = [lin, xgb, rfc]
-    thresholds = [10, 18, 15]   # Changed Random Forest and SVC Linear
-    variances = [100, 75, 100]
+    thresholds = [0.01, 18, 15]   # Changed Random Forest and SVC Linear
+    variances = [90, 85, False]
     names = ['SVC with Linear Kernel', 'XGBoost Classifier', 'Random Forest Classifier']
 
     saved_clf = list(zip(thresholds, variances, names, models))
@@ -466,12 +466,12 @@ def clf_reg_pipeline(threshold, var, name_clf, results_df = pd.DataFrame(), clf=
     x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
 
     # Sequential Feature Selection with the saved model.  Make sure to extract the features here too.
-    rfe = load(open(PATH + '/%s/rfe/%s %2.2f rfe.pkl' %(name_clf, name_clf, threshold), 'rb'))
+    rfe = load(open(PATH + '/%s/rfe/%s Threshold %2.2f RFE.pkl' %(name_clf, name_clf, threshold), 'rb'))
     x = pd.DataFrame(rfe.transform(x), columns=rfe.get_feature_names_out())
 
     # Where applicable, apply PCA tuning as well.
     if var != False:
-        pca = load(open(PATH + '/%s/rfe-pca/%s %2.2f pca.pkl' %(name_clf, name_clf, threshold), 'rb'))
+        pca = load(open(PATH + '/%s/rfe-pca/%s %2.2f rfe-pca.pkl' %(name_clf, name_clf, threshold), 'rb'))
         x = pd.DataFrame(pca.transform(x))
 
         # Dimensonality Reduction based on accepted variance.
@@ -594,7 +594,6 @@ def regression():
         results_df = clf_reg_pipeline(threshold, var, name_clf, results_df, clf)
 
     results_df.to_csv(PATH + '/Results/rfe_results.csv')
-    graph_results()
 
 # Graphing out our results.
 def graph_results():
@@ -704,5 +703,6 @@ grapher = args.grapher
 if regressor == True:
     logger = log_files(PATH + '/Log Files/rfe_regression_log.log')
     regression()
+    graph_results()
 elif grapher == True:
     graph_results()

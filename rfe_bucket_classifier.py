@@ -471,8 +471,8 @@ def threshold_finder(threshold):
 
             # Baseline
             model, scores_baseline = classifier_trainer(x, y, params, model)
-            model_scores.loc[len(model_scores)] = [name, 'Baseline', len(x.columns[:]), scores_baseline[0], scores_baseline[1], scores_baseline[2], 
-                                                   scores_baseline[3], scores_baseline[4]]
+            model_scores.loc[len(model_scores)] = [name, 'Baseline', len(x.columns[:]), scores_baseline[0], scores_baseline[1], 
+                                                   scores_baseline[2], scores_baseline[3], scores_baseline[4]]
 
             # Recursive Feature Elimination
             x_rfe, rfe = recursive_feature_elimination(x, y, model)
@@ -483,7 +483,7 @@ def threshold_finder(threshold):
             model_scores.loc[len(model_scores)] = [name, 'rfe', len(x_rfe.columns[:]), scores_rfe[0], scores_rfe[1], scores_rfe[2],
                                                    scores_rfe[3], scores_rfe[4]]
 
-            dump(rfe, open(PATH + '/%s/rfe/%s %2.2f rfe.pkl' %(name, name, threshold), 'wb'))
+            dump(rfe, open(PATH + '/%s/rfe/%s Threshold %2.2f RFE.pkl' %(name, name, threshold), 'wb'))
 
             # Now do PCA.
             logger.info('Results after PCA:')
@@ -493,12 +493,12 @@ def threshold_finder(threshold):
             for var in vars:
                 # Run PCA.
                 x_rfe_pca, pca = principal_component_analysis(x_rfe, var)
-                _, scores_pca = classifier_trainer(x_rfe_pca, y, params, model_rfe)
-                model_scores.loc[len(model_scores)] = [name, 'PCA %i%% variance' %(var), len(x_rfe.columns[:]), scores_pca[0], scores_pca[1], scores_pca[2],
-                                                         scores_pca[3], scores_pca[4]]
+                _, scores_rfe_pca = classifier_trainer(x_rfe_pca, y, params, model_rfe)
+                model_scores.loc[len(model_scores)] = [name, 'PCA %i%% variance' %(var), len(x_rfe_pca.columns[:]), scores_rfe_pca[0],
+                                                       scores_rfe_pca[1], scores_rfe_pca[2], scores_rfe_pca[3], scores_rfe_pca[4]]
 
             model_scores.to_csv(PATH + '/%s/results/%s scores with threshold %2.2f (rfe).csv' %(name, name, threshold))
-            dump(pca, open(PATH + '/%s/rfe-pca/%s %2.2f pca.pkl' %(name, name, threshold), 'wb'))
+            dump(pca, open(PATH + '/%s/rfe-pca/%s %2.2f rfe-pca.pkl' %(name, name, threshold), 'wb'))
 
     # Formatting for the logger.
     logger.info('-----------------------------------------------------\n')
