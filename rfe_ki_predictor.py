@@ -61,8 +61,8 @@ FOLDS = 5
 RAND = 42
 THRESHOLD = 10
 CLF_NAME = 'SVC with Linear Kernel'
-REG_NAME = 'SVR with RBF Kernel'
-VARIANCE = 100
+REG_NAME = 'Lasso Regression'
+VARIANCE = 90
 
 ## Getting the Protein Sequences.
 def inferenceSingleSeqence(seq):
@@ -359,6 +359,19 @@ def main():
     x_test = pd.DataFrame(scaler.transform(x_test), columns=x_test.columns)
     x_test = pd.DataFrame(rfe.transform(x_test), columns=rfe.get_feature_names_out())
 
+    ## If we utilize PCA:
+    if VARIANCE != False:
+        x_test = pd.DataFrame(pca.transform(x_test))
+
+        # Dimensionality Reduction based on accepted variance.
+        ratios = np.array(pca.explained_variance_ratio_)
+        ratios = ratios[ratios.cumsum() <= (VARIANCE/100)]
+
+        # Readjust the dimensions of x based on the variance we want.
+        length = len(ratios)
+        if length > 0:
+            x_test = x_test[x_test.columns[0:length]]
+            
     # Predict the buckets.
     buckets_pred = clf.predict(x_test)
     test_set['Bucket'] = buckets_pred
