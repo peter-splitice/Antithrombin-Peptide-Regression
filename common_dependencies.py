@@ -1,5 +1,5 @@
-#### Contains the functions used across the bucket classifier, regression, and ki prediction scripts when utilizing recursive
-#    feature elimination.
+#### Contains the functions used across the bucket classifier, regression, and ki prediction scripts 
+#    when utilizing recursive feature elimination.
 
 ## Standard Libraries
 import pandas as pd
