@@ -26,22 +26,25 @@ git add add_git.sh                  # Update script
 git add rfe_activation.sh
 git add sfs_activation.sh
 
-# Python Scripts
+## Python Scripts
 git add analysis.py
-git add ki_predictor.py
-git add ratio_finder.py
+git add common_dependencies.py
+
 git add rfe_bucket_classifier.py
 git add rfe_regression.py
 git add rfe_ki_predictor.py
+
 git add sfs_bucket_classifier.py
 git add sfs_regression.py
 git add sfs_ki_predictor.py
+git add sfs_range_narrower.py
 
 # Text Files
 git add changelog.md
 git add README.md
 git add requirements.txt
-git add selected_features.json
+git add rfe_selected_features.json
+git add sfs_selected_features.json
 
 # Imports
 git add combined_hits.csv           # Input file for our test set.
@@ -51,5 +54,5 @@ git add Positive_Ki.xlsx            # Initial peptides for the regression traini
 git add testbench.ipynb
 
 # push the update.
-git commit -m 'Update Version 12/23/2022:  Added inference models using RFECV.'
+git commit -m 'Update Version 12/24/2022: Housekeeping/Cleanup'
 # git push -u origin main

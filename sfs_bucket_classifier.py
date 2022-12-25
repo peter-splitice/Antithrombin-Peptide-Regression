@@ -4,20 +4,8 @@ This section of code covers the classifier which takes takes the input data and 
 """
 
 # Importing Dependencies
-import argparse
+from common_dependencies import *
 import csv
-
-# Write to a log file
-import logging
-import os
-import sys
-
-# Plotter
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Standard libraries
-import pandas as pd
 
 # Model Persistence
 from pickle import dump
@@ -37,127 +25,8 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import SVC, SVR
 from xgboost import XGBClassifier
 
-## Packages to use the .fasta file.
-# Compute protein descriptors
-from propy import PyPro
-from propy import AAComposition
-from propy import CTD
-
-# Build Sequence Object
-from Bio.SeqUtils.ProtParam import ProteinAnalysis
-
-# Read Fasta File
-from pyfaidx import Fasta
-
-# Grouping iterable
-from itertools import chain
-
 # Return file path
 import glob
-
-## Global Variables
-PATH = os.getcwd()
-FOLDS = 5
-RAND = 42
-
-def inferenceSingleSeqence(seq):
-    
-    """ The inference function gets the protein sequence, trained model, preprocessing function and selected
-    features as input. 
-    
-    The function read the sequence as string and extract the peptide features using appropriate packages into 
-    the dataframe.
-    
-    The necessary features are selected from the extracted features which then undergoes preprocessing function, the
-    target value is predicted using trained function and give out the results. """
-    
-    # empty list to save the features
-    listing = []
-    
-    # Make sure the sequence is a string
-    s = str(seq)
-    
-    # replace the unappropriate peptide sequence to A
-    s = s.replace('X','A')
-    s = s.replace('x','A')
-    s = s.replace('U','A')
-    s = s.replace('Z','A')
-    s = s.replace('B','A')
-    
-    # Calculating primary features
-    analysed_seq = ProteinAnalysis(s)
-    wt = analysed_seq.molecular_weight()
-    arm = analysed_seq.aromaticity()
-    instab = analysed_seq.instability_index()
-    flex = analysed_seq.flexibility()
-    pI = analysed_seq.isoelectric_point()
-    
-    # create a list for the primary features
-    pFeatures = [seq, s, len(seq), wt, arm, instab, pI]
-    
-    # Get secondary structure in a list
-    sectruc = analysed_seq.secondary_structure_fraction()
-    sFeatures = list(sectruc)
-    
-    # Get Amino Acid Composition (AAC), Composition Transition Distribution (CTD) and Dipeptide Composition (DPC)
-    resultAAC = AAComposition.CalculateAAComposition(s)
-    resultCTD = CTD.CalculateCTD(s)
-    resultDPC = AAComposition.CalculateDipeptideComposition(s)
-    
-    # Collect all the features into lists
-    aacFeatures = [j for i,j in resultAAC.items()]
-    ctdFeatures = [l for k,l in resultCTD.items()]
-    dpcFeatures = [n for m,n in resultDPC.items()]
-    listing.append(pFeatures + sFeatures + aacFeatures + ctdFeatures + dpcFeatures)
-    
-    # Collect feature names
-    name1 = ['Name','Seq' ,'SeqLength','Weight','Aromaticity','Instability','IsoelectricPoint','Helix','Turn','Sheet']
-    name2 = [i for i,j in resultAAC.items()]
-    name3 = [k for k,l in resultCTD.items()]
-    name4 = [m for m,n in resultDPC.items()]
-    name  = []
-    name.append(name1+name2+name3+name4)
-    flatten_list = list(chain.from_iterable(name))
-    
-    # create dataframe using all extracted features and the names
-    allFeatures = pd.DataFrame(listing, columns = flatten_list)
-
-    return allFeatures
-
-# Creating a logger to record and save information.
-def log_files(logname):
-    """
-    Create the meachanism for which we log results to a .log file.
-
-    Parameters
-    ----------
-    logname:
-
-    Returns
-    -------
-    logger:  The logger object we create to call on in other functions. 
-    """
-
-    # Instantiate the logger and set the formatting and minimum level to DEBUG.
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
-
-    # Display the logs in the output
-    stdout_handler = logging.StreamHandler(sys.stdout)
-    stdout_handler.setLevel(logging.INFO)
-    stdout_handler.setFormatter(formatter)
-
-    # Write the logs to a file
-    file_handler = logging.FileHandler(logname)
-    file_handler.setLevel(logging.INFO)
-    file_handler.setFormatter(formatter)
-
-    # Adding the file and output handlers to the logger.
-    logger.addHandler(file_handler)
-    logger.addHandler(stdout_handler)
-
-    return logger
 
 # Import the complete dataset.
 def import_data(threshold):
