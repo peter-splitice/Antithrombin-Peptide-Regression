@@ -11,3 +11,6 @@
 ## 12/24/2022 Changes:
 - Added a dependencies script to both the SFS and RFE branches to clean up the code.
 - Further cleaned up the code and removed anything unnecessary from each function.
+
+## 12/29/2022 Changes:
+- Created regression inference models for SVR with Linear Kernel and SVR with RBF Kernel.
