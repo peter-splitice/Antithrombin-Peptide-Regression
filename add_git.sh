@@ -1,5 +1,7 @@
 ## Update Script
 
+git add "__pycache__"
+
 # Git Control
 git add ".gitignore"
 git add ".vscode"
@@ -54,5 +56,5 @@ git add Positive_Ki.xlsx            # Initial peptides for the regression traini
 git add testbench.ipynb
 
 # push the update.
-git commit -m 'Update Version 12/24/2022: Housekeeping/Cleanup'
+git commit -m 'Update Version 12/29/2022: Built SVR with Linear and RBF Kernels for RFE'
 # git push -u origin main
