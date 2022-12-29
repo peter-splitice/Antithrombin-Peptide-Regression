@@ -22,8 +22,6 @@ git add "SVC with Linear Kernel"
 git add "XGBoost Classifier"
 
 # bash scripts
-git add activate_pc.sh              # Activation script for PC
-git add activate_mac.sh             # Activation script for Mac
 git add add_git.sh                  # Update script
 git add rfe_activation.sh
 git add sfs_activation.sh
