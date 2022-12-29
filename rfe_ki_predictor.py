@@ -17,7 +17,7 @@ import pickle
 # Note:  Set VARIANCE to 'False' if PCA is not being used.
 THRESHOLD = 10
 CLF_NAME = 'SVC with Linear Kernel'
-REG_NAME = 'Lasso Regression'
+REG_NAME = 'SVR with Linear Kernel'
 VARIANCE = 90
 
 # Importing the model reference dataset:
