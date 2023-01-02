@@ -14,3 +14,7 @@
 
 ## 12/29/2022 Changes:
 - Created regression inference models for SVR with Linear Kernel and SVR with RBF Kernel.
+
+## 1/2/2022 Changes
+- Changed rfe_ki_predictor.py
+    * Fixed bug where I created "Lasso" instead of "SVR with RBF Kernel" models in the trained inference files.
