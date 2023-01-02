@@ -146,8 +146,8 @@ def main():
     pickle.dump(clf, open(PATH + '/Inference Models/%s trained model (rfe).pkl' %(CLF_NAME), 'wb'))
 
     # Regression model.  Train 2 models, one on the smaller bucket and one on the medium bucket.
-    sml_reg = Lasso(alpha=0.1, selection='cyclic')
-    med_reg = Lasso(alpha=0.1, selection='cyclic')
+    sml_reg = SVR(C=16, epsilon=0.9, gamma='auto')
+    med_reg = SVR(C=16, epsilon=0.9, gamma='auto')
     sml_reg.fit(x[buckets==0], y[buckets==0])
     med_reg.fit(x[buckets==1], y[buckets==1])
     
