@@ -89,7 +89,8 @@ def sequential_selection(x, y, name, threshold, model=SVC()):
     logger.info('Forward Selection Starting')
     ratios = np.arange(0.05, 0.55, 0.05)
     
-    cols = ['Features Selected', 'Train Accuracy Score', 'Train MCC Score', 'Test Accuracy Score', 'Test MCC Score']
+    cols = ['Features Selected', 'Training Accuracy Score', 'Training MCC Score',
+            'Validation Accuracy Score', 'Validation MCC Score']
     scores_df = pd.DataFrame(columns=cols)
 
     # Iterate through selecting from 10%-90% of the features in increments of 10.
@@ -137,16 +138,6 @@ def sequential_selection(x, y, name, threshold, model=SVC()):
         # Calculate the averages
         scores_df.loc[len(scores_df)] = [x_sfs.shape[1],train_accuracy_sum/FOLDS, train_mcc_sum/FOLDS, test_accuracy_sum/FOLDS, 
                                          test_mcc_sum/FOLDS]
-    
-    # Display the results:
-    plt.figure()
-    plt.plot(scores_df['Features Selected'], scores_df['Train MCC Score'])
-    plt.plot(scores_df['Features Selected'], scores_df['Test MCC Score'], '-.')
-    plt.xlabel('Number of features selected')
-    plt.ylabel('Cross Validation Score (MCC)')
-    plt.title('Forward Selection for %s at Threshold %2.2f' %(name, threshold))
-    plt.legend(['Train MCC', 'Test MCC'])
-    plt.savefig(PATH + '/Figures/%s/Forward Selection for %s at Threshold %2.2f.png' %(name, name, threshold))
 
     logger.info('Forward Selection Finished')
 
@@ -521,6 +512,29 @@ def hyperparameter_pipeline(threshold):
         results.to_csv(PATH + '/%s/Initial Hyperparameter Tuning/%s Initial Hyperparameter Tuning at Threshold %2.2f.csv'
                        %(name, name, threshold))
 
+def graph_results():
+    """
+    This function graphs the results we already have stored.  I created this to allow for graph formatting independent of
+        the model analysis.  There are no arguments passed into this this function or taken from this function.
+    """
+    thresholds = [0.01, 0.1, 0.5, 5, 10, 15, 18]
+    names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier', 'KNN Classifier']
+    for threshold in thresholds: 
+        for name in names:
+            # Load the data.
+            scores_df = pd.read_csv(PATH + '/%s/sfs/%s features selected with threshold %2.2f.csv' %(name, name, threshold))
+
+            # Display the results:
+            plt.figure()
+            plt.plot(scores_df['Features Selected'], scores_df['Training MCC Score'])
+            plt.plot(scores_df['Features Selected'], scores_df['Validation MCC Score'], '-.')
+            plt.xlabel('Number of features selected')
+            plt.ylabel('Cross Validation Score (MCC)')
+            plt.title('Forward Selection for %s at Threshold %2.2f' %(name, threshold))
+            plt.legend(['Training MCC', 'Validation MCC'])
+            plt.savefig(PATH + '/Figures/%s/Forward Selection for %s at Threshold %2.2f.png' %(name, name, threshold))
+            plt.close()
+
 # Use argparse to pass various thresholds.
 parser = argparse.ArgumentParser()
 parser.add_argument('-t', '--threshold', help='threshold = set the threshold to split the dataset into'
@@ -530,12 +544,15 @@ parser.add_argument('-ht', '--hyperparameter_test', help='hyperparameter_test = 
 parser.add_argument('-reg', '--regressor', help='regressor = perform the regression section of the code once we have finished with '
                     'the classification section of the pipeline', action='store_true')
 parser.add_argument('-st', '--store_file', help='store_file = stores the extracted files into a csv', action='store_true')
+parser.add_argument('-gr', '--grapher', help='grapher = graphs the results generated from the classification training',
+                    action='store_true')
            
 args = parser.parse_args()
 
 threshold = args.threshold
 hyperparameter_test = args.hyperparameter_test
 extract_file = args.store_file
+grapher = args.grapher
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
 if threshold != None:
@@ -550,3 +567,5 @@ elif hyperparameter_test != None:
     hyperparameter_pipeline(hyperparameter_test)
 elif extract_file == True:
     df = import_data(threshold=10)
+elif grapher == True:
+    graph_results()

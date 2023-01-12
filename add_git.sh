@@ -54,5 +54,5 @@ git add Positive_Ki.xlsx            # Initial peptides for the regression traini
 git add testbench.ipynb
 
 # push the update.
-git commit -m 'Update Version 1/2/2022: Built SVR with Linear and RBF Kernels for RFE'
+git commit -m 'Update Version 1/7/2022: Redid graphs, as well as separated some of the functions.'
 # git push -u origin main

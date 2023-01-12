@@ -409,7 +409,6 @@ def regression():
         results_df = clf_reg_pipeline(threshold, var, name_clf, results_df, clf)
 
     results_df.to_csv(PATH + '/Results/sfs_results.csv')
-    graph_results()
 
 # Graphing out our results.
 def graph_results():
@@ -482,7 +481,7 @@ def graph_results():
     rects2 = ax.bar(x + width/2, valid_mccs, width, label='validation')
 
     ax.set_ylabel('MCC Scores')
-    ax.set_title('SFS Classifier Comparisons')
+    ax.set_title('Sequential Forward Selection Comparisons')
     ax.set_xticks(x)
     ax.set_xticklabels(clf_names)
     ax.legend()
@@ -519,6 +518,7 @@ grapher = args.grapher
 if regressor == True:
     logger = log_files(PATH + '/Log Files/sfs_regression_log.log')
     regression()
+    graph_results()
 elif grapher == True:
     graph_results()
 

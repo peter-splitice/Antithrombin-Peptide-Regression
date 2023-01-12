@@ -476,7 +476,7 @@ def rfe_grapher():
             plt.figure()
             plt.plot(rfe_mean_test_mcc)
             plt.xlabel('Number of Features Selected')
-            plt.ylabel('Test MCC')
+            plt.ylabel('Validation MCC')
             plt.title('RFECV for %s at threshold %2.2f' %(name, threshold))
             plt.savefig(PATH + '/Figures/%s/RFECV for %s at threshold %2.2f.png' %(name, name, threshold))
             plt.close()

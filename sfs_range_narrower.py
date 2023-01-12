@@ -91,7 +91,8 @@ def sequential_selection(x, y, name, threshold, ratios, model=SVC()):
     # Forward Selection Loop
     logger.info('Forward Selection Starting')
     
-    cols = ['Features Selected', 'Train Accuracy Score', 'Train MCC Score', 'Test Accuracy Score', 'Test MCC Score']
+    cols = ['Features Selected', 'Training Accuracy Score', 'Training MCC Score',
+            'Validation Accuracy Score', 'Validation MCC Score']
     scores_df = pd.DataFrame(columns=cols)
 
     # Iterate through selecting from 10%-90% of the features in increments of 10.
@@ -140,16 +141,6 @@ def sequential_selection(x, y, name, threshold, ratios, model=SVC()):
         # Calculate the averages
         scores_df.loc[len(scores_df)] = [x_sfs.shape[1],train_accuracy_sum/FOLDS, train_mcc_sum/FOLDS, test_accuracy_sum/FOLDS, 
                                          test_mcc_sum/FOLDS]
-    
-    # Display the results:
-    plt.figure()
-    plt.plot(scores_df['Features Selected'], scores_df['Train MCC Score'])
-    plt.plot(scores_df['Features Selected'], scores_df['Test MCC Score'], '-.')
-    plt.xlabel('Number of features selected')
-    plt.ylabel('Cross Validation Score (MCC)')
-    plt.title('Forward Selection for %s at Threshold %2.2f' %(name, threshold))
-    plt.legend(['Train MCC', 'Test MCC'])
-    plt.savefig(PATH + '/%s/narrowed/Forward Selection for %s at Threshold %2.2f.png' %(name, name, threshold))
 
     logger.info('Forward Selection Finished')
 
@@ -446,19 +437,43 @@ def param_name_model_zipper():
 
     return attributes
 
+def graph_results():
+    """
+    This function graphs the results we already have stored.  I created this to allow for graph formatting independent of
+        the model analysis.  There are no arguments passed into this this function or taken from this function.
+    """
+    thresholds = [0.01, 0.01, 15, 0.1]
+    names = ['SVC with RBF Kernel', 'XGBoost Classifier', 'Random Forest Classifier', 'KNN Classifier']
+    for name, threshold in zip(names, thresholds):
+        # Load the data.
+        scores_df = pd.read_csv(PATH + '/%s/narrowed/%s features selected with threshold %2.2f.csv' %(name, name, threshold))
+
+        # Display the results:
+        plt.figure()
+        plt.plot(scores_df['Features Selected'], scores_df['Training MCC Score'])
+        plt.plot(scores_df['Features Selected'], scores_df['Validation MCC Score'], '-.')
+        plt.xlabel('Number of features selected')
+        plt.ylabel('Cross Validation Score (MCC)')
+        plt.title('Forward Selection for %s at Threshold %2.2f' %(name, threshold))
+        plt.legend(['Training MCC', 'Validation MCC'])
+        plt.savefig(PATH + '/%s/narrowed/Forward Selection for %s at Threshold %2.2f.png' %(name, name, threshold))
+        plt.close()
+
 # Use argparse to pass various thresholds.
 parser = argparse.ArgumentParser()
-parser.add_argument('-n', '--narrow', help='narrow = sNarrow down the range of potential ratios for feature selection', action='store_true')
-parser.add_argument('-st', '--store_file', help='store_file = stores the extracted files into a csv', action='store_true')
+parser.add_argument('-n', '--narrow', help='narrow = sNarrow down the range of potential ratios for feature selection',
+                    action='store_true')
+parser.add_argument('-gr', '--grapher', help='grapher = graphs the results generated from the classification training',
+                    action='store_true')
            
 args = parser.parse_args()
 
 narrow = args.narrow
-extract_file = args.store_file
+grapher = args.grapher
 
 ## Initialize the logger here after I get the threshold value.  Then run the classifier
 if narrow == True:
     logger = log_files(PATH + '/Log Files/ratio_finder.log')
     ratio_finder()
-elif extract_file == True:
-    df = import_data(threshold=10)
+elif grapher == True:
+    graph_results()
