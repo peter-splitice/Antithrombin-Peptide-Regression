@@ -37,7 +37,6 @@ def import_data(threshold):
     df:  Dataframe of the full KI training dataset, with any values above 50,000 removed.
 
     base_range:  Contains the range of values within the dataframe for rescaling purposes.
-
     """
 
     # Extracting peptide sequence + formatting
@@ -79,19 +78,14 @@ def hyperparameter_optimizer(x, y, params, model=SVR()):
 
     Returns
     -------
-    bestvals: Optimzied hyperparameters for the model that we are running the search on.
-
-    df: Pandas Dataframe that has the results of our hyperparameter tuning, sorted
-        for results with the smallest standard deviation in the test scores.
-
-    scores: Pandas DataFrame of the Training + Test Scores    
+    model: This returns the model we put into the function, but with the optimal parameters found during GridSearch.
     """
 
     logger.debug('GridSearchCV Starting:')
     logger.debug('-----------------------\n')
 
-    reg = GridSearchCV(model, param_grid=params, scoring='neg_root_mean_squared_error', cv=5, return_train_score=True,
-                       n_jobs=-1)
+    reg = GridSearchCV(model, param_grid=params, scoring='neg_root_mean_squared_error', cv=5, 
+                       return_train_score=True, n_jobs=-1)
     reg.fit(x,y)
 
     # Showing the best parameters found on the development set.

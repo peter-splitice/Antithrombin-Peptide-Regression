@@ -1,5 +1,4 @@
 ## Update Script
-
 git add "__pycache__"
 
 # Git Control
@@ -39,6 +38,8 @@ git add sfs_regression.py
 git add sfs_ki_predictor.py
 git add sfs_range_narrower.py
 
+git add regression_only.py
+
 # Text Files
 git add changelog.md
 git add README.md
@@ -54,5 +55,5 @@ git add Positive_Ki.xlsx            # Initial peptides for the regression traini
 git add testbench.ipynb
 
 # push the update.
-git commit -m 'Update Version 1/7/2022: Redid graphs, as well as separated some of the functions.'
+git commit -m 'Update Version 3/14/2023: Updated the code with a regression only version of the pipeline'
 # git push -u origin main

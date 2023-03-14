@@ -34,3 +34,10 @@
 - Changed rfe_regression.py
     * When running the 'regressor' argparse, I moved calling the graph_results() function to be after running the regression() function instead of running it last within the regression() function.
     * Modified formatting of the graphing within the graph_results() function.
+
+## 3/2/2023 Changes
+- Created regression_only.py
+    * This script does regression only without a classification section that splits the data into buckets.
+- Changed rfe_regression.py
+    * Cleaned up some formatting
+    

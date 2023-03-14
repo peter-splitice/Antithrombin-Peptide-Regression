@@ -53,7 +53,6 @@ def import_data(threshold):
     df:  Dataframe of the full KI training dataset, with any values above 50,000 removed.
 
     base_range:  Contains the range of values within the dataframe for rescaling purposes.
-
     """
 
     # Extracting peptide sequence + formatting
@@ -508,8 +507,8 @@ def graph_results():
 
 # Argument parser section.
 parser = argparse.ArgumentParser()
-parser.add_argument('-reg', '--regressor', help='regressor = initial stage of hyperparmeter tuning for '
-                    'various hyperparameters.', action='store_true')
+parser.add_argument('-reg', '--regressor', help='regressor = applies regression and finds the optimal '
+                    'models with hyperparameters.', action='store_true')
 parser.add_argument('-gr', '--grapher', help='grapher = create plots for all of our results and save them.',
                     action='store_true')
 

@@ -203,10 +203,7 @@ def hyperparameter_optimizer(x, y, params, model=SVC()):
 
     Returns
     -------
-    bestvals: Optimzied hyperparameters for the model that we are running the search on.
-
-    df: Pandas Dataframe that has the results of our hyperparameter tuning, sorted
-        for results with the smallest standard deviation in the test scores.
+    bestparams: Optimzied hyperparameters for the model that we are running the search on.
 
     scores: Pandas DataFrame of the Training + Test Scores
     """
@@ -558,8 +555,6 @@ grapher = args.grapher
 if threshold != None:
     if os.path.exists(PATH + '/SFS Bucket Classifier Logs') == False:
         os.mkdir('SFS Bucket Classifier Logs')
-    # remove old log file.
-    #os.remove(PATH + '/Bucket Classifier Logs/Threshold %2.2f.log' %(threshold))
     logger = log_files(PATH + '/SFS Bucket Classifier Logs/Threshold %2.2f.log' %(threshold))
     threshold_finder(threshold)
 elif hyperparameter_test != None:
