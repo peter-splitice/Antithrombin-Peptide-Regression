@@ -40,6 +40,7 @@ git add sfs_ki_predictor.py
 git add sfs_range_narrower.py
 
 git add regression_only.py
+git add regression_only_ki_predictior.py
 
 # Text Files
 git add changelog.md
@@ -47,6 +48,7 @@ git add README.md
 git add requirements.txt
 git add rfe_selected_features.json
 git add sfs_selected_features.json
+git add regression_only_feastures.json
 
 # Imports
 git add combined_hits.csv           # Input file for our test set.
@@ -56,5 +58,5 @@ git add Positive_Ki.xlsx            # Initial peptides for the regression traini
 git add testbench.ipynb
 
 # push the update.
-git commit -m 'Update Version 3/14/2023: Updated the code with a regression only version of the pipeline'
+git commit -m 'Finalized the regression only portion of the pipeline'
 # git push -u origin main

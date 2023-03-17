@@ -574,3 +574,564 @@
 2023-03-09 20:09:48,427 | INFO | Log Training RMSE: 1.672, Training RMSE: 3810125.854, Log Test RMSE: 2.032, Test RMSE MCC: 17720.021, Fold: 5
 2023-03-09 20:09:48,427 | INFO | AVG Log Training RMSE: 1.673, AVG Training RMSE: 3124663.223, AVG Log Test RMSE: 1.847, AVG Test RMSE: 1692766.135
 
+2023-03-16 22:28:08,837 | INFO | Logging results for SVR with RBF Kernel:
+2023-03-16 22:28:08,838 | INFO | -----------------------------------------------------------
+
+2023-03-16 22:28:08,841 | INFO | Calculations for the baseline model:
+2023-03-16 22:28:08,842 | INFO | ------------------------------------
+
+2023-03-16 22:28:15,359 | INFO | Best parameter set: {'C': 21, 'epsilon': 0.9, 'gamma': 'auto'}
+2023-03-16 22:28:15,360 | INFO | -------------------------
+
+2023-03-16 22:28:15,360 | INFO | Training:
+2023-03-16 22:28:15,365 | INFO | Training Finished.
+2023-03-16 22:28:15,372 | INFO | Log Training RMSE: 1.174, Training RMSE: 309152.749, Log Test RMSE: 2.296, Test RMSE MCC: 7557137.655, Fold: 1
+2023-03-16 22:28:15,372 | INFO | Training:
+2023-03-16 22:28:15,377 | INFO | Training Finished.
+2023-03-16 22:28:15,385 | INFO | Log Training RMSE: 1.239, Training RMSE: 3840403.817, Log Test RMSE: 1.417, Test RMSE MCC: 392443.959, Fold: 2
+2023-03-16 22:28:15,385 | INFO | Training:
+2023-03-16 22:28:15,391 | INFO | Training Finished.
+2023-03-16 22:28:15,398 | INFO | Log Training RMSE: 1.228, Training RMSE: 3828054.429, Log Test RMSE: 1.781, Test RMSE MCC: 11907.071, Fold: 3
+2023-03-16 22:28:15,399 | INFO | Training:
+2023-03-16 22:28:15,404 | INFO | Training Finished.
+2023-03-16 22:28:15,412 | INFO | Log Training RMSE: 1.098, Training RMSE: 3809411.309, Log Test RMSE: 1.941, Test RMSE MCC: 486550.236, Fold: 4
+2023-03-16 22:28:15,412 | INFO | Training:
+2023-03-16 22:28:15,417 | INFO | Training Finished.
+2023-03-16 22:28:15,424 | INFO | Log Training RMSE: 1.196, Training RMSE: 3791978.020, Log Test RMSE: 1.677, Test RMSE MCC: 17314.512, Fold: 5
+2023-03-16 22:28:15,424 | INFO | AVG Log Training RMSE: 1.187, AVG Training RMSE: 3115800.065, AVG Log Test RMSE: 1.822, AVG Test RMSE: 1693070.687
+
+2023-03-16 22:28:15,425 | INFO | Forward Selection Starting
+2023-03-16 22:41:11,257 | INFO | Forward Selection Finished
+2023-03-16 22:41:12,280 | INFO | Best parameter set: {'C': 36, 'epsilon': 0.4, 'gamma': 'auto'}
+2023-03-16 22:41:12,280 | INFO | -------------------------
+
+2023-03-16 22:41:12,281 | INFO | Training:
+2023-03-16 22:41:12,283 | INFO | Training Finished.
+2023-03-16 22:41:12,286 | INFO | Log Training RMSE: 1.103, Training RMSE: 291206.103, Log Test RMSE: 1.334, Test RMSE MCC: 5441858.084, Fold: 1
+2023-03-16 22:41:12,286 | INFO | Training:
+2023-03-16 22:41:12,289 | INFO | Training Finished.
+2023-03-16 22:41:12,292 | INFO | Log Training RMSE: 1.106, Training RMSE: 239405.899, Log Test RMSE: 1.116, Test RMSE MCC: 392491.725, Fold: 2
+2023-03-16 22:41:12,293 | INFO | Training:
+2023-03-16 22:41:12,295 | INFO | Training Finished.
+2023-03-16 22:41:12,298 | INFO | Log Training RMSE: 1.117, Training RMSE: 2631990.384, Log Test RMSE: 1.126, Test RMSE MCC: 11895.071, Fold: 3
+2023-03-16 22:41:12,298 | INFO | Training:
+2023-03-16 22:41:12,301 | INFO | Training Finished.
+2023-03-16 22:41:12,303 | INFO | Log Training RMSE: 0.722, Training RMSE: 2600538.970, Log Test RMSE: 2.035, Test RMSE MCC: 486445.251, Fold: 4
+2023-03-16 22:41:12,304 | INFO | Training:
+2023-03-16 22:41:12,306 | INFO | Training Finished.
+2023-03-16 22:41:12,309 | INFO | Log Training RMSE: 1.094, Training RMSE: 295083.624, Log Test RMSE: 1.224, Test RMSE MCC: 9483.951, Fold: 5
+2023-03-16 22:41:12,309 | INFO | AVG Log Training RMSE: 1.028, AVG Training RMSE: 1211644.996, AVG Log Test RMSE: 1.367, AVG Test RMSE: 1268434.816
+
+2023-03-16 22:41:12,311 | INFO | PCA Starting
+2023-03-16 22:41:12,357 | INFO | Selecting 10 principal components making up 75% of the variance.
+
+2023-03-16 22:41:12,359 | INFO | PCA Finished
+2023-03-16 22:41:13,337 | INFO | Best parameter set: {'C': 16, 'epsilon': 0.1, 'gamma': 'auto'}
+2023-03-16 22:41:13,337 | INFO | -------------------------
+
+2023-03-16 22:41:13,338 | INFO | Training:
+2023-03-16 22:41:13,342 | INFO | Training Finished.
+2023-03-16 22:41:13,344 | INFO | Log Training RMSE: 1.198, Training RMSE: 303428.940, Log Test RMSE: 1.352, Test RMSE MCC: 159908.287, Fold: 1
+2023-03-16 22:41:13,344 | INFO | Training:
+2023-03-16 22:41:13,346 | INFO | Training Finished.
+2023-03-16 22:41:13,348 | INFO | Log Training RMSE: 1.271, Training RMSE: 239103.593, Log Test RMSE: 1.078, Test RMSE MCC: 392347.517, Fold: 2
+2023-03-16 22:41:13,348 | INFO | Training:
+2023-03-16 22:41:13,350 | INFO | Training Finished.
+2023-03-16 22:41:13,352 | INFO | Log Training RMSE: 1.243, Training RMSE: 310378.715, Log Test RMSE: 1.219, Test RMSE MCC: 11891.514, Fold: 3
+2023-03-16 22:41:13,353 | INFO | Training:
+2023-03-16 22:41:13,355 | INFO | Training Finished.
+2023-03-16 22:41:13,357 | INFO | Log Training RMSE: 0.994, Training RMSE: 191935.032, Log Test RMSE: 1.892, Test RMSE MCC: 486462.536, Fold: 4
+2023-03-16 22:41:13,358 | INFO | Training:
+2023-03-16 22:41:13,360 | INFO | Training Finished.
+2023-03-16 22:41:13,362 | INFO | Log Training RMSE: 1.246, Training RMSE: 289231.957, Log Test RMSE: 1.215, Test RMSE MCC: 7174.045, Fold: 5
+2023-03-16 22:41:13,362 | INFO | AVG Log Training RMSE: 1.190, AVG Training RMSE: 266815.647, AVG Log Test RMSE: 1.351, AVG Test RMSE: 211556.780
+
+2023-03-16 22:41:13,363 | INFO | Selecting 11 principal components making up 80% of the variance.
+
+2023-03-16 22:41:13,364 | INFO | PCA Finished
+2023-03-16 22:41:14,307 | INFO | Best parameter set: {'C': 21, 'epsilon': 0.1, 'gamma': 'auto'}
+2023-03-16 22:41:14,307 | INFO | -------------------------
+
+2023-03-16 22:41:14,308 | INFO | Training:
+2023-03-16 22:41:14,310 | INFO | Training Finished.
+2023-03-16 22:41:14,312 | INFO | Log Training RMSE: 1.160, Training RMSE: 299799.137, Log Test RMSE: 1.334, Test RMSE MCC: 288655.552, Fold: 1
+2023-03-16 22:41:14,312 | INFO | Training:
+2023-03-16 22:41:14,314 | INFO | Training Finished.
+2023-03-16 22:41:14,316 | INFO | Log Training RMSE: 1.224, Training RMSE: 239100.094, Log Test RMSE: 1.105, Test RMSE MCC: 392400.877, Fold: 2
+2023-03-16 22:41:14,316 | INFO | Training:
+2023-03-16 22:41:14,319 | INFO | Training Finished.
+2023-03-16 22:41:14,321 | INFO | Log Training RMSE: 1.205, Training RMSE: 309505.011, Log Test RMSE: 1.135, Test RMSE MCC: 11881.861, Fold: 3
+2023-03-16 22:41:14,321 | INFO | Training:
+2023-03-16 22:41:14,323 | INFO | Training Finished.
+2023-03-16 22:41:14,325 | INFO | Log Training RMSE: 0.975, Training RMSE: 963108.223, Log Test RMSE: 1.887, Test RMSE MCC: 486511.043, Fold: 4
+2023-03-16 22:41:14,326 | INFO | Training:
+2023-03-16 22:41:14,328 | INFO | Training Finished.
+2023-03-16 22:41:14,330 | INFO | Log Training RMSE: 1.238, Training RMSE: 260771.273, Log Test RMSE: 1.234, Test RMSE MCC: 9808.915, Fold: 5
+2023-03-16 22:41:14,330 | INFO | AVG Log Training RMSE: 1.161, AVG Training RMSE: 414456.747, AVG Log Test RMSE: 1.339, AVG Test RMSE: 237851.650
+
+2023-03-16 22:41:14,332 | INFO | Selecting 14 principal components making up 85% of the variance.
+
+2023-03-16 22:41:14,333 | INFO | PCA Finished
+2023-03-16 22:41:15,247 | INFO | Best parameter set: {'C': 41, 'epsilon': 0.1, 'gamma': 'auto'}
+2023-03-16 22:41:15,248 | INFO | -------------------------
+
+2023-03-16 22:41:15,248 | INFO | Training:
+2023-03-16 22:41:15,250 | INFO | Training Finished.
+2023-03-16 22:41:15,253 | INFO | Log Training RMSE: 1.068, Training RMSE: 244096.378, Log Test RMSE: 1.104, Test RMSE MCC: 1471393.444, Fold: 1
+2023-03-16 22:41:15,253 | INFO | Training:
+2023-03-16 22:41:15,255 | INFO | Training Finished.
+2023-03-16 22:41:15,257 | INFO | Log Training RMSE: 1.109, Training RMSE: 239069.526, Log Test RMSE: 1.076, Test RMSE MCC: 392422.536, Fold: 2
+2023-03-16 22:41:15,258 | INFO | Training:
+2023-03-16 22:41:15,260 | INFO | Training Finished.
+2023-03-16 22:41:15,262 | INFO | Log Training RMSE: 1.077, Training RMSE: 292152.605, Log Test RMSE: 0.942, Test RMSE MCC: 11874.698, Fold: 3
+2023-03-16 22:41:15,262 | INFO | Training:
+2023-03-16 22:41:15,265 | INFO | Training Finished.
+2023-03-16 22:41:15,267 | INFO | Log Training RMSE: 0.707, Training RMSE: 152613.282, Log Test RMSE: 1.933, Test RMSE MCC: 487015.779, Fold: 4
+2023-03-16 22:41:15,267 | INFO | Training:
+2023-03-16 22:41:15,269 | INFO | Training Finished.
+2023-03-16 22:41:15,271 | INFO | Log Training RMSE: 1.102, Training RMSE: 245470.949, Log Test RMSE: 1.061, Test RMSE MCC: 8178.110, Fold: 5
+2023-03-16 22:41:15,271 | INFO | AVG Log Training RMSE: 1.013, AVG Training RMSE: 234680.548, AVG Log Test RMSE: 1.223, AVG Test RMSE: 474176.913
+
+2023-03-16 22:41:15,273 | INFO | Selecting 16 principal components making up 90% of the variance.
+
+2023-03-16 22:41:15,273 | INFO | PCA Finished
+2023-03-16 22:41:16,222 | INFO | Best parameter set: {'C': 26, 'epsilon': 0.2, 'gamma': 'auto'}
+2023-03-16 22:41:16,222 | INFO | -------------------------
+
+2023-03-16 22:41:16,223 | INFO | Training:
+2023-03-16 22:41:16,225 | INFO | Training Finished.
+2023-03-16 22:41:16,227 | INFO | Log Training RMSE: 1.100, Training RMSE: 296096.987, Log Test RMSE: 1.134, Test RMSE MCC: 448644.745, Fold: 1
+2023-03-16 22:41:16,227 | INFO | Training:
+2023-03-16 22:41:16,230 | INFO | Training Finished.
+2023-03-16 22:41:16,232 | INFO | Log Training RMSE: 1.161, Training RMSE: 239221.306, Log Test RMSE: 1.111, Test RMSE MCC: 392439.285, Fold: 2
+2023-03-16 22:41:16,232 | INFO | Training:
+2023-03-16 22:41:16,234 | INFO | Training Finished.
+2023-03-16 22:41:16,236 | INFO | Log Training RMSE: 1.123, Training RMSE: 309399.475, Log Test RMSE: 0.984, Test RMSE MCC: 11821.799, Fold: 3
+2023-03-16 22:41:16,237 | INFO | Training:
+2023-03-16 22:41:16,239 | INFO | Training Finished.
+2023-03-16 22:41:16,241 | INFO | Log Training RMSE: 0.778, Training RMSE: 195172.770, Log Test RMSE: 1.931, Test RMSE MCC: 486422.916, Fold: 4
+2023-03-16 22:41:16,241 | INFO | Training:
+2023-03-16 22:41:16,243 | INFO | Training Finished.
+2023-03-16 22:41:16,245 | INFO | Log Training RMSE: 1.130, Training RMSE: 296018.875, Log Test RMSE: 1.074, Test RMSE MCC: 7767.964, Fold: 5
+2023-03-16 22:41:16,246 | INFO | AVG Log Training RMSE: 1.058, AVG Training RMSE: 267181.883, AVG Log Test RMSE: 1.247, AVG Test RMSE: 269419.342
+
+2023-03-16 22:41:16,248 | INFO | Selecting 21 principal components making up 95% of the variance.
+
+2023-03-16 22:41:16,248 | INFO | PCA Finished
+2023-03-16 22:41:17,203 | INFO | Best parameter set: {'C': 26, 'epsilon': 0.30000000000000004, 'gamma': 'auto'}
+2023-03-16 22:41:17,203 | INFO | -------------------------
+
+2023-03-16 22:41:17,205 | INFO | Training:
+2023-03-16 22:41:17,207 | INFO | Training Finished.
+2023-03-16 22:41:17,209 | INFO | Log Training RMSE: 1.120, Training RMSE: 303199.216, Log Test RMSE: 1.138, Test RMSE MCC: 756175.049, Fold: 1
+2023-03-16 22:41:17,209 | INFO | Training:
+2023-03-16 22:41:17,211 | INFO | Training Finished.
+2023-03-16 22:41:17,213 | INFO | Log Training RMSE: 1.124, Training RMSE: 239260.417, Log Test RMSE: 1.218, Test RMSE MCC: 392482.368, Fold: 2
+2023-03-16 22:41:17,214 | INFO | Training:
+2023-03-16 22:41:17,216 | INFO | Training Finished.
+2023-03-16 22:41:17,218 | INFO | Log Training RMSE: 1.121, Training RMSE: 308737.715, Log Test RMSE: 1.146, Test RMSE MCC: 11890.339, Fold: 3
+2023-03-16 22:41:17,218 | INFO | Training:
+2023-03-16 22:41:17,221 | INFO | Training Finished.
+2023-03-16 22:41:17,223 | INFO | Log Training RMSE: 0.746, Training RMSE: 1292660.665, Log Test RMSE: 2.070, Test RMSE MCC: 486428.227, Fold: 4
+2023-03-16 22:41:17,223 | INFO | Training:
+2023-03-16 22:41:17,226 | INFO | Training Finished.
+2023-03-16 22:41:17,228 | INFO | Log Training RMSE: 1.107, Training RMSE: 266771.388, Log Test RMSE: 1.219, Test RMSE MCC: 12376.869, Fold: 5
+2023-03-16 22:41:17,228 | INFO | AVG Log Training RMSE: 1.044, AVG Training RMSE: 482125.880, AVG Log Test RMSE: 1.358, AVG Test RMSE: 331870.570
+
+2023-03-16 22:41:17,230 | INFO | Selecting 34 principal components making up 100% of the variance.
+
+2023-03-16 22:41:17,230 | INFO | PCA Finished
+2023-03-16 22:41:18,267 | INFO | Best parameter set: {'C': 36, 'epsilon': 0.4, 'gamma': 'auto'}
+2023-03-16 22:41:18,268 | INFO | -------------------------
+
+2023-03-16 22:41:18,269 | INFO | Training:
+2023-03-16 22:41:18,271 | INFO | Training Finished.
+2023-03-16 22:41:18,273 | INFO | Log Training RMSE: 1.103, Training RMSE: 291206.103, Log Test RMSE: 1.334, Test RMSE MCC: 5441858.084, Fold: 1
+2023-03-16 22:41:18,273 | INFO | Training:
+2023-03-16 22:41:18,276 | INFO | Training Finished.
+2023-03-16 22:41:18,279 | INFO | Log Training RMSE: 1.106, Training RMSE: 239405.899, Log Test RMSE: 1.116, Test RMSE MCC: 392491.725, Fold: 2
+2023-03-16 22:41:18,279 | INFO | Training:
+2023-03-16 22:41:18,281 | INFO | Training Finished.
+2023-03-16 22:41:18,284 | INFO | Log Training RMSE: 1.117, Training RMSE: 2631990.384, Log Test RMSE: 1.126, Test RMSE MCC: 11895.071, Fold: 3
+2023-03-16 22:41:18,284 | INFO | Training:
+2023-03-16 22:41:18,286 | INFO | Training Finished.
+2023-03-16 22:41:18,288 | INFO | Log Training RMSE: 0.722, Training RMSE: 2600538.970, Log Test RMSE: 2.035, Test RMSE MCC: 486445.251, Fold: 4
+2023-03-16 22:41:18,289 | INFO | Training:
+2023-03-16 22:41:18,291 | INFO | Training Finished.
+2023-03-16 22:41:18,294 | INFO | Log Training RMSE: 1.094, Training RMSE: 295083.624, Log Test RMSE: 1.224, Test RMSE MCC: 9483.951, Fold: 5
+2023-03-16 22:41:18,294 | INFO | AVG Log Training RMSE: 1.028, AVG Training RMSE: 1211644.996, AVG Log Test RMSE: 1.367, AVG Test RMSE: 1268434.816
+
+2023-03-16 22:41:18,296 | INFO | Logging results for SVR with Linear Kernel:
+2023-03-16 22:41:18,296 | INFO | -----------------------------------------------------------
+
+2023-03-16 22:41:18,302 | INFO | Calculations for the baseline model:
+2023-03-16 22:41:18,302 | INFO | ------------------------------------
+
+2023-03-16 22:41:20,967 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.9, 'gamma': 'scale'}
+2023-03-16 22:41:20,967 | INFO | -------------------------
+
+2023-03-16 22:41:20,968 | INFO | Training:
+2023-03-16 22:41:20,972 | INFO | Training Finished.
+2023-03-16 22:41:20,980 | INFO | Log Training RMSE: 0.763, Training RMSE: 287666.088, Log Test RMSE: 2.223, Test RMSE MCC: 7554618.711, Fold: 1
+2023-03-16 22:41:20,980 | INFO | Training:
+2023-03-16 22:41:20,986 | INFO | Training Finished.
+2023-03-16 22:41:20,994 | INFO | Log Training RMSE: 0.780, Training RMSE: 3555089.859, Log Test RMSE: 1.674, Test RMSE MCC: 392666.878, Fold: 2
+2023-03-16 22:41:20,994 | INFO | Training:
+2023-03-16 22:41:20,999 | INFO | Training Finished.
+2023-03-16 22:41:21,006 | INFO | Log Training RMSE: 0.784, Training RMSE: 3559929.224, Log Test RMSE: 1.720, Test RMSE MCC: 11909.131, Fold: 3
+2023-03-16 22:41:21,007 | INFO | Training:
+2023-03-16 22:41:21,012 | INFO | Training Finished.
+2023-03-16 22:41:21,019 | INFO | Log Training RMSE: 0.746, Training RMSE: 3522635.668, Log Test RMSE: 1.943, Test RMSE MCC: 486550.494, Fold: 4
+2023-03-16 22:41:21,019 | INFO | Training:
+2023-03-16 22:41:21,024 | INFO | Training Finished.
+2023-03-16 22:41:21,032 | INFO | Log Training RMSE: 0.796, Training RMSE: 3529300.972, Log Test RMSE: 1.710, Test RMSE MCC: 17294.662, Fold: 5
+2023-03-16 22:41:21,032 | INFO | AVG Log Training RMSE: 0.774, AVG Training RMSE: 2890924.362, AVG Log Test RMSE: 1.854, AVG Test RMSE: 1692607.975
+
+2023-03-16 22:41:21,034 | INFO | Forward Selection Starting
+2023-03-16 23:23:56,548 | INFO | Forward Selection Finished
+2023-03-16 23:23:58,049 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.30000000000000004, 'gamma': 'scale'}
+2023-03-16 23:23:58,049 | INFO | -------------------------
+
+2023-03-16 23:23:58,050 | INFO | Training:
+2023-03-16 23:23:58,053 | INFO | Training Finished.
+2023-03-16 23:23:58,058 | INFO | Log Training RMSE: 0.721, Training RMSE: 262032.010, Log Test RMSE: 1.381, Test RMSE MCC: 2796215.201, Fold: 1
+2023-03-16 23:23:58,058 | INFO | Training:
+2023-03-16 23:23:58,061 | INFO | Training Finished.
+2023-03-16 23:23:58,065 | INFO | Log Training RMSE: 0.633, Training RMSE: 2066743.030, Log Test RMSE: 0.875, Test RMSE MCC: 390951.366, Fold: 2
+2023-03-16 23:23:58,065 | INFO | Training:
+2023-03-16 23:23:58,069 | INFO | Training Finished.
+2023-03-16 23:23:58,072 | INFO | Log Training RMSE: 0.629, Training RMSE: 2227140.957, Log Test RMSE: 1.634, Test RMSE MCC: 11910.877, Fold: 3
+2023-03-16 23:23:58,073 | INFO | Training:
+2023-03-16 23:23:58,076 | INFO | Training Finished.
+2023-03-16 23:23:58,080 | INFO | Log Training RMSE: 0.445, Training RMSE: 2193945.842, Log Test RMSE: 1.817, Test RMSE MCC: 486441.594, Fold: 4
+2023-03-16 23:23:58,080 | INFO | Training:
+2023-03-16 23:23:58,083 | INFO | Training Finished.
+2023-03-16 23:23:58,087 | INFO | Log Training RMSE: 0.694, Training RMSE: 1648485.659, Log Test RMSE: 1.187, Test RMSE MCC: 14088.950, Fold: 5
+2023-03-16 23:23:58,087 | INFO | AVG Log Training RMSE: 0.625, AVG Training RMSE: 1679669.500, AVG Log Test RMSE: 1.379, AVG Test RMSE: 739921.597
+
+2023-03-16 23:23:58,089 | INFO | PCA Starting
+2023-03-16 23:23:58,096 | INFO | Selecting 19 principal components making up 75% of the variance.
+
+2023-03-16 23:23:58,097 | INFO | PCA Finished
+2023-03-16 23:24:00,376 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.8, 'gamma': 'scale'}
+2023-03-16 23:24:00,377 | INFO | -------------------------
+
+2023-03-16 23:24:00,377 | INFO | Training:
+2023-03-16 23:24:00,379 | INFO | Training Finished.
+2023-03-16 23:24:00,381 | INFO | Log Training RMSE: 1.466, Training RMSE: 307215.103, Log Test RMSE: 1.617, Test RMSE MCC: 10377.123, Fold: 1
+2023-03-16 23:24:00,382 | INFO | Training:
+2023-03-16 23:24:00,384 | INFO | Training Finished.
+2023-03-16 23:24:00,386 | INFO | Log Training RMSE: 1.580, Training RMSE: 239251.318, Log Test RMSE: 1.009, Test RMSE MCC: 379102.531, Fold: 2
+2023-03-16 23:24:00,386 | INFO | Training:
+2023-03-16 23:24:00,388 | INFO | Training Finished.
+2023-03-16 23:24:00,390 | INFO | Log Training RMSE: 1.408, Training RMSE: 2987728.626, Log Test RMSE: 1.686, Test RMSE MCC: 11911.119, Fold: 3
+2023-03-16 23:24:00,390 | INFO | Training:
+2023-03-16 23:24:00,393 | INFO | Training Finished.
+2023-03-16 23:24:00,394 | INFO | Log Training RMSE: 1.216, Training RMSE: 3426301.832, Log Test RMSE: 2.224, Test RMSE MCC: 486470.844, Fold: 4
+2023-03-16 23:24:00,395 | INFO | Training:
+2023-03-16 23:24:00,397 | INFO | Training Finished.
+2023-03-16 23:24:00,398 | INFO | Log Training RMSE: 1.470, Training RMSE: 296290.573, Log Test RMSE: 1.654, Test RMSE MCC: 4833832.056, Fold: 5
+2023-03-16 23:24:00,399 | INFO | AVG Log Training RMSE: 1.428, AVG Training RMSE: 1451357.490, AVG Log Test RMSE: 1.638, AVG Test RMSE: 1144338.734
+
+2023-03-16 23:24:00,400 | INFO | Selecting 22 principal components making up 80% of the variance.
+
+2023-03-16 23:24:00,401 | INFO | PCA Finished
+2023-03-16 23:24:02,475 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.4, 'gamma': 'scale'}
+2023-03-16 23:24:02,475 | INFO | -------------------------
+
+2023-03-16 23:24:02,476 | INFO | Training:
+2023-03-16 23:24:02,479 | INFO | Training Finished.
+2023-03-16 23:24:02,483 | INFO | Log Training RMSE: 1.392, Training RMSE: 275301.381, Log Test RMSE: 1.475, Test RMSE MCC: 10147.013, Fold: 1
+2023-03-16 23:24:02,483 | INFO | Training:
+2023-03-16 23:24:02,487 | INFO | Training Finished.
+2023-03-16 23:24:02,490 | INFO | Log Training RMSE: 1.403, Training RMSE: 2012024.716, Log Test RMSE: 1.445, Test RMSE MCC: 402345.276, Fold: 2
+2023-03-16 23:24:02,490 | INFO | Training:
+2023-03-16 23:24:02,493 | INFO | Training Finished.
+2023-03-16 23:24:02,496 | INFO | Log Training RMSE: 1.324, Training RMSE: 2628695.234, Log Test RMSE: 1.634, Test RMSE MCC: 12153.042, Fold: 3
+2023-03-16 23:24:02,496 | INFO | Training:
+2023-03-16 23:24:02,499 | INFO | Training Finished.
+2023-03-16 23:24:02,501 | INFO | Log Training RMSE: 1.126, Training RMSE: 2596315.613, Log Test RMSE: 2.149, Test RMSE MCC: 486801.160, Fold: 4
+2023-03-16 23:24:02,502 | INFO | Training:
+2023-03-16 23:24:02,505 | INFO | Training Finished.
+2023-03-16 23:24:02,508 | INFO | Log Training RMSE: 1.409, Training RMSE: 272620.717, Log Test RMSE: 1.767, Test RMSE MCC: 6097299.816, Fold: 5
+2023-03-16 23:24:02,508 | INFO | AVG Log Training RMSE: 1.331, AVG Training RMSE: 1556991.532, AVG Log Test RMSE: 1.694, AVG Test RMSE: 1401749.262
+
+2023-03-16 23:24:02,511 | INFO | Selecting 27 principal components making up 85% of the variance.
+
+2023-03-16 23:24:02,512 | INFO | PCA Finished
+2023-03-16 23:24:05,096 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.8, 'gamma': 'scale'}
+2023-03-16 23:24:05,097 | INFO | -------------------------
+
+2023-03-16 23:24:05,097 | INFO | Training:
+2023-03-16 23:24:05,100 | INFO | Training Finished.
+2023-03-16 23:24:05,102 | INFO | Log Training RMSE: 1.313, Training RMSE: 298927.331, Log Test RMSE: 1.549, Test RMSE MCC: 10263.028, Fold: 1
+2023-03-16 23:24:05,103 | INFO | Training:
+2023-03-16 23:24:05,105 | INFO | Training Finished.
+2023-03-16 23:24:05,108 | INFO | Log Training RMSE: 1.262, Training RMSE: 239616.107, Log Test RMSE: 0.992, Test RMSE MCC: 391503.943, Fold: 2
+2023-03-16 23:24:05,108 | INFO | Training:
+2023-03-16 23:24:05,111 | INFO | Training Finished.
+2023-03-16 23:24:05,114 | INFO | Log Training RMSE: 1.163, Training RMSE: 3463426.750, Log Test RMSE: 1.584, Test RMSE MCC: 11909.805, Fold: 3
+2023-03-16 23:24:05,114 | INFO | Training:
+2023-03-16 23:24:05,117 | INFO | Training Finished.
+2023-03-16 23:24:05,119 | INFO | Log Training RMSE: 0.936, Training RMSE: 3426580.111, Log Test RMSE: 2.170, Test RMSE MCC: 486420.851, Fold: 4
+2023-03-16 23:24:05,119 | INFO | Training:
+2023-03-16 23:24:05,121 | INFO | Training Finished.
+2023-03-16 23:24:05,124 | INFO | Log Training RMSE: 1.320, Training RMSE: 299148.795, Log Test RMSE: 1.380, Test RMSE MCC: 9688.805, Fold: 5
+2023-03-16 23:24:05,124 | INFO | AVG Log Training RMSE: 1.199, AVG Training RMSE: 1545539.819, AVG Log Test RMSE: 1.535, AVG Test RMSE: 181957.286
+
+2023-03-16 23:24:05,126 | INFO | Selecting 32 principal components making up 90% of the variance.
+
+2023-03-16 23:24:05,127 | INFO | PCA Finished
+2023-03-16 23:24:07,915 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.6, 'gamma': 'scale'}
+2023-03-16 23:24:07,915 | INFO | -------------------------
+
+2023-03-16 23:24:07,916 | INFO | Training:
+2023-03-16 23:24:07,919 | INFO | Training Finished.
+2023-03-16 23:24:07,921 | INFO | Log Training RMSE: 1.123, Training RMSE: 289617.974, Log Test RMSE: 1.438, Test RMSE MCC: 9342.536, Fold: 1
+2023-03-16 23:24:07,922 | INFO | Training:
+2023-03-16 23:24:07,924 | INFO | Training Finished.
+2023-03-16 23:24:07,927 | INFO | Log Training RMSE: 1.172, Training RMSE: 239087.923, Log Test RMSE: 0.869, Test RMSE MCC: 389994.481, Fold: 2
+2023-03-16 23:24:07,927 | INFO | Training:
+2023-03-16 23:24:07,929 | INFO | Training Finished.
+2023-03-16 23:24:07,931 | INFO | Log Training RMSE: 1.046, Training RMSE: 3162247.568, Log Test RMSE: 1.586, Test RMSE MCC: 11909.711, Fold: 3
+2023-03-16 23:24:07,931 | INFO | Training:
+2023-03-16 23:24:07,934 | INFO | Training Finished.
+2023-03-16 23:24:07,937 | INFO | Log Training RMSE: 0.847, Training RMSE: 2637318.823, Log Test RMSE: 2.023, Test RMSE MCC: 486413.043, Fold: 4
+2023-03-16 23:24:07,937 | INFO | Training:
+2023-03-16 23:24:07,939 | INFO | Training Finished.
+2023-03-16 23:24:07,941 | INFO | Log Training RMSE: 1.231, Training RMSE: 287205.973, Log Test RMSE: 1.290, Test RMSE MCC: 14367.052, Fold: 5
+2023-03-16 23:24:07,942 | INFO | AVG Log Training RMSE: 1.084, AVG Training RMSE: 1323095.653, AVG Log Test RMSE: 1.441, AVG Test RMSE: 182405.365
+
+2023-03-16 23:24:07,944 | INFO | Selecting 40 principal components making up 95% of the variance.
+
+2023-03-16 23:24:07,945 | INFO | PCA Finished
+2023-03-16 23:24:10,756 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.2, 'gamma': 'scale'}
+2023-03-16 23:24:10,757 | INFO | -------------------------
+
+2023-03-16 23:24:10,757 | INFO | Training:
+2023-03-16 23:24:10,760 | INFO | Training Finished.
+2023-03-16 23:24:10,762 | INFO | Log Training RMSE: 0.831, Training RMSE: 231740.092, Log Test RMSE: 1.202, Test RMSE MCC: 10082.576, Fold: 1
+2023-03-16 23:24:10,762 | INFO | Training:
+2023-03-16 23:24:10,764 | INFO | Training Finished.
+2023-03-16 23:24:10,766 | INFO | Log Training RMSE: 0.806, Training RMSE: 1686136.288, Log Test RMSE: 0.883, Test RMSE MCC: 389144.631, Fold: 2
+2023-03-16 23:24:10,767 | INFO | Training:
+2023-03-16 23:24:10,769 | INFO | Training Finished.
+2023-03-16 23:24:10,771 | INFO | Log Training RMSE: 0.774, Training RMSE: 1689099.956, Log Test RMSE: 1.475, Test RMSE MCC: 11905.238, Fold: 3
+2023-03-16 23:24:10,771 | INFO | Training:
+2023-03-16 23:24:10,774 | INFO | Training Finished.
+2023-03-16 23:24:10,776 | INFO | Log Training RMSE: 0.623, Training RMSE: 1658427.185, Log Test RMSE: 1.699, Test RMSE MCC: 486364.043, Fold: 4
+2023-03-16 23:24:10,776 | INFO | Training:
+2023-03-16 23:24:10,779 | INFO | Training Finished.
+2023-03-16 23:24:10,781 | INFO | Log Training RMSE: 0.811, Training RMSE: 246068.425, Log Test RMSE: 1.294, Test RMSE MCC: 9805.524, Fold: 5
+2023-03-16 23:24:10,781 | INFO | AVG Log Training RMSE: 0.769, AVG Training RMSE: 1102294.389, AVG Log Test RMSE: 1.311, AVG Test RMSE: 181460.403
+
+2023-03-16 23:24:10,783 | INFO | Selecting 71 principal components making up 100% of the variance.
+
+2023-03-16 23:24:10,784 | INFO | PCA Finished
+2023-03-16 23:24:11,924 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.30000000000000004, 'gamma': 'scale'}
+2023-03-16 23:24:11,924 | INFO | -------------------------
+
+2023-03-16 23:24:11,925 | INFO | Training:
+2023-03-16 23:24:11,927 | INFO | Training Finished.
+2023-03-16 23:24:11,930 | INFO | Log Training RMSE: 0.721, Training RMSE: 262052.773, Log Test RMSE: 1.381, Test RMSE MCC: 2754282.261, Fold: 1
+2023-03-16 23:24:11,930 | INFO | Training:
+2023-03-16 23:24:11,933 | INFO | Training Finished.
+2023-03-16 23:24:11,935 | INFO | Log Training RMSE: 0.633, Training RMSE: 2066451.410, Log Test RMSE: 0.875, Test RMSE MCC: 390950.614, Fold: 2
+2023-03-16 23:24:11,935 | INFO | Training:
+2023-03-16 23:24:11,938 | INFO | Training Finished.
+2023-03-16 23:24:11,940 | INFO | Log Training RMSE: 0.629, Training RMSE: 2227608.785, Log Test RMSE: 1.634, Test RMSE MCC: 11910.876, Fold: 3
+2023-03-16 23:24:11,940 | INFO | Training:
+2023-03-16 23:24:11,944 | INFO | Training Finished.
+2023-03-16 23:24:11,947 | INFO | Log Training RMSE: 0.445, Training RMSE: 2192159.053, Log Test RMSE: 1.817, Test RMSE MCC: 486441.582, Fold: 4
+2023-03-16 23:24:11,947 | INFO | Training:
+2023-03-16 23:24:11,950 | INFO | Training Finished.
+2023-03-16 23:24:11,953 | INFO | Log Training RMSE: 0.694, Training RMSE: 1622284.897, Log Test RMSE: 1.187, Test RMSE MCC: 14135.156, Fold: 5
+2023-03-16 23:24:11,953 | INFO | AVG Log Training RMSE: 0.625, AVG Training RMSE: 1674111.384, AVG Log Test RMSE: 1.379, AVG Test RMSE: 731544.098
+
+2023-03-16 23:24:11,955 | INFO | Logging results for Lasso Regression:
+2023-03-16 23:24:11,955 | INFO | -----------------------------------------------------------
+
+2023-03-16 23:24:11,960 | INFO | Calculations for the baseline model:
+2023-03-16 23:24:11,961 | INFO | ------------------------------------
+
+2023-03-16 23:24:12,088 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'cyclic'}
+2023-03-16 23:24:12,088 | INFO | -------------------------
+
+2023-03-16 23:24:12,089 | INFO | Training:
+2023-03-16 23:24:12,096 | INFO | Training Finished.
+2023-03-16 23:24:12,103 | INFO | Log Training RMSE: 1.463, Training RMSE: 311480.763, Log Test RMSE: 2.215, Test RMSE MCC: 7557415.970, Fold: 1
+2023-03-16 23:24:12,103 | INFO | Training:
+2023-03-16 23:24:12,110 | INFO | Training Finished.
+2023-03-16 23:24:12,116 | INFO | Log Training RMSE: 1.446, Training RMSE: 3844292.952, Log Test RMSE: 1.208, Test RMSE MCC: 390680.125, Fold: 2
+2023-03-16 23:24:12,117 | INFO | Training:
+2023-03-16 23:24:12,122 | INFO | Training Finished.
+2023-03-16 23:24:12,132 | INFO | Log Training RMSE: 1.432, Training RMSE: 3854151.628, Log Test RMSE: 1.745, Test RMSE MCC: 11908.289, Fold: 3
+2023-03-16 23:24:12,132 | INFO | Training:
+2023-03-16 23:24:12,137 | INFO | Training Finished.
+2023-03-16 23:24:12,144 | INFO | Log Training RMSE: 1.330, Training RMSE: 3810768.951, Log Test RMSE: 1.989, Test RMSE MCC: 486549.323, Fold: 4
+2023-03-16 23:24:12,145 | INFO | Training:
+2023-03-16 23:24:12,150 | INFO | Training Finished.
+2023-03-16 23:24:12,156 | INFO | Log Training RMSE: 1.512, Training RMSE: 3817585.916, Log Test RMSE: 1.609, Test RMSE MCC: 17695.833, Fold: 5
+2023-03-16 23:24:12,157 | INFO | AVG Log Training RMSE: 1.437, AVG Training RMSE: 3127656.042, AVG Log Test RMSE: 1.753, AVG Test RMSE: 1692849.908
+
+2023-03-16 23:24:12,159 | INFO | Forward Selection Starting
+2023-03-16 23:34:24,938 | INFO | Forward Selection Finished
+2023-03-16 23:34:25,014 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'random'}
+2023-03-16 23:34:25,015 | INFO | -------------------------
+
+2023-03-16 23:34:25,015 | INFO | Training:
+2023-03-16 23:34:25,018 | INFO | Training Finished.
+2023-03-16 23:34:25,020 | INFO | Log Training RMSE: 1.754, Training RMSE: 311562.255, Log Test RMSE: 2.358, Test RMSE MCC: 7557439.986, Fold: 1
+2023-03-16 23:34:25,020 | INFO | Training:
+2023-03-16 23:34:25,023 | INFO | Training Finished.
+2023-03-16 23:34:25,025 | INFO | Log Training RMSE: 1.778, Training RMSE: 3846784.694, Log Test RMSE: 1.254, Test RMSE MCC: 388775.988, Fold: 2
+2023-03-16 23:34:25,025 | INFO | Training:
+2023-03-16 23:34:25,027 | INFO | Training Finished.
+2023-03-16 23:34:25,030 | INFO | Log Training RMSE: 1.731, Training RMSE: 3853262.698, Log Test RMSE: 1.623, Test RMSE MCC: 11901.836, Fold: 3
+2023-03-16 23:34:25,030 | INFO | Training:
+2023-03-16 23:34:25,033 | INFO | Training Finished.
+2023-03-16 23:34:25,035 | INFO | Log Training RMSE: 1.609, Training RMSE: 3812812.744, Log Test RMSE: 2.155, Test RMSE MCC: 486552.988, Fold: 4
+2023-03-16 23:34:25,035 | INFO | Training:
+2023-03-16 23:34:25,037 | INFO | Training Finished.
+2023-03-16 23:34:25,039 | INFO | Log Training RMSE: 1.705, Training RMSE: 3819518.191, Log Test RMSE: 1.949, Test RMSE MCC: 17720.516, Fold: 5
+2023-03-16 23:34:25,039 | INFO | AVG Log Training RMSE: 1.715, AVG Training RMSE: 3128788.116, AVG Log Test RMSE: 1.868, AVG Test RMSE: 1692478.263
+
+2023-03-16 23:34:25,041 | INFO | PCA Starting
+2023-03-16 23:34:25,044 | INFO | Selecting 8 principal components making up 75% of the variance.
+
+2023-03-16 23:34:25,045 | INFO | PCA Finished
+2023-03-16 23:34:25,126 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'cyclic'}
+2023-03-16 23:34:25,126 | INFO | -------------------------
+
+2023-03-16 23:34:25,127 | INFO | Training:
+2023-03-16 23:34:25,129 | INFO | Training Finished.
+2023-03-16 23:34:25,131 | INFO | Log Training RMSE: 1.668, Training RMSE: 311550.985, Log Test RMSE: 2.121, Test RMSE MCC: 7556267.579, Fold: 1
+2023-03-16 23:34:25,132 | INFO | Training:
+2023-03-16 23:34:25,134 | INFO | Training Finished.
+2023-03-16 23:34:25,136 | INFO | Log Training RMSE: 1.704, Training RMSE: 3838890.930, Log Test RMSE: 1.506, Test RMSE MCC: 391411.745, Fold: 2
+2023-03-16 23:34:25,136 | INFO | Training:
+2023-03-16 23:34:25,138 | INFO | Training Finished.
+2023-03-16 23:34:25,140 | INFO | Log Training RMSE: 1.722, Training RMSE: 3852212.784, Log Test RMSE: 1.594, Test RMSE MCC: 11897.437, Fold: 3
+2023-03-16 23:34:25,140 | INFO | Training:
+2023-03-16 23:34:25,142 | INFO | Training Finished.
+2023-03-16 23:34:25,145 | INFO | Log Training RMSE: 1.597, Training RMSE: 3810535.562, Log Test RMSE: 1.981, Test RMSE MCC: 486533.894, Fold: 4
+2023-03-16 23:34:25,145 | INFO | Training:
+2023-03-16 23:34:25,147 | INFO | Training Finished.
+2023-03-16 23:34:25,149 | INFO | Log Training RMSE: 1.672, Training RMSE: 3810125.854, Log Test RMSE: 2.032, Test RMSE MCC: 17720.021, Fold: 5
+2023-03-16 23:34:25,150 | INFO | AVG Log Training RMSE: 1.673, AVG Training RMSE: 3124663.223, AVG Log Test RMSE: 1.847, AVG Test RMSE: 1692766.135
+
+2023-03-16 23:34:25,152 | INFO | Selecting 9 principal components making up 80% of the variance.
+
+2023-03-16 23:34:25,153 | INFO | PCA Finished
+2023-03-16 23:34:25,234 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'cyclic'}
+2023-03-16 23:34:25,235 | INFO | -------------------------
+
+2023-03-16 23:34:25,235 | INFO | Training:
+2023-03-16 23:34:25,238 | INFO | Training Finished.
+2023-03-16 23:34:25,240 | INFO | Log Training RMSE: 1.668, Training RMSE: 311550.985, Log Test RMSE: 2.121, Test RMSE MCC: 7556267.579, Fold: 1
+2023-03-16 23:34:25,240 | INFO | Training:
+2023-03-16 23:34:25,242 | INFO | Training Finished.
+2023-03-16 23:34:25,245 | INFO | Log Training RMSE: 1.704, Training RMSE: 3838890.930, Log Test RMSE: 1.506, Test RMSE MCC: 391411.745, Fold: 2
+2023-03-16 23:34:25,245 | INFO | Training:
+2023-03-16 23:34:25,248 | INFO | Training Finished.
+2023-03-16 23:34:25,249 | INFO | Log Training RMSE: 1.722, Training RMSE: 3852212.784, Log Test RMSE: 1.594, Test RMSE MCC: 11897.437, Fold: 3
+2023-03-16 23:34:25,249 | INFO | Training:
+2023-03-16 23:34:25,252 | INFO | Training Finished.
+2023-03-16 23:34:25,254 | INFO | Log Training RMSE: 1.597, Training RMSE: 3810535.562, Log Test RMSE: 1.981, Test RMSE MCC: 486533.894, Fold: 4
+2023-03-16 23:34:25,254 | INFO | Training:
+2023-03-16 23:34:25,256 | INFO | Training Finished.
+2023-03-16 23:34:25,258 | INFO | Log Training RMSE: 1.672, Training RMSE: 3810125.854, Log Test RMSE: 2.032, Test RMSE MCC: 17720.021, Fold: 5
+2023-03-16 23:34:25,258 | INFO | AVG Log Training RMSE: 1.673, AVG Training RMSE: 3124663.223, AVG Log Test RMSE: 1.847, AVG Test RMSE: 1692766.135
+
+2023-03-16 23:34:25,260 | INFO | Selecting 11 principal components making up 85% of the variance.
+
+2023-03-16 23:34:25,261 | INFO | PCA Finished
+2023-03-16 23:34:25,336 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'random'}
+2023-03-16 23:34:25,336 | INFO | -------------------------
+
+2023-03-16 23:34:25,336 | INFO | Training:
+2023-03-16 23:34:25,338 | INFO | Training Finished.
+2023-03-16 23:34:25,340 | INFO | Log Training RMSE: 1.668, Training RMSE: 311550.983, Log Test RMSE: 2.121, Test RMSE MCC: 7556267.576, Fold: 1
+2023-03-16 23:34:25,340 | INFO | Training:
+2023-03-16 23:34:25,342 | INFO | Training Finished.
+2023-03-16 23:34:25,344 | INFO | Log Training RMSE: 1.704, Training RMSE: 3838890.968, Log Test RMSE: 1.506, Test RMSE MCC: 391411.749, Fold: 2
+2023-03-16 23:34:25,345 | INFO | Training:
+2023-03-16 23:34:25,347 | INFO | Training Finished.
+2023-03-16 23:34:25,348 | INFO | Log Training RMSE: 1.722, Training RMSE: 3852212.785, Log Test RMSE: 1.594, Test RMSE MCC: 11897.437, Fold: 3
+2023-03-16 23:34:25,349 | INFO | Training:
+2023-03-16 23:34:25,351 | INFO | Training Finished.
+2023-03-16 23:34:25,352 | INFO | Log Training RMSE: 1.597, Training RMSE: 3810535.030, Log Test RMSE: 1.981, Test RMSE MCC: 486533.894, Fold: 4
+2023-03-16 23:34:25,353 | INFO | Training:
+2023-03-16 23:34:25,354 | INFO | Training Finished.
+2023-03-16 23:34:25,356 | INFO | Log Training RMSE: 1.672, Training RMSE: 3810126.773, Log Test RMSE: 2.032, Test RMSE MCC: 17720.021, Fold: 5
+2023-03-16 23:34:25,356 | INFO | AVG Log Training RMSE: 1.673, AVG Training RMSE: 3124663.308, AVG Log Test RMSE: 1.847, AVG Test RMSE: 1692766.135
+
+2023-03-16 23:34:25,358 | INFO | Selecting 13 principal components making up 90% of the variance.
+
+2023-03-16 23:34:25,358 | INFO | PCA Finished
+2023-03-16 23:34:25,432 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'cyclic'}
+2023-03-16 23:34:25,432 | INFO | -------------------------
+
+2023-03-16 23:34:25,433 | INFO | Training:
+2023-03-16 23:34:25,435 | INFO | Training Finished.
+2023-03-16 23:34:25,436 | INFO | Log Training RMSE: 1.668, Training RMSE: 311550.985, Log Test RMSE: 2.121, Test RMSE MCC: 7556267.579, Fold: 1
+2023-03-16 23:34:25,437 | INFO | Training:
+2023-03-16 23:34:25,439 | INFO | Training Finished.
+2023-03-16 23:34:25,440 | INFO | Log Training RMSE: 1.704, Training RMSE: 3838890.930, Log Test RMSE: 1.506, Test RMSE MCC: 391411.745, Fold: 2
+2023-03-16 23:34:25,440 | INFO | Training:
+2023-03-16 23:34:25,442 | INFO | Training Finished.
+2023-03-16 23:34:25,444 | INFO | Log Training RMSE: 1.722, Training RMSE: 3852212.784, Log Test RMSE: 1.594, Test RMSE MCC: 11897.437, Fold: 3
+2023-03-16 23:34:25,445 | INFO | Training:
+2023-03-16 23:34:25,447 | INFO | Training Finished.
+2023-03-16 23:34:25,449 | INFO | Log Training RMSE: 1.597, Training RMSE: 3810535.562, Log Test RMSE: 1.981, Test RMSE MCC: 486533.894, Fold: 4
+2023-03-16 23:34:25,449 | INFO | Training:
+2023-03-16 23:34:25,451 | INFO | Training Finished.
+2023-03-16 23:34:25,453 | INFO | Log Training RMSE: 1.672, Training RMSE: 3810125.854, Log Test RMSE: 2.032, Test RMSE MCC: 17720.021, Fold: 5
+2023-03-16 23:34:25,453 | INFO | AVG Log Training RMSE: 1.673, AVG Training RMSE: 3124663.223, AVG Log Test RMSE: 1.847, AVG Test RMSE: 1692766.135
+
+2023-03-16 23:34:25,455 | INFO | Selecting 16 principal components making up 95% of the variance.
+
+2023-03-16 23:34:25,455 | INFO | PCA Finished
+2023-03-16 23:34:25,526 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'random'}
+2023-03-16 23:34:25,527 | INFO | -------------------------
+
+2023-03-16 23:34:25,527 | INFO | Training:
+2023-03-16 23:34:25,530 | INFO | Training Finished.
+2023-03-16 23:34:25,532 | INFO | Log Training RMSE: 1.668, Training RMSE: 311550.983, Log Test RMSE: 2.121, Test RMSE MCC: 7556267.585, Fold: 1
+2023-03-16 23:34:25,532 | INFO | Training:
+2023-03-16 23:34:25,534 | INFO | Training Finished.
+2023-03-16 23:34:25,536 | INFO | Log Training RMSE: 1.704, Training RMSE: 3838871.330, Log Test RMSE: 1.506, Test RMSE MCC: 391410.869, Fold: 2
+2023-03-16 23:34:25,536 | INFO | Training:
+2023-03-16 23:34:25,538 | INFO | Training Finished.
+2023-03-16 23:34:25,540 | INFO | Log Training RMSE: 1.722, Training RMSE: 3852213.558, Log Test RMSE: 1.594, Test RMSE MCC: 11897.428, Fold: 3
+2023-03-16 23:34:25,540 | INFO | Training:
+2023-03-16 23:34:25,542 | INFO | Training Finished.
+2023-03-16 23:34:25,545 | INFO | Log Training RMSE: 1.597, Training RMSE: 3810535.572, Log Test RMSE: 1.981, Test RMSE MCC: 486533.894, Fold: 4
+2023-03-16 23:34:25,545 | INFO | Training:
+2023-03-16 23:34:25,547 | INFO | Training Finished.
+2023-03-16 23:34:25,548 | INFO | Log Training RMSE: 1.672, Training RMSE: 3810125.835, Log Test RMSE: 2.032, Test RMSE MCC: 17720.021, Fold: 5
+2023-03-16 23:34:25,549 | INFO | AVG Log Training RMSE: 1.673, AVG Training RMSE: 3124659.456, AVG Log Test RMSE: 1.847, AVG Test RMSE: 1692765.959
+
+2023-03-16 23:34:25,550 | INFO | Selecting 27 principal components making up 100% of the variance.
+
+2023-03-16 23:34:25,551 | INFO | PCA Finished
+2023-03-16 23:34:25,630 | INFO | Best parameter set: {'alpha': 0.1, 'selection': 'random'}
+2023-03-16 23:34:25,630 | INFO | -------------------------
+
+2023-03-16 23:34:25,631 | INFO | Training:
+2023-03-16 23:34:25,633 | INFO | Training Finished.
+2023-03-16 23:34:25,635 | INFO | Log Training RMSE: 1.668, Training RMSE: 311550.982, Log Test RMSE: 2.121, Test RMSE MCC: 7556267.512, Fold: 1
+2023-03-16 23:34:25,635 | INFO | Training:
+2023-03-16 23:34:25,637 | INFO | Training Finished.
+2023-03-16 23:34:25,639 | INFO | Log Training RMSE: 1.704, Training RMSE: 3838891.220, Log Test RMSE: 1.506, Test RMSE MCC: 391411.784, Fold: 2
+2023-03-16 23:34:25,639 | INFO | Training:
+2023-03-16 23:34:25,641 | INFO | Training Finished.
+2023-03-16 23:34:25,644 | INFO | Log Training RMSE: 1.722, Training RMSE: 3852212.794, Log Test RMSE: 1.594, Test RMSE MCC: 11897.437, Fold: 3
+2023-03-16 23:34:25,644 | INFO | Training:
+2023-03-16 23:34:25,646 | INFO | Training Finished.
+2023-03-16 23:34:25,648 | INFO | Log Training RMSE: 1.597, Training RMSE: 3810535.798, Log Test RMSE: 1.981, Test RMSE MCC: 486533.894, Fold: 4
+2023-03-16 23:34:25,648 | INFO | Training:
+2023-03-16 23:34:25,650 | INFO | Training Finished.
+2023-03-16 23:34:25,652 | INFO | Log Training RMSE: 1.672, Training RMSE: 3810125.857, Log Test RMSE: 2.032, Test RMSE MCC: 17720.021, Fold: 5
+2023-03-16 23:34:25,653 | INFO | AVG Log Training RMSE: 1.673, AVG Training RMSE: 3124663.330, AVG Log Test RMSE: 1.847, AVG Test RMSE: 1692766.130
+

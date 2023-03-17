@@ -41,3 +41,6 @@
 - Changed rfe_regression.py
     * Cleaned up some formatting
     
+## 3/17/2023 Changes
+- Finalized the ki predictor on the regression only pipeline.
+- Saved the models created for inference.

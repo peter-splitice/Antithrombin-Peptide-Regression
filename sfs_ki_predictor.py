@@ -214,7 +214,7 @@ def main():
 
     # Save the results in a new .csv
     results = test_set[['Name','Bucket','KI (nM) Predicted']]
-    results.to_csv(PATH + 'sfs_blind_set_predictions.csv')
+    results.to_csv(PATH + '/Results/sfs_blind_set_predictions.csv')
 
     # Logger file for the KI_range for unscaling
     logger = log_files(PATH + '/Log Files/sfs_ki_predictions.log')

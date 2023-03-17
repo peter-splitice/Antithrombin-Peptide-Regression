@@ -20,6 +20,9 @@ from sklearn.svm import SVR
 # Metrics
 from sklearn.metrics import mean_squared_error
 
+# Model Persistence
+from pickle import dump
+
 def import_data():
     """
     Import the full dataset fro mthe current path.  Also apply some of the necessary preprocessing.
@@ -151,6 +154,7 @@ def sequential_selection(x, y, name, ki_range, fs_range, model=SVR()):
     cols = ['Features Selected', 'Training RMSE Score', 'Training Log RMSE Score',
             'Validation RMSE Score', 'Validation RMSE Score']
     scores_df = pd.DataFrame(columns=cols)
+    low_test_log_rmse=0
 
     # Iterate through selecting from 10%-90% of the features in increments of 10.
     for ratio in ratios:
@@ -164,7 +168,6 @@ def sequential_selection(x, y, name, ki_range, fs_range, model=SVR()):
         train_log_rmse_sum = 0
         test_rmse_sum = 0
         test_log_rmse_sum = 0
-        high_test_log_rmse = 0
         
         # Kfold to test the results of sequental feature selection.
         kf = KFold(n_splits=FOLDS, random_state=RAND, shuffle=True)
@@ -203,8 +206,8 @@ def sequential_selection(x, y, name, ki_range, fs_range, model=SVR()):
             test_log_rmse_sum += test_log_rmse
 
         avg_test_log_rmse = test_log_rmse_sum/FOLDS
-        if (avg_test_log_rmse < high_test_log_rmse) or (ratio == fs_range[0]):
-            high_test_log_rmse = avg_test_log_rmse
+        if (avg_test_log_rmse < low_test_log_rmse) or (ratio == fs_range[0]):
+            low_test_log_rmse = avg_test_log_rmse
             final_x_sfs = x_sfs
             final_sfs = sfs
 
@@ -308,32 +311,28 @@ def regressor_trainer(x, y, ki_range, params, model=SVR()):
                 'AVG Test RMSE: %3.3f\n' %(train_log_rmse_avg, train_rmse_avg, test_log_rmse_avg, 
                                            test_rmse_avg))
     
-    scores = [train_rmse_avg, test_rmse_avg, train_log_rmse_avg, test_log_rmse_avg]
+    scores = [train_rmse_avg, test_rmse_avg, train_log_rmse_avg, test_log_rmse_avg, optimized_features]
     
     return model, scores
 
-def principal_component_analysis(x, variance):
+def variance_analyzer(x_pca, variance, pca):
     """
     Perform PCA and return the transformed inputs with the principal components.
 
     Parameters
     ----------
-    x: Input values to perform PCA on.
+    x_pca: The input matrix after we applied PCA to reduce dimensionality.
 
     variance: Parameter that reduces dimensionality of the PCA.  Enter as an int from 0-100.  100 keeps full dimensionality
 
     Returns
     -------
-    x: x input transformed with PCA.  The number of principal components returned is based on the "var" selected.
+    x_pca_reduced: The input matrix, further reduced based on how much variance we want accounted for in the principal
+        components.
 
     pca: The PrincipalComponentAnalysis model.
     
     """
-    # Run PCA on the given inputs.
-    logger.info('PCA Starting')
-    pca = PCA()
-    pca.fit(x)
-    x_pca = pd.DataFrame(pca.transform(x))
     
     # Dimensonality Reduction based on accepted variance.
     ratios = np.array(pca.explained_variance_ratio_)
@@ -349,7 +348,7 @@ def principal_component_analysis(x, variance):
         logger.info('Kept all principal components for %i%% of the variance.\n' %(variance))
     logger.info('PCA Finished')
 
-    return x_pca, pca
+    return x_pca
 
 
 def regression():
@@ -360,12 +359,15 @@ def regression():
         -> SVR with Linear Kernel
         -> Lasso Regression
     """
+    # Create the directory for the regression results.
+    if os.path.exists(PATH + '/Regression Only Results') == False:
+        os.mkdir('Regression Only Results')
 
     # Load up the regression models here:
     reg_models = load_regression_models()
     variances = [75, 80, 85, 90, 95, 100]
     cols = ['Name', 'Stage', 'Features', 'Training RMSE', 'Validation RMSE', 'Log Training RMSE',
-            'Log Validation RMSE']
+            'Log Validation RMSE', 'Parameters']
     
     results_df = pd.DataFrame(columns=cols)
  
@@ -378,10 +380,7 @@ def regression():
     scaler = MinMaxScaler()
     scaler.fit(x)
     x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
-
-    # Create the directory for the regression results.
-    if os.path.exists(PATH + '/Regression Only Results') == False:
-        os.mkdir('Regression Only Results')
+    dump(scaler, open(PATH + '/Regression Only Results/regression only scaler.pkl', 'wb'))
             
     for name, params, model, fs_range in reg_models:
         # Data import whenever you switch models
@@ -397,21 +396,30 @@ def regression():
         model, scores_baseline = regressor_trainer(x, y, ki_range, params, model)
 
         results_df.loc[len(results_df)] = [name, 'Baseline', x.shape[1], scores_baseline[0],
-                                           scores_baseline[1], scores_baseline[2], scores_baseline[3]]
+                                           scores_baseline[1], scores_baseline[2], scores_baseline[3], scores_baseline[4]]
 
         # Apply Feature Selection.  Use SFS for Linear and Lasso
-        x_sfs, _ = sequential_selection(x, y, name, ki_range, fs_range, model)
+        x_sfs, sfs = sequential_selection(x, y, name, ki_range, fs_range, model)
+        dump(sfs, open(PATH + '/Regression Only Results/SFS for %s.pkl' %(name), 'wb'))
         model_sfs, scores_sfs = regressor_trainer(x_sfs, y, ki_range, params, model)
 
         results_df.loc[len(results_df)] = [name, 'Feature Selection', x_sfs.shape[1], scores_sfs[0],
-                                           scores_sfs[1], scores_sfs[2], scores_sfs[3]]
+                                           scores_sfs[1], scores_sfs[2], scores_sfs[3], scores_sfs[4]]
+        
+        ## Then we run PCA.
+        logger.info('PCA Starting')
+        pca = PCA()
+        pca.fit(x_sfs)
+        x_sfs_pca = pd.DataFrame(pca.transform(x_sfs))
+        dump(pca, open(PATH + '/Regression Only Results/PCA for %s.pkl' %(name), 'wb'))
+
+        # Select principal components based on how much variance we want to account for, and then
+        #   pick out the best performing variance percentage (up to 100)
         for variance in variances:
-            # Run prinicpal componet analysis then fit hte data.
-            x_sfs_pca, pca = principal_component_analysis(x_sfs, variance)
-            model_sfs_pca, scores_sfs_pca = regressor_trainer(x_sfs_pca, y, ki_range, params, model)
-            
-            results_df.loc[len(results_df)] = [name, 'PCA w/%i%% variance' %(variance), x_sfs_pca.shape[1], scores_sfs_pca[0],
-                                               scores_sfs_pca[1], scores_sfs_pca[2], scores_sfs_pca[3]]
+            x_sfs_pca_var = variance_analyzer(x_sfs_pca, variance, pca)
+            model_sfs_pca, scores_sfs_pca = regressor_trainer(x_sfs_pca_var, y, ki_range, params, model)
+            results_df.loc[len(results_df)] = [name, 'PCA w/%i%% variance' %(variance), x_sfs_pca_var.shape[1], scores_sfs_pca[0],
+                                               scores_sfs_pca[1], scores_sfs_pca[2], scores_sfs_pca[3], scores_sfs_pca[4]]
         
     results_df.to_csv(PATH + '/Results/regression_only_results.csv')
 

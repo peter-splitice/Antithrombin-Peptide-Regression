@@ -205,7 +205,7 @@ def main():
 
     # Save the results in a new .csv
     results = test_set[['Name','Bucket','KI (nM) Predicted']]
-    results.to_csv(PATH + 'blind_set_predictions.csv')
+    results.to_csv(PATH + '/Results/rfe_blind_set_predictions.csv')
 
     # Logger file for the KI_range for unscaling
     logger = log_files(PATH + '/Log Files/rfe_ki_predictions.log')
