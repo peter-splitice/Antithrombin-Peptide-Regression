@@ -58,5 +58,5 @@ git add Positive_Ki.xlsx            # Initial peptides for the regression traini
 git add testbench.ipynb
 
 # push the update.
-git commit -m 'Finalized the regression only portion of the pipeline'
+git commit -m '3/20/2023: Cleaned up all of the regression only results.'
 # git push -u origin main
