@@ -44,3 +44,6 @@
 ## 3/17/2023 Changes
 - Finalized the ki predictor on the regression only pipeline.
 - Saved the models created for inference.
+
+## 3/30/2013 Changes
+- Changed the variance on the regression only model to 85
