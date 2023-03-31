@@ -21,8 +21,8 @@ import glob
 
 ## Global Variables.  Modify as needed based on the model we're running inference with.
 REG_NAME = 'SVR with RBF Kernel'
-VARIANCE = 90       # Set this to 'False' if we don't use PCA.
-MODEL_PARAMS = {'C': 26, 'epsilon': 0.2, 'gamma': 'auto'}
+VARIANCE = 85       # Set this to 'False' if we don't use PCA.
+MODEL_PARAMS = {'C': 41, 'epsilon': 0.1, 'gamma': 'auto'}
 
 # Importing the model reference dataset:
 def training_data():
