@@ -40,7 +40,7 @@ git add sfs_ki_predictor.py
 git add sfs_range_narrower.py
 
 git add regression_only.py
-git add regression_only_ki_predictior.py
+git add regression_only_ki_predictor.py
 
 # Text Files
 git add changelog.md
