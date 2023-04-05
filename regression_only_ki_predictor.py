@@ -105,7 +105,6 @@ def main():
     with open(PATH + '/Regression Only Results/regression only scaler.pkl', 'rb') as fh:
         scaler = pickle.load(fh)
 
-    scaler.fit(x)
     x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
 
     # Load the saved Sequential Forward Selection Model and apply the transform.
@@ -138,12 +137,13 @@ def main():
             x = x[x.columns[0:length]]
 
 
-    # Regression model.  Train 2 models, one on the smaller bucket and one on the medium bucket.
-    reg = SVR(kernel='rbf', C=6, epsilon=0.2, gamma='scale')
-    reg.fit(x,y)
+    # Regression model
+    model = SVR(kernel='rbf')
+    model.set_params(**MODEL_PARAMS)
+    model.fit(x,y)
     
     # Dump models as .pkl
-    pickle.dump(reg, open(PATH + '/Inference Models/regression only %s trained model.pkl' %(REG_NAME), 'wb'))
+    pickle.dump(model, open(PATH + '/Inference Models/regression only %s trained model.pkl' %(REG_NAME), 'wb'))
     
     ## Inference
     # Get the test data and the napply the necessary transforms.
@@ -166,7 +166,7 @@ def main():
             x_test = x_test[x_test.columns[0:length]]
             
     # Make the predictions
-    y_pred = reg.predict(x_test)
+    y_pred = model.predict(x_test)
 
     y_pred_unscaled = unscale(y_pred, ki_range)
     test_set['KI (nM) Predicted'] = y_pred_unscaled

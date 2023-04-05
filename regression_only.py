@@ -21,7 +21,7 @@ from sklearn.svm import SVR
 from sklearn.metrics import mean_squared_error
 
 # Model Persistence
-from pickle import dump
+import pickle
 
 def import_data():
     """
@@ -380,7 +380,7 @@ def regression():
     scaler = MinMaxScaler()
     scaler.fit(x)
     x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
-    dump(scaler, open(PATH + '/Regression Only Results/regression only scaler.pkl', 'wb'))
+    pickle.dump(scaler, open(PATH + '/Regression Only Results/regression only scaler.pkl', 'wb'))
             
     for name, params, model, fs_range in reg_models:
         # Data import whenever you switch models
@@ -400,7 +400,7 @@ def regression():
 
         # Apply Feature Selection.  Use SFS for Linear and Lasso
         x_sfs, sfs = sequential_selection(x, y, name, ki_range, fs_range, model)
-        dump(sfs, open(PATH + '/Regression Only Results/SFS for %s.pkl' %(name), 'wb'))
+        pickle.dump(sfs, open(PATH + '/Regression Only Results/SFS for %s.pkl' %(name), 'wb'))
         model_sfs, scores_sfs = regressor_trainer(x_sfs, y, ki_range, params, model)
 
         results_df.loc[len(results_df)] = [name, 'Feature Selection', x_sfs.shape[1], scores_sfs[0],
@@ -411,7 +411,7 @@ def regression():
         pca = PCA()
         pca.fit(x_sfs)
         x_sfs_pca = pd.DataFrame(pca.transform(x_sfs))
-        dump(pca, open(PATH + '/Regression Only Results/PCA for %s.pkl' %(name), 'wb'))
+        pickle.dump(pca, open(PATH + '/Regression Only Results/PCA for %s.pkl' %(name), 'wb'))
 
         # Select principal components based on how much variance we want to account for, and then
         #   pick out the best performing variance percentage (up to 100)
@@ -424,7 +424,84 @@ def regression():
     results_df.to_csv(PATH + '/Results/regression_only_results.csv')
 
 def graph_results():
-    print('test')
+    """
+    From here, we'll visualize hyperparameter tuning of our best selected model.  In this case, we will
+        use SVR with RBF Kernel using Sequential Feature Selection and PCA @ 85% variance accounted for 
+        in the number of principal components.
+    """
+    # Initializations.  Change this code whenever the best model changes
+    model = SVR(kernel='rbf')
+    params = {'gamma': ['scale', 'auto'], 'C': np.arange(1,101,5), 'epsilon': np.arange(0.01, 1.01, 0.05)}
+    variance = 85
+    name = 'SVR with RBF Kernel'
+
+    # Extract the X and Y information
+    df, ki_range = import_data()
+    x = df[df.columns[1:573]]
+    y = df['KI (nM) rescaled']
+
+    ## Pipeline
+    # Scaler transformation
+    with open(PATH + '/Regression Only Results/regression only scaler.pkl', 'rb') as fh:
+        scaler = pickle.load(fh)
+    x = pd.DataFrame(scaler.transform(x), columns=df.columns[1:573])
+
+    # Sequential Forward Selection
+    with open (PATH + '/Regression Only Results/SFS for %s.pkl' %(name), 'rb') as fh:
+        sfs = pickle.load(fh)
+
+    x = pd.DataFrame(sfs.transform(x), columns=sfs.get_feature_names_out())
+    
+    # Principal Component Analysis
+    with open(PATH + '/Regression Only Results/PCA for %s.pkl' %(name), 'rb') as fh:
+        pca = pickle.load(fh)
+
+    # Depending on the variance we select, paply PCA to the reduced feature set.
+    if variance != False:
+        x = pd.DataFrame(pca.transform(x))
+
+        # Dimensonality Reduction based on accepted variance.
+        ratios = np.array(pca.explained_variance_ratio_)
+        ratios = ratios[ratios.cumsum() <= (variance/100)]
+        
+        # Readjust the dimensions of x based on the variance we want.
+        length = len(ratios)
+        if length > 0:
+            x = x[x.columns[0:length]]
+
+    # Apply gridsearchcv
+    grid = GridSearchCV(model, param_grid=params, scoring='neg_root_mean_squared_error', cv=5, 
+                       return_train_score=True, n_jobs=-1)
+    grid.fit(x,y)
+
+    # Save the acquired information into another dataframe and then output as file.
+    df_param_combos = pd.DataFrame(grid.cv_results_)
+    df_param_combos.to_csv(PATH + '/Regression Only Results/GridSearch Data.csv')
+
+    gammas = ('auto', 'scale')
+
+    # Creating pltos for both of the 'auto' and 'scale' gammas
+    for gamma in gammas:
+        # x y and z
+        x_grid = df_param_combos['param_C'][df_param_combos['param_gamma'] == gamma]
+        y_grid = df_param_combos['param_epsilon'][df_param_combos['param_gamma'] == gamma]
+        z_grid = df_param_combos['mean_test_score'][df_param_combos['param_gamma'] == gamma]
+
+        # Create the figure
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projections='3d')
+        ax.scatter(x_grid, y_grid, z_grid)
+        ax.set_title('Dot plot of RMSE given C and Epsilon values for %s Gamma Parameter' %(gamma))
+        ax.set_xlabel('C')
+        ax.set_ylabel('Epsilon')
+        ax.set_zlabel('Mean Validation RMSE')
+
+        # Save and clear figure.
+        fig.savefig(PATH + '/Figures/RMSE plot for gamma %s.fig' %(gamma))
+        fig.clf()
+
+
+
 
 # Argument parser section.
 parser = argparse.ArgumentParser()
@@ -441,4 +518,5 @@ grapher = args.grapher
 if regressor == True:
     logger = log_files(PATH + '/Log Files/regression_only.log')
     regression()
+if grapher == True:
     graph_results()

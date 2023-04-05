@@ -58,5 +58,5 @@ git add Positive_Ki.xlsx            # Initial peptides for the regression traini
 git add testbench.ipynb
 
 # push the update.
-git commit -m '3/30/2023: Changed variance of the regression only model to 85.'
+git commit -m '4/3/2023: Added graphing function to regression_only.py..'
 # git push -u origin main
