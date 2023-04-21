@@ -586,3 +586,15 @@
 2023-04-20 23:16:38,201 | INFO | AVG Log Training RMSE: 0.000, AVG Training RMSE: 0.000, AVG Log Test RMSE: 0.000, AVG Test RMSE: 0.000
 
 2023-04-20 23:16:38,202 | INFO | Forward Selection Starting
+2023-04-20 23:33:45,969 | INFO | Logging results for SVR with RBF Kernel:
+2023-04-20 23:33:45,969 | INFO | -----------------------------------------------------------
+
+2023-04-20 23:33:45,973 | INFO | Calculations for the baseline model:
+2023-04-20 23:33:45,973 | INFO | ------------------------------------
+
+2023-04-20 23:34:49,747 | INFO | Logging results for SVR with RBF Kernel:
+2023-04-20 23:34:49,748 | INFO | -----------------------------------------------------------
+
+2023-04-20 23:34:49,751 | INFO | Calculations for the baseline model:
+2023-04-20 23:34:49,752 | INFO | ------------------------------------
+
