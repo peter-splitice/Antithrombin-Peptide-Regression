@@ -52,3 +52,7 @@
 - Added graphing fucntion to regression_only.py that graphs the all of the resutls from hyper-
     parameter tuning on the best model that we chose.  No changes were made to the final selected
     model
+
+## 4/20/2023 Changes
+- Added two new files:  'Positive KI.xlsx' and 'Positive Peptides with ref.xlsx'.  This serves as
+    the new data that we are building our models on.

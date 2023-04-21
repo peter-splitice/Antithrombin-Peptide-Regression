@@ -39,14 +39,16 @@ def import_data():
     """
 
     # Extracting peptide sequence + formatting
-    peptide_sequences = pd.read_excel(PATH + '/Positive_KI.xlsx')
+    peptide_sequences = pd.read_excel(PATH + '/Positive KI.xlsx')
     peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
-    peptide_sequences.rename(columns={'Sequence':'Name'}, inplace=True)
+    peptide_sequences = peptide_sequences[['Seq', 'KI (nM)']]
+    peptide_sequences.rename(columns={'Seq':'Name'}, inplace=True)
 
     # Feature Extraction
     df = pd.DataFrame()
     for i in range(len(peptide_sequences)):
-        df = pd.concat([df, inferenceSingleSeqence(peptide_sequences.iloc[i][0])])
+        print(peptide_sequences.iloc[i][0])
+        df = pd.concat([df, inferenceSingleSeqence(peptide_sequences.iloc[1][0])])
 
     # Merging into a single dataframe. Removing extra seq column and others.
     df = pd.merge(df, peptide_sequences)
@@ -143,7 +145,7 @@ def sequential_selection(x, y, name, ki_range, fs_range, model=SVR()):
     -------
     final_x_sfs: Input values of the dataset with the proper number of features selected.
 
-    final_sfs: The SequentialFeatureSelector model selected
+    final_sfs: The SequentialFeatureSelector model selected.  Automatically select the best one
     """
 
     # Fit a feature selector to SVM w/RBF kernel classifier and use the 'accuracy' score.
@@ -224,7 +226,10 @@ def sequential_selection(x, y, name, ki_range, fs_range, model=SVR()):
 # Perform optimization on the classifier as well as a k-fold cross validation.
 def regressor_trainer(x, y, ki_range, params, model=SVR()):
     """
-    Perform fitting on the reduced datasets and then make predictions.  The output values are in the log file.
+    This function does the following:
+    - Hyperparameter Tuning
+    - Fitting (with kfold cross validation)
+    - Predictions
 
     Parameters
     ----------
@@ -257,7 +262,7 @@ def regressor_trainer(x, y, ki_range, params, model=SVR()):
 
     model.set_params(**optimized_features)
 
-    # Using KFold
+    # Kfold Cross-Validation
 
     kf = KFold(n_splits=FOLDS, random_state=RAND, shuffle=True)
 
@@ -480,7 +485,7 @@ def graph_results():
 
     gammas = ('auto', 'scale')
 
-    # Creating pltos for both of the 'auto' and 'scale' gammas
+    # Creating plots for both of the 'auto' and 'scale' gammas
     for gamma in gammas:
         # x y and z
         x_grid = df_param_combos['param_C'][df_param_combos['param_gamma'] == gamma]

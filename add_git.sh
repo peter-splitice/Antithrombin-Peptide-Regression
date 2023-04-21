@@ -53,10 +53,12 @@ git add regression_only_feastures.json
 # Imports
 git add combined_hits.csv           # Input file for our test set.
 git add Positive_Ki.xlsx            # Initial peptides for the regression training/validation sets.
+git add "Positive Ki.xlsx"
+git add "Positive Peptides with ref.xlsx"
 
 # Testbench
 git add testbench.ipynb
 
 # push the update.
-git commit -m '4/3/2023: Added graphing function to regression_only.py..'
+git commit -m '4/20/2023: Redoing the regression only portion with new data.'
 # git push -u origin main

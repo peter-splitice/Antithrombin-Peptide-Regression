@@ -559,3 +559,30 @@
 2023-03-18 13:24:02,174 | INFO | Log Training RMSE: 1.672, Training RMSE: 3810125.854, Log Test RMSE: 2.032, Test RMSE MCC: 17720.021, Fold: 5
 2023-03-18 13:24:02,174 | INFO | AVG Log Training RMSE: 1.673, AVG Training RMSE: 3124663.223, AVG Log Test RMSE: 1.847, AVG Test RMSE: 1692766.135
 
+2023-04-20 23:16:32,239 | INFO | Logging results for SVR with RBF Kernel:
+2023-04-20 23:16:32,240 | INFO | -----------------------------------------------------------
+
+2023-04-20 23:16:32,244 | INFO | Calculations for the baseline model:
+2023-04-20 23:16:32,244 | INFO | ------------------------------------
+
+2023-04-20 23:16:38,140 | INFO | Best parameter set: {'C': 1, 'epsilon': 0.1, 'gamma': 'scale'}
+2023-04-20 23:16:38,141 | INFO | -------------------------
+
+2023-04-20 23:16:38,143 | INFO | Training:
+2023-04-20 23:16:38,147 | INFO | Training Finished.
+2023-04-20 23:16:38,154 | INFO | Log Training RMSE: 0.000, Training RMSE: 0.000, Log Test RMSE: 0.000, Test RMSE MCC: 0.000, Fold: 1
+2023-04-20 23:16:38,154 | INFO | Training:
+2023-04-20 23:16:38,159 | INFO | Training Finished.
+2023-04-20 23:16:38,165 | INFO | Log Training RMSE: 0.000, Training RMSE: 0.000, Log Test RMSE: 0.000, Test RMSE MCC: 0.000, Fold: 2
+2023-04-20 23:16:38,165 | INFO | Training:
+2023-04-20 23:16:38,169 | INFO | Training Finished.
+2023-04-20 23:16:38,179 | INFO | Log Training RMSE: 0.000, Training RMSE: 0.000, Log Test RMSE: 0.000, Test RMSE MCC: 0.000, Fold: 3
+2023-04-20 23:16:38,179 | INFO | Training:
+2023-04-20 23:16:38,183 | INFO | Training Finished.
+2023-04-20 23:16:38,189 | INFO | Log Training RMSE: 0.000, Training RMSE: 0.000, Log Test RMSE: 0.000, Test RMSE MCC: 0.000, Fold: 4
+2023-04-20 23:16:38,190 | INFO | Training:
+2023-04-20 23:16:38,194 | INFO | Training Finished.
+2023-04-20 23:16:38,200 | INFO | Log Training RMSE: 0.000, Training RMSE: 0.000, Log Test RMSE: 0.000, Test RMSE MCC: 0.000, Fold: 5
+2023-04-20 23:16:38,201 | INFO | AVG Log Training RMSE: 0.000, AVG Training RMSE: 0.000, AVG Log Test RMSE: 0.000, AVG Test RMSE: 0.000
+
+2023-04-20 23:16:38,202 | INFO | Forward Selection Starting
