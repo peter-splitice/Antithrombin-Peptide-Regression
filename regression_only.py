@@ -48,7 +48,7 @@ def import_data():
     df = pd.DataFrame()
     for i in range(len(peptide_sequences)):
         print(peptide_sequences.iloc[i][0])
-        df = pd.concat([df, inferenceSingleSeqence(peptide_sequences.iloc[1][0])])
+        df = pd.concat([df, inferenceSingleSeqence(peptide_sequences.iloc[i][0])])
 
     # Merging into a single dataframe. Removing extra seq column and others.
     df = pd.merge(df, peptide_sequences)
