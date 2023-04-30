@@ -21,8 +21,8 @@ import glob
 
 ## Global Variables.  Modify as needed based on the model we're running inference with.
 REG_NAME = 'SVR with RBF Kernel'
-VARIANCE = 85       # Set this to 'False' if we don't use PCA.
-MODEL_PARAMS = {'C': 41, 'epsilon': 0.1, 'gamma': 'auto'}
+VARIANCE = False       # Set this to 'False' if we don't use PCA.
+MODEL_PARAMS = {'C': 96, 'epsilon': 0.8, 'gamma': 'scale'}
 
 # Importing the model reference dataset:
 def training_data():
@@ -41,9 +41,10 @@ def training_data():
     """
 
     # Extracting peptide sequence + formatting
-    peptide_sequences = pd.read_excel(PATH + '/Positive_KI.xlsx')
+    peptide_sequences = pd.read_excel(PATH + '/Positive KI.xlsx')
     peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
-    peptide_sequences.rename(columns={'Sequence':'Name'}, inplace=True)
+    peptide_sequences = peptide_sequences[['Seq', 'KI (nM)']]
+    peptide_sequences.rename(columns={'Seq':'Name'}, inplace=True)
 
     # Feature Extraction
     df = pd.DataFrame()
@@ -119,12 +120,10 @@ def main():
     with open('regression_only_selected_features.json', 'w') as outfile:
         json.dump(features, outfile)
 
-    # Import Principal Component Analysis
-    with open(PATH + '/Regression Only Results/PCA for %s.pkl' %(REG_NAME), 'rb') as fh:
-        pca = pickle.load(fh)
-
     # Depending on the variance we select, apply PCA to the reduced feature set.
     if VARIANCE != False:
+        with open(PATH + '/Regression Only Results/PCA for %s.pkl' %(REG_NAME), 'rb') as fh:
+            pca=  pickle.load(fh)
         x = pd.DataFrame(pca.transform(x))
 
         # Dimensonality Reduction based on accepted variance.
@@ -135,7 +134,6 @@ def main():
         length = len(ratios)
         if length > 0:
             x = x[x.columns[0:length]]
-
 
     # Regression model
     model = SVR(kernel='rbf')

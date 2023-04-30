@@ -60,5 +60,5 @@ git add "Positive Peptides with ref.xlsx"
 git add testbench.ipynb
 
 # push the update.
-git commit -m '4/20/2023: Redoing the regression only portion with new data.'
+git commit -m '4/30/2023: Cleaned new data.'
 # git push -u origin main

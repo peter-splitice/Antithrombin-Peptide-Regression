@@ -38,6 +38,10 @@ def import_data():
     base_range: Caontains the range of values within the dataframe for rescaling purposes.
     """
 
+    # Adjust these as needed.
+    ki_cutoff = 75000
+    log_range = (-5,5)
+
     # Extracting peptide sequence + formatting
     peptide_sequences = pd.read_excel(PATH + '/Positive KI.xlsx')
     peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
@@ -52,9 +56,10 @@ def import_data():
     # Merging into a single dataframe. Removing extra seq column and others.
     df = pd.merge(df, peptide_sequences)
     df = df.drop(columns=['Seq','Helix','Turn','Sheet'])
+    df.drop(df[df['KI (nM)'] >= ki_cutoff].index, inplace=False)
 
     # Rescaling the dataframe in the log10 (-5,5) range.
-    df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=(-5,5))
+    df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=log_range)
 
     return df, base_range
 
@@ -84,7 +89,7 @@ def load_regression_models():
     models = [SVR(kernel='rbf'), SVR(kernel='linear'), Lasso()]
 
     # Each model set has its own distinct range i want to run Sequential Forward Selection with.
-    fs_ranges = [(0.05, 0.11), (0.30, 0.35), (0.05, 0.10)]
+    fs_ranges = [(0.05, 0.55), (0.05, 0.55), (0.05, 0.55)]
 
     reg_models = list(zip(names, params, models, fs_ranges))
 
@@ -436,7 +441,7 @@ def graph_results():
     # Initializations.  Change this code whenever the best model changes
     model = SVR(kernel='rbf')
     params = {'gamma': ['scale', 'auto'], 'C': np.arange(1,101,5), 'epsilon': np.arange(0.01, 1.01, 0.05)}
-    variance = 85
+    variance = False
     name = 'SVR with RBF Kernel'
 
     # Extract the X and Y information
@@ -455,13 +460,12 @@ def graph_results():
         sfs = pickle.load(fh)
 
     x = pd.DataFrame(sfs.transform(x), columns=sfs.get_feature_names_out())
-    
-    # Principal Component Analysis
-    with open(PATH + '/Regression Only Results/PCA for %s.pkl' %(name), 'rb') as fh:
-        pca = pickle.load(fh)
 
     # Depending on the variance we select, paply PCA to the reduced feature set.
     if variance != False:
+        with open(PATH + '/Regression Only Results/PCA for %s.pkl' %(name), 'rb') as fh:
+            pca = pickle.load(fh)
+
         x = pd.DataFrame(pca.transform(x))
 
         # Dimensonality Reduction based on accepted variance.
@@ -503,9 +507,6 @@ def graph_results():
         # Save and clear figure.
         fig.savefig(PATH + '/Figures/RMSE plot for gamma %s.fig' %(gamma))
         fig.clf()
-
-
-
 
 # Argument parser section.
 parser = argparse.ArgumentParser()
