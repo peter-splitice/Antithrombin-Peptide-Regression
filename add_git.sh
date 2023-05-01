@@ -48,7 +48,7 @@ git add README.md
 git add requirements.txt
 git add rfe_selected_features.json
 git add sfs_selected_features.json
-git add regression_only_feastures.json
+git add regression_only_selected_features.json
 
 # Imports
 git add combined_hits.csv           # Input file for our test set.
