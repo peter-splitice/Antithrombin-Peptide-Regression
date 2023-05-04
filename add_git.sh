@@ -60,5 +60,5 @@ git add "Positive Peptides with ref.xlsx"
 git add testbench.ipynb
 
 # push the update.
-git commit -m '4/30/2023: Cleaned new data.'
+git commit -m '5/3/2023: Updated to exclude KI values > 4000.'
 # git push -u origin main

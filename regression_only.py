@@ -39,7 +39,7 @@ def import_data():
     """
 
     # Adjust these as needed.
-    ki_cutoff = 75000
+    ki_cutoff = 4000
     log_range = (-5,5)
 
     # Extracting peptide sequence + formatting
@@ -56,7 +56,7 @@ def import_data():
     # Merging into a single dataframe. Removing extra seq column and others.
     df = pd.merge(df, peptide_sequences)
     df = df.drop(columns=['Seq','Helix','Turn','Sheet'])
-    df.drop(df[df['KI (nM)'] >= ki_cutoff].index, inplace=False)
+    df.drop(df[df['KI (nM)'] > ki_cutoff].index, inplace=False)
 
     # Rescaling the dataframe in the log10 (-5,5) range.
     df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=log_range)
