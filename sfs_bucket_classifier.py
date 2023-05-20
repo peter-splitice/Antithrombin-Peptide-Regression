@@ -93,6 +93,7 @@ def sequential_selection(x, y, name, threshold, model=SVC()):
             'Validation Accuracy Score', 'Validation MCC Score']
     scores_df = pd.DataFrame(columns=cols)
 
+    high_test_mcc = 0
     # Iterate through selecting from 10%-90% of the features in increments of 10.
     for ratio in ratios:
         sfs = SequentialFeatureSelector(model, n_jobs=-1, scoring=make_scorer(matthews_corrcoef),
@@ -105,7 +106,7 @@ def sequential_selection(x, y, name, threshold, model=SVC()):
         train_mcc_sum = 0
         test_accuracy_sum = 0
         test_mcc_sum = 0
-        high_test_mcc = 0
+
         
         # Stratified Kfold to test the results of sequental feature selection.
         skf = StratifiedKFold(n_splits=FOLDS, random_state=RAND, shuffle=True)
