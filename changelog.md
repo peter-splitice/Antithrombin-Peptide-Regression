@@ -56,3 +56,6 @@
 ## 4/20/2023 Changes
 - Added two new files:  'Positive KI.xlsx' and 'Positive Peptides with ref.xlsx'.  This serves as
     the new data that we are building our models on.
+
+## 5/20/2023 Changes
+- Fixed a bug in the bucket classifier.
