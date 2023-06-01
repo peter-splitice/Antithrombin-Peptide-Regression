@@ -43,7 +43,7 @@ def import_data():
     log_range = (-5,5)
 
     # Extracting peptide sequence + formatting
-    peptide_sequences = pd.read_excel(PATH + '/Positive KI.xlsx')
+    peptide_sequences = pd.read_excel(PATH + '/Positive Peptides after Review.xlsx')
     peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
     peptide_sequences = peptide_sequences[['Seq', 'KI (nM)']]
     peptide_sequences.rename(columns={'Seq':'Name'}, inplace=True)
@@ -259,23 +259,28 @@ def regressor_trainer(x, y, ki_range, params, model=SVR()):
     # Initialize measurements.
     train_rmse_sum = 0
     train_log_rmse_sum = 0
+    valid_rmse_sum = 0
+    valid_log_rmse_sum = 0
     test_rmse_sum = 0
     test_log_rmse_sum = 0
 
-    optimized_features = hyperparameter_optimizer(x, y, params, model)
+    # Split between train and test set
+    x_train_full, x_test, y_train_full, y_test_log = train_test_split(x, y, test_size=0.2, random_state=RAND)
 
+    # Perform hyperparmater optimization
+    optimized_features = hyperparameter_optimizer(x_train_full, y_train_full, params, model)
     model.set_params(**optimized_features)
 
-    # Kfold Cross-Validation
-
+    # KFold Cross-Validation
     kf = KFold(n_splits=FOLDS, random_state=RAND, shuffle=True)
 
-    for train_index, test_index in kf.split(x,y):
+    for train_index, valid_index in kf.split(x_train_full,y):
+
         i += 1
         logger.info('Training:')
-        # Stratify!
-        x_train, x_test = x.loc[train_index], x.loc[test_index]
-        y_train_log, y_test_log = y[train_index], y[test_index]
+        
+        x_train, x_valid = x.loc[train_index], x.loc[valid_index]
+        y_train_log, y_valid_log = y_train_full[train_index], y_train_full[valid_index]
         model.fit(x_train, y_train_log)
 
         logger.info('Training Finished.')
@@ -283,10 +288,13 @@ def regressor_trainer(x, y, ki_range, params, model=SVR()):
         # Predicting on the test and training sets.  We get the log of the predictions here.
         y_test_log_pred = model.predict(x_test)
         y_train_log_pred = model.predict(x_train)
+        y_valid_log_pred = model.predict(x_valid)
 
         # Unscaling the data:
         y_test_pred = unscale(y_test_log_pred, ki_range)
         y_test = unscale(y_test_log, ki_range)
+        y_valid_pred = unscale(y_valid_log_pred, ki_range)
+        y_valid = unscale(y_valid_log, ki_range)        
         y_train_pred = unscale(y_train_log_pred, ki_range)
         y_train = unscale(y_train_log, ki_range)
 
@@ -294,33 +302,43 @@ def regressor_trainer(x, y, ki_range, params, model=SVR()):
         train_log_rmse = mean_squared_error(y_train_log, y_train_log_pred)**0.5
         train_rmse = mean_squared_error(y_train, y_train_pred)**0.5
 
+        # Calculate rmse for the validation set
+        valid_log_rmse = mean_squared_error(y_valid_log, y_valid_log_pred)**0.5
+        valid_rmse = mean_squared_error(y_valid, y_valid_pred)**0.5
+
         # Calculate rmse for the test set
         test_log_rmse = mean_squared_error(y_test_log, y_test_log_pred)**0.5
         test_rmse = mean_squared_error(y_test, y_test_pred)**0.5
 
         # Log the individual folds
-        logger.info('Log Training RMSE: %3.3f, Training RMSE: %3.3f, Log Test RMSE: %3.3f, '
-                    'Test RMSE MCC: %3.3f, Fold: %i'
-                    %(train_log_rmse, train_rmse, test_log_rmse, test_rmse, i))
+        logger.info('Log Training RMSE: %3.3f, Training RMSE: %3.3f, Log Validation RMSE: %3.3f, '
+                    'Validation RMSE: %3.3F, Log Test RMSE: %3.3f, Test RMSE MCC: %3.3f, Fold: %i'
+                    %(train_log_rmse, train_rmse, valid_log_rmse, valid_rmse, test_log_rmse, test_rmse, i))
         
         # Add to the sums
         train_rmse_sum += train_rmse
         train_log_rmse_sum += train_log_rmse
+        valid_rmse_sum += valid_rmse
+        valid_log_rmse_sum += valid_log_rmse
         test_rmse_sum += test_rmse
         test_log_rmse_sum += test_log_rmse        
 
     # Calculate the averages
     train_rmse_avg = train_rmse_sum/FOLDS
     train_log_rmse_avg = train_log_rmse_sum/FOLDS
+    valid_rmse_avg = valid_rmse_sum/FOLDS
+    valid_log_rmse_avg = valid_log_rmse_sum/FOLDS
     test_rmse_avg = test_rmse_sum/FOLDS
     test_log_rmse_avg = test_log_rmse_sum/FOLDS
 
     # Log the average scores for all the folds
-    logger.info('AVG Log Training RMSE: %3.3f, AVG Training RMSE: %3.3f, AVG Log Test RMSE: %3.3f, '
-                'AVG Test RMSE: %3.3f\n' %(train_log_rmse_avg, train_rmse_avg, test_log_rmse_avg, 
-                                           test_rmse_avg))
+    logger.info('AVG Log Training RMSE: %3.3f, AVG Training RMSE: %3.3f, AVG Log Validation RMSE; %3.3f, '
+                'AVG Validation RMSE: %3.3f, AVG Log Test RMSE: %3.3f, AVG Test RMSE: %3.3f\n' 
+                %(train_log_rmse_avg, train_rmse_avg, valid_log_rmse_avg, valid_rmse_avg,
+                   test_log_rmse_avg, test_rmse_avg))
     
-    scores = [train_rmse_avg, test_rmse_avg, train_log_rmse_avg, test_log_rmse_avg, optimized_features]
+    scores = [train_rmse_avg, valid_rmse_avg, test_rmse_avg, 
+              train_log_rmse_avg, valid_log_rmse_avg, test_log_rmse_avg, optimized_features]
     
     return model, scores
 
@@ -375,8 +393,8 @@ def regression():
     # Load up the regression models here:
     reg_models = load_regression_models()
     variances = [75, 80, 85, 90, 95, 100]
-    cols = ['Name', 'Stage', 'Features', 'Training RMSE', 'Validation RMSE', 'Log Training RMSE',
-            'Log Validation RMSE', 'Parameters']
+    cols = ['Name', 'Stage', 'Features', 'Training RMSE', 'Validation RMSE', 'Test RMSE', 'Log Training RMSE',
+            'Log Validation RMSE', 'Log Test RMSE', 'Parameters']
     
     results_df = pd.DataFrame(columns=cols)
  
@@ -404,8 +422,9 @@ def regression():
 
         model, scores_baseline = regressor_trainer(x, y, ki_range, params, model)
 
-        results_df.loc[len(results_df)] = [name, 'Baseline', x.shape[1], scores_baseline[0],
-                                           scores_baseline[1], scores_baseline[2], scores_baseline[3], scores_baseline[4]]
+        results_df.loc[len(results_df)] = [name, 'Baseline', x.shape[1], scores_baseline[0], scores_baseline[1],
+                                            scores_baseline[2], scores_baseline[3], scores_baseline[4],
+                                            scores_baseline[5], scores_baseline[6]]
 
         # Apply Feature Selection.  Use SFS for Linear and Lasso
         x_sfs, sfs = sequential_selection(x, y, name, ki_range, fs_range, model)
@@ -413,7 +432,8 @@ def regression():
         model_sfs, scores_sfs = regressor_trainer(x_sfs, y, ki_range, params, model)
 
         results_df.loc[len(results_df)] = [name, 'Feature Selection', x_sfs.shape[1], scores_sfs[0],
-                                           scores_sfs[1], scores_sfs[2], scores_sfs[3], scores_sfs[4]]
+                                           scores_sfs[1], scores_sfs[2], scores_sfs[3], scores_sfs[4],
+                                           scores_sfs[5], scores_sfs[6]]
         
         ## Then we run PCA.
         logger.info('PCA Starting')
@@ -427,8 +447,9 @@ def regression():
         for variance in variances:
             x_sfs_pca_var = variance_analyzer(x_sfs_pca, variance, pca)
             model_sfs_pca, scores_sfs_pca = regressor_trainer(x_sfs_pca_var, y, ki_range, params, model)
-            results_df.loc[len(results_df)] = [name, 'PCA w/%i%% variance' %(variance), x_sfs_pca_var.shape[1], scores_sfs_pca[0],
-                                               scores_sfs_pca[1], scores_sfs_pca[2], scores_sfs_pca[3], scores_sfs_pca[4]]
+            results_df.loc[len(results_df)] = [name, 'SFS-PCA w/%i%% variance' %(variance), x_sfs_pca_var.shape[1],
+                                               scores_sfs_pca[0], scores_sfs_pca[1], scores_sfs_pca[2], scores_sfs_pca[3], 
+                                               scores_sfs_pca[4], scores_sfs_pca[5], scores_sfs_pca[6]]
         
     results_df.to_csv(PATH + '/Results/regression_only_results.csv')
 
