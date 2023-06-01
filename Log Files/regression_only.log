@@ -1521,3 +1521,9 @@
 2023-05-03 15:17:39,681 | INFO | Log Training RMSE: 1.747, Training RMSE: 240526.225, Log Test RMSE: 2.314, Test RMSE MCC: 138863.805, Fold: 5
 2023-05-03 15:17:39,681 | INFO | AVG Log Training RMSE: 1.789, AVG Training RMSE: 212163.013, AVG Log Test RMSE: 1.903, AVG Test RMSE: 124773.146
 
+2023-06-01 16:00:42,957 | INFO | Logging results for SVR with RBF Kernel:
+2023-06-01 16:00:42,958 | INFO | -----------------------------------------------------------
+
+2023-06-01 16:00:42,962 | INFO | Calculations for the baseline model:
+2023-06-01 16:00:42,962 | INFO | ------------------------------------
+

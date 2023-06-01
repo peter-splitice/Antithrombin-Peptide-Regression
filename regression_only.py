@@ -45,7 +45,7 @@ def import_data():
     # Extracting peptide sequence + formatting
     peptide_sequences = pd.read_excel(PATH + '/Positive Peptides after Review.xlsx')
     peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
-    peptide_sequences = peptide_sequences[['Seq', 'KI (nM)']]
+    peptide_sequences = peptide_sequences[['Seq', 'Ki (nM)']]
     peptide_sequences.rename(columns={'Seq':'Name'}, inplace=True)
 
     # Feature Extraction
@@ -56,10 +56,10 @@ def import_data():
     # Merging into a single dataframe. Removing extra seq column and others.
     df = pd.merge(df, peptide_sequences)
     df = df.drop(columns=['Seq','Helix','Turn','Sheet'])
-    df.drop(df[df['KI (nM)'] > ki_cutoff].index, inplace=False)
+    df.drop(df[df['Ki (nM)'] > ki_cutoff].index, inplace=False)
 
     # Rescaling the dataframe in the log10 (-5,5) range.
-    df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=log_range)
+    df['Ki (nM) rescaled'], base_range  = rescale(df['Ki (nM)'], destination_interval=log_range)
 
     return df, base_range
 
@@ -401,7 +401,7 @@ def regression():
     # Extract the X and Y information
     df, ki_range = import_data()
     x = df[df.columns[1:573]]
-    y = df['KI (nM) rescaled']
+    y = df['Ki (nM) rescaled']
 
     # Always do MinMaxScaler first
     scaler = MinMaxScaler()
@@ -468,7 +468,7 @@ def graph_results():
     # Extract the X and Y information
     df, ki_range = import_data()
     x = df[df.columns[1:573]]
-    y = df['KI (nM) rescaled']
+    y = df['Ki (nM) rescaled']
 
     ## Pipeline
     # Scaler transformation
