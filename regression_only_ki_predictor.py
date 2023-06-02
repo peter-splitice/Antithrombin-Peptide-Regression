@@ -75,6 +75,7 @@ def test_data():
     """
     # Import, format, and drop duplicates.
     peptide_sequences = pd.read_csv('combined_hits.csv')
+    peptide_sequences.dropna(axis=0, how='any', subset=['Ki (nM)'], inplace=True)
     peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
     name_index = peptide_sequences.columns.get_loc('Seq')
     peptide_sequences.rename(columns={'Seq':'Name'}, inplace=True)
