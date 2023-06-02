@@ -45,8 +45,10 @@ def import_data():
     # Extracting peptide sequence + formatting
     peptide_sequences = pd.read_excel(PATH + '/Positive Peptides after Review.xlsx')
     peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
+    peptide_sequences.dropna(axis=0, how='any', subset=['Ki (nM)'], inplace=True)
     peptide_sequences = peptide_sequences[['Seq', 'Ki (nM)']]
     peptide_sequences.rename(columns={'Seq':'Name'}, inplace=True)
+
 
     # Feature Extraction
     df = pd.DataFrame()
@@ -223,7 +225,7 @@ def sequential_selection(x, y, name, ki_range, fs_range, model=SVR()):
 
     logger.info('Forward Selection Finished')
 
-    scores_df.to_csv(PATH + '/Regression Only Results/%s features selected.csv' %(name))
+    scores_df.to_csv(PATH + '/Regression Only Results/%s features selected.csv' %(name), index=False)
 
     return final_x_sfs, final_sfs
 
@@ -274,13 +276,13 @@ def regressor_trainer(x, y, ki_range, params, model=SVR()):
     # KFold Cross-Validation
     kf = KFold(n_splits=FOLDS, random_state=RAND, shuffle=True)
 
-    for train_index, valid_index in kf.split(x_train_full,y):
+    for train_index, valid_index in kf.split(x_train_full,y_train_full):
 
         i += 1
         logger.info('Training:')
         
-        x_train, x_valid = x.loc[train_index], x.loc[valid_index]
-        y_train_log, y_valid_log = y_train_full[train_index], y_train_full[valid_index]
+        x_train, x_valid = x_train_full.iloc[train_index], x_train_full.iloc[valid_index]
+        y_train_log, y_valid_log = y_train_full.iloc[train_index], y_train_full.iloc[valid_index]
         model.fit(x_train, y_train_log)
 
         logger.info('Training Finished.')
@@ -451,7 +453,7 @@ def regression():
                                                scores_sfs_pca[0], scores_sfs_pca[1], scores_sfs_pca[2], scores_sfs_pca[3], 
                                                scores_sfs_pca[4], scores_sfs_pca[5], scores_sfs_pca[6]]
         
-    results_df.to_csv(PATH + '/Results/regression_only_results.csv')
+    results_df.to_csv(PATH + '/Results/regression_only_results.csv', index=False)
 
 def graph_results():
     """
@@ -505,7 +507,7 @@ def graph_results():
 
     # Save the acquired information into another dataframe and then output as file.
     df_param_combos = pd.DataFrame(grid.cv_results_)
-    df_param_combos.to_csv(PATH + '/Regression Only Results/GridSearch Data.csv')
+    df_param_combos.to_csv(PATH + '/Regression Only Results/GridSearch Data.csv', index=False)
 
     gammas = ('auto', 'scale')
 
