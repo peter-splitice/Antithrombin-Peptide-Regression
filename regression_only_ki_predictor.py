@@ -41,9 +41,10 @@ def training_data():
     """
 
     # Extracting peptide sequence + formatting
-    peptide_sequences = pd.read_excel(PATH + '/Positive KI.xlsx')
+    peptide_sequences = pd.read_excel(PATH + '/Positive Peptides after Review.xlsx')
     peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
-    peptide_sequences = peptide_sequences[['Seq', 'KI (nM)']]
+    peptide_sequences.dropna(axis=0, how='any', subset=['Ki (nM)'], inplace=True)
+    peptide_sequences = peptide_sequences[['Seq', 'Ki (nM)']]
     peptide_sequences.rename(columns={'Seq':'Name'}, inplace=True)
 
     # Feature Extraction
@@ -56,7 +57,7 @@ def training_data():
     df = df.drop(columns=['Seq','Helix','Turn','Sheet'])
 
     # Rescaling the dataframe in the log10 (-5,5) range.
-    df['KI (nM) rescaled'], base_range  = rescale(df['KI (nM)'], destination_interval=(-5,5))
+    df['Ki (nM) rescaled'], base_range  = rescale(df['Ki (nM)'], destination_interval=(-5,5))
 
     return df, base_range
 
@@ -75,7 +76,6 @@ def test_data():
     """
     # Import, format, and drop duplicates.
     peptide_sequences = pd.read_csv('combined_hits.csv')
-    peptide_sequences.dropna(axis=0, how='any', subset=['Ki (nM)'], inplace=True)
     peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
     name_index = peptide_sequences.columns.get_loc('Seq')
     peptide_sequences.rename(columns={'Seq':'Name'}, inplace=True)
@@ -101,7 +101,7 @@ def main():
     # MinMaxScaler on the data
     # Extract the x, y, and bucket information.
     x = df[df.columns[1:573]]
-    y = df['KI (nM) rescaled']
+    y = df['Ki (nM) rescaled']
 
     # Apply MinMaxScaler to the initial x values.
     with open(PATH + '/Regression Only Results/regression only scaler.pkl', 'rb') as fh:
