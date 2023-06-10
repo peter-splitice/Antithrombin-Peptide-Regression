@@ -43,7 +43,7 @@ def import_data():
     log_range = (-5,5)
 
     # Extracting peptide sequence + formatting
-    peptide_sequences = pd.read_excel(PATH + '/Positive Peptides after Review.xlsx')
+    peptide_sequences = pd.read_excel(PATH + '/Positive Non-Modified.xlsx')
     peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
     peptide_sequences.dropna(axis=0, how='any', subset=['Ki (nM)'], inplace=True)
     peptide_sequences = peptide_sequences[['Seq', 'Ki (nM)']]

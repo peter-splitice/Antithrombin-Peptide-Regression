@@ -41,8 +41,9 @@ def training_data():
     """
 
     # Extracting peptide sequence + formatting
-    peptide_sequences = pd.read_excel(PATH + '/Positive KI.xlsx')
+    peptide_sequences = pd.read_excel(PATH + '/Positive Non-Modified.xlsx')
     peptide_sequences = peptide_sequences.replace(r"^ +| +$", r"", regex=True)
+    peptide_sequences.dropna(axis=0, how='any', subset=['Ki (nM)'], inplace=True)    
     peptide_sequences = peptide_sequences[['Seq', 'KI (nM)']]
     peptide_sequences.rename(columns={'Seq':'Name'}, inplace=True)
 
